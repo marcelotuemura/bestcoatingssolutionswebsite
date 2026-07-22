@@ -2,6 +2,8 @@
 
 These assets are **temporary** and must not be presented as final brand or real BCS project work.
 
+Visible UI labels must include clear wording such as **Placeholder Image**, **Future Project**, or **Coming Soon**.
+
 | Asset | Path | Purpose | Replace with |
 |-------|------|---------|--------------|
 | Temporary logo | `public/brand/bcs-logo-temporary.svg` | Hero logo reveal | Final BCS logo SVG (owner) |
