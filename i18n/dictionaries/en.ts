@@ -13,6 +13,7 @@ export const en = {
     closeMenu: 'Close menu',
     language: 'Language',
     home: 'Best Coatings Solutions home',
+    breadcrumbs: 'Breadcrumb',
     beforeAfterSlider: 'Before and after comparison',
     beforeLabel: 'Before',
     afterLabel: 'After',
@@ -46,6 +47,8 @@ export const en = {
     exploreMarine: 'Explore Marine',
     learnAviation: 'Learn about Aviation',
     viewProjects: 'View projects',
+    viewServices: 'View marine services',
+    contactUs: 'Contact us',
   },
   divisionStatus: {
     active: 'Active',
@@ -76,6 +79,96 @@ export const en = {
     mediaLabel: 'Placeholder media — not a BCS project photo',
     projectLabel:
       'Placeholder case study structure — real project pending owner approval',
+    emptyProjects:
+      'No published projects yet. Approved case studies will appear here.',
+  },
+  pages: {
+    marine: {
+      metaTitle: 'Marine Division | Best Coatings Solutions',
+      metaDescription:
+        'Mobile marine coatings, gelcoat, fiberglass, paint, and cosmetic repair across South Florida — from Jupiter southward.',
+      eyebrow: 'Division',
+      title: 'Marine',
+      lead: 'Precision mobile marine refinishing and composite care at the vessel — gelcoat, fiberglass, paint, and cosmetic restoration.',
+      overviewTitle: 'Overview',
+      overview:
+        'Best Coatings Solutions serves yachts and boats with disciplined surface restoration. We work where conditions allow — marinas, boatyards, and homes — with clear communication and no website pricing.',
+      capabilitiesTitle: 'Capabilities',
+      capabilities: [
+        'Gelcoat repair and refinishing',
+        'Fiberglass and composite repair',
+        'Paint and refinishing systems',
+        'Hull restoration and cosmetic yacht work',
+        'Color matching and insurance-related repairs',
+      ],
+      servicesCtaTitle: 'Marine services',
+      servicesCtaBody:
+        'Explore individual service pages for problems we solve, our process, and how to request an estimate.',
+    },
+    aviation: {
+      metaTitle: 'Aviation Division — Coming Soon | BCS',
+      metaDescription:
+        'Aviation coatings preview from Best Coatings Solutions. Operations are not active yet — quality philosophy and future capabilities only.',
+      eyebrow: 'Division',
+      title: 'Aviation',
+      lead: 'A forthcoming division for aircraft refinishing and composite care — prepared with the same finish discipline as our marine work.',
+      overviewTitle: 'Overview',
+      overview:
+        'Aviation remains a preview. We are preparing capabilities for hangars and partner facilities where permitted. No active aviation operations are offered at this time.',
+      futureTitle: 'Future capabilities',
+      future: [
+        'Aircraft refinishing',
+        'Composite and spot paint repair',
+        'Metallic refinishing and ceramic protection',
+        'Interior component refinishing',
+        'Mobile or partner-facility service where permitted',
+      ],
+      qualityTitle: 'Quality philosophy',
+      quality:
+        'The same restraint that defines our marine finishes will guide aviation work: careful preparation, honest scope, and never inventing capabilities we are not ready to deliver.',
+      contactTitle: 'Stay in touch',
+      contactBody:
+        'Questions about future aviation work? Contact us. We will not schedule active aviation jobs until the owner confirms operations are ready.',
+      notice:
+        'Coming soon — aviation operations are not currently active. This page is a preview only.',
+    },
+    services: {
+      metaTitle: 'Marine Services | Best Coatings Solutions',
+      metaDescription:
+        'Marine service index for gelcoat, fiberglass, paint, hull restoration, yacht cosmetics, color matching, and insurance repair.',
+      eyebrow: 'Marine',
+      title: 'Marine services',
+      lead: 'Detailed service pages for the marine work we perform today. Aviation has no public service catalog while it remains coming soon.',
+      indexNote:
+        'Select a service to read common problems, our process, why BCS, and how to request an estimate.',
+    },
+    projects: {
+      metaTitle: 'Projects | Best Coatings Solutions',
+      metaDescription:
+        'Project and case-study framework for Best Coatings Solutions. Real projects appear only after owner approval — no fabricated work.',
+      eyebrow: 'Portfolio framework',
+      title: 'Projects',
+      lead: 'This page defines how future case studies will be presented. We do not invent projects or claim unfinished photography as BCS work.',
+      frameworkTitle: 'Case study framework',
+      frameworkBody:
+        'Each future project can include title, category, problem, repair, materials, timeline, images, results, and a clear call to action.',
+      labels: {
+        category: 'Category',
+        problem: 'Problem',
+        repair: 'Repair',
+        materials: 'Materials',
+        timeline: 'Timeline',
+        results: 'Results',
+        images: 'Images',
+        cta: 'Request an estimate for similar work',
+      },
+    },
+    estimateShared: {
+      title: 'Request an estimate',
+      body: 'Tell us about the vessel and location. We respond with clarity — never with website pricing.',
+      notice:
+        'Free estimates are available only in the Fort Lauderdale area. Other locations may require review or travel arrangements.',
+    },
   },
   trust: {
     'mobile-service': 'Mobile Service',
