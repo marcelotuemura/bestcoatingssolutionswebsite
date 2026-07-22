@@ -1,16 +1,11 @@
 # `animations/`
 
-Centralised **Framer Motion** variants, transitions and easing curves.
+Centralised motion tokens and Framer Motion variants.
 
-Rationale:
+- Tokens: `tokens.ts` (durations, easing, distances)
+- Variants: `variants.ts` (+ reduced-motion presets)
+- Catalogue / choreography: [`HOME_EXPERIENCE.md`](../HOME_EXPERIENCE.md)
 
-- The homepage is the **only** page with premium animation; every other page
-  stays static, lightweight and fast (see `PROJECT_OVERVIEW.md`). Keeping motion
-  definitions here prevents animation code from leaking into otherwise-static
-  pages.
-- Shared easing/duration tokens guarantee a consistent motion language.
-- All motion must respect `prefers-reduced-motion` (accessibility).
-
-Typical exports: `fadeInUp`, `stagger`, `easing`, `durations`. GSAP is only
-introduced here if a specific effect genuinely cannot be achieved with Framer
-Motion.
+Homepage is the **only** page with premium animation. Import variants only from
+homepage client islands. Always honour `prefers-reduced-motion` via
+`hooks/use-prefers-reduced-motion.ts` and CSS in `app/globals.css`.

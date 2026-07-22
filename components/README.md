@@ -1,20 +1,13 @@
 # `components/`
 
-Reusable React components. **Server Components by default**; a component only
-becomes a Client Component (`'use client'`) when it needs interactivity, browser
-APIs or animation.
+Reusable React components. **Server Components by default**; Client Components
+only for genuine interaction (mobile nav, language path awareness, reduced-motion
+subscription, html lang sync).
 
-Recommended organisation as the UI grows:
+| Folder | Contents |
+|--------|----------|
+| `ui/` | Button, ButtonLink, Container, Section, Heading, Input, Textarea, Select, Checkbox, Label, Badge, Divider |
+| `layout/` | SkipLink, Logo, SiteHeader, SiteFooter, MobileNav, LanguageSwitcher, SiteShell, RoutePlaceholder |
 
-- `components/ui/` — primitive, presentational building blocks (Button, Card, Input).
-- `components/layout/` — Header, Footer, navigation, section shells.
-- `components/sections/` — page-specific composed sections.
-- `components/forms/` — form fields wired to React Hook Form + Zod.
-
-Conventions:
-
-- One component per file, `PascalCase.tsx`; co-locate `*.test.tsx`.
-- Props typed with an exported `interface`; no `any`.
-- Style with Tailwind utilities and the brand tokens from `app/globals.css`.
-- Keep components pure and presentational; data fetching belongs in Server
-  Components / `services/`.
+Style with Tailwind brand tokens from `app/globals.css`. Keep vendor SDKs out —
+data access belongs in `services/`.

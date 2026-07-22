@@ -1,146 +1,170 @@
 /**
- * Typed registry of every public route the site will expose.
+ * Typed registry of public routes for the first release and deferred surfaces.
  *
- * Pages themselves are NOT implemented yet (foundation phase). This registry is
- * the contract that navigation, the dynamic sitemap and future breadcrumb /
- * structured-data helpers build on, so routes stay consistent as pages land.
- *
- * `changeFrequency` / `priority` mirror the sitemap spec and are used directly
- * by `app/sitemap.ts`.
+ * Navigation, sitemap, and breadcrumbs consume this registry. Marketing page
+ * compositions land in later phases; paths are registered now for shell/nav.
  */
 export type RouteChangeFrequency =
   'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
 
 export interface RouteDefinition {
-  /** URL path relative to the site origin. */
+  /** URL path relative to the locale prefix (e.g. `/marine`). */
   readonly path: string;
-  /** Human-readable label for navigation and breadcrumbs. */
-  readonly label: string;
+  /** Dictionary key under `nav` for localized labels. */
+  readonly labelKey: string;
   /** Whether the route should appear in the generated sitemap. */
   readonly sitemap: boolean;
   readonly changeFrequency: RouteChangeFrequency;
   readonly priority: number;
+  /** When false, omit from launch sitemap even if sitemap flag is true later. */
+  readonly launch: boolean;
 }
 
 export const routes = {
   home: {
     path: '/',
-    label: 'Home',
+    labelKey: 'home',
     sitemap: true,
     changeFrequency: 'weekly',
     priority: 1.0,
+    launch: true,
   },
   marine: {
     path: '/marine',
-    label: 'Marine',
+    labelKey: 'marine',
     sitemap: true,
     changeFrequency: 'monthly',
     priority: 0.9,
+    launch: true,
   },
   aviation: {
     path: '/aviation',
-    label: 'Aviation',
+    labelKey: 'aviation',
     sitemap: true,
     changeFrequency: 'monthly',
     priority: 0.9,
+    launch: true,
   },
   services: {
     path: '/services',
-    label: 'Services',
+    labelKey: 'services',
     sitemap: true,
     changeFrequency: 'monthly',
     priority: 0.8,
+    launch: true,
   },
   projects: {
     path: '/projects',
-    label: 'Projects',
+    labelKey: 'projects',
     sitemap: true,
     changeFrequency: 'weekly',
     priority: 0.7,
+    launch: true,
   },
   beforeAfter: {
     path: '/before-after',
-    label: 'Before & After',
+    labelKey: 'beforeAfter',
     sitemap: true,
     changeFrequency: 'weekly',
     priority: 0.7,
-  },
-  process: {
-    path: '/process',
-    label: 'Process',
-    sitemap: true,
-    changeFrequency: 'yearly',
-    priority: 0.6,
+    launch: true,
   },
   about: {
     path: '/about',
-    label: 'About',
+    labelKey: 'about',
     sitemap: true,
     changeFrequency: 'yearly',
     priority: 0.6,
+    launch: true,
   },
-  gallery: {
-    path: '/gallery',
-    label: 'Gallery',
+  serviceArea: {
+    path: '/service-area',
+    labelKey: 'serviceArea',
     sitemap: true,
-    changeFrequency: 'weekly',
-    priority: 0.6,
-  },
-  blog: {
-    path: '/blog',
-    label: 'Blog',
-    sitemap: true,
-    changeFrequency: 'weekly',
+    changeFrequency: 'yearly',
     priority: 0.7,
+    launch: true,
   },
   scheduleVisit: {
     path: '/schedule-visit',
-    label: 'Schedule Visit',
+    labelKey: 'scheduleVisit',
     sitemap: true,
     changeFrequency: 'monthly',
     priority: 0.8,
+    launch: true,
   },
   estimateRequest: {
     path: '/estimate-request',
-    label: 'Estimate Request',
+    labelKey: 'estimateRequest',
     sitemap: true,
     changeFrequency: 'monthly',
     priority: 0.8,
+    launch: true,
   },
   contact: {
     path: '/contact',
-    label: 'Contact',
+    labelKey: 'contact',
     sitemap: true,
     changeFrequency: 'yearly',
     priority: 0.7,
-  },
-  portal: {
-    path: '/portal',
-    label: 'Customer Portal',
-    sitemap: false,
-    changeFrequency: 'never',
-    priority: 0.3,
+    launch: true,
   },
   privacy: {
     path: '/privacy',
-    label: 'Privacy',
+    labelKey: 'privacy',
     sitemap: true,
     changeFrequency: 'yearly',
     priority: 0.2,
+    launch: true,
   },
   terms: {
     path: '/terms',
-    label: 'Terms',
+    labelKey: 'terms',
     sitemap: true,
     changeFrequency: 'yearly',
     priority: 0.2,
+    launch: true,
   },
   accessibility: {
     path: '/accessibility',
-    label: 'Accessibility',
+    labelKey: 'accessibility',
     sitemap: true,
     changeFrequency: 'yearly',
     priority: 0.2,
+    launch: true,
+  },
+  /** Deferred — keep registered, out of launch sitemap. */
+  process: {
+    path: '/process',
+    labelKey: 'process',
+    sitemap: false,
+    changeFrequency: 'yearly',
+    priority: 0.6,
+    launch: false,
+  },
+  gallery: {
+    path: '/gallery',
+    labelKey: 'gallery',
+    sitemap: false,
+    changeFrequency: 'weekly',
+    priority: 0.6,
+    launch: false,
+  },
+  blog: {
+    path: '/blog',
+    labelKey: 'blog',
+    sitemap: false,
+    changeFrequency: 'weekly',
+    priority: 0.7,
+    launch: false,
+  },
+  portal: {
+    path: '/portal',
+    labelKey: 'portal',
+    sitemap: false,
+    changeFrequency: 'never',
+    priority: 0.3,
+    launch: false,
   },
 } as const satisfies Record<string, RouteDefinition>;
 
@@ -156,7 +180,23 @@ export const primaryNav: readonly RouteKey[] = [
   'contact',
 ];
 
-/** Routes that should be emitted into the dynamic sitemap. */
+/** Footer secondary links. */
+export const footerNav: readonly RouteKey[] = [
+  'serviceArea',
+  'estimateRequest',
+  'scheduleVisit',
+  'privacy',
+  'terms',
+  'accessibility',
+];
+
+/** CTA keys used in header/footer. */
+export const ctaRoutes = {
+  estimate: 'estimateRequest',
+  schedule: 'scheduleVisit',
+} as const satisfies Record<string, RouteKey>;
+
+/** Routes emitted into the dynamic sitemap for the launch. */
 export const sitemapRoutes: readonly RouteDefinition[] = Object.values(
   routes,
-).filter((route) => route.sitemap);
+).filter((route) => route.sitemap && route.launch);
