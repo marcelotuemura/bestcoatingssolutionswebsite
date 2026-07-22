@@ -85,7 +85,7 @@ test.describe('Phase 2 homepage', () => {
     await page.goto('/en');
     await page
       .getByRole('banner')
-      .getByRole('link', { name: 'Request Estimate' })
+      .getByRole('link', { name: 'Request Free Estimate' })
       .click();
     await expect(page).toHaveURL(/\/en\/estimate-request/);
 
@@ -103,7 +103,7 @@ test.describe('Phase 2 homepage', () => {
     await page.goto('/en');
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
     await expect(
-      page.getByRole('link', { name: 'Request Estimate' }).first(),
+      page.getByRole('link', { name: 'Request Free Estimate' }).first(),
     ).toBeVisible();
     await expect(page.locator('#marine')).toBeVisible();
   });
@@ -118,7 +118,7 @@ test.describe('Phase 2 homepage', () => {
       page.getByRole('heading', { name: 'Who We Are', level: 2 }),
     ).toBeVisible();
     await expect(
-      page.getByRole('link', { name: 'Request Estimate' }).first(),
+      page.getByRole('link', { name: 'Request Free Estimate' }).first(),
     ).toBeVisible();
   });
 
@@ -229,7 +229,7 @@ test.describe('Phase 2 homepage', () => {
     );
 
     // Placeholder labeling remains honest.
-    await expect(section.getByText(/Placeholder media/i)).toBeVisible();
+    await expect(section.getByText(/Placeholder Image/i)).toBeVisible();
   });
 
   test('Spanish before/after aria-valuetext is localized', async ({ page }) => {

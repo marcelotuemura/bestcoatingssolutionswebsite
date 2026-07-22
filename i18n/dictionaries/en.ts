@@ -41,9 +41,10 @@ export const en = {
     portal: 'Customer Portal',
   },
   cta: {
-    estimate: 'Request Estimate',
+    estimate: 'Request Free Estimate',
     schedule: 'Schedule Visit',
     call: 'Call',
+    callBcs: 'Call Best Coatings Solutions',
     exploreMarine: 'Explore Marine',
     learnAviation: 'Learn about Aviation',
     viewProjects: 'View projects',
@@ -75,12 +76,13 @@ export const en = {
       'Premium mobile marine and aviation coatings. Shared UI, navigation, and English/Spanish architecture are in place. The premium homepage ships next.',
     pageLead:
       'This route is registered for launch. Full marketing content arrives in a later phase.',
-    comingSoonBody: 'Content for this page is coming soon.',
-    mediaLabel: 'Placeholder media — not a BCS project photo',
+    comingSoonBody: 'Coming Soon — content for this page is not ready yet.',
+    mediaLabel:
+      'Placeholder Image — not a BCS project photo and not real workmanship',
     projectLabel:
-      'Placeholder case study structure — real project pending owner approval',
+      'Future Project — placeholder framework only; not a completed BCS case study',
     emptyProjects:
-      'No published projects yet. Approved case studies will appear here.',
+      'Coming Soon — no published projects yet. Approved case studies will appear here.',
   },
   pages: {
     marine: {
@@ -128,9 +130,11 @@ export const en = {
         'The same restraint that defines our marine finishes will guide aviation work: careful preparation, honest scope, and never inventing capabilities we are not ready to deliver.',
       contactTitle: 'Stay in touch',
       contactBody:
-        'Questions about future aviation work? Contact us. We will not schedule active aviation jobs until the owner confirms operations are ready.',
+        'Questions about future aviation capabilities? Contact Best Coatings Solutions for general inquiries. Aviation booking and aviation-specific estimates are not available while this division remains Coming Soon.',
+      noBookingNotice:
+        'Coming Soon — no current aviation booking and no aviation-specific estimate requests.',
       notice:
-        'Coming soon — aviation operations are not currently active. This page is a preview only.',
+        'Coming Soon — aviation operations are not currently active. This page is a future-capability preview only.',
     },
     services: {
       metaTitle: 'Marine Services | Best Coatings Solutions',
@@ -138,9 +142,18 @@ export const en = {
         'Marine service index for gelcoat, fiberglass, paint, hull restoration, yacht cosmetics, color matching, and insurance repair.',
       eyebrow: 'Marine',
       title: 'Marine services',
-      lead: 'Detailed service pages for the marine work we perform today. Aviation has no public service catalog while it remains coming soon.',
+      lead: 'Detailed service pages for the marine work we perform today. Aviation has no public service catalog while it remains Coming Soon.',
       indexNote:
-        'Select a service to read common problems, our process, why BCS, and how to request an estimate.',
+        'Select a service to read common problems, our process, why choose BCS, and how to request a free estimate.',
+      relatedTitle: 'Related services',
+      relatedBody:
+        'Explore related marine services that often pair with this work.',
+      links: {
+        heading: 'Related pages',
+        marineDivision: 'Marine division',
+        servicesIndex: 'All marine services',
+        contact: 'Contact',
+      },
     },
     projects: {
       metaTitle: 'Projects | Best Coatings Solutions',
@@ -151,7 +164,7 @@ export const en = {
       lead: 'This page defines how future case studies will be presented. We do not invent projects or claim unfinished photography as BCS work.',
       frameworkTitle: 'Case study framework',
       frameworkBody:
-        'Each future project can include title, category, problem, repair, materials, timeline, images, results, and a clear call to action.',
+        'Each Future Project can include title, category, problem, repair, materials, timeline, images, results, and a clear call to action.',
       labels: {
         category: 'Category',
         problem: 'Problem',
@@ -159,12 +172,12 @@ export const en = {
         materials: 'Materials',
         timeline: 'Timeline',
         results: 'Results',
-        images: 'Images',
-        cta: 'Request an estimate for similar work',
+        images: 'Placeholder Image slots',
+        cta: 'Request Free Estimate for similar work',
       },
     },
     estimateShared: {
-      title: 'Request an estimate',
+      title: 'Request a free estimate',
       body: 'Tell us about the vessel and location. We respond with clarity — never with website pricing.',
       notice:
         'Free estimates are available only in the Fort Lauderdale area. Other locations may require review or travel arrangements.',

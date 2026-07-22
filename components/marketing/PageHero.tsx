@@ -50,7 +50,7 @@ export function PageHero({
             <Reveal className="border-navy-700 bg-navy-950 relative aspect-[16/10] overflow-hidden rounded-2xl border">
               <Image
                 src={imageSrc}
-                alt=""
+                alt={imageLabel ?? ''}
                 fill
                 unoptimized
                 className="object-cover"

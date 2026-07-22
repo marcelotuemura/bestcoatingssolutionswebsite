@@ -45,9 +45,10 @@ export const es = {
     portal: 'Portal del cliente',
   },
   cta: {
-    estimate: 'Solicitar estimado',
+    estimate: 'Solicitar estimado gratuito',
     schedule: 'Programar visita',
     call: 'Llamar',
+    callBcs: 'Llamar a Best Coatings Solutions',
     exploreMarine: 'Explorar Marina',
     learnAviation: 'Conocer Aviación',
     viewProjects: 'Ver proyectos',
@@ -79,12 +80,14 @@ export const es = {
       'Recubrimientos móviles premium para marina y aviación. La interfaz compartida, la navegación y la arquitectura en inglés/español ya están listas. La página de inicio premium llega después.',
     pageLead:
       'Esta ruta está registrada para el lanzamiento. El contenido completo llega en una fase posterior.',
-    comingSoonBody: 'El contenido de esta página llegará pronto.',
-    mediaLabel: 'Medio provisional — no es una foto de un proyecto de BCS',
+    comingSoonBody:
+      'Próximamente — el contenido de esta página aún no está listo.',
+    mediaLabel:
+      'Imagen provisional — no es una foto de un proyecto de BCS ni trabajo real',
     projectLabel:
-      'Estructura de caso de estudio provisional — proyecto real pendiente de aprobación',
+      'Proyecto futuro — solo marco provisional; no es un caso de estudio completado de BCS',
     emptyProjects:
-      'Aún no hay proyectos publicados. Los casos de estudio aprobados aparecerán aquí.',
+      'Próximamente — aún no hay proyectos publicados. Los casos de estudio aprobados aparecerán aquí.',
   },
   pages: {
     marine: {
@@ -132,9 +135,11 @@ export const es = {
         'La misma mesura que define nuestros acabados marinos guiará el trabajo de aviación: preparación cuidadosa, alcance honesto y nunca inventar capacidades que aún no estamos listos para entregar.',
       contactTitle: 'Manténgase en contacto',
       contactBody:
-        '¿Preguntas sobre el trabajo futuro de aviación? Contáctenos. No programaremos trabajos activos de aviación hasta que el propietario confirme que las operaciones estén listas.',
+        '¿Preguntas sobre las capacidades futuras de aviación? Contacte a Best Coatings Solutions para consultas generales. Las reservas de aviación y los estimados específicos de aviación no están disponibles mientras esta división permanece como Próximamente.',
+      noBookingNotice:
+        'Próximamente — no hay reservas de aviación actuales ni solicitudes de estimado específicas de aviación.',
       notice:
-        'Próximamente — las operaciones de aviación no están activas actualmente. Esta página es solo una vista previa.',
+        'Próximamente — las operaciones de aviación no están activas actualmente. Esta página es solo una vista previa de capacidades futuras.',
     },
     services: {
       metaTitle: 'Servicios marinos | Best Coatings Solutions',
@@ -142,9 +147,18 @@ export const es = {
         'Índice de servicios marinos: gelcoat, fibra, pintura, restauración de casco, cosmética de yates, coincidencia de color y reparación por seguro.',
       eyebrow: 'Marina',
       title: 'Servicios marinos',
-      lead: 'Páginas detalladas de los servicios marinos que realizamos hoy. Aviación no tiene catálogo público mientras permanece como próximamente.',
+      lead: 'Páginas detalladas de los servicios marinos que realizamos hoy. Aviación no tiene catálogo público mientras permanece como Próximamente.',
       indexNote:
-        'Seleccione un servicio para leer problemas comunes, nuestro proceso, por qué BCS y cómo solicitar un estimado.',
+        'Seleccione un servicio para leer problemas comunes, nuestro proceso, por qué elegir BCS y cómo solicitar un estimado gratuito.',
+      relatedTitle: 'Servicios relacionados',
+      relatedBody:
+        'Explore servicios marinos relacionados que a menudo se combinan con este trabajo.',
+      links: {
+        heading: 'Páginas relacionadas',
+        marineDivision: 'División marina',
+        servicesIndex: 'Todos los servicios marinos',
+        contact: 'Contacto',
+      },
     },
     projects: {
       metaTitle: 'Proyectos | Best Coatings Solutions',
@@ -155,7 +169,7 @@ export const es = {
       lead: 'Esta página define cómo se presentarán futuros casos de estudio. No inventamos proyectos ni presentamos fotografía incompleta como trabajo de BCS.',
       frameworkTitle: 'Marco de caso de estudio',
       frameworkBody:
-        'Cada proyecto futuro puede incluir título, categoría, problema, reparación, materiales, cronograma, imágenes, resultados y una llamada a la acción clara.',
+        'Cada Proyecto futuro puede incluir título, categoría, problema, reparación, materiales, cronograma, imágenes, resultados y una llamada a la acción clara.',
       labels: {
         category: 'Categoría',
         problem: 'Problema',
@@ -163,12 +177,12 @@ export const es = {
         materials: 'Materiales',
         timeline: 'Cronograma',
         results: 'Resultados',
-        images: 'Imágenes',
-        cta: 'Solicitar un estimado para un trabajo similar',
+        images: 'Espacios de imagen provisional',
+        cta: 'Solicitar estimado gratuito para un trabajo similar',
       },
     },
     estimateShared: {
-      title: 'Solicitar un estimado',
+      title: 'Solicitar un estimado gratuito',
       body: 'Cuéntenos sobre la embarcación y la ubicación. Respondemos con claridad — nunca con precios en el sitio.',
       notice:
         'Los estimados gratuitos están disponibles solo en el área de Fort Lauderdale. Otras ubicaciones pueden requerir revisión o arreglos de viaje.',

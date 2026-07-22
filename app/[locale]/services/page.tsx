@@ -37,6 +37,7 @@ export default async function Page({
   const dictionary = await getDictionary(locale);
   const jsonLd = breadcrumbJsonLd(locale, [
     { name: dictionary.nav.home, path: '/' },
+    { name: dictionary.nav.marine, path: '/marine' },
     { name: dictionary.nav.services, path: '/services' },
   ]);
 

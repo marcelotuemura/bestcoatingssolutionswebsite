@@ -11,6 +11,13 @@ export interface PageMetadataInput {
   readonly description: string;
 }
 
+/** Soft SEO length guidance used by unit audits (not hard runtime rejects). */
+export const SEO_LENGTH = {
+  titleMax: 60,
+  descriptionMin: 70,
+  descriptionMax: 160,
+} as const;
+
 /**
  * Unique per-page metadata with canonical, hreflang, Open Graph, and Twitter.
  */

@@ -48,7 +48,7 @@ export const marineServiceContentEs: Record<
         body: 'Refinamos el brillo y mezclamos transiciones para una presentación cohesiva.',
       },
     ],
-    whyTitle: 'Por qué BCS',
+    whyTitle: 'Por qué elegir BCS',
     whyPoints: [
       'Servicio móvil donde está permitido',
       'Atención al color y a la reflexión',
@@ -111,7 +111,7 @@ export const marineServiceContentEs: Record<
         body: 'Nivelamos, sellamos y preparamos para gelcoat o pintura.',
       },
     ],
-    whyTitle: 'Por qué BCS',
+    whyTitle: 'Por qué elegir BCS',
     whyPoints: [
       'Pensamiento de reparación compuesto, no solo relleno',
       'Preparación limpia y transición de acabado',
@@ -174,7 +174,7 @@ export const marineServiceContentEs: Record<
         body: 'Revisión de brillo, cobertura y calidad de borde.',
       },
     ],
-    whyTitle: 'Por qué BCS',
+    whyTitle: 'Por qué elegir BCS',
     whyPoints: [
       'Énfasis en preparación sobre atajos cosméticos',
       'Acabados limpios y uniformes con control de color',
@@ -237,7 +237,7 @@ export const marineServiceContentEs: Record<
         body: 'Acabamos con brillo controlado y orientación de cuidado.',
       },
     ],
-    whyTitle: 'Por qué BCS',
+    whyTitle: 'Por qué elegir BCS',
     whyPoints: [
       'Alcance honesto basado en la condición real del casco',
       'Equilibrio entre cosmética y protección',
@@ -300,7 +300,7 @@ export const marineServiceContentEs: Record<
         body: 'Refinamos brillo y limpieza para inspección cercana.',
       },
     ],
-    whyTitle: 'Por qué BCS',
+    whyTitle: 'Por qué elegir BCS',
     whyPoints: [
       'Estándares de presentación para superficies visibles',
       'Coincidencia de color y mezcla de acabado',
@@ -363,7 +363,7 @@ export const marineServiceContentEs: Record<
         body: 'Revisamos contorno, transición y preparación de acabado.',
       },
     ],
-    whyTitle: 'Por qué BCS',
+    whyTitle: 'Por qué elegir BCS',
     whyPoints: [
       'Prioridad en integridad del compuesto sobre atajos cosméticos',
       'Alcance honesto y comunicación de riesgos',
@@ -426,7 +426,7 @@ export const marineServiceContentEs: Record<
         body: 'Integramos la reparación en las superficies circundantes.',
       },
     ],
-    whyTitle: 'Por qué BCS',
+    whyTitle: 'Por qué elegir BCS',
     whyPoints: [
       'La coincidencia de color se trata como un oficio',
       'Atención a brillo y mezcla, no solo tono',
@@ -488,7 +488,7 @@ export const marineServiceContentEs: Record<
         body: 'Proporcionamos registros visuales claros cuando se solicitan.',
       },
     ],
-    whyTitle: 'Por qué BCS',
+    whyTitle: 'Por qué elegir BCS',
     whyPoints: [
       'Comunicación profesional',
       'Proceso apto para fotos cuando se necesita',

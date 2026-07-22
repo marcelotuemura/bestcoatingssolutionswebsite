@@ -50,7 +50,7 @@ export const projectPlaceholders: readonly ProjectCaseStudy[] = [
   {
     id: 'placeholder-framework-gelcoat',
     slug: 'placeholder-gelcoat-framework',
-    title: 'Placeholder — gelcoat restoration framework',
+    title: 'Future Project — gelcoat restoration framework (placeholder)',
     category: 'gelcoat',
     problem:
       'Problem field reserved. Describe the vessel condition that required work.',

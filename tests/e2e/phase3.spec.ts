@@ -23,9 +23,9 @@ test.describe('Phase 3 — Marine, Aviation, Services, Projects', () => {
       page.getByRole('link', { name: /Gelcoat Repair/i }).first(),
     ).toBeVisible();
     await expect(
-      page.getByRole('link', { name: 'Request Estimate' }).first(),
+      page.getByRole('link', { name: 'Request Free Estimate' }).first(),
     ).toBeVisible();
-    await expect(page.getByText(/Placeholder media/i).first()).toBeVisible();
+    await expect(page.getByText(/Placeholder Image/i).first()).toBeVisible();
   });
 
   test('Aviation coming soon — no service catalog, no active ops', async ({
@@ -36,7 +36,7 @@ test.describe('Phase 3 — Marine, Aviation, Services, Projects', () => {
       page.getByRole('heading', { level: 1, name: 'Aviation' }),
     ).toBeVisible();
     await expect(page.getByTestId('aviation-coming-soon')).toContainText(
-      /Coming soon/i,
+      /Coming Soon/i,
     );
     await expect(page.getByText(/not currently active/i).first()).toBeVisible();
     await expect(
@@ -48,7 +48,8 @@ test.describe('Phase 3 — Marine, Aviation, Services, Projects', () => {
     await expect(page.getByTestId('service-link-gelcoat-repair')).toHaveCount(
       0,
     );
-    await expect(page.getByRole('link', { name: 'Contact us' })).toBeVisible();
+    await expect(page.getByTestId('cta-primary-contact')).toBeVisible();
+    await expect(page.getByTestId('cta-primary-estimate')).toHaveCount(0);
   });
 
   test('Services index lists all marine services', async ({ page }) => {
@@ -77,10 +78,10 @@ test.describe('Phase 3 — Marine, Aviation, Services, Projects', () => {
       ).toBeVisible();
       await expect(page.locator('#common-problems')).toBeVisible();
       await expect(page.locator('#our-process')).toBeVisible();
-      await expect(page.locator('#why-bcs')).toBeVisible();
+      await expect(page.locator('#why-choose-bcs')).toBeVisible();
       await expect(page.locator('#faq')).toBeVisible();
       await expect(page.locator('#estimate-cta')).toBeVisible();
-      await expect(page.getByText(/Placeholder media/i).first()).toBeVisible();
+      await expect(page.getByText(/Placeholder Image/i).first()).toBeVisible();
     });
   }
 
@@ -92,10 +93,8 @@ test.describe('Phase 3 — Marine, Aviation, Services, Projects', () => {
       page.getByRole('heading', { level: 1, name: 'Projects' }),
     ).toBeVisible();
     await expect(page.getByTestId('projects-empty')).toBeVisible();
-    await expect(
-      page.getByText(/Placeholder case study structure/i).first(),
-    ).toBeVisible();
-    await expect(page.getByText(/Placeholder media/i).first()).toBeVisible();
+    await expect(page.getByText(/Future Project/i).first()).toBeVisible();
+    await expect(page.getByText(/Placeholder Image/i).first()).toBeVisible();
   });
 
   test('Spanish marine and service routing', async ({ page }) => {

@@ -26,6 +26,7 @@ export function ServicesIndexPage({
             ariaLabel={dictionary.a11y.breadcrumbs}
             items={[
               { label: dictionary.nav.home, href: '/' },
+              { label: dictionary.nav.marine, href: '/marine' },
               { label: dictionary.nav.services },
             ]}
           />

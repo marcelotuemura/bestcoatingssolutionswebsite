@@ -76,7 +76,7 @@ export const marineServiceContentEn: Record<
         body: 'Refine gloss and blend transitions for a cohesive presentation.',
       },
     ],
-    whyTitle: 'Why BCS',
+    whyTitle: 'Why Choose BCS',
     whyPoints: [
       'Mobile service where permitted',
       'Attention to color and reflection',
@@ -138,7 +138,7 @@ export const marineServiceContentEn: Record<
         body: 'Return the area toward the surrounding cosmetic standard.',
       },
     ],
-    whyTitle: 'Why BCS',
+    whyTitle: 'Why Choose BCS',
     whyPoints: [
       'Marine-focused repair mindset',
       'Mobile convenience',
@@ -194,7 +194,7 @@ export const marineServiceContentEn: Record<
         body: 'Review gloss, coverage, and edges with the client.',
       },
     ],
-    whyTitle: 'Why BCS',
+    whyTitle: 'Why Choose BCS',
     whyPoints: [
       'Premium finish standards',
       'Mobile or yard-friendly workflow',
@@ -246,7 +246,7 @@ export const marineServiceContentEn: Record<
         body: 'Final review in good light for reflection and uniformity.',
       },
     ],
-    whyTitle: 'Why BCS',
+    whyTitle: 'Why Choose BCS',
     whyPoints: [
       'Marine specialist focus',
       'Mobile service advantage',
@@ -298,7 +298,7 @@ export const marineServiceContentEn: Record<
         body: 'Polish and blend for a coherent look.',
       },
     ],
-    whyTitle: 'Why BCS',
+    whyTitle: 'Why Choose BCS',
     whyPoints: [
       'Presentation-minded craftsmanship',
       'Mobile convenience',
@@ -350,7 +350,7 @@ export const marineServiceContentEn: Record<
         body: 'Review workmanship and outline any remaining cosmetic steps.',
       },
     ],
-    whyTitle: 'Why BCS',
+    whyTitle: 'Why Choose BCS',
     whyPoints: [
       'Technical credibility over hype',
       'Clear communication',
@@ -402,7 +402,7 @@ export const marineServiceContentEn: Record<
         body: 'Integrate the matched finish into the repair zone.',
       },
     ],
-    whyTitle: 'Why BCS',
+    whyTitle: 'Why Choose BCS',
     whyPoints: [
       'Finish-sensitive eye',
       'Patience with matching',
@@ -454,7 +454,7 @@ export const marineServiceContentEn: Record<
         body: 'Provide clear visual records when requested for the file.',
       },
     ],
-    whyTitle: 'Why BCS',
+    whyTitle: 'Why Choose BCS',
     whyPoints: [
       'Professional communication',
       'Photo-friendly process when needed',

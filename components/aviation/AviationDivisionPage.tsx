@@ -1,6 +1,3 @@
-import { ButtonLink } from '@/components/ui/ButtonLink';
-import { Container } from '@/components/ui/Container';
-import { Section } from '@/components/ui/Section';
 import {
   Breadcrumbs,
   BulletList,
@@ -9,13 +6,17 @@ import {
   EstimateCtaBand,
   PageHero,
 } from '@/components/marketing';
+import { Container } from '@/components/ui/Container';
+import { Section } from '@/components/ui/Section';
 import { divisions } from '@/config/divisions';
 import { marketingPlaceholders } from '@/config/marketing-placeholders';
-import { routes } from '@/config/routes';
 import type { Dictionary } from '@/i18n/get-dictionary';
 import type { Locale } from '@/i18n/config';
-import { localePath } from '@/i18n/path';
 
+/**
+ * Aviation preview only — never imply active operations, bookings, or
+ * aviation-specific estimate requests.
+ */
 export function AviationDivisionPage({
   locale,
   dictionary,
@@ -79,15 +80,9 @@ export function AviationDivisionPage({
         dictionary={dictionary}
         title={copy.contactTitle}
         body={copy.contactBody}
+        notice={copy.noBookingNotice}
+        mode="contact"
       />
-
-      <Section className="pt-0">
-        <Container>
-          <ButtonLink href={localePath(locale, routes.contact.path)}>
-            {dictionary.cta.contactUs}
-          </ButtonLink>
-        </Container>
-      </Section>
     </main>
   );
 }

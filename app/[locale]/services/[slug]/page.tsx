@@ -56,6 +56,7 @@ export default async function Page({
   const path = `/services/${serviceSlug}`;
   const breadcrumb = breadcrumbJsonLd(locale, [
     { name: dictionary.nav.home, path: '/' },
+    { name: dictionary.nav.marine, path: '/marine' },
     { name: dictionary.nav.services, path: '/services' },
     { name: content.title, path },
   ]);
@@ -80,7 +81,7 @@ export default async function Page({
         locale={locale}
         dictionary={dictionary}
         content={content}
-        breadcrumbServicesLabel={dictionary.nav.services}
+        slug={serviceSlug}
       />
     </>
   );
