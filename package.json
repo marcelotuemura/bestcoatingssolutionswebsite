@@ -27,7 +27,7 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "next": "^15.5.4",
+    "next": "^16.2.11",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.53.2",
