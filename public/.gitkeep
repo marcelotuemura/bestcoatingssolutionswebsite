@@ -1,0 +1,3 @@
+# Static assets served from the site root (favicons, OG images, fonts, robots
+# assets, verification files). Files here are copied verbatim to `/`.
+# Tracked with .gitkeep until real assets are added.
