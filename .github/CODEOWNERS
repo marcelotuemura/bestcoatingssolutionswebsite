@@ -1,0 +1,10 @@
+# Code ownership for review routing.
+# Replace the placeholder team/handle with the real GitHub owner before enabling
+# branch protection "require review from Code Owners".
+
+*                       @marcelotuemura
+
+# Domain-specific ownership examples (uncomment and assign as the team grows):
+# /services/            @marcelotuemura
+# /.github/             @marcelotuemura
+# /docs/                @marcelotuemura

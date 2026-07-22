@@ -1,0 +1,44 @@
+# Recommended label taxonomy. Apply with a label-sync action or the GitHub UI.
+# Kept in-repo so labels are versioned and consistent across the project.
+
+# Type
+- { name: bug, color: d73a4a, description: Something is not working }
+- { name: enhancement, color: a2eeef, description: New feature or request }
+- {
+    name: refactor,
+    color: fbca04,
+    description: Code change that neither fixes a bug nor adds a feature,
+  }
+- { name: docs, color: 0075ca, description: Documentation only }
+- { name: chore, color: cfd3d7, description: Tooling, build, or maintenance }
+
+# Workflow
+- { name: triage, color: ededed, description: Needs triage }
+- { name: 'good first issue', color: 7057ff, description: Good for newcomers }
+- { name: blocked, color: b60205, description: Blocked by another item }
+- { name: 'in progress', color: 0e8a16, description: Actively being worked on }
+
+# Area
+- { name: 'area: marketing', color: 1d76db, description: Public marketing site }
+- { name: 'area: portal', color: 1d76db, description: Customer Portal }
+- {
+    name: 'area: integrations',
+    color: 1d76db,
+    description: Third-party integrations,
+  }
+- { name: 'area: seo', color: 1d76db, description: SEO / metadata }
+- {
+    name: 'area: performance',
+    color: 1d76db,
+    description: Performance / Core Web Vitals,
+  }
+- {
+    name: 'area: accessibility',
+    color: 1d76db,
+    description: Accessibility (WCAG AA),
+  }
+
+# Meta
+- { name: dependencies, color: 0366d6, description: Dependency updates }
+- { name: ci, color: 0366d6, description: Continuous integration }
+- { name: security, color: b60205, description: Security related }

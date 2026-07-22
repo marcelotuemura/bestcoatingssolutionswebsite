@@ -1,0 +1,48 @@
+@import 'tailwindcss';
+
+/*
+ * Brand design tokens (Tailwind CSS v4 `@theme`).
+ *
+ * These map the BCS visual identity (Dark Navy / Electric Blue / Silver / White)
+ * to Tailwind utilities such as `bg-navy-900`, `text-electric-500`, etc.
+ * The full rationale lives in DESIGN_SYSTEM.md — this is the machine-readable
+ * source of truth that generates the utility classes.
+ */
+@theme {
+  --color-navy-950: #050d18;
+  --color-navy-900: #0a1a2f;
+  --color-navy-800: #0f2340;
+  --color-navy-700: #163254;
+  --color-electric-400: #3b9dff;
+  --color-electric-500: #0a84ff;
+  --color-electric-600: #0066cc;
+  --color-silver-100: #f4f6f8;
+  --color-silver-300: #cbd3dc;
+  --color-silver-500: #9aa7b5;
+
+  --font-sans:
+    var(--font-inter), ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+    sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-navy-950);
+  color: var(--color-silver-100);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
