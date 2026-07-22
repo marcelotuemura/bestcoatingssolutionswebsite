@@ -1,12 +1,8 @@
 # `types/`
 
-Shared, cross-cutting TypeScript types and domain models (e.g. `Project`,
-`Estimate`, `Invoice`, `CustomerProfile`) plus ambient declarations.
+Shared domain models for the marketing site (and future `packages/types` extraction).
 
-Guidelines:
+- `content.ts` — `MediaAsset`, `BeforeAfterPair`, `CaseStudy`, shot/usage enums
+- Prefer Zod `z.infer` once form/validation schemas land (Phase 5)
 
-- Types used by a single module stay next to that module; only promote here when
-  shared across features.
-- Prefer deriving types from Zod schemas (`z.infer`) once validation schemas
-  exist, so runtime and compile-time stay in sync (single source of truth).
-- No runtime code in this folder — types and interfaces only.
+No runtime code in this folder.

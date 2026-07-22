@@ -1,0 +1,80 @@
+export const en = {
+  meta: {
+    titleDefault: 'Best Coatings Solutions — Marine & Aviation Coatings',
+    titleTemplate: '%s | BCS',
+    description:
+      'Premium mobile marine and aviation coatings, refinishing and composite repair. Serving South Florida from Jupiter southward.',
+  },
+  a11y: {
+    skipToContent: 'Skip to main content',
+    mainNav: 'Primary',
+    mobileNav: 'Mobile',
+    openMenu: 'Open menu',
+    closeMenu: 'Close menu',
+    language: 'Language',
+    home: 'Best Coatings Solutions home',
+  },
+  nav: {
+    home: 'Home',
+    marine: 'Marine',
+    aviation: 'Aviation',
+    services: 'Services',
+    projects: 'Projects',
+    beforeAfter: 'Before & After',
+    about: 'About',
+    serviceArea: 'Service Area',
+    scheduleVisit: 'Schedule Visit',
+    estimateRequest: 'Request Estimate',
+    contact: 'Contact',
+    privacy: 'Privacy',
+    terms: 'Terms',
+    accessibility: 'Accessibility',
+    process: 'Process',
+    gallery: 'Gallery',
+    blog: 'Blog',
+    portal: 'Customer Portal',
+  },
+  cta: {
+    estimate: 'Request Estimate',
+    schedule: 'Schedule Visit',
+    call: 'Call',
+  },
+  divisionStatus: {
+    active: 'Active',
+    preview: 'Preview',
+    'coming-soon': 'Coming soon',
+  },
+  header: {
+    tagline: 'Marine & Aviation',
+  },
+  footer: {
+    rights: 'All rights reserved.',
+    spokenLanguages: 'Languages spoken',
+    serviceArea: 'Service area',
+    contact: 'Contact',
+    estimateNotice:
+      'Free estimates are available only in the Fort Lauderdale area. Other locations may require review or travel arrangements.',
+    socialHeading: 'Follow',
+    socialUnavailable: 'Social channels coming soon.',
+  },
+  placeholder: {
+    phaseBadge: 'Phase 1 shell',
+    homeTitle: 'Best Coatings Solutions',
+    homeLead:
+      'Premium mobile marine and aviation coatings. Shared UI, navigation, and English/Spanish architecture are in place. The premium homepage ships next.',
+    pageLead:
+      'This route is registered for launch. Full marketing content arrives in a later phase.',
+    comingSoonBody: 'Content for this page is coming soon.',
+  },
+  trust: {
+    'mobile-service': 'Mobile Service',
+    'professional-finish': 'Professional Finish',
+    'marine-specialists': 'Marine Specialists',
+    'aircraft-specialists': 'Aircraft Specialists',
+    'modern-equipment': 'Modern Equipment',
+    'fair-pricing': 'Fair Pricing',
+    'fast-response': 'Fast Response',
+    'attention-to-detail': 'Attention to Detail',
+    'multilingual-team': 'Multilingual Team',
+  },
+} as const;

@@ -1,11 +1,8 @@
 import { siteConfig } from '@/config/site';
+import { spokenLanguages } from '@/config/languages';
 
 /**
  * JSON-LD structured data builders (schema.org).
- *
- * Returning plain objects (rather than rendering markup here) keeps these pure
- * and unit-testable; components inject them via a `<script type="application/ld+json">`
- * tag. Rich results improve local SEO for a mobile service business.
  */
 export function localBusinessJsonLd(): Record<string, unknown> {
   return {
@@ -15,7 +12,10 @@ export function localBusinessJsonLd(): Record<string, unknown> {
     legalName: siteConfig.legalName,
     description: siteConfig.description,
     url: siteConfig.url,
+    telephone: siteConfig.contact.phoneE164,
+    email: siteConfig.contact.email,
     areaServed: siteConfig.serviceArea.range,
+    knowsLanguage: spokenLanguages.map((language) => language.code),
     address: {
       '@type': 'PostalAddress',
       addressRegion: 'FL',
@@ -30,5 +30,6 @@ export function websiteJsonLd(): Record<string, unknown> {
     '@type': 'WebSite',
     name: siteConfig.name,
     url: siteConfig.url,
+    inLanguage: ['en', 'es'],
   };
 }

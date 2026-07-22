@@ -7,7 +7,7 @@ import { siteConfig } from '@/config/site';
 import './globals.css';
 
 const inter = Inter({
-  subsets: ['latin'],
+  subsets: ['latin', 'latin-ext'],
   display: 'swap',
   variable: '--font-inter',
 });
@@ -24,12 +24,15 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={inter.variable} suppressHydrationWarning>
-      <body>
+    <html
+      lang={siteConfig.defaultLocale}
+      className={inter.variable}
+      suppressHydrationWarning
+    >
+      <body className="min-h-dvh antialiased">
         {children}
         <script
           type="application/ld+json"
-          // Structured data is static and trusted (built from siteConfig).
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd()) }}
         />
         <script

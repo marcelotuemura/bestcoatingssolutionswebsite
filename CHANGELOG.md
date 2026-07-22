@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Phase 1 — shared UI, navigation, and EN/ES architecture:**
+  - UI primitives (`components/ui`), header/footer, desktop + mobile nav, skip link.
+  - Lightweight i18n (`/en`, `/es`), dictionaries, language switcher, middleware.
+  - Launch route registry, site/social/estimate-policy/divisions/trust config.
+  - Typed content models (`types/content.ts`), expanded Marine/Aviation services.
+  - Motion tokens + reduced-motion foundations (`animations/`).
 - **Strategic launch documentation** (gate before production UI):
   - `BRAND_GUIDE.md` — full brand manual (logo, voice, print, wraps, email, …).
   - `HOME_EXPERIENCE.md` — WOW emotional arc, story sections, animation catalogue.

@@ -38,6 +38,13 @@ standard, case studies, brand manual, performance targets, future backlog):
 - EN/ES language framework.
 - Content models: services, case studies, media, social, trust pillars.
 - Route registry for first-release paths (incl. `/service-area`).
+- Division status (`active` | `preview` | `coming-soon`); Aviation defaults to
+  coming-soon until owner confirmation.
+- Social: Instagram/Facebook disabled without URLs; TikTok hidden.
+- Estimate policy config (Fort Lauderdale free estimates only).
+- Motion tokens + reduced-motion foundations (homepage motion is Phase 2).
+
+**Shell only in this phase — premium homepage is Phase 2.**
 
 ## Phase 2 — Premium homepage (WOW)
 

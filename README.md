@@ -10,10 +10,10 @@ fast, accessible, SEO-first marketing site with a clean architecture prepared fo
 a future authenticated Customer Portal and business-platform integrations
 (Supabase, Stripe, Vercel).
 
-> **Status: Foundation + strategic docs.** Engineering scaffolding is complete,
-> and launch strategy docs are in place. Marketing UI and the premium homepage
-> are built next — see [`ROADMAP.md`](./ROADMAP.md). The current `/` route remains
-> an intentional minimal placeholder until Phase 2.
+> **Status: Phase 1 in progress.** Foundation and strategic docs are on `main`.
+> Shared UI, navigation, and EN/ES architecture ship next — see
+> [`ROADMAP.md`](./ROADMAP.md). The homepage remains a shell until Phase 2.
+
 
 ## Tech stack
 
