@@ -17,6 +17,7 @@ export const es = {
     closeMenu: 'Cerrar menú',
     language: 'Idioma',
     home: 'Inicio de Best Coatings Solutions',
+    breadcrumbs: 'Miga de pan',
     beforeAfterSlider: 'Comparación antes y después',
     beforeLabel: 'Antes',
     afterLabel: 'Después',
@@ -44,12 +45,15 @@ export const es = {
     portal: 'Portal del cliente',
   },
   cta: {
-    estimate: 'Solicitar estimado',
+    estimate: 'Solicitar estimado gratuito',
     schedule: 'Programar visita',
     call: 'Llamar',
+    callBcs: 'Llamar a Best Coatings Solutions',
     exploreMarine: 'Explorar Marina',
     learnAviation: 'Conocer Aviación',
     viewProjects: 'Ver proyectos',
+    viewServices: 'Ver servicios marinos',
+    contactUs: 'Contáctenos',
   },
   divisionStatus: {
     active: 'Activo',
@@ -76,10 +80,113 @@ export const es = {
       'Recubrimientos móviles premium para marina y aviación. La interfaz compartida, la navegación y la arquitectura en inglés/español ya están listas. La página de inicio premium llega después.',
     pageLead:
       'Esta ruta está registrada para el lanzamiento. El contenido completo llega en una fase posterior.',
-    comingSoonBody: 'El contenido de esta página llegará pronto.',
-    mediaLabel: 'Medio provisional — no es una foto de un proyecto de BCS',
+    comingSoonBody:
+      'Próximamente — el contenido de esta página aún no está listo.',
+    mediaLabel:
+      'Imagen provisional — no es una foto de un proyecto de BCS ni trabajo real',
     projectLabel:
-      'Estructura de caso de estudio provisional — proyecto real pendiente de aprobación',
+      'Proyecto futuro — solo marco provisional; no es un caso de estudio completado de BCS',
+    emptyProjects:
+      'Próximamente — aún no hay proyectos publicados. Los casos de estudio aprobados aparecerán aquí.',
+  },
+  pages: {
+    marine: {
+      metaTitle: 'División Marina | Best Coatings Solutions',
+      metaDescription:
+        'Recubrimientos marinos móviles, gelcoat, fibra, pintura y reparación cosmética en el sur de Florida — desde Jupiter hacia el sur.',
+      eyebrow: 'División',
+      title: 'Marina',
+      lead: 'Refinish marino móvil de precisión y cuidado de compuestos en la embarcación — gelcoat, fibra, pintura y restauración cosmética.',
+      overviewTitle: 'Descripción general',
+      overview:
+        'Best Coatings Solutions atiende yates y embarcaciones con restauración disciplinada de superficies. Trabajamos donde las condiciones lo permiten — marinas, astilleros y residencias — con comunicación clara y sin precios en el sitio.',
+      capabilitiesTitle: 'Capacidades',
+      capabilities: [
+        'Reparación y refinamiento de gelcoat',
+        'Reparación de fibra y compuestos',
+        'Sistemas de pintura y refinamiento',
+        'Restauración de casco y trabajo cosmético de yates',
+        'Coincidencia de color y reparaciones relacionadas con seguro',
+      ],
+      servicesCtaTitle: 'Servicios marinos',
+      servicesCtaBody:
+        'Explore páginas de servicio individuales para problemas que resolvemos, nuestro proceso y cómo solicitar un estimado.',
+    },
+    aviation: {
+      metaTitle: 'División Aviación — Próximamente | BCS',
+      metaDescription:
+        'Vista previa de recubrimientos de aviación de Best Coatings Solutions. Las operaciones aún no están activas — solo filosofía de calidad y capacidades futuras.',
+      eyebrow: 'División',
+      title: 'Aviación',
+      lead: 'Una división futura para refinish de aeronaves y cuidado de compuestos — preparada con la misma disciplina de acabado que nuestro trabajo marino.',
+      overviewTitle: 'Descripción general',
+      overview:
+        'Aviación permanece como vista previa. Estamos preparando capacidades para hangares e instalaciones asociadas donde esté permitido. No se ofrecen operaciones de aviación activas en este momento.',
+      futureTitle: 'Capacidades futuras',
+      future: [
+        'Refinish de aeronaves',
+        'Reparación de compuestos y pintura puntual',
+        'Refinamiento metálico y protección cerámica',
+        'Refinamiento de componentes interiores',
+        'Servicio móvil o en instalación asociada donde esté permitido',
+      ],
+      qualityTitle: 'Filosofía de calidad',
+      quality:
+        'La misma mesura que define nuestros acabados marinos guiará el trabajo de aviación: preparación cuidadosa, alcance honesto y nunca inventar capacidades que aún no estamos listos para entregar.',
+      contactTitle: 'Manténgase en contacto',
+      contactBody:
+        '¿Preguntas sobre las capacidades futuras de aviación? Contacte a Best Coatings Solutions para consultas generales. Las reservas de aviación y los estimados específicos de aviación no están disponibles mientras esta división permanece como Próximamente.',
+      noBookingNotice:
+        'Próximamente — no hay reservas de aviación actuales ni solicitudes de estimado específicas de aviación.',
+      notice:
+        'Próximamente — las operaciones de aviación no están activas actualmente. Esta página es solo una vista previa de capacidades futuras.',
+    },
+    services: {
+      metaTitle: 'Servicios marinos | Best Coatings Solutions',
+      metaDescription:
+        'Índice de servicios marinos: gelcoat, fibra, pintura, restauración de casco, cosmética de yates, coincidencia de color y reparación por seguro.',
+      eyebrow: 'Marina',
+      title: 'Servicios marinos',
+      lead: 'Páginas detalladas de los servicios marinos que realizamos hoy. Aviación no tiene catálogo público mientras permanece como Próximamente.',
+      indexNote:
+        'Seleccione un servicio para leer problemas comunes, nuestro proceso, por qué elegir BCS y cómo solicitar un estimado gratuito.',
+      relatedTitle: 'Servicios relacionados',
+      relatedBody:
+        'Explore servicios marinos relacionados que a menudo se combinan con este trabajo.',
+      links: {
+        heading: 'Páginas relacionadas',
+        marineDivision: 'División marina',
+        servicesIndex: 'Todos los servicios marinos',
+        contact: 'Contacto',
+      },
+    },
+    projects: {
+      metaTitle: 'Proyectos | Best Coatings Solutions',
+      metaDescription:
+        'Marco de proyectos y casos de estudio para Best Coatings Solutions. Los proyectos reales aparecen solo tras aprobación — sin trabajo inventado.',
+      eyebrow: 'Marco de portafolio',
+      title: 'Proyectos',
+      lead: 'Esta página define cómo se presentarán futuros casos de estudio. No inventamos proyectos ni presentamos fotografía incompleta como trabajo de BCS.',
+      frameworkTitle: 'Marco de caso de estudio',
+      frameworkBody:
+        'Cada Proyecto futuro puede incluir título, categoría, problema, reparación, materiales, cronograma, imágenes, resultados y una llamada a la acción clara.',
+      labels: {
+        category: 'Categoría',
+        problem: 'Problema',
+        repair: 'Reparación',
+        materials: 'Materiales',
+        timeline: 'Cronograma',
+        results: 'Resultados',
+        images: 'Espacios de imagen provisional',
+        cta: 'Solicitar estimado gratuito para un trabajo similar',
+      },
+    },
+    estimateShared: {
+      title: 'Solicitar un estimado gratuito',
+      body: 'Cuéntenos sobre la embarcación y la ubicación. Respondemos con claridad — nunca con precios en el sitio.',
+      notice:
+        'Los estimados gratuitos están disponibles solo en el área de Fort Lauderdale. Otras ubicaciones pueden requerir revisión o arreglos de viaje.',
+    },
   },
   trust: {
     'mobile-service': 'Servicio móvil',

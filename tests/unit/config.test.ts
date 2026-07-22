@@ -44,7 +44,7 @@ describe('services catalogue', () => {
   it('splits services by division', () => {
     const marine = servicesByDivision('marine');
     const aviation = servicesByDivision('aviation');
-    expect(marine.length).toBeGreaterThan(0);
+    expect(marine.length).toBe(8);
     expect(aviation.length).toBeGreaterThan(0);
     expect(marine.length + aviation.length).toBe(services.length);
   });
