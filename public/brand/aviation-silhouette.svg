@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-hidden="true">
+  <!-- Decorative aviation silhouette  preview only, not operational photography -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0f2340" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#050d18" stop-opacity="0.9"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="600" fill="url(#sky)"/>
+  <path fill="#cbd3dc" fill-opacity="0.2" d="M180 320h520l60-18 40 18h220v28H180z"/>
+  <path fill="#f4f6f8" fill-opacity="0.28" d="M420 300c80-4 200-8 280 4l-20 28H440l-20-32z"/>
+  <path fill="#9aa7b5" fill-opacity="0.35" d="M250 348h700v10H250z"/>
+  <circle cx="300" cy="352" r="18" fill="#0a1a2f" stroke="#3b9dff" stroke-opacity="0.4"/>
+  <circle cx="900" cy="352" r="18" fill="#0a1a2f" stroke="#3b9dff" stroke-opacity="0.4"/>
+</svg>

@@ -54,4 +54,48 @@ body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+
+  .bcs-ocean-texture {
+    animation: none !important;
+  }
+}
+
+/* Subtle reflective / ocean atmosphere — CSS only, homepage hero */
+.bcs-ocean-texture {
+  background-image:
+    radial-gradient(
+      ellipse at 30% 70%,
+      rgba(59, 157, 255, 0.08),
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 70% 80%,
+      rgba(10, 132, 255, 0.06),
+      transparent 45%
+    ),
+    repeating-linear-gradient(
+      110deg,
+      transparent 0,
+      transparent 18px,
+      rgba(244, 246, 248, 0.015) 18px,
+      rgba(244, 246, 248, 0.015) 19px
+    );
+  mix-blend-mode: screen;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .bcs-ocean-texture {
+    animation: bcs-shimmer 14s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes bcs-shimmer {
+  from {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.55;
+  }
+  to {
+    transform: translate3d(0, -1.5%, 0);
+    opacity: 0.75;
+  }
 }

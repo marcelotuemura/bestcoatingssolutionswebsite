@@ -50,10 +50,11 @@ standard, case studies, brand manual, performance targets, future backlog):
 
 - Story sections per [`HOME_EXPERIENCE.md`](./HOME_EXPERIENCE.md):
   Hero → Who We Are → Marine → Aviation → Why BCS → Featured Project →
-  Before & After → Our Process → Service Area → Request Estimate →
-  Portal Coming Soon → Footer.
-- Full animation catalogue (no improvisation).
+  Before & After → Our Process → Service Area → Request Estimate → Footer.
+- Full animation catalogue (no improvisation); portal teaser remains disabled.
 - Hit performance budget (Performance **95+**, a11y/SEO/BP **100**).
+
+**In progress / PR:** premium homepage implementation.
 
 ## Phase 3 — Marine, Aviation & Services
 

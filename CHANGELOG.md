@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Phase 2 — premium multilingual homepage:**
+  - Animated hero (logo reveal, light sweep, ocean atmosphere) with reduced-motion path.
+  - Story sections: Who We Are, Marine, Aviation (Coming soon), Why BCS, Featured
+    Project framework, Before & After slider, Process, Service Area, Estimate CTAs.
+  - Temporary replaceable brand SVG assets under `public/brand/`.
+  - Framer Motion as a runtime dependency; motion isolated to client islands.
 - **Phase 1 — shared UI, navigation, and EN/ES architecture:**
   - UI primitives (`components/ui`), header/footer, desktop + mobile nav, skip link.
   - Lightweight i18n (`/en`, `/es`), dictionaries, language switcher, middleware.

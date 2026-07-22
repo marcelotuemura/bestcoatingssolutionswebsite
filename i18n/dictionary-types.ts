@@ -1,10 +1,10 @@
 /**
  * Deeply widen string literal fields so EN/ES dictionaries share one shape.
  */
-export type DictionaryShape<T> = {
-  readonly [K in keyof T]: T[K] extends string
-    ? string
-    : T[K] extends Record<string, unknown>
-      ? DictionaryShape<T[K]>
-      : T[K];
-};
+export type DictionaryShape<T> = T extends string
+  ? string
+  : T extends readonly (infer U)[]
+    ? readonly DictionaryShape<U>[]
+    : T extends object
+      ? { readonly [K in keyof T]: DictionaryShape<T[K]> }
+      : T;

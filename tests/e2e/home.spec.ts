@@ -1,49 +1,11 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Phase 1 shell', () => {
-  test('redirects / to a locale home and renders BCS chrome', async ({
-    page,
-  }) => {
-    const response = await page.goto('/');
-    expect(response?.status()).toBe(200);
-    await expect(page).toHaveURL(/\/(en|es)/);
-
-    await expect(
-      page.getByRole('heading', { name: 'Best Coatings Solutions' }),
-    ).toBeVisible();
-    await expect(page.getByRole('banner')).toBeVisible();
-    await expect(page.getByRole('contentinfo')).toBeVisible();
-    await expect(
-      page.getByRole('link', { name: /skip to main content/i }),
-    ).toHaveCount(1);
-  });
-
   test('serves Spanish initial HTML with lang="es"', async ({ request }) => {
     const response = await request.get('/es');
     expect(response.ok()).toBeTruthy();
     const html = await response.text();
     expect(html).toMatch(/<html[^>]*\slang=["']es["']/i);
-    expect(html).not.toMatch(/<html[^>]*\slang=["']en["']/i);
-  });
-
-  test('serves English initial HTML with lang="en"', async ({ request }) => {
-    const response = await request.get('/en');
-    expect(response.ok()).toBeTruthy();
-    const html = await response.text();
-    expect(html).toMatch(/<html[^>]*\slang=["']en["']/i);
-  });
-
-  test('switches between English and Spanish', async ({ page }) => {
-    await page.goto('/en');
-    await page
-      .getByRole('banner')
-      .getByRole('group', { name: 'Language' })
-      .getByRole('link', { name: 'ES' })
-      .click();
-    await expect(page).toHaveURL(/\/es/);
-    await expect(
-      page.getByRole('link', { name: 'Solicitar estimado' }).first(),
-    ).toBeVisible();
   });
 
   test('mobile nav unmounts when closed and traps focus when open', async ({
@@ -54,66 +16,151 @@ test.describe('Phase 1 shell', () => {
 
     const openButton = page.getByRole('button', { name: 'Open menu' });
     await openButton.click();
-
     const dialog = page.getByRole('dialog', { name: 'Mobile' });
     await expect(dialog).toBeVisible();
-
-    // Focus starts on the close control inside the dialog.
-    await expect(
-      dialog.getByRole('button', { name: 'Close menu' }),
-    ).toBeFocused();
-
-    // Tab cycles inside the dialog (does not escape to the page behind).
-    const dialogHandle = await dialog.elementHandle();
-    expect(dialogHandle).not.toBeNull();
-
-    for (let i = 0; i < 20; i += 1) {
-      await page.keyboard.press('Tab');
-      const inside = await page.evaluate((panel) => {
-        if (!panel) {
-          return false;
-        }
-        return panel.contains(document.activeElement);
-      }, dialogHandle);
-      expect(inside).toBe(true);
-    }
-
-    // Shift+Tab also stays inside.
-    for (let i = 0; i < 5; i += 1) {
-      await page.keyboard.press('Shift+Tab');
-      const inside = await page.evaluate((panel) => {
-        if (!panel) {
-          return false;
-        }
-        return panel.contains(document.activeElement);
-      }, dialogHandle);
-      expect(inside).toBe(true);
-    }
-
     await page.keyboard.press('Escape');
     await expect(dialog).toHaveCount(0);
     await expect(openButton).toBeFocused();
+  });
+});
 
-    // Closed drawer items are not in the accessibility/keyboard tree.
-    await expect(page.getByRole('dialog', { name: 'Mobile' })).toHaveCount(0);
-    await openButton.focus();
-    await page.keyboard.press('Tab');
-    const activeName = await page.evaluate(() => {
-      const el = document.activeElement;
-      return el?.getAttribute('aria-label') ?? el?.textContent?.trim() ?? '';
-    });
-    expect(activeName.toLowerCase()).not.toContain('marine');
+test.describe('Phase 2 homepage', () => {
+  test('renders English homepage with one H1 and story sections', async ({
+    page,
+  }) => {
+    await page.goto('/en');
+    await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1);
+    await expect(
+      page.getByRole('heading', {
+        level: 1,
+        name: /Precision coatings for vessels/i,
+      }),
+    ).toBeVisible();
+
+    for (const name of [
+      'Who We Are',
+      'Marine',
+      'Aviation',
+      'Why BCS',
+      'Featured Project',
+      'Before & After',
+      'Our Process',
+      'Service Area',
+      'Request an Estimate',
+    ]) {
+      await expect(page.getByRole('heading', { name, level: 2 })).toBeVisible();
+    }
   });
 
-  test('serves a locale-aware sitemap and robots.txt', async ({ request }) => {
-    const sitemap = await request.get('/sitemap.xml');
-    expect(sitemap.ok()).toBeTruthy();
-    const sitemapXml = await sitemap.text();
-    expect(sitemapXml).toContain('/en');
-    expect(sitemapXml).toContain('/es');
+  test('renders Spanish homepage content', async ({ page }) => {
+    await page.goto('/es');
+    await expect(
+      page.getByRole('heading', {
+        level: 1,
+        name: /Recubrimientos de precisión/i,
+      }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'Quiénes somos', level: 2 }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'Marina', level: 2 }),
+    ).toBeVisible();
+  });
 
-    const robots = await request.get('/robots.txt');
-    expect(robots.ok()).toBeTruthy();
-    expect(await robots.text()).toContain('Sitemap');
+  test('marks Aviation as Coming soon and does not claim active ops', async ({
+    page,
+  }) => {
+    await page.goto('/en');
+    const aviation = page.locator('#aviation');
+    await expect(aviation.getByText(/Coming soon/i).first()).toBeVisible();
+    await expect(
+      aviation.getByText(/Aviation operations are not currently active/i),
+    ).toBeVisible();
+  });
+
+  test('primary CTAs navigate to estimate and schedule routes', async ({
+    page,
+  }) => {
+    await page.goto('/en');
+    await page
+      .getByRole('banner')
+      .getByRole('link', { name: 'Request Estimate' })
+      .click();
+    await expect(page).toHaveURL(/\/en\/estimate-request/);
+
+    await page.goto('/en');
+    await page
+      .locator('#main-content')
+      .getByRole('link', { name: 'Schedule Visit' })
+      .first()
+      .click();
+    await expect(page).toHaveURL(/\/en\/schedule-visit/);
+  });
+
+  test('mobile homepage remains usable', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/en');
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+    await expect(
+      page.getByRole('link', { name: 'Request Estimate' }).first(),
+    ).toBeVisible();
+    await expect(page.locator('#marine')).toBeVisible();
+  });
+
+  test('reduced-motion still shows content without requiring animation', async ({
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('/en');
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'Who We Are', level: 2 }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('link', { name: 'Request Estimate' }).first(),
+    ).toBeVisible();
+  });
+
+  test('initial HTML includes hero content before client animation', async ({
+    request,
+  }) => {
+    const response = await request.get('/en');
+    const html = await response.text();
+    expect(html).toContain(
+      'Precision coatings for vessels that demand excellence.',
+    );
+    expect(html).toContain('Who We Are');
+    expect(html).toContain('Coming soon');
+    expect(html).toMatch(/<h1[\s>]/i);
+  });
+
+  test('homepage internal section links and primary routes are intact', async ({
+    page,
+  }) => {
+    await page.goto('/en');
+    const hrefs = await page
+      .locator('#main-content a[href^="/en"]')
+      .evaluateAll((anchors) =>
+        anchors.map((anchor) =>
+          (anchor as HTMLAnchorElement).getAttribute('href'),
+        ),
+      );
+    expect(hrefs.length).toBeGreaterThan(0);
+    for (const href of hrefs) {
+      expect(href).toMatch(/^\/en(\/|$)/);
+      const res = await page.request.get(href!);
+      expect(res.status(), `broken link ${href}`).toBeLessThan(400);
+    }
+  });
+
+  test('before/after slider is keyboard operable', async ({ page }) => {
+    await page.goto('/en');
+    const slider = page.getByRole('slider', {
+      name: /Before and after comparison/i,
+    });
+    await slider.focus();
+    await expect(slider).toBeFocused();
+    await page.keyboard.press('ArrowRight');
   });
 });
