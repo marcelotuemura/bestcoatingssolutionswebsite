@@ -221,7 +221,9 @@ test.describe('Phase 4 — Schedule, legal, thank you, 404', () => {
     await page.goto('/en/this-page-does-not-exist');
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
     await expect(
-      page.getByRole('link', { name: /Request Free Estimate/i }),
+      page
+        .locator('#main-content')
+        .getByRole('link', { name: /Request Free Estimate/i }),
     ).toBeVisible();
 
     const service404 = await request.get('/en/services/not-a-real-service');
