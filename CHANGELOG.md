@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Strategic launch documentation** (gate before production UI):
+  - `BRAND_GUIDE.md` — identity, voice, visual direction, non-negotiables.
+  - `HOME_EXPERIENCE.md` — homepage section order and animation contract.
+  - `CUSTOMER_JOURNEY.md` — audience paths from discovery to lead forms.
+  - `PHOTOGRAPHY_GUIDE.md` — media standards and owner asset checklist.
+  - `CASE_STUDIES_GUIDE.md` — honest project/proof publishing rules.
+  - `FUTURE_PLATFORM.md` — monorepo/portal readiness without migrating now.
+  - `PERFORMANCE_BUDGET.md` — Core Web Vitals, JS, media, and motion budgets.
 - **Project foundation** (engineering scaffolding, no marketing pages yet):
   - Next.js (App Router) + React 19 + TypeScript (strict) base.
   - Tailwind CSS v4 with BCS brand tokens via `@theme`.

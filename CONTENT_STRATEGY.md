@@ -17,6 +17,10 @@ Two buyer contexts inform tone and proof:
 Messaging leads with outcomes (finish quality, asset protection, minimal
 downtime) and the **mobile service** advantage (we come to the vessel/aircraft).
 
+See also [`BRAND_GUIDE.md`](./BRAND_GUIDE.md),
+[`CUSTOMER_JOURNEY.md`](./CUSTOMER_JOURNEY.md), and
+[`CASE_STUDIES_GUIDE.md`](./CASE_STUDIES_GUIDE.md).
+
 ## Content model (content-as-data)
 
 Structured content lives in typed modules so it stays consistent across pages,

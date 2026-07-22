@@ -10,11 +10,10 @@ fast, accessible, SEO-first marketing site with a clean architecture prepared fo
 a future authenticated Customer Portal and business-platform integrations
 (Supabase, Stripe, Vercel).
 
-> **Status: Foundation phase.** The engineering foundation (tooling, CI, testing,
-> SEO scaffolding, architecture) is complete. Marketing pages, components and the
-> premium homepage experience are built in later phases — see
-> [`ROADMAP.md`](./ROADMAP.md). The current `/` route is an intentional minimal
-> placeholder so the toolchain is verifiable end-to-end.
+> **Status: Foundation + strategic docs.** Engineering scaffolding is complete,
+> and launch strategy docs are in place. Marketing UI and the premium homepage
+> are built next — see [`ROADMAP.md`](./ROADMAP.md). The current `/` route remains
+> an intentional minimal placeholder until Phase 2.
 
 ## Tech stack
 
@@ -87,6 +86,13 @@ docs/         Architecture, wireframes, branding, assets
 | -------------------------------------------- | --------------------------------------- |
 | [`PROJECT_OVERVIEW.md`](./PROJECT_OVERVIEW.md) | Vision, scope, architecture principles |
 | [`ROADMAP.md`](./ROADMAP.md)                 | Phased delivery plan                    |
+| [`BRAND_GUIDE.md`](./BRAND_GUIDE.md)         | Brand identity, voice, non-negotiables  |
+| [`HOME_EXPERIENCE.md`](./HOME_EXPERIENCE.md) | Homepage sections & animation contract  |
+| [`CUSTOMER_JOURNEY.md`](./CUSTOMER_JOURNEY.md) | Discovery → estimate/visit journey    |
+| [`PHOTOGRAPHY_GUIDE.md`](./PHOTOGRAPHY_GUIDE.md) | Media standards & owner checklist    |
+| [`CASE_STUDIES_GUIDE.md`](./CASE_STUDIES_GUIDE.md) | Project/proof publishing rules     |
+| [`FUTURE_PLATFORM.md`](./FUTURE_PLATFORM.md) | Monorepo/portal readiness (not now)   |
+| [`PERFORMANCE_BUDGET.md`](./PERFORMANCE_BUDGET.md) | CWV, JS, media, motion budgets    |
 | [`CONTRIBUTING.md`](./CONTRIBUTING.md)       | Branching, commits, workflow            |
 | [`DESIGN_SYSTEM.md`](./DESIGN_SYSTEM.md)     | Brand tokens, typography, motion        |
 | [`SEO_STRATEGY.md`](./SEO_STRATEGY.md)       | SEO, metadata, structured data          |
