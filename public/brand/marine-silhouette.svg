@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-hidden="true">
+  <!-- Decorative marine silhouette  not a photograph of BCS work -->
+  <defs>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a1a2f" stop-opacity="0"/>
+      <stop offset="55%" stop-color="#0a1a2f" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#050d18" stop-opacity="0.85"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="600" fill="url(#sea)"/>
+  <path fill="#cbd3dc" fill-opacity="0.18" d="M80 390c120-40 220-70 340-66 90 3 150 28 230 22 95-7 170-40 280-36 70 3 120 18 190 14v46c-80 8-150-4-230 4-95 10-170 48-275 52-120 5-230-16-360 8-55 10-110 18-175 14v-58z"/>
+  <path fill="#f4f6f8" fill-opacity="0.22" d="M210 360c40-8 70-4 110 8l30-42c8-10 22-12 32-4l28 22c14-30 48-48 86-42 18 3 34 12 46 26l18-8c12-5 26-1 32 10l22 38c36 6 68 22 88 48H210v-56z"/>
+  <path fill="#0a84ff" fill-opacity="0.25" d="M0 470h1200v130H0z"/>
+</svg>

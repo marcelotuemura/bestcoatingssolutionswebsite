@@ -14,6 +14,9 @@ importers:
       '@vercel/analytics':
         specifier: ^1.4.1
         version: 1.6.1(next@15.5.21(@babel/core@7.29.7)(@playwright/test@1.61.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)
+      framer-motion:
+        specifier: ^12.0.0
+        version: 12.42.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       next:
         specifier: ^15.5.4
         version: 15.5.21(@babel/core@7.29.7)(@playwright/test@1.61.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -81,9 +84,6 @@ importers:
       eslint-config-prettier:
         specifier: ^9.1.0
         version: 9.1.2(eslint@9.39.5(jiti@2.7.0))
-      framer-motion:
-        specifier: ^12.0.0
-        version: 12.42.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       husky:
         specifier: ^9.1.7
         version: 9.1.7
