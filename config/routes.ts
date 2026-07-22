@@ -101,6 +101,14 @@ export const routes = {
     priority: 0.8,
     launch: true,
   },
+  thankYou: {
+    path: '/thank-you',
+    labelKey: 'thankYou',
+    sitemap: false,
+    changeFrequency: 'yearly',
+    priority: 0.1,
+    launch: true,
+  },
   contact: {
     path: '/contact',
     labelKey: 'contact',

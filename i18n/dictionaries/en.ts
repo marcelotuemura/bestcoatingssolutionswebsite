@@ -1,4 +1,7 @@
+import { conversionEn } from '@/i18n/dictionaries/conversion-en';
+
 export const en = {
+  conversion: conversionEn,
   meta: {
     titleDefault: 'Best Coatings Solutions — Marine & Aviation Coatings',
     titleTemplate: '%s | BCS',
@@ -31,6 +34,7 @@ export const en = {
     serviceArea: 'Service Area',
     scheduleVisit: 'Schedule Visit',
     estimateRequest: 'Request Estimate',
+    thankYou: 'Thank You',
     contact: 'Contact',
     privacy: 'Privacy',
     terms: 'Terms',
