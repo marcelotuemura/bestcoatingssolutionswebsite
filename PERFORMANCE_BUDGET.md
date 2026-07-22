@@ -1,99 +1,85 @@
 # Performance Budget
 
-Performance is a launch requirement for the BCS marketing site: mobile-first,
-Server Components by default, animation only on the homepage, and no layout
-shift from media or motion.
+Measurable performance and quality goals for the BCS public website. Emotion on
+the homepage is required; failing scores are not an acceptable trade.
 
-Related: [`DEPLOYMENT.md`](./DEPLOYMENT.md),
-[`HOME_EXPERIENCE.md`](./HOME_EXPERIENCE.md),
-[`ACCESSIBILITY.md`](./ACCESSIBILITY.md),
-[`SEO_STRATEGY.md`](./SEO_STRATEGY.md).
+Related: [`DEPLOYMENT.md`](./DEPLOYMENT.md), [`HOME_EXPERIENCE.md`](./HOME_EXPERIENCE.md),
+[`ACCESSIBILITY.md`](./ACCESSIBILITY.md), [`SEO_STRATEGY.md`](./SEO_STRATEGY.md).
 
-## Targets
+## Lighthouse targets (mobile, production or PR preview)
 
-| Metric | Target | Notes |
-|--------|--------|-------|
-| Lighthouse Performance (mobile) | **90+** where practical | Home + key templates |
-| LCP | < 2.5s | Mid-tier mobile, production or preview |
-| CLS | < 0.1 | Explicit image dimensions; reserved space |
-| INP | < 200ms | Limit client JS; defer non-critical work |
-| TTFB | Keep low via static/ISR where possible | Vercel edge |
+| Category | Target | Gate |
+|----------|--------|------|
+| **Performance** | **95+** | Must justify any score below 95 in the PR; below 90 is a blocker |
+| **Accessibility** | **100** | Blocker if under 100 |
+| **Best Practices** | **100** | Blocker if under 100 |
+| **SEO** | **100** | Blocker if under 100 |
 
-Accessibility and SEO audits are separate gates but often move with performance
-(contrast, semantics, metadata do not excuse a heavy bundle).
+Run Lighthouse on:
+
+1. Homepage `/` (or `/en`)  
+2. One division page (e.g. `/marine`)  
+3. One form page (e.g. `/estimate-request`)  
+
+Record scores in the PR when claiming Phase 2+ or launch readiness.
+
+## Core Web Vitals
+
+| Metric | Target |
+|--------|--------|
+| LCP | < 2.5s (prefer < 2.0s on homepage LCP element) |
+| CLS | < 0.1 |
+| INP | < 200ms |
+| TTFB | Keep low via static/ISR where possible |
 
 ## JavaScript budget
 
 | Surface | Policy |
 |---------|--------|
-| Default | React **Server Components** — zero client JS unless required |
-| Homepage | Client islands only for Framer Motion / division interaction |
-| Other routes | **No** page-level animation libraries |
-| Forms | Client only for RHF interaction; server actions for submit |
-| Analytics | Prefer Vercel Analytics already wired; no extra heavy tags without approval |
+| Default | Server Components — no client JS unless required |
+| Homepage | Client islands only for motion, parallax (desktop), before/after slider |
+| Other routes | No page-level animation libraries |
+| Forms | Client for RHF; submit via Server Actions |
+| Analytics | Vercel Analytics; no extra heavy tag managers without approval |
 
-Framer Motion must ship as a **runtime dependency** when the homepage is
-implemented (not only a devDependency).
+Move Framer Motion to a **runtime dependency** when homepage motion ships.
 
-**Soft budget (guidance):** keep homepage hydrated JS lean; treat unexpected
-growth in client chunks as a PR blocker if Lighthouse regresses below target
-without justification.
+Treat unexpected client-chunk growth as a review issue if Lighthouse Performance
+drops below **95** without an approved exception.
 
 ## Asset budget
 
 | Asset | Guidance |
 |-------|----------|
-| LCP image | One prioritized `next/image` (or logo SVG); no video as LCP |
-| Images | AVIF/WebP; `sizes` set; lazy below fold |
-| Hero video (if any) | Short, compressed, optional enhancement — never required for content |
-| Fonts | `next/font` with `display: swap`; subset Latin (+ required Spanish glyphs) |
-| Icons | Inline SVG or minimal set; no mega icon packs |
+| LCP | Prioritized still or SVG logo lockup — **not** video |
+| Images | `next/image`, AVIF/WebP, explicit dimensions, lazy below fold |
+| Hero video | Optional enhancement only; never required to understand content |
+| Fonts | `next/font`, `display: swap`, subset for EN/ES |
+| Icons | Inline SVG / minimal set |
 
 ## Animation budget
 
-- Homepage only; see [`HOME_EXPERIENCE.md`](./HOME_EXPERIENCE.md).
-- Motion must not block content paint or trap focus.
-- `prefers-reduced-motion: reduce` → static equivalent, same information.
-- No scroll-jacking; smooth scroll disabled under reduced motion (globals).
+- Premium motion: homepage only ([`HOME_EXPERIENCE.md`](./HOME_EXPERIENCE.md)).
+- Transform/opacity preferred; no layout-thrashing animation.
+- `prefers-reduced-motion: reduce` → static equivalents; same information.
+- No scroll-jacking; no blocking multi-second load screens.
 
 ## Layout stability
 
-- Width/height (or aspect-ratio boxes) for all images and embeds.
-- Skeletons/reserves for form status regions if they push content.
-- Avoid inserting late-loading banners above existing content.
+- Width/height or aspect-ratio boxes for media and embeds.
+- Reserve space for form status messages.
+- No late-loading banners inserting above content.
 
-## Caching & rendering
+## Anti-patterns (reject)
 
-- Marketing pages: static where possible.
-- Sitemap/robots: generated, cheap.
-- Forms: dynamic POST via server actions; success UI local.
-- `NEXT_PUBLIC_SITE_URL` correct per environment so OG/canonical work without
-  client fix-ups.
+- WebGL / large 3D heroes  
+- Autoplay full-bleed HD video backgrounds  
+- Animation libraries in the root layout for all routes  
+- Unsized images  
+- Duplicate analytics stacks  
+- Client fetching for static marketing copy  
 
 ## Measurement process
-
-Before marking Phase 2+ complete and before production approval:
-
-1. `pnpm build` and serve production locally or use Vercel preview.
-2. Lighthouse mobile on `/`, a division page, and a form page.
-3. Confirm LCP element is intentional.
-4. Spot-check throttling (Slow 4G) on homepage hero.
-5. Re-run with reduced-motion enabled (OS setting).
-
-Record scores in the PR description when claiming a phase complete.
-
-## Anti-patterns (reject in review)
-
-- WebGL / large 3D heroes
-- Autoplay full-bleed HD video backgrounds
-- Animation libraries imported from the root layout for all routes
-- Unsized images or CSS that shifts on font load
-- Duplicate analytics/GTM stacks
-- Client-side fetching for static marketing copy
-
-## Relationship to quality gates
-
-Every phase still requires:
 
 ```bash
 pnpm typecheck
@@ -102,12 +88,11 @@ pnpm test
 pnpm build
 ```
 
-Performance budget checks are **additional** for homepage and launch (Phase 2,
-Phase 6, Phase 7). A green unit suite does not waive a failed LCP/CLS on the
-hero.
+Then production-mode Lighthouse (local `pnpm start` or Vercel preview), plus
+Playwright for navigation/forms. Reduced-motion OS setting spot-check on home.
 
-## When to break a target
+## Exceptions
 
-Only with explicit product approval (e.g. a temporary media placeholder that is
-oversized). Document the exception, the expiry condition, and the follow-up
-task. Default is: **fix within budget**.
+Only with explicit product approval, written expiry, and a follow-up task.
+Default: **hit the table** — Performance 95+, Accessibility 100, Best Practices
+100, SEO 100.

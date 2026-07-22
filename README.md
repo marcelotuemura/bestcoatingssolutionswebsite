@@ -86,13 +86,14 @@ docs/         Architecture, wireframes, branding, assets
 | -------------------------------------------- | --------------------------------------- |
 | [`PROJECT_OVERVIEW.md`](./PROJECT_OVERVIEW.md) | Vision, scope, architecture principles |
 | [`ROADMAP.md`](./ROADMAP.md)                 | Phased delivery plan                    |
-| [`BRAND_GUIDE.md`](./BRAND_GUIDE.md)         | Brand identity, voice, non-negotiables  |
-| [`HOME_EXPERIENCE.md`](./HOME_EXPERIENCE.md) | Homepage sections & animation contract  |
-| [`CUSTOMER_JOURNEY.md`](./CUSTOMER_JOURNEY.md) | Discovery → estimate/visit journey    |
-| [`PHOTOGRAPHY_GUIDE.md`](./PHOTOGRAPHY_GUIDE.md) | Media standards & owner checklist    |
-| [`CASE_STUDIES_GUIDE.md`](./CASE_STUDIES_GUIDE.md) | Project/proof publishing rules     |
-| [`FUTURE_PLATFORM.md`](./FUTURE_PLATFORM.md) | Monorepo/portal readiness (not now)   |
-| [`PERFORMANCE_BUDGET.md`](./PERFORMANCE_BUDGET.md) | CWV, JS, media, motion budgets    |
+| [`BRAND_GUIDE.md`](./BRAND_GUIDE.md)         | Full brand manual (web + physical)      |
+| [`HOME_EXPERIENCE.md`](./HOME_EXPERIENCE.md) | WOW arc, story sections, animation catalogue |
+| [`CUSTOMER_JOURNEY.md`](./CUSTOMER_JOURNEY.md) | Emotional funnel land → customer     |
+| [`PHOTOGRAPHY_GUIDE.md`](./PHOTOGRAPHY_GUIDE.md) | Complete photography & media standard |
+| [`CASE_STUDIES_GUIDE.md`](./CASE_STUDIES_GUIDE.md) | Problem→Result case study stories  |
+| [`PERFORMANCE_BUDGET.md`](./PERFORMANCE_BUDGET.md) | Lighthouse 95 / 100 / 100 / 100   |
+| [`FUTURE.md`](./FUTURE.md)                   | All postponed work (portal, CRM, …)   |
+| [`FUTURE_PLATFORM.md`](./FUTURE_PLATFORM.md) | Later monorepo architecture seams     |
 | [`CONTRIBUTING.md`](./CONTRIBUTING.md)       | Branching, commits, workflow            |
 | [`DESIGN_SYSTEM.md`](./DESIGN_SYSTEM.md)     | Brand tokens, typography, motion        |
 | [`SEO_STRATEGY.md`](./SEO_STRATEGY.md)       | SEO, metadata, structured data          |

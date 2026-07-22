@@ -2,92 +2,85 @@
 
 Phased delivery plan. Phases are ordered by dependency, **not** by calendar time.
 Each implementation phase ends with green quality gates (`pnpm typecheck`,
-`pnpm lint`, `pnpm test`, `pnpm build`) and, where relevant, Playwright E2E and a
-Vercel preview.
+`pnpm lint`, `pnpm test`, `pnpm build`) and, where relevant, Playwright E2E,
+Lighthouse vs [`PERFORMANCE_BUDGET.md`](./PERFORMANCE_BUDGET.md), and a Vercel
+preview.
 
-**Launch priority:** public marketing site first. Do **not** start monorepo
-migration, operations-app merge, or customer portal build until approved — see
-[`FUTURE_PLATFORM.md`](./FUTURE_PLATFORM.md).
+**Launch priority:** public marketing site first. Everything postponed is listed
+in [`FUTURE.md`](./FUTURE.md) — do not pull portal, CRM, Stripe, AI, maps, etc.
+into active phases without approval.
 
 ## Phase 0 — Foundation ✅
 
-Engineering scaffolding only; **no marketing pages/components**.
+Engineering scaffolding; placeholder home route; tooling, CI, SEO seams.
 
-- Next.js + React + TypeScript + Tailwind v4 base.
-- Tooling, testing, CI, SEO scaffolding, typed config, docs.
-- Placeholder home route to verify the toolchain end-to-end.
+## Phase 0.5 — Strategic documentation ✅ / refining
 
-**Exit criteria:** all gates green; app builds, runs, and serves
-`sitemap.xml` / `robots.txt`.
-
-## Phase 0.5 — Strategic documentation ✅
-
-Required **before** production UI/code for the public launch:
+Launch strategy docs (emotion-first homepage, psychology journey, photography
+standard, case studies, brand manual, performance targets, future backlog):
 
 | Doc | Role |
 |-----|------|
-| [`BRAND_GUIDE.md`](./BRAND_GUIDE.md) | Identity, voice, non-negotiables |
-| [`HOME_EXPERIENCE.md`](./HOME_EXPERIENCE.md) | Homepage composition & motion contract |
-| [`CUSTOMER_JOURNEY.md`](./CUSTOMER_JOURNEY.md) | Discover → request paths |
-| [`PHOTOGRAPHY_GUIDE.md`](./PHOTOGRAPHY_GUIDE.md) | Media standards & asset checklist |
-| [`CASE_STUDIES_GUIDE.md`](./CASE_STUDIES_GUIDE.md) | Honest project proof rules |
-| [`FUTURE_PLATFORM.md`](./FUTURE_PLATFORM.md) | Later monorepo/portal boundaries |
-| [`PERFORMANCE_BUDGET.md`](./PERFORMANCE_BUDGET.md) | CWV / JS / media / motion budgets |
+| [`BRAND_GUIDE.md`](./BRAND_GUIDE.md) | Full brand manual (digital + physical) |
+| [`HOME_EXPERIENCE.md`](./HOME_EXPERIENCE.md) | WOW arc, section story, animation catalogue |
+| [`CUSTOMER_JOURNEY.md`](./CUSTOMER_JOURNEY.md) | Emotional funnel land → customer |
+| [`PHOTOGRAPHY_GUIDE.md`](./PHOTOGRAPHY_GUIDE.md) | Complete shot & media standard |
+| [`CASE_STUDIES_GUIDE.md`](./CASE_STUDIES_GUIDE.md) | Problem→Result story model |
+| [`PERFORMANCE_BUDGET.md`](./PERFORMANCE_BUDGET.md) | Lighthouse 95 / 100 / 100 / 100 |
+| [`FUTURE.md`](./FUTURE.md) | All postponed work |
+| [`FUTURE_PLATFORM.md`](./FUTURE_PLATFORM.md) | Later monorepo boundaries |
 
-**Exit criteria:** docs merged; implementation may proceed to Phase 1.
+**Exit criteria:** docs merged; then Phase 1 production UI may start.
 
 ## Phase 1 — Shared UI, navigation & content models
 
-- Brand primitives in `components/ui` from [`DESIGN_SYSTEM.md`](./DESIGN_SYSTEM.md)
-  / [`BRAND_GUIDE.md`](./BRAND_GUIDE.md).
-- Header, Footer, primary nav (`config/routes.ts`), language framework (EN/ES).
-- Typed content models for services, projects, media, social channels.
-- Route registry aligned to first-release paths (incl. `/service-area`).
+- UI primitives + Header/Footer/Nav from brand manual + design system.
+- EN/ES language framework.
+- Content models: services, case studies, media, social, trust pillars.
+- Route registry for first-release paths (incl. `/service-area`).
 
-## Phase 2 — Premium homepage
+## Phase 2 — Premium homepage (WOW)
 
-- Single animated experience per [`HOME_EXPERIENCE.md`](./HOME_EXPERIENCE.md).
-- Framer Motion (GSAP only if unavoidable); honour reduced motion.
-- Enforce [`PERFORMANCE_BUDGET.md`](./PERFORMANCE_BUDGET.md).
+- Story sections per [`HOME_EXPERIENCE.md`](./HOME_EXPERIENCE.md):
+  Hero → Who We Are → Marine → Aviation → Why BCS → Featured Project →
+  Before & After → Our Process → Service Area → Request Estimate →
+  Portal Coming Soon → Footer.
+- Full animation catalogue (no improvisation).
+- Hit performance budget (Performance **95+**, a11y/SEO/BP **100**).
 
 ## Phase 3 — Marine, Aviation & Services
 
-- Static, fast division and catalogue pages from `config/services.ts`.
-- No prices; clear CTAs into estimate / schedule.
+- Static division + catalogue pages; memorable division storytelling.
+- CTAs into estimate / schedule; no prices.
 
-## Phase 4 — Projects, About & Service Area
+## Phase 4 — Case studies, About & Service Area
 
-- Portfolio per [`CASE_STUDIES_GUIDE.md`](./CASE_STUDIES_GUIDE.md) and
-  [`PHOTOGRAPHY_GUIDE.md`](./PHOTOGRAPHY_GUIDE.md).
-- `/about`, `/service-area`; optional `/before-after` when assets allow.
-- Privacy, Terms, Accessibility pages as needed for launch readiness.
+- `/projects` as case-study index/detail (seven-chapter stories).
+- `/about`, `/service-area`; optional `/before-after`.
+- Legal: privacy, terms, accessibility as needed.
 
 ## Phase 5 — Estimate, Schedule & Contact
 
-- RHF + Zod forms; accessible; iPhone/iPad-friendly.
-- Spam-protection architecture; email via `services/` adapter (no duplicate CRM).
-- Estimate policy: free estimates only in the Fort Lauderdale area.
+- RHF + Zod; spam architecture; email via `services/`.
+- Fort Lauderdale free-estimate policy honesty.
 
 ## Phase 6 — SEO, analytics, accessibility & launch testing
 
-- Per-route/locale metadata, sitemap, robots, ProfessionalService + Service schema.
-- A11y AA verification; Lighthouse against performance budget.
-- Playwright for navigation and forms; record gate command output.
+- Locale metadata, sitemap, schema, Lighthouse gates, Playwright forms/nav.
 
 ## Phase 7 — Production deployment preparation
 
-- Env, domain, email deliverability, legal/copy sign-off.
-- **Do not deploy to production without explicit approval.**
+- Env, domain, email, legal/copy, assets. **No production deploy without
+  approval.**
 
-## Later (not first release)
+## Later
 
-- Blog / content platform, Maps/Reviews/social APIs.
-- Customer Portal (authenticated) and CRM sync.
-- Monorepo move into `apps/web` and shared packages.
-- Additional locales beyond EN/ES; national/international expansion.
+See [`FUTURE.md`](./FUTURE.md) — portal, CRM, payments, maps, reviews,
+notifications, AI, monorepo, technician app, and more.
 
-## Cross-cutting (every implementation phase)
+## Cross-cutting
 
-- Accessibility AA, SEO, performance budgets, security review, tests, and
-  updated documentation.
-- No fake reviews, fake projects, or displayed prices.
+- Accessibility AA (Lighthouse Accessibility **100**).
+- No fake reviews, fake case studies, or displayed prices.
+- Psychology funnel in [`CUSTOMER_JOURNEY.md`](./CUSTOMER_JOURNEY.md) overrides
+  page-count vanity.

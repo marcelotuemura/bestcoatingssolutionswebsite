@@ -10,11 +10,13 @@ marketing site (and future customer portal). See `README.md` and
 
 The repository has completed **Phase 0 (foundation)** and **Phase 0.5 (strategic
 docs)**. The `/` route remains an intentional minimal placeholder until the
-homepage phase. Read `BRAND_GUIDE.md`, `HOME_EXPERIENCE.md`,
-`CUSTOMER_JOURNEY.md`, `PHOTOGRAPHY_GUIDE.md`, `CASE_STUDIES_GUIDE.md`,
-`FUTURE_PLATFORM.md`, and `PERFORMANCE_BUDGET.md` before implementing marketing
-UI. Do not build the customer portal, merge ops, or create a monorepo unless
-`ROADMAP.md` / explicit approval says so.
+homepage phase. Before marketing UI, read: `BRAND_GUIDE.md`,
+`HOME_EXPERIENCE.md` (animation catalogue — do not improvise motion),
+`CUSTOMER_JOURNEY.md` (psychology funnel), `PHOTOGRAPHY_GUIDE.md`,
+`CASE_STUDIES_GUIDE.md`, `PERFORMANCE_BUDGET.md` (Lighthouse 95/100/100/100),
+and `FUTURE.md` (everything postponed). Architecture seams for a later platform:
+`FUTURE_PLATFORM.md`. Do not build portal/CRM/Stripe/monorepo unless explicitly
+approved.
 
 ## Standard commands
 

@@ -44,12 +44,15 @@ pnpm start      # serve the production build on :3000
 
 Full budget and anti-patterns: [`PERFORMANCE_BUDGET.md`](./PERFORMANCE_BUDGET.md).
 
-Targets enforced via review (and Lighthouse/CI as pages land):
+Lighthouse mobile targets (preview or production):
 
-- **LCP** < 2.5s, **CLS** < 0.1, **INP** < 200ms on mid-tier mobile.
-- Lighthouse Performance **90+** on mobile where practical.
-- Ship minimal client JS (Server Components first); animation is homepage-only.
-- Images via `next/image` (AVIF/WebP) with explicit dimensions.
+| Performance | Accessibility | Best Practices | SEO |
+|-------------|---------------|----------------|-----|
+| **95+**     | **100**       | **100**        | **100** |
+
+Also: **LCP** < 2.5s, **CLS** < 0.1, **INP** < 200ms. Ship minimal client JS
+(Server Components first); animation is homepage-only. Images via `next/image`
+(AVIF/WebP) with explicit dimensions.
 
 ## Rollback
 

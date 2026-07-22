@@ -1,133 +1,193 @@
 # Customer Journey
 
-How priority audiences move from discovery to a booked visit or estimate on the
-BCS public website — and what the product must support at each step.
+This document describes **psychology**, not a page inventory. Every route,
+section, animation, and CTA on the BCS site must support the emotional path
+below.
 
-Related: [`CONTENT_STRATEGY.md`](./CONTENT_STRATEGY.md),
-[`HOME_EXPERIENCE.md`](./HOME_EXPERIENCE.md),
-[`CASE_STUDIES_GUIDE.md`](./CASE_STUDIES_GUIDE.md),
-[`FUTURE_PLATFORM.md`](./FUTURE_PLATFORM.md).
+Related: [`HOME_EXPERIENCE.md`](./HOME_EXPERIENCE.md), [`BRAND_GUIDE.md`](./BRAND_GUIDE.md),
+[`CASE_STUDIES_GUIDE.md`](./CASE_STUDIES_GUIDE.md), [`CONTENT_STRATEGY.md`](./CONTENT_STRATEGY.md).
 
-## Primary audiences
-
-| Segment | Typical need | Preferred proof |
-|---------|--------------|-----------------|
-| Boat / yacht owners | Cosmetic or structural finish quality | Before/after, mobile convenience |
-| Captains / yacht managers | Reliable scheduling, minimal downtime | Process clarity, communication |
-| Brokers / marinas / shipyards | Trusted referral partner | Professionalism, area coverage |
-| Aircraft owners / managers / FBOs | Permitted on-site or partner-facility work | Aviation-specific capability, care |
-
-Service area: **South Florida, Jupiter southward**. Projects outside the normal
-area may be considered by arrangement.
-
-## Journey stages
+## The funnel (emotional)
 
 ```
-Discover → Orient → Evaluate → Decide → Request → Confirm → (Future: Deliver)
+Visitor lands
+    ↓
+Feels impressed          ← WOW / brand / motion / craft
+    ↓
+Understands BCS          ← who we are, Marine + Aviation, mobile model
+    ↓
+Trusts quality           ← Why BCS pillars, process, professionalism
+    ↓
+Looks at projects        ← case studies, before/after, featured story
+    ↓
+Requests estimate        ← clear policy, easy form, no prices on page
+    ↓
+Schedules visit          ← preferred times, location, consent
+    ↓
+Receives email           ← business notification (+ optional auto-reply later)
+    ↓
+Becomes customer         ← offline delivery; portal comes later (FUTURE.md)
 ```
 
-### 1. Discover
+If a UI element does not move someone forward on this path (or reassure them
+where they are), question it.
 
-**Entry points:** organic search, social (Instagram / Facebook), referral,
-direct.
+## Stage detail
 
-**Site jobs:**
+### 1. Visitor lands
 
-- Load fast on mobile; clear brand and divisions.
-- Locale: English or Spanish without SEO duplication errors.
-- Unique metadata and local service-area cues.
+**Mindset:** Busy, skeptical of contractor sites, protecting a high-value asset.
 
-### 2. Orient
+**Must happen fast:**
 
-**Jobs:**
+- Instant sense of premium (dark navy, restraint, logo presence).
+- Correct locale (EN/ES) without confusion.
+- No clutter, no price shock, no fake testimonials.
 
-- Homepage hero establishes BCS as premium marine + aviation specialist.
-- Division picker routes to `/marine` or `/aviation`.
-- Service area and languages spoken set expectations early.
+**Homepage job:** Hero WOW within the first viewport
+([`HOME_EXPERIENCE.md`](./HOME_EXPERIENCE.md)).
 
-**Success signal:** Visitor can answer “Is this for my boat/aircraft and my
-location?” within one scroll.
+### 2. Feels impressed
 
-### 3. Evaluate
+**Emotion:** “This is not a generic painter website.”
 
-**Jobs:**
+**Levers:**
 
-- `/services` catalogue (no prices).
-- `/projects` and before/after proof (real assets only).
-- `/about` for credibility; `/service-area` for geography and travel policy.
+- Logo animation, light sweep, reflective atmosphere.
+- Full-bleed imagery / silhouettes — marine then aviation.
+- Typography and whitespace that feel Apple-adjacent, not template.
 
-**Guardrails:** no fake reviews; placeholders clearly labeled until owner assets
-arrive.
+**Failure mode:** Loud banners, emoji, purple gradients, card soup.
 
-### 4. Decide
+### 3. Understands BCS
 
-**Jobs:**
+**Emotion:** “I know who they are and that they do my kind of work.”
 
-- Reinforce mobile advantage and process.
-- Dual CTAs everywhere they matter: **Request an estimate** and **Schedule a
-  visit**.
-- Estimate policy visible near conversion: free estimates **only in the Fort
-  Lauderdale area**; other locations may need review or travel arrangements.
+**Levers:**
 
-### 5. Request
+- Who We Are — mobile service; South Florida; marine + aviation.
+- Marine and Aviation sections with clear paths into division pages.
+- Languages spoken (EN, ES, PT, JA) as hospitality, not a gimmick.
+- Service area: Jupiter southward; travel by arrangement.
 
-| Path | Route | Outcome |
-|------|-------|---------|
-| Estimate | `/estimate-request` | Structured lead + media optional + consent |
-| Visit | `/schedule-visit` | Preferred dates/windows + location + consent |
-| General | `/contact` | Lightweight message |
+**Success test:** Visitor can answer “Do they serve my boat/aircraft and my
+area?” without hunting.
 
-Forms use React Hook Form + Zod, accessible on iPhone/iPad, spam-protection
-architecture, email notification via a `services/` adapter (no duplicate CRM
-logic in v1). Clear success and failure states.
+### 4. Trusts quality
 
-### 6. Confirm
+**Emotion:** “I would let them near my vessel / aircraft.”
 
-**v1:** On-page success state + email notification to the business (optional
-auto-reply later).
+**Levers (real trust only):**
 
-**Not in v1:** authenticated portal status, live calendar booking against
-production systems, or CRM writes beyond the notification adapter.
+- Why BCS pillars: Mobile Service, Professional Finish, Marine Specialists,
+  Aircraft Specialists, Modern Equipment, Fair Pricing (no dollar amounts),
+  Fast Response, Attention to Detail, Multilingual Team.
+- Our Process — predictable, respectful of downtime.
+- Optional portal “Coming Soon” preview — signals modern operations without
+  pretending the product exists.
+- Never invent reviews or star ratings.
 
-### 7. Deliver (future platform)
+### 5. Looks at projects
 
-Post-sale project updates, documents, invoices, and appointments move to the
-future customer portal and BCS operations platform — see
-[`FUTURE_PLATFORM.md`](./FUTURE_PLATFORM.md). The marketing site must not
-pretend that portal exists unless an approved “Coming Soon” treatment is used.
+**Emotion:** “I’ve seen proof.”
 
-## Conversion priorities
+**Levers:**
 
-1. Estimate request (qualified lead with division + location + service need).
-2. Schedule visit (on-site assessment intent).
-3. Contact (general / partnership / press).
-4. Social follow (relationship / proof over time).
+- Featured project story teaser on the homepage.
+- Before/After slider (felt proof).
+- `/projects` as **case studies** — Problem → Repair → Process → Photos →
+  Time → Result → Customer (with permission). See
+  [`CASE_STUDIES_GUIDE.md`](./CASE_STUDIES_GUIDE.md).
 
-Phone (`305-747-8352` once configured in `config/site.ts`) remains a first-class
-escape hatch in header/footer/contact strip.
+**Failure mode:** Stock photos, unlabeled placeholders presented as real work.
 
-## Journey UX principles
+### 6. Requests estimate
 
-- Mobile-first; large tap targets; no hover-only critical actions.
-- One primary action per section; avoid competing promo clusters.
-- Preserve locale when moving between pages and into forms.
-- Never surprise the user with pricing or “always free” claims.
-- Failure states teach recovery (retry, call, email).
+**Emotion:** “Asking is safe and clear.”
 
-## Measurement (launch)
+**Levers:**
 
-- Funnel: landing → division/services/projects → form start → form success.
-- CTA click-through on homepage and division pages.
-- Locale split (EN vs ES).
-- Form error rates and spam rejection rates.
+- Persistent CTAs; dedicated `/estimate-request`.
+- Policy honesty: free estimates **only in the Fort Lauderdale area**; other
+  locations may need review or travel arrangements.
+- Form: division, contact, asset info, location, service, timing, media,
+  consent — accessible on iPhone/iPad.
+- No prices on the site.
 
-Wire analytics through existing Vercel Analytics and future event hooks behind
-`services/` if custom events are added — do not spray third-party tags without
-approval.
+### 7. Schedules visit
 
-## Definition of done (journey)
+**Emotion:** “I can get someone on-site.”
 
-- A first-time mobile visitor in EN or ES can discover BCS, understand Marine vs
-  Aviation, check the service area, and submit an estimate or visit request
-  without dead ends.
-- Playwright covers primary navigation and all three forms.
+**Levers:**
+
+- `/schedule-visit` with dates, time window, location, division, media, consent.
+- Same spam protection and email adapter pattern as estimate.
+- Phone `305-747-8352` as human escape hatch.
+
+### 8. Receives email
+
+**Emotion:** “They got it; someone will respond.”
+
+**v1:**
+
+- Business receives notification via `services/notifications`.
+- On-page success state is calm and premium.
+- Optional customer auto-reply later (see [`FUTURE.md`](./FUTURE.md)).
+
+**Not v1:** CRM duplication, portal inbox, SMS, push.
+
+### 9. Becomes customer
+
+Happens through real-world delivery. The website’s job ends at qualified intent
+and clear follow-up. Post-sale tracking, invoices, approvals, and payments belong
+to the future portal — teased at most, never faked.
+
+## How pages serve the funnel
+
+| Psychology stage | Primary surfaces |
+|------------------|------------------|
+| Impressed | `/` hero |
+| Understands | `/` Who We Are, Marine, Aviation; `/marine`, `/aviation`, `/about`, `/service-area` |
+| Trusts | `/` Why BCS, Process; `/about`; portal preview |
+| Looks at projects | `/` Featured + Before/After; `/projects`, optional `/before-after` |
+| Requests estimate | `/estimate-request`; CTAs sitewide |
+| Schedules visit | `/schedule-visit` |
+| Contact / edge cases | `/contact`, phone, social |
+| Receives email | Server action success + email adapter |
+
+## Audience nuances
+
+| Audience | Trust trigger | Proof they seek |
+|----------|---------------|-----------------|
+| Owners | Care of asset, finish quality | Before/after, attention to detail |
+| Captains / managers | Reliability, communication | Process, response speed |
+| Marinas / yards / brokers | Referral safety | Professionalism, consistency |
+| Aircraft / FBOs | Permission-aware, precision | Aviation capability, clean work |
+
+Tone stays the same; emphasis shifts.
+
+## Anti-patterns (psychology breaks)
+
+- Leading with price or “cheapest.”
+- Claiming all estimates are free.
+- Fake reviews.
+- Portal UI that looks logged-in.
+- Forcing the visitor to decode a dashboard-style homepage.
+- Animation that entertains but delays understanding.
+
+## Measurement aligned to emotion
+
+Track progression, not vanity:
+
+1. Land → scroll past hero (impressed → understand)  
+2. Division or services engagement  
+3. Case study / before-after engagement  
+4. Form start  
+5. Form success  
+6. (Later) offline win-rate from CRM — not invented on the marketing site  
+
+## Definition of done
+
+A first-time mobile visitor can feel impressed, understand BCS, find reasons to
+trust, see proof, and request an estimate or visit — in either English or Spanish —
+without dead ends or deceptive claims.

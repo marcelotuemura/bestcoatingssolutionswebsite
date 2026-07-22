@@ -1,115 +1,179 @@
 # Photography Guide
 
-Standards for stills, video, and before/after media on the BCS public website.
-Photography is a primary credibility asset — treat it as product, not decoration.
+Complete photography and motion-media standard for Best Coatings Solutions.
+This is not a short “media requirements” list — it is the rulebook so the brand
+still looks coherent years from now.
 
-Related: [`BRAND_GUIDE.md`](./BRAND_GUIDE.md),
-[`CASE_STUDIES_GUIDE.md`](./CASE_STUDIES_GUIDE.md),
-[`HOME_EXPERIENCE.md`](./HOME_EXPERIENCE.md),
-[`CONTENT_STRATEGY.md`](./CONTENT_STRATEGY.md).
+Related: [`BRAND_GUIDE.md`](./BRAND_GUIDE.md), [`CASE_STUDIES_GUIDE.md`](./CASE_STUDIES_GUIDE.md),
+[`HOME_EXPERIENCE.md`](./HOME_EXPERIENCE.md), [`PERFORMANCE_BUDGET.md`](./PERFORMANCE_BUDGET.md).
 
 ## Principles
 
-1. **Real work only.** No stock that implies BCS completed the job. Placeholders
-   must be explicitly documented and visually/alt-text labeled until replaced.
-2. **High-end atmosphere.** Quiet luxury, technical craft, clean environments —
-   marinas, decks, hangars, controlled work zones.
-3. **Brand-aligned grade.** Cool-neutral balance that sits on navy / silver /
-   electric UI; avoid heavy orange warm filters and oversaturated blues.
-4. **Respect privacy & permits.** No readable personal data, security badges, or
-   restricted airside details without clearance. Obtain owner/captain/FBO
-   permission before publishing identifiable vessels or aircraft.
+1. **Real work only.** No stock implying BCS did the job. Placeholders must be
+   documented and labeled until replaced.
+2. **Emotion + craft.** Images should make a captain or owner feel relief and
+   desire — quiet luxury, precision, protected assets.
+3. **Brand grade.** Cool-neutral grade on navy/silver/electric UI; avoid heavy
+   orange warmth and oversaturated tourist blues.
+4. **Permission first.** Owner/captain/FBO clearance before publishing
+   identifiable vessels, aircraft, people, or locations.
+5. **Safety & legality.** No unauthorized airside ops imagery; no readable
+   personal data, documents, or security credentials.
 
-## Subject matter by division
+## Shot catalogue (required vocabulary)
+
+Every major campaign or case study should pull from this vocabulary. Not every
+project needs every shot — but naming stays consistent in folders and metadata.
+
+### Aerial / context
+
+| Type | Purpose | Notes |
+|------|---------|-------|
+| **Drone** | Sense of place, yacht in marina, facility context | Follow local drone law; no reckless low passes over people |
+| **Exterior wide** | Asset in environment | Keep horizon level; avoid chaotic backgrounds for heroes |
+| **Waterline** | Marine truth — hull meet water | Reflections, fairness, boot stripe, repair zones |
+| **Night** | Premium atmosphere | Controlled light; no noisy underexposure as “moody” |
+
+### Craft & detail
+
+| Type | Purpose | Notes |
+|------|---------|-------|
+| **Macro** | Texture of finish | Sharp plane of focus; show quality |
+| **Gelcoat close-up** | Color match, gloss, orange peel control | Polarizer optional to manage glare intentionally |
+| **Reflection shots** | Luxury read — sky/water in gloss | Hero-capable; pair with navy UI |
+| **Interior** | Cabins, panels, aviation interior components | Tidy staging; accurate white balance |
+| **Painter working** | Human craft (trust) | Respect PPE; faces optional with consent; avoid staged cheesiness |
+
+### Narrative / proof
+
+| Type | Purpose | Notes |
+|------|---------|-------|
+| **Before** | Problem state | Match framing to After |
+| **After** | Result state | Same angle, lens, light as Before whenever possible |
+| **Process mid** | Fairing, masking, spray, sanding | Supports case-study “Process” chapter |
+| **Timelapse** | Transformation over time | Stable tripod/interval; short web export |
+| **Video** | Atmosphere or process | Muted by default on web; poster frame required |
+
+### Social & product crops
+
+| Type | Aspect / use |
+|------|----------------|
+| **Horizontal** | Site heroes, case study headers, YouTube-style (16:9) |
+| **Vertical** | Instagram Stories/Reels, TikTok-ready future (9:16) |
+| **Instagram feed** | 1:1 or 4:5 preferred for brand grid |
+| **Thumbnail** | 1:1 or 4:3 for project grids; readable at 160px width |
+| **OG / social preview** | 1200×630 (or site standard) brand-safe still |
+
+Tag each asset with intended `usage`: `hero` | `case` | `detail` | `social` |
+`og` | `thumb`.
+
+## Before & After protocol
+
+1. Lock camera position (tape marks / tripod).  
+2. Match focal length, aperture intent, white balance.  
+3. Shoot Before; perform work; shoot After.  
+4. Export pair with identical crop aspect.  
+5. Store as typed `BeforeAfterPair` — UI must never orphan one side.  
+6. Do not “enhance” After more than Before in grading in a way that fakes the
+   repair.
+
+## Division guidance
 
 ### Marine
 
-- Fiberglass / gelcoat / paint / metallic / ceramic results.
-- Mobile work context: dockside, boatyard, trailer, residential where tasteful.
-- Details: fairing, color match, gloss reflection, hardware adjacency.
-- Avoid cluttered yards as hero subjects unless storytelling needs process grit
-  (then keep it secondary, not homepage hero).
+Prioritize waterline, gelcoat macro, reflection, dockside mobile context, drone
+when permitted. Avoid junkyard chaos as homepage hero unless the story is
+explicitly process-grit (secondary pages only).
 
 ### Aviation
 
-- Spot repair, refinishing, composite, metallic, ceramic protection, interior
-  components where allowed.
-- Hangar or partner-facility context; emphasize care and precision.
-- Never imply unauthorized ramp operations.
+Hangar/partner-facility exteriors and interiors, composite/paint detail,
+metallic and ceramic protection close-ups. Never imply unauthorized ramp work.
 
-## Shot types
+## Technical delivery
 
-| Type | Use | Notes |
-|------|-----|-------|
-| Hero / atmosphere | Homepage full-bleed plane | Edge-to-edge; silhouette or premium still; not an inset card |
-| Detail macro | Services / case studies | Finish quality, edge work, reflections |
-| Context wide | About / process / mobile advantage | Team or setup without cluttered branding overload |
-| Before / after | Homepage teaser, `/before-after`, projects | Matched framing (see below) |
-| Process / time-lapse | Optional proof | Short, optimized; never autoplay sound |
-
-## Before & after standards
-
-- Same angle, focal length, framing, and lighting conditions as far as practical.
-- Identical crop aspect for pairs in UI.
-- Label clearly; do not imply a longer scope of work than shown.
-- Store as a typed `BeforeAfterPair` so UI cannot orphan one side.
-
-## Technical delivery specs
-
-| Spec | Guidance |
+| Spec | Standard |
 |------|----------|
-| Master files | High-resolution JPEG or lossless; keep masters off the web root |
-| Web derivatives | AVIF/WebP via `next/image`; explicit width/height |
-| Hero stills | Enough resolution for 2x large viewports; prioritize LCP candidate |
-| Thumbnails | Consistent aspect per collection (e.g. 4:3 projects, 16:9 heroes) |
-| Video | Short, compressed; poster frame required; lazy load; no autoplay audio |
-| Alt text | Describe the work outcome and context; never “image1” |
-| Filename | Stable slugs: `marine-gelcoat-foredeck-after.jpg` |
+| Masters | High-res JPEG or lossless; archive outside `public/` |
+| Web | `next/image` → AVIF/WebP; explicit dimensions |
+| Hero | Enough res for 2× large viewports; still preferred for LCP |
+| Video | Short, compressed, poster required; lazy; no autoplay audio |
+| Timelapse | ≤15–30s web cut unless story needs more |
+| Color space | sRGB for web |
+| Naming | `division-subject-shottype-state.ext` e.g. `marine-hull-waterline-after.jpg` |
+| Alt text | Outcome + context; never “IMG_2034” |
+
+## Instagram & social pipeline
+
+- Shoot with vertical and horizontal in mind when on-site (one extra frame costs
+  little; reshooting costs a lot).
+- Maintain a brand grid: dark, glossy, sparse text overlays.
+- Site may deep-link to Instagram/Facebook; do not depend on live API embeds for
+  launch.
+- TikTok and others: prepare vertical masters; enable channels in config later
+  ([`FUTURE.md`](./FUTURE.md)).
 
 ## Homepage media rules
 
-- Dominant visual plane only — full bleed / background treatment.
-- No floating stickers, badges, or info chips on top of hero media.
-- Prefer stills or SVG silhouettes over heavy video backgrounds.
-- Provide a reduced-motion static frame equivalent.
+- Full-bleed hero plane; no inset cards in the first viewport.
+- No badges/stickers on hero media.
+- Prefer stills + SVG silhouettes + CSS atmosphere over heavy video.
+- Provide reduced-motion static frames for every motion-enhanced image.
 
-## Social & OG
+## Metadata model (engineering)
 
-- Default Open Graph / social preview image: brand-safe still or logo lockup on
-  navy (placeholder until final asset).
-- Social feed embeds are optional later; do not hard-depend on Instagram API for
-  launch.
+Typed structures for:
 
-## Typed content structures (engineering)
+- Project photos  
+- Before/after pairs  
+- Videos  
+- Timelapses  
+- Marine projects  
+- Aviation projects  
+- Social crops / thumbnails  
 
-Prepare TypeScript models for:
+Include: `id`, `src`, `alt`, `width`, `height`, `type`, `shotType`, `division`,
+`orientation`, `usage[]`, optional `credit`, `takenAt`, `permissionRef`.
 
-- Project photos
-- Before/after pairs
-- Videos
-- Time-lapses
-- Marine projects
-- Aviation projects
+## On-site shoot checklist (print/save)
 
-Keep media metadata in content modules (`config/` / `content/`), not hard-coded
-in JSX.
+- [ ] Permissions confirmed  
+- [ ] Before locked  
+- [ ] Process mid (optional but valuable)  
+- [ ] After matched  
+- [ ] Macro / gelcoat / reflection  
+- [ ] Context wide or drone (if allowed)  
+- [ ] Painter working (optional)  
+- [ ] Vertical social frame  
+- [ ] Horizontal hero frame  
+- [ ] Thumbnail-safe crop mentally noted  
+- [ ] Night only if lighting supports quality  
 
-## Owner asset checklist (P0)
+## Owner asset checklist (P0 launch)
 
-Document outstanding real assets in `docs/assets/` until delivered:
+Document outstanding items in `docs/assets/` until delivered:
 
-- [ ] Logo SVG/PNG (light/dark as needed)
-- [ ] Favicon / app icons
-- [ ] Default OG image
-- [ ] Homepage marine hero still or silhouette source
-- [ ] Homepage aviation hero still or silhouette source
-- [ ] ≥6 project photos (mixed divisions preferred)
-- [ ] ≥3 matched before/after pairs
-- [ ] Optional process clip / time-lapse
+- [ ] Logo masters (SVG/PNG)  
+- [ ] Favicons / app icons  
+- [ ] Default OG image  
+- [ ] Homepage marine hero (or silhouette source)  
+- [ ] Homepage aviation hero (or silhouette source)  
+- [ ] ≥1 featured case study set (before/after + process + result)  
+- [ ] ≥3 matched before/after pairs  
+- [ ] ≥6 project images mixed divisions if possible  
+- [ ] Optional timelapse / process clip  
+- [ ] Instagram + Facebook profile URLs  
 
 ## Forbidden
 
-- Fake project photography or misattributed work.
-- Watermarks from unrelated vendors in production.
-- Unoptimized multi‑MB heroes that break the performance budget.
-- Prices, quote amounts, or insurance claim data visible in frame.
+- Fake or misattributed work  
+- Prices, invoices, or claim amounts visible in frame  
+- Unoptimized multi‑MB heroes that break the performance budget  
+- Third-party watermarks in production  
+- Deceptive grading that invents a repair  
+
+## Longevity
+
+Two years from now, a new photographer should read this file and match BCS
+without inventing a new visual dialect. When adding a shot type, update this
+catalogue first — then the content model.

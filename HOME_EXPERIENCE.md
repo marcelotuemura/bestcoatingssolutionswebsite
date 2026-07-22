@@ -1,105 +1,258 @@
 # Home Experience
 
-The homepage is the **only** animated surface in the first release. Every other
-route is static, fast, and content-first. This document is the implementation
-contract for `/` (and its locale variants).
+The homepage is the **only** animated surface in the first release. Its job is not
+to list features — it is to create a **WOW** moment, then guide emotion into
+trust and action.
 
-Related: [`DESIGN_SYSTEM.md`](./DESIGN_SYSTEM.md), [`BRAND_GUIDE.md`](./BRAND_GUIDE.md),
-[`PERFORMANCE_BUDGET.md`](./PERFORMANCE_BUDGET.md), [`CUSTOMER_JOURNEY.md`](./CUSTOMER_JOURNEY.md).
+Customers do not buy technical excellence alone. They buy how BCS makes them
+**feel**: impressed, safe, understood, and ready to request work.
 
-## Intent
+Related: [`BRAND_GUIDE.md`](./BRAND_GUIDE.md), [`CUSTOMER_JOURNEY.md`](./CUSTOMER_JOURNEY.md),
+[`PERFORMANCE_BUDGET.md`](./PERFORMANCE_BUDGET.md), [`CASE_STUDIES_GUIDE.md`](./CASE_STUDIES_GUIDE.md).
 
-In one continuous composition, the visitor should:
+## Emotional arc
 
-1. Recognize **Best Coatings Solutions** as a premium marine & aviation specialist.
-2. Understand the two divisions and the mobile-service model.
-3. See credible proof (process + before/after), not hype.
-4. Take a clear next step: **Request an estimate** or **Schedule a visit**.
+```
+Awe (hero) → Clarity (who we are) → Desire (Marine / Aviation)
+  → Trust (Why BCS) → Proof (featured project + before/after)
+  → Confidence (process + area) → Action (estimate) → Continuity (portal tease + footer)
+```
 
-The first viewport must read as **one brand composition**, not a dashboard of
-cards, stats, or promo chips.
+Every section and every motion exists to support that arc. If an animation does
+not serve emotion or clarity, cut it.
 
 ## First-viewport hero budget
 
-Allowed in the first viewport:
+Allowed:
 
-- Brand / BCS logo (hero-level signal)
+- BCS brand / logo at **hero level** (not a nav-only mark)
 - One headline
 - One short supporting sentence
-- One CTA group (Estimate + Schedule)
-- One dominant visual plane (edge-to-edge atmosphere + silhouette / imagery)
+- One CTA group (Request estimate + Schedule visit)
+- One dominant full-bleed visual plane (atmosphere + silhouette / imagery)
 
-**Not** in the first viewport: stats strips, schedules, address blocks, secondary
-promos, floating badges, overlays on hero media, or card grids.
+Not allowed in the first viewport: stats strips, card grids, floating badges,
+promo chips, address blocks, or secondary marketing modules.
 
-## Section order (required)
+**Brand test:** remove the nav — the viewport must still feel unmistakably BCS.
 
-| #  | Section                    | Purpose                                      | Motion                         |
-| -- | -------------------------- | -------------------------------------------- | ------------------------------ |
-| 1  | Animated hero              | Brand reveal + primary CTAs                  | Premium (see sequence below)   |
-| 2  | Marine & Aviation          | Division selection into `/marine`, `/aviation` | Subtle entrance / crossfade  |
-| 3  | Core services              | Capability snapshot (from `config/services`) | Light stagger on scroll        |
-| 4  | Mobile service advantage   | We come to the vessel / aircraft             | Static or fade                 |
-| 5  | Before & after             | Visual proof teaser → projects / before-after | Static pair or soft wipe     |
-| 6  | Process                    | How engagement works (discover → finish)     | Static                         |
-| 7  | Service area               | South Florida / Jupiter southward + travel   | Static                         |
-| 8  | Languages spoken           | English, Spanish, Portuguese, Japanese       | Static                         |
-| 9  | Estimate & scheduling CTAs  | Conversion reinforcement                     | Static                         |
-| 10 | Social links               | Instagram, Facebook (TikTok prepared)        | Static                         |
-| 11 | Contact information        | Phone, email, area                           | Static                         |
-| 12 | Footer                     | Shared site footer                           | None                           |
+## Homepage section order (story flow)
 
-One job per section: one headline, usually one short supporting sentence.
+| #  | Section | Emotional job | Primary content |
+| -- | ------- | ------------- | --------------- |
+| 1  | **Hero** | Awe / WOW | Logo reveal, light, atmosphere, CTAs |
+| 2  | **Who We Are** | Orientation | Premium mobile marine & aviation specialist |
+| 3  | **Marine** | Desire (boats) | Division story + link to `/marine` |
+| 4  | **Aviation** | Desire (aircraft) | Division story + link to `/aviation` |
+| 5  | **Why BCS** | Trust | Real trust pillars — not fake reviews |
+| 6  | **Featured Project** | Proof | One case-study story teaser |
+| 7  | **Before & After** | Proof (visual) | Interactive slider (accessible) |
+| 8  | **Our Process** | Confidence | Clear steps from contact → finish |
+| 9  | **Service Area** | Fit | Jupiter southward; travel by arrangement |
+| 10 | **Request Estimate** | Action | Strong CTA + Fort Lauderdale free-estimate policy |
+| 11 | **Portal preview** | Modern continuity | “Coming Soon” dashboard mock — not a real portal |
+| 12 | **Footer** | Closure | Contact, social, legal, languages spoken cue |
 
-## Hero animation sequence
+Languages spoken (EN / ES / PT / JA) and social links may live in Who We Are,
+Why BCS, and/or Footer — do not invent a cluttered extra section if the story
+already covers them.
 
-Lightweight techniques only: CSS, SVG, Framer Motion, optimized stills / short
-clips. **No** custom 3D, large WebGL scenes, or heavy looping video backgrounds.
+Phone and contact strip belong in header/footer and the estimate section; do not
+break the emotional arc with a redundant mid-page contact dump.
 
-Suggested timeline (~4–6s, interruptible by scroll or reduced motion):
+## Trust pillars (Why BCS)
 
-1. **Atmosphere** — dark navy field with subtle ocean / reflective texture.
-2. **Logo reveal** — BCS mark path or mask reveal; electric-blue light sweep.
-3. **Marine beat** — yacht silhouette or premium marine still (full-bleed plane).
-4. **Aviation transition** — soft crossfade / silhouette shift to aircraft.
-5. **Lockup** — brand + headline + sentence + CTA group.
+Real reasons to trust — **never fabricated reviews**:
 
-Scroll transitions between sections may use restrained fade/slide. Motion must
-never block content or delay LCP.
+- Mobile Service
+- Professional Finish
+- Marine Specialists
+- Aircraft Specialists
+- Modern Equipment
+- Fair Pricing *(message value/clarity — **never show prices**)*
+- Fast Response
+- Attention to Detail
+- Multilingual Team
 
-## Reduced motion
+Present as a refined grid or horizontal statement set — premium, not icon soup.
 
-When `prefers-reduced-motion: reduce`:
+## Portal preview (“Coming Soon”)
 
-- Skip the timed sequence; show a static hero (logo, copy, CTAs, still imagery).
-- Disable autoplay motion and scroll-linked ornamentation.
-- Keep focus order and CTAs identical to the animated path.
+Even though the customer portal is **not** built in v1, the homepage may include
+**one** restrained preview panel that signals BCS invests in modern operations:
 
-Motion tokens and variants live in `animations/` so static pages never import
-homepage motion code.
+- Label: **Coming Soon — Customer Portal**
+- Capabilities teased (copy only / static UI mock):
+  - Track your project
+  - View invoices
+  - Approve estimates
+  - Photos
+  - Timeline
+  - Payments
+- Single composed image or lightweight CSS mock — not a working app shell
+- No login, no fake data that looks like a live account
+- Optional only if approved; omit entirely if brand prefers silence on portal
+
+See [`FUTURE.md`](./FUTURE.md) for the real portal scope later.
+
+---
+
+## Animation catalogue (implementers must follow)
+
+Centralize variants in `animations/`. Homepage-only imports. Honour
+`prefers-reduced-motion: reduce` with a static equivalent for every effect.
+
+### A. Logo animation
+
+- **Intent:** Brand arrives with precision — the WOW open.
+- **Technique:** SVG path draw and/or mask reveal of the BCS mark; settle into
+  lockup with short overshoot ≤ 1.05 then rest.
+- **Duration:** ~1.2–1.8s; easing premium (ease-out / custom cubic).
+- **Reduced motion:** Instant final lockup, no path draw.
+
+### B. Light sweep
+
+- **Intent:** Electric-blue craftsmanship cue (coatings / reflection).
+- **Technique:** CSS or Motion gradient/glare translating across logo or hero
+  plane once (or very rarely on idle — never strobing).
+- **Color:** `electric-400` / `electric-500` at low opacity over navy.
+- **Reduced motion:** Omit sweep; keep static highlight if needed for legibility.
+
+### C. Ocean / reflective texture
+
+- **Intent:** Marine atmosphere without heavy video.
+- **Technique:** Subtle CSS noise / soft caustic gradient / lightweight looping
+  still treatment; optional very short muted WebM only if it beats CSS **and**
+  stays in budget.
+- **Avoid:** Full-bleed HD video loops, WebGL oceans, 3D water.
+- **Reduced motion:** Static graded still.
+
+### D. Glass effects
+
+- **Intent:** Luxury depth (Apple-adjacent), used sparingly.
+- **Technique:** Translucent surfaces (`navy` + alpha), light blur, hairline
+  border `navy-700` / silver.
+- **Where:** Division panels, trust module, portal preview — **not** on every
+  block.
+- **Perf:** Prefer pre-blurred assets over huge live `backdrop-filter` regions on
+  mobile if CLS/LCP suffer.
+
+### E. Marine → Aviation transition
+
+- **Intent:** Dual-expertise story in one beat.
+- **Technique:** Crossfade or silhouette morph between yacht and aircraft visual
+  planes; optional soft horizontal wipe with electric accent line.
+- **Timing:** Part of hero sequence or Who We Are → division handoff.
+- **Reduced motion:** Static dual mark or simple side-by-side without morph.
+
+### F. Section transitions
+
+- **Intent:** Continuity while scrolling — not scroll-jacking.
+- **Technique:** Fade / slight Y translate (8–24px) on enter; optional gentle
+  parallax on background planes only.
+- **Rules:** Transform/opacity only; no layout-affecting top animations; do not
+  delay content readability.
+- **Reduced motion:** Sections appear static at rest positions.
+
+### G. Button hover / press
+
+- **Intent:** Tactile premium CTAs.
+- **Technique:** Color shift `electric-500` → `electric-400`, 1px lift or soft
+  glow ≤ subtle; press scale ~0.98.
+- **Keyboard:** Visible focus ring always (`electric-500`); hover styles must not
+  be the only affordance.
+- **Touch:** No hover-dependent discovery; use `:active` feedback.
+
+### H. Card hover
+
+- **Intent:** Division / trust / project tiles feel alive when cards are used.
+- **Rule:** Cards only when they containerize interaction or navigation — default
+  is **no cards** (see brand guide).
+- **Technique:** Border brighten, slight translate, image subtle scale 1.02
+  inside overflow-hidden.
+- **Reduced motion:** Color/border change only.
+
+### I. Image reveal
+
+- **Intent:** Photography feels curated, not dumped.
+- **Technique:** Clip-path wipe, opacity + scale from 1.04 → 1, or mask reveal
+  on scroll into view (once).
+- **Must:** Explicit width/height to protect CLS.
+- **Reduced motion:** Instant opacity 1.
+
+### J. Before / After slider
+
+- **Intent:** Proof you can feel.
+- **Technique:** Accessible range input or pointer-drag divider; keyboard
+  operable; aria labels for Before/After.
+- **Motion:** Divider moves with input; images do not animate independently in a
+  misleading way.
+- **Reduced motion:** Static side-by-side or slider without animated autoplay.
+
+### K. Mouse parallax
+
+- **Intent:** Depth in hero / featured project only.
+- **Technique:** Low amplitude (2–8px) on silhouette or light layer; pointer
+  move; ignore on touch devices.
+- **Cap:** One parallax context max on the page.
+- **Reduced motion / touch:** Off.
+
+### L. Loading animation
+
+- **Intent:** First paint feels intentional if a brief brand intro is used.
+- **Technique:** Optional ≤1.5s logo + light sweep splash **only if** it does
+  not delay LCP content; prefer integrating reveal into hero instead of a
+  blocking splash.
+- **Never:** Multi-second forced gate, sound, or progress bar theater.
+- **Reduced motion:** Skip intro; show final hero.
+
+### M. Featured project / case teaser
+
+- **Intent:** Story magnetism before the full case studies index.
+- **Technique:** Image reveal + staggered text (problem → result line).
+- **CTA:** “View case study” / “See projects”.
+
+### N. Portal preview entrance
+
+- **Intent:** Quiet futurism — BCS is building.
+- **Technique:** Soft fade/slide of a single mock frame; no fake cursors typing.
+- **Reduced motion:** Static mock.
+
+---
+
+## Hero timing (default, interruptible)
+
+Approximate 4–6s sequence if the visitor stays put:
+
+1. Atmosphere + reflective texture  
+2. Logo animation + light sweep  
+3. Marine visual beat  
+4. Aviation transition  
+5. Headline + sentence + CTAs settle  
+
+Scroll or interaction cancels leftover choreography and shows the settled state.
 
 ## Technical constraints
 
-- Server Components by default; client boundaries only for motion / interaction.
-- LCP candidate: prioritized still (logo lockup or hero image), not a video.
-- Images via `next/image` with explicit dimensions; lazy-load below the fold.
-- Respect [`PERFORMANCE_BUDGET.md`](./PERFORMANCE_BUDGET.md).
+- CSS / SVG / Framer Motion / optimized stills (or tiny video) only.
+- No custom 3D models, large WebGL, or heavy video backgrounds.
+- Server Components by default; client islands for motion and slider only.
+- Meet [`PERFORMANCE_BUDGET.md`](./PERFORMANCE_BUDGET.md) — emotion cannot cost
+  a failed Lighthouse score.
 
-## Copy & policy guardrails on the homepage
+## Copy guardrails
 
-- Never display prices.
-- Do **not** claim all estimates are free. Free estimates are available only in
-  the Fort Lauderdale area; other locations may require review or travel
-  arrangements.
-- No fake reviews or fabricated project claims.
-- Social: Instagram and Facebook live when URLs exist; TikTok and future channels
-  may appear in types / config as disabled until approved.
+- No prices.
+- Free estimates **only** in the Fort Lauderdale area — state near estimate CTA.
+- No fake reviews or invented project claims.
+- Placeholders labeled until real assets arrive.
 
 ## Definition of done
 
-- All twelve sections present in order, mobile-first.
-- Hero passes the brand test (remove nav → still unmistakably BCS).
+- Section order matches the story flow above.
+- Every animation in the catalogue is either implemented per spec or explicitly
+  deferred in the PR with rationale (no silent improvisation).
 - Reduced-motion path verified.
-- Primary CTAs reach `/estimate-request` and `/schedule-visit` (locale-aware).
-- Quality gates green; homepage Playwright smoke covers load, CTAs, and
-  reduced-motion.
+- Portal preview omitted or “Coming Soon” mock only — not a functional portal.
+- Quality gates green; Playwright covers load, CTAs, before/after keyboard use,
+  and reduced-motion.

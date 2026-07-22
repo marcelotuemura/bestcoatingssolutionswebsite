@@ -1,124 +1,145 @@
 # Case Studies Guide
 
-How BCS presents project results on the public website without overclaiming,
-leaking sensitive details, or inventing social proof.
+Project showcase on the BCS site is **case studies**, not a shallow photo dump
+labeled “Projects.” Each published job is a persuasive story that moves visitors
+from curiosity to trust ([`CUSTOMER_JOURNEY.md`](./CUSTOMER_JOURNEY.md)).
 
-Related: [`PHOTOGRAPHY_GUIDE.md`](./PHOTOGRAPHY_GUIDE.md),
-[`CONTENT_STRATEGY.md`](./CONTENT_STRATEGY.md),
-[`CUSTOMER_JOURNEY.md`](./CUSTOMER_JOURNEY.md),
-[`SEO_STRATEGY.md`](./SEO_STRATEGY.md).
+Route label in the UI may still say “Projects” for brevity; the **content model
+and page design are case studies**. Prefer `/projects` as the index URL unless
+product later renames to `/case-studies` (keep redirects if renamed).
 
-## Purpose
+Related: [`PHOTOGRAPHY_GUIDE.md`](./PHOTOGRAPHY_GUIDE.md), [`HOME_EXPERIENCE.md`](./HOME_EXPERIENCE.md),
+[`CONTENT_STRATEGY.md`](./CONTENT_STRATEGY.md), [`SEO_STRATEGY.md`](./SEO_STRATEGY.md).
 
-Case studies and project entries exist to help qualified buyers **evaluate
-craftsmanship and fit**. They are not a CRM, not an invoice archive, and not a
-place for prices.
+## Why stories beat galleries
 
-Primary surfaces:
+Captains and owners buy confidence. A story answers:
 
-- Homepage before/after teaser
-- `/projects`
-- Optional `/before-after`
-- Division pages (featured excerpts)
+- What was wrong?
+- What did BCS do?
+- How careful was the process?
+- What did it look like after?
+- How long did it take?
+- Can I trust them with my asset?
 
-## Truthfulness rules
+A grid of unlabeled gloss photos cannot.
 
-1. Only publish work BCS actually performed (or clearly co-performed with
-   permission).
-2. No fake reviews, star ratings, or invented testimonials.
-3. No fabricated metrics (“200+ yachts”, “#1 in Florida”) unless verified and
-   approved.
-4. Placeholders for missing media must be labeled as such in docs and alt text —
-   never dressed up as real results.
-5. Never show prices, invoice amounts, or insurance settlement figures.
+## Story structure (required chapters)
 
-## Suggested content model
+Every case study uses this narrative spine:
+
+| Chapter | Intent | Guidance |
+|---------|--------|----------|
+| **Problem** | Empathy | Damage, oxidation, mismatch, wear — factual, not dramatic clickbait |
+| **Repair** | Scope | What BCS was engaged to fix (services tagged from `config/services.ts`) |
+| **Process** | Craft & care | High-level steps; mobile/dock/hangar context; no proprietary dump |
+| **Photos** | Proof | Mix of context, macro, process, reflection per photography guide |
+| **Time** | Expectations | Duration or range when accurate (“three days on-site”); never invent |
+| **Result** | Outcome | Finish quality, readiness, protection — visible in After shots |
+| **Customer** | Social proof | Role only by default (“yacht manager”, “aircraft owner”); name/company **only with written permission** |
+
+Optional chapters: challenges (weather, access), materials, division-specific notes.
+
+## Homepage featured project
+
+The homepage **Featured Project** section teases **one** case study:
+
+- One strong After (or Before/After pair)
+- One-line Problem → Result
+- CTA into the full case study
+
+Do not stack three weak teasers — one memorable story beats noise.
+
+## Content model
 
 ```ts
-Project {
+CaseStudy {
   id: string
   slug: string
   title: string
   division: 'marine' | 'aviation'
-  summary: string          // 1–3 sentences, outcome-focused
-  location?: string        // city/region only unless client approves more
-  services: string[]       // slugs from config/services.ts
-  media: MediaAsset[]
+  problem: string
+  repair: string
+  process: string
+  time?: string
+  result: string
+  customer?: {
+    label: string           // “Yacht captain”, “FBO partner”
+    name?: string           // only if permitted
+    attributionPermitted: boolean
+  }
+  location?: string         // city/region; avoid exact berth/hangar IDs
+  services: string[]        // service slugs
+  photos: MediaAsset[]
   beforeAfter?: BeforeAfterPair[]
+  video?: MediaAsset[]
+  timelapse?: MediaAsset[]
   featured?: boolean
   published: boolean
   seoDescription?: string
 }
 ```
 
-Keep entries in typed content modules so `/projects`, homepage teasers, and
-structured data stay consistent.
+Index page: curated cards with Problem one-liner + After thumbnail.  
+Detail page: full chapter sequence, media, CTAs (Estimate / Schedule).
 
-## Narrative structure (per project)
+## Truthfulness & privacy
 
-| Block | Guidance |
-|-------|----------|
-| Title | Asset type + work type (e.g. “Gelcoat restoration — express cruiser”) |
-| Context | One line on setting (marina, hangar, mobile) without sensitive identifiers |
-| Challenge | What was wrong or needed (cosmetic damage, oxidation, spot repair) |
-| Approach | High-level method — not a proprietary process dump |
-| Result | Visible outcome; optional before/after |
-| Services tagged | Link to catalogue entries |
-
-Avoid long blog essays in v1; clarity beats volume.
-
-## Privacy & permissions
-
-- Prefer non-identifying titles (“52' motor yacht”) over vessel/aircraft names
-  unless the owner approves.
-- Blur or crop registration marks, people, and documents when needed.
-- Airside / secure facility shots require explicit clearance.
-- Maintain an internal permission note (not necessarily public) before
-  `published: true`.
+1. Only real BCS work (or clearly disclosed collaboration).  
+2. No fake reviews, stars, or invented metrics.  
+3. No prices or insurance figures.  
+4. Blur registrations/people/documents when needed.  
+5. `published: true` only after permission sanity check.  
+6. Placeholders labeled — never cosplay as finished case studies.
 
 ## Division balance
 
-Aim for a portfolio that does not erase Aviation or Marine. If one division has
-fewer approved assets at launch:
+Do not erase Marine or Aviation. If one side has fewer approved stories at
+launch, publish what is real and say more photography is coming — never pad with
+stock.
 
-- Feature what is real.
-- Do not pad with stock.
-- Use honest copy on the thinner division page (“Selected work — more photography
-  coming soon”) rather than fake depth.
+## Interaction patterns
 
-## Before & after presentation
-
-- Follow matching rules in [`PHOTOGRAPHY_GUIDE.md`](./PHOTOGRAPHY_GUIDE.md).
-- Slider or side-by-side both acceptable; keyboard accessible; labels for each
-  state.
-- Do not autoplay misleading transitions that exaggerate change.
+- Before/After: accessible slider on detail + homepage teaser rules in
+  [`HOME_EXPERIENCE.md`](./HOME_EXPERIENCE.md).
+- Galleries: keyboard operable; no hover-only captions on touch.
+- Video/timelapse: user-initiated play preferred; muted autoplay only if tiny and
+  non-essential.
 
 ## SEO
 
-- Unique title/description per project detail route if/when detail pages ship.
-- Image `alt` describes the work outcome.
-- Optional `ImageObject` / project-related structured data later; do not spam
-  schema.
-- Locale: EN/ES project copy when available; do not duplicate-index identical
-  thin pages.
+- Unique title/description per case study detail.  
+- `alt` describes outcome and chapter context.  
+- EN/ES when copy exists; no thin duplicate locales.  
+- Sitemap includes published case studies only.
 
 ## Editorial workflow
 
-1. Owner selects candidate jobs and grants permission.
-2. Photos processed per photography guide.
-3. Draft entry in content module (English; Spanish when reviewed).
-4. Legal/privacy sanity check for identifiable assets.
-5. `published: true` → appears in grids and sitemap (if detail URLs exist).
+1. Select job + permissions.  
+2. Shoot per [`PHOTOGRAPHY_GUIDE.md`](./PHOTOGRAPHY_GUIDE.md).  
+3. Draft seven chapters (EN; ES when reviewed).  
+4. Privacy pass.  
+5. Publish → index, sitemap, optional homepage feature.
 
 ## Launch minimum
 
-- Homepage teaser: at least one real pair **or** a clearly documented
-  placeholder state approved by the owner.
-- `/projects`: grid ready for real entries; empty/honest state if assets are
-  pending — never fake cards.
+- Homepage: one featured story **or** an owner-approved honest empty/placeholder
+  state.
+- `/projects`: case-study index ready; empty state truthful if assets pending.
+- At least one complete seven-chapter study before calling proof “done.”
 
-## Out of scope for v1 case studies
+## Naming in navigation
 
-- Downloadable PDF reports
-- Client login to see private jobs (portal — future)
-- Live Instagram scraping as the portfolio source of truth
+| Surface | Preferred label |
+|---------|-----------------|
+| Primary nav | Projects *(or Case Studies if approved)* |
+| Homepage section | Featured Project |
+| Detail H1 | Case study title |
+| Docs / CMS | Case study |
+
+## Out of scope (v1)
+
+- Private client galleries behind login (portal — [`FUTURE.md`](./FUTURE.md))  
+- PDF report downloads  
+- Live Instagram as source of truth  
+- Fake “200 projects completed” counters without verification  
