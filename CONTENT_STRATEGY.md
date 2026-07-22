@@ -17,6 +17,10 @@ Two buyer contexts inform tone and proof:
 Messaging leads with outcomes (finish quality, asset protection, minimal
 downtime) and the **mobile service** advantage (we come to the vessel/aircraft).
 
+See also [`BRAND_GUIDE.md`](./BRAND_GUIDE.md),
+[`CUSTOMER_JOURNEY.md`](./CUSTOMER_JOURNEY.md), and
+[`CASE_STUDIES_GUIDE.md`](./CASE_STUDIES_GUIDE.md).
+
 ## Content model (content-as-data)
 
 Structured content lives in typed modules so it stays consistent across pages,
@@ -25,8 +29,9 @@ SEO and forms:
 - **Services** — `config/services.ts` (division, slug, name; extend with
   summary, benefits, imagery).
 - **Routes/navigation** — `config/routes.ts`.
-- **Projects / Before & After** (Phase 3) — a typed `Project` model in `types/`
-  feeding `/projects`, `/before-after`, `/gallery` and structured data.
+- **Case studies / Before & After** — typed `CaseStudy` stories (Problem →
+  Result) per [`CASE_STUDIES_GUIDE.md`](./CASE_STUDIES_GUIDE.md), feeding
+  `/projects`, homepage featured proof, and optional `/before-after`.
 - **Blog** (Phase 5) — MDX or headless CMS; Article schema.
 
 ## Page intent (from route registry)

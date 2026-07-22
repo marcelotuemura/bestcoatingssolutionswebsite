@@ -1,69 +1,86 @@
 # Roadmap
 
 Phased delivery plan. Phases are ordered by dependency, **not** by calendar time.
-Each phase ends with green quality gates (typecheck, lint, test, build) and, where
-relevant, E2E and a Vercel preview.
+Each implementation phase ends with green quality gates (`pnpm typecheck`,
+`pnpm lint`, `pnpm test`, `pnpm build`) and, where relevant, Playwright E2E,
+Lighthouse vs [`PERFORMANCE_BUDGET.md`](./PERFORMANCE_BUDGET.md), and a Vercel
+preview.
 
-## Phase 0 — Foundation ✅ (this repository)
+**Launch priority:** public marketing site first. Everything postponed is listed
+in [`FUTURE.md`](./FUTURE.md) — do not pull portal, CRM, Stripe, AI, maps, etc.
+into active phases without approval.
 
-Engineering scaffolding only; **no marketing pages/components**.
+## Phase 0 — Foundation ✅
 
-- Next.js + React + TypeScript + Tailwind v4 base.
-- Tooling, testing, CI, SEO scaffolding, typed config, docs.
-- Placeholder home route to verify the toolchain end-to-end.
+Engineering scaffolding; placeholder home route; tooling, CI, SEO seams.
 
-**Exit criteria:** all gates green; app builds, runs, and serves
-`sitemap.xml` / `robots.txt`.
+## Phase 0.5 — Strategic documentation ✅ / refining
 
-## Phase 1 — Design system & shared UI
+Launch strategy docs (emotion-first homepage, psychology journey, photography
+standard, case studies, brand manual, performance targets, future backlog):
 
-- Implement brand primitives in `components/ui` (Button, Card, Container,
-  Section, Input) from `DESIGN_SYSTEM.md`.
-- Global layout: accessible Header (with primary nav from `config/routes.ts`) and
-  Footer.
-- Motion tokens in `animations/` (respecting `prefers-reduced-motion`).
+| Doc | Role |
+|-----|------|
+| [`BRAND_GUIDE.md`](./BRAND_GUIDE.md) | Full brand manual (digital + physical) |
+| [`HOME_EXPERIENCE.md`](./HOME_EXPERIENCE.md) | WOW arc, section story, animation catalogue |
+| [`CUSTOMER_JOURNEY.md`](./CUSTOMER_JOURNEY.md) | Emotional funnel land → customer |
+| [`PHOTOGRAPHY_GUIDE.md`](./PHOTOGRAPHY_GUIDE.md) | Complete shot & media standard |
+| [`CASE_STUDIES_GUIDE.md`](./CASE_STUDIES_GUIDE.md) | Problem→Result story model |
+| [`PERFORMANCE_BUDGET.md`](./PERFORMANCE_BUDGET.md) | Lighthouse 95 / 100 / 100 / 100 |
+| [`FUTURE.md`](./FUTURE.md) | All postponed work |
+| [`FUTURE_PLATFORM.md`](./FUTURE_PLATFORM.md) | Later monorepo boundaries |
 
-## Phase 2 — Premium homepage
+**Exit criteria:** docs merged; then Phase 1 production UI may start.
 
-- The single animated experience (Framer Motion; GSAP only if unavoidable).
-- Hero, divisions (Marine/Aviation), differentiators, social proof, CTAs.
-- Strict performance budget (see `DEPLOYMENT.md` / Core Web Vitals).
+## Phase 1 — Shared UI, navigation & content models
 
-## Phase 3 — Core marketing pages (static, fast)
+- UI primitives + Header/Footer/Nav from brand manual + design system.
+- EN/ES language framework.
+- Content models: services, case studies, media, social, trust pillars.
+- Route registry for first-release paths (incl. `/service-area`).
 
-Routes are already registered in `config/routes.ts`:
+## Phase 2 — Premium homepage (WOW)
 
-- `/marine`, `/aviation`, `/services`, `/process`, `/about`
-- `/projects`, `/before-after`, `/gallery`
-- `/privacy`, `/terms`, `/accessibility`
+- Story sections per [`HOME_EXPERIENCE.md`](./HOME_EXPERIENCE.md):
+  Hero → Who We Are → Marine → Aviation → Why BCS → Featured Project →
+  Before & After → Our Process → Service Area → Request Estimate →
+  Portal Coming Soon → Footer.
+- Full animation catalogue (no improvisation).
+- Hit performance budget (Performance **95+**, a11y/SEO/BP **100**).
 
-## Phase 4 — Lead capture
+## Phase 3 — Marine, Aviation & Services
 
-- `/estimate-request`, `/schedule-visit`, `/contact` forms (RHF + Zod).
-- Server Actions + spam protection; email notifications via a `services/`
-  adapter.
+- Static division + catalogue pages; memorable division storytelling.
+- CTAs into estimate / schedule; no prices.
 
-## Phase 5 — Content platform
+## Phase 4 — Case studies, About & Service Area
 
-- `/blog` with MDX or a headless CMS; article structured data and feeds.
+- `/projects` as case-study index/detail (seven-chapter stories).
+- `/about`, `/service-area`; optional `/before-after`.
+- Legal: privacy, terms, accessibility as needed.
 
-## Phase 6 — Integrations (behind `services/` adapters)
+## Phase 5 — Estimate, Schedule & Contact
 
-- Google Maps (service area), Google Reviews, Instagram/Facebook gallery.
+- RHF + Zod; spam architecture; email via `services/`.
+- Fort Lauderdale free-estimate policy honesty.
 
-## Phase 7 — Customer Portal (authenticated)
+## Phase 6 — SEO, analytics, accessibility & launch testing
 
-- Supabase Auth + protected route group.
-- Modules: Dashboard, Projects, Invoices, Estimates, Payments (Stripe),
-  Messages, Documents, Photos, Timeline, Appointments, Profile, Notifications.
-- CRM sync with the existing business platform.
+- Locale metadata, sitemap, schema, Lighthouse gates, Playwright forms/nav.
 
-## Phase 8 — Advanced
+## Phase 7 — Production deployment preparation
 
-- Push notifications, SMS, Live Chat, AI Assistant.
-- Internationalization; national/international expansion.
+- Env, domain, email, legal/copy, assets. **No production deploy without
+  approval.**
 
-## Cross-cutting (every phase)
+## Later
 
-- Accessibility AA, SEO, performance budgets, security review, tests, and
-  updated documentation.
+See [`FUTURE.md`](./FUTURE.md) — portal, CRM, payments, maps, reviews,
+notifications, AI, monorepo, technician app, and more.
+
+## Cross-cutting
+
+- Accessibility AA (Lighthouse Accessibility **100**).
+- No fake reviews, fake case studies, or displayed prices.
+- Psychology funnel in [`CUSTOMER_JOURNEY.md`](./CUSTOMER_JOURNEY.md) overrides
+  page-count vanity.

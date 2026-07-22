@@ -3,6 +3,11 @@
 The BCS visual identity: **Apple meets Feadship meets Gulfstream** — dark,
 premium, minimal, technical. No template appearance.
 
+Strategic identity and usage rules: [`BRAND_GUIDE.md`](./BRAND_GUIDE.md) (full
+brand manual). Homepage WOW + motion catalogue:
+[`HOME_EXPERIENCE.md`](./HOME_EXPERIENCE.md). Postponed product work:
+[`FUTURE.md`](./FUTURE.md).
+
 The machine-readable source of truth is the Tailwind v4 `@theme` block in
 [`app/globals.css`](./app/globals.css); this document explains intent and usage.
 

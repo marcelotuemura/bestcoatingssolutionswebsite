@@ -8,10 +8,15 @@ Single **Next.js (App Router)** application — the Best Coatings Solutions
 marketing site (and future customer portal). See `README.md` and
 `PROJECT_OVERVIEW.md` for scope and `docs/architecture` for design.
 
-The repository is in the **foundation phase**: tooling, CI, testing and SEO
-scaffolding are complete; the `/` route is an intentional minimal placeholder.
-Do not build marketing pages/components unless the roadmap phase calls for it
-(`ROADMAP.md`).
+The repository has completed **Phase 0 (foundation)** and **Phase 0.5 (strategic
+docs)**. The `/` route remains an intentional minimal placeholder until the
+homepage phase. Before marketing UI, read: `BRAND_GUIDE.md`,
+`HOME_EXPERIENCE.md` (animation catalogue — do not improvise motion),
+`CUSTOMER_JOURNEY.md` (psychology funnel), `PHOTOGRAPHY_GUIDE.md`,
+`CASE_STUDIES_GUIDE.md`, `PERFORMANCE_BUDGET.md` (Lighthouse 95/100/100/100),
+and `FUTURE.md` (everything postponed). Architecture seams for a later platform:
+`FUTURE_PLATFORM.md`. Do not build portal/CRM/Stripe/monorepo unless explicitly
+approved.
 
 ## Standard commands
 
