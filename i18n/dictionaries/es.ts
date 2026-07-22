@@ -20,6 +20,8 @@ export const es = {
     beforeAfterSlider: 'Comparación antes y después',
     beforeLabel: 'Antes',
     afterLabel: 'Después',
+    /** `{before}` / `{after}` son porcentajes visibles (0–100). */
+    beforeAfterValueText: 'Antes {before}%, Después {after}%',
   },
   nav: {
     home: 'Inicio',

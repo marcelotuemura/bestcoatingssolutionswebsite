@@ -30,6 +30,7 @@ export function BeforeAfterSection({
               beforeLabel={dictionary.a11y.beforeLabel}
               afterLabel={dictionary.a11y.afterLabel}
               sliderLabel={dictionary.a11y.beforeAfterSlider}
+              valueTextTemplate={dictionary.a11y.beforeAfterValueText}
               beforeCaption={copy.beforeCaption}
               afterCaption={copy.afterCaption}
               mediaLabel={dictionary.placeholder.mediaLabel}

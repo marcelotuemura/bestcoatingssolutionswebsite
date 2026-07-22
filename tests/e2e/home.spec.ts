@@ -154,13 +154,100 @@ test.describe('Phase 2 homepage', () => {
     }
   });
 
-  test('before/after slider is keyboard operable', async ({ page }) => {
+  test('before/after slider semantics stay aligned for keyboard users', async ({
+    page,
+  }) => {
     await page.goto('/en');
-    const slider = page.getByRole('slider', {
+    const section = page.locator('#before-after');
+    const slider = section.getByRole('slider', {
       name: /Before and after comparison/i,
     });
+    const frame = section.locator('[data-comparison-value]');
+    const handle = section.locator('[data-comparison-handle]');
+    const afterLayer = section.locator('[data-layer="after"]');
+
+    await expect(slider).toHaveValue('50');
+    await expect(slider).toHaveAttribute(
+      'aria-valuetext',
+      'Before 50%, After 50%',
+    );
+    await expect(frame).toHaveAttribute('data-before-percent', '50');
+    await expect(frame).toHaveAttribute('data-after-percent', '50');
+    await expect(handle).toHaveCSS('left', /.*/);
+    await expect(afterLayer).toHaveAttribute(
+      'data-after-clip',
+      'inset(0 50% 0 0)',
+    );
+
+    const leftAt50 = await handle.evaluate(
+      (el) => (el as HTMLElement).style.left,
+    );
+    expect(leftAt50).toBe('50%');
+
     await slider.focus();
-    await expect(slider).toBeFocused();
     await page.keyboard.press('ArrowRight');
+    await expect(slider).toHaveValue('51');
+    await expect(slider).toHaveAttribute(
+      'aria-valuetext',
+      'Before 49%, After 51%',
+    );
+    await expect(handle).toHaveAttribute('style', /left:\s*51%/);
+    await expect(afterLayer).toHaveAttribute(
+      'data-after-clip',
+      'inset(0 49% 0 0)',
+    );
+
+    await page.keyboard.press('ArrowLeft');
+    await expect(slider).toHaveValue('50');
+    await expect(slider).toHaveAttribute(
+      'aria-valuetext',
+      'Before 50%, After 50%',
+    );
+
+    await page.keyboard.press('Home');
+    await expect(slider).toHaveValue('0');
+    await expect(slider).toHaveAttribute(
+      'aria-valuetext',
+      'Before 100%, After 0%',
+    );
+    await expect(handle).toHaveAttribute('style', /left:\s*0%/);
+    await expect(afterLayer).toHaveAttribute(
+      'data-after-clip',
+      'inset(0 100% 0 0)',
+    );
+
+    await page.keyboard.press('End');
+    await expect(slider).toHaveValue('100');
+    await expect(slider).toHaveAttribute(
+      'aria-valuetext',
+      'Before 0%, After 100%',
+    );
+    await expect(handle).toHaveAttribute('style', /left:\s*100%/);
+    await expect(afterLayer).toHaveAttribute(
+      'data-after-clip',
+      'inset(0 0% 0 0)',
+    );
+
+    // Placeholder labeling remains honest.
+    await expect(section.getByText(/Placeholder media/i)).toBeVisible();
+  });
+
+  test('Spanish before/after aria-valuetext is localized', async ({ page }) => {
+    await page.goto('/es');
+    const slider = page.locator('#before-after').getByRole('slider', {
+      name: /Comparación antes y después/i,
+    });
+    await expect(slider).toHaveValue('50');
+    await expect(slider).toHaveAttribute(
+      'aria-valuetext',
+      'Antes 50%, Después 50%',
+    );
+
+    await slider.focus();
+    await page.keyboard.press('End');
+    await expect(slider).toHaveAttribute(
+      'aria-valuetext',
+      'Antes 0%, Después 100%',
+    );
   });
 });

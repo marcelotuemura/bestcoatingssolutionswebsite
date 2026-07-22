@@ -1,12 +1,19 @@
 'use client';
 
-import { useId, useState } from 'react';
+import { useId, useMemo, useState } from 'react';
 import { cn } from '@/utils/cn';
+import {
+  formatComparisonValueText,
+  getAfterClipPath,
+  getComparisonPercents,
+} from '@/utils/before-after';
 
 export interface BeforeAfterSliderProps {
   readonly beforeLabel: string;
   readonly afterLabel: string;
   readonly sliderLabel: string;
+  /** Localized template with `{before}` and `{after}` percent placeholders. */
+  readonly valueTextTemplate: string;
   readonly beforeCaption: string;
   readonly afterCaption: string;
   readonly mediaLabel: string;
@@ -16,12 +23,19 @@ export function BeforeAfterSlider({
   beforeLabel,
   afterLabel,
   sliderLabel,
+  valueTextTemplate,
   beforeCaption,
   afterCaption,
   mediaLabel,
 }: BeforeAfterSliderProps) {
   const [value, setValue] = useState(50);
   const id = useId();
+  const { before, after } = useMemo(
+    () => getComparisonPercents(value),
+    [value],
+  );
+  const afterClipPath = getAfterClipPath(after);
+  const valueText = formatComparisonValueText(valueTextTemplate, before, after);
 
   return (
     <div className="space-y-3">
@@ -29,9 +43,14 @@ export function BeforeAfterSlider({
         className="border-navy-700 bg-navy-950 relative aspect-[16/10] overflow-hidden rounded-2xl border"
         role="img"
         aria-label={`${beforeCaption} / ${afterCaption}`}
+        data-comparison-value={value}
+        data-before-percent={before}
+        data-after-percent={after}
       >
+        {/* Before = full base layer */}
         <div
           className="absolute inset-0"
+          data-layer="before"
           style={{
             background:
               'linear-gradient(135deg, #163254 0%, #0f2340 45%, #9aa7b5 100%)',
@@ -41,10 +60,13 @@ export function BeforeAfterSlider({
             {beforeLabel}
           </span>
         </div>
+        {/* After grows left→right as value increases */}
         <div
           className="absolute inset-0"
+          data-layer="after"
+          data-after-clip={afterClipPath}
           style={{
-            clipPath: `inset(0 0 0 ${value}%)`,
+            clipPath: afterClipPath,
             background:
               'linear-gradient(135deg, #0a1a2f 0%, #0a84ff55 40%, #f4f6f8 100%)',
           }}
@@ -55,8 +77,9 @@ export function BeforeAfterSlider({
         </div>
         <div
           aria-hidden
+          data-comparison-handle
           className="bg-electric-400 absolute inset-y-0 w-0.5"
-          style={{ left: `${value}%` }}
+          style={{ left: `${after}%` }}
         />
         <p className="bg-navy-950/80 text-silver-500 absolute bottom-3 left-3 rounded-lg px-2 py-1 text-xs">
           {mediaLabel}
@@ -75,7 +98,10 @@ export function BeforeAfterSlider({
         className={cn(
           'accent-electric-500 focus-visible:ring-electric-500 h-11 w-full focus-visible:ring-2 focus-visible:outline-none',
         )}
-        aria-valuetext={`${afterLabel} ${value}%`}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={value}
+        aria-valuetext={valueText}
       />
     </div>
   );
