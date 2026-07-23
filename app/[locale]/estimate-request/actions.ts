@@ -52,7 +52,11 @@ export async function submitEstimateAction(input: {
   }
 
   const files = input.photos ?? [];
-  const fileError = validateEstimateFiles(files, messages);
+  const fileError = validateEstimateFiles(files, {
+    maxFiles: messages.maxFiles,
+    maxSize: messages.maxSize,
+    type: messages.fileType,
+  });
   if (fileError) {
     return {
       ok: false,
