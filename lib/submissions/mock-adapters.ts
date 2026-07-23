@@ -26,14 +26,18 @@ async function guardSubmission(input: {
   readonly turnstileToken?: string;
   readonly remoteIp?: string;
 }): Promise<SubmissionResult | null> {
-  const rate = await checkSubmissionRateLimit(input.identityKey);
-  if (!rate.allowed) {
-    return {
-      ok: false,
-      status: 'failed',
-      messageKey: 'demoFailure',
-      errorCode: 'rate-limited',
-    };
+  // Demo mode skips abuse controls so local/E2E flows are not blocked by a
+  // shared anonymous bucket. Production delivery requires rate limiting.
+  if (canEnablePublicFormDelivery()) {
+    const rate = await checkSubmissionRateLimit(input.identityKey);
+    if (!rate.allowed) {
+      return {
+        ok: false,
+        status: 'failed',
+        messageKey: 'demoFailure',
+        errorCode: 'rate-limited',
+      };
+    }
   }
 
   const turnstile = await verifyTurnstileToken(
