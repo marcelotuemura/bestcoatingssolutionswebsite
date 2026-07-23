@@ -1,7 +1,9 @@
 import { conversionEn } from '@/i18n/dictionaries/conversion-en';
+import { phase5En } from '@/i18n/dictionaries/phase5-en';
 
 export const en = {
   conversion: conversionEn,
+  phase5: phase5En,
   meta: {
     titleDefault: 'Best Coatings Solutions — Marine & Aviation Coatings',
     titleTemplate: '%s | BCS',
@@ -43,6 +45,9 @@ export const en = {
     gallery: 'Gallery',
     blog: 'Blog',
     portal: 'Customer Portal',
+    faq: 'FAQ',
+    workmanship: 'Workmanship',
+    resources: 'Resources',
   },
   cta: {
     estimate: 'Request Free Estimate',

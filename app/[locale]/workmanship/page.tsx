@@ -1,4 +1,5 @@
-import { ServiceAreaPage } from '@/components/service-area/ServiceAreaPage';
+import { WorkmanshipPage } from '@/components/workmanship/WorkmanshipPage';
+import { getWorkmanshipContent } from '@/content/workmanship';
 import { getDictionary } from '@/i18n/get-dictionary';
 import { isLocale, type Locale } from '@/i18n/config';
 import { buildPageMetadata } from '@/lib/seo/page-metadata';
@@ -15,12 +16,12 @@ export async function generateMetadata({
   if (!isLocale(raw)) {
     return {};
   }
-  const dictionary = await getDictionary(raw);
+  const content = getWorkmanshipContent(raw);
   return buildPageMetadata({
     locale: raw,
-    path: '/service-area',
-    title: dictionary.phase5.serviceArea.metaTitle,
-    description: dictionary.phase5.serviceArea.metaDescription,
+    path: '/workmanship',
+    title: content.metaTitle,
+    description: content.metaDescription,
   });
 }
 
@@ -37,7 +38,7 @@ export default async function Page({
   const dictionary = await getDictionary(locale);
   const jsonLd = breadcrumbJsonLd(locale, [
     { name: dictionary.nav.home, path: '/' },
-    { name: dictionary.nav.serviceArea, path: '/service-area' },
+    { name: dictionary.nav.workmanship, path: '/workmanship' },
   ]);
 
   return (
@@ -46,7 +47,7 @@ export default async function Page({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ServiceAreaPage locale={locale} dictionary={dictionary} />
+      <WorkmanshipPage locale={locale} dictionary={dictionary} />
     </>
   );
 }

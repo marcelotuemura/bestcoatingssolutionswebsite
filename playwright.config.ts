@@ -27,5 +27,9 @@ export default defineConfig({
     url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
+    env: {
+      ...process.env,
+      BCS_INCLUDE_TEST_FIXTURES: '1',
+    },
   },
 });

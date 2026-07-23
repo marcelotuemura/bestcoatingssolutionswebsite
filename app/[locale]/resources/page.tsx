@@ -1,4 +1,4 @@
-import { ServiceAreaPage } from '@/components/service-area/ServiceAreaPage';
+import { ResourcesIndexPage } from '@/components/resources/ResourcesIndexPage';
 import { getDictionary } from '@/i18n/get-dictionary';
 import { isLocale, type Locale } from '@/i18n/config';
 import { buildPageMetadata } from '@/lib/seo/page-metadata';
@@ -18,9 +18,9 @@ export async function generateMetadata({
   const dictionary = await getDictionary(raw);
   return buildPageMetadata({
     locale: raw,
-    path: '/service-area',
-    title: dictionary.phase5.serviceArea.metaTitle,
-    description: dictionary.phase5.serviceArea.metaDescription,
+    path: '/resources',
+    title: dictionary.phase5.resources.metaTitle,
+    description: dictionary.phase5.resources.metaDescription,
   });
 }
 
@@ -37,7 +37,7 @@ export default async function Page({
   const dictionary = await getDictionary(locale);
   const jsonLd = breadcrumbJsonLd(locale, [
     { name: dictionary.nav.home, path: '/' },
-    { name: dictionary.nav.serviceArea, path: '/service-area' },
+    { name: dictionary.nav.resources, path: '/resources' },
   ]);
 
   return (
@@ -46,7 +46,7 @@ export default async function Page({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ServiceAreaPage locale={locale} dictionary={dictionary} />
+      <ResourcesIndexPage locale={locale} dictionary={dictionary} />
     </>
   );
 }

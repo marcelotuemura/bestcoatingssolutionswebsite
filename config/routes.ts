@@ -141,6 +141,30 @@ export const routes = {
     priority: 0.2,
     launch: true,
   },
+  faq: {
+    path: '/faq',
+    labelKey: 'faq',
+    sitemap: true,
+    changeFrequency: 'monthly',
+    priority: 0.7,
+    launch: true,
+  },
+  workmanship: {
+    path: '/workmanship',
+    labelKey: 'workmanship',
+    sitemap: true,
+    changeFrequency: 'yearly',
+    priority: 0.6,
+    launch: true,
+  },
+  resources: {
+    path: '/resources',
+    labelKey: 'resources',
+    sitemap: true,
+    changeFrequency: 'weekly',
+    priority: 0.75,
+    launch: true,
+  },
   /** Deferred — keep registered, out of launch sitemap. */
   process: {
     path: '/process',
@@ -181,21 +205,28 @@ export type RouteKey = keyof typeof routes;
 /** Primary navigation shown in the site header. */
 export const primaryNav: readonly RouteKey[] = [
   'marine',
-  'aviation',
   'services',
   'projects',
+  'resources',
   'about',
   'contact',
 ];
 
 /** Footer secondary links. */
 export const footerNav: readonly RouteKey[] = [
+  'about',
+  'marine',
+  'aviation',
+  'services',
+  'projects',
+  'faq',
+  'resources',
   'serviceArea',
+  'workmanship',
+  'contact',
   'estimateRequest',
-  'scheduleVisit',
   'privacy',
   'terms',
-  'accessibility',
 ];
 
 /** CTA keys used in header/footer. */

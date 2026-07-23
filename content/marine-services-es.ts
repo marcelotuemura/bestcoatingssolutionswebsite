@@ -461,51 +461,63 @@ export const marineServiceContentEs: Record<
     heroLead:
       'Apoyo profesional de reparación marina para reclamos — alcance claro, hábitos de documentación cuidadosos y calidad de acabado.',
     overview:
-      'Las reparaciones por seguro necesitan claridad. Ayudamos a propietarios y gestores a entender el alcance cosmético y de recubrimientos. No mostramos precios en línea ni inventamos resultados de reclamos.',
+      'Las reparaciones por seguro necesitan claridad. Ayudamos a propietarios y gestores a entender el alcance cosmético y de recubrimientos mediante documentación, inspección cuando corresponda y un alcance escrito acordado antes de la reparación. Las decisiones de cobertura corresponden al cliente y a la aseguradora. BCS no garantiza la aprobación del reclamo, y un estimado de reparación no determina la cobertura de la póliza. No mostramos precios en línea ni inventamos resultados de reclamos.',
     problemsTitle: 'Problemas comunes',
     problems: [
       'Daño por atracadero y cosmética de colisión',
       'Daño superficial relacionado con tormentas',
       'Múltiples reparaciones pequeñas en una embarcación',
       'Necesidad de documentación fotográfica del progreso',
+      'Necesidad de comunicación clara con el propietario antes de la autorización',
     ],
     processTitle: 'Nuestro proceso',
     processSteps: [
       {
-        title: 'Revisar',
-        body: 'Entendemos el daño reportado y las condiciones de acceso.',
+        title: 'Documentación inicial',
+        body: 'Revisamos la descripción del daño reportado y cualquier foto proporcionada por el cliente.',
       },
       {
-        title: 'Definir alcance',
-        body: 'Definimos áreas de reparación sin prometer decisiones del asegurador.',
+        title: 'Inspección cuando corresponda',
+        body: 'Recomendamos inspección en el sitio cuando las fotos no bastan para planificar el alcance de forma responsable.',
       },
       {
-        title: 'Reparar',
-        body: 'Ejecutamos el trabajo acordado con estándares profesionales.',
+        title: 'Preparación del alcance',
+        body: 'Preparamos el alcance enfocado en el trabajo cosmético o de recubrimientos acordado — sin prometer decisiones del asegurador.',
       },
       {
-        title: 'Documentar',
-        body: 'Proporcionamos registros visuales claros cuando se solicitan.',
+        title: 'Autorización y reparación',
+        body: 'Procedemos tras la autorización apropiada, luego documentamos y revisamos la finalización frente al alcance acordado.',
       },
     ],
     whyTitle: 'Por qué elegir BCS',
     whyPoints: [
-      'Comunicación profesional',
-      'Proceso apto para fotos cuando se necesita',
+      'Comunicación profesional con el propietario de la embarcación',
+      'Hábitos de documentación aptos para fotos cuando se necesita',
       'Experiencia en acabados marinos',
-      'Sin testimonios fabricados',
+      'Sin testimonios fabricados ni afirmaciones de proveedor preferido',
+      'Sin afirmaciones de ajustador público o representación legal',
     ],
     faqTitle: 'Preguntas frecuentes',
     faqs: [
       {
+        question: '¿Garantizan la aprobación del reclamo de seguro?',
+        answer:
+          'No. Las decisiones de cobertura corresponden al cliente y a la aseguradora. Un estimado de reparación no determina la cobertura de la póliza, y BCS no garantiza la aprobación del reclamo.',
+      },
+      {
         question: '¿Facturan directamente a las aseguradoras?',
         answer:
-          'Los arreglos de facturación varían. Discutimos opciones prácticas después de aclarar el alcance — nunca como garantía del sitio.',
+          'Los arreglos de facturación varían. Discutimos opciones prácticas después de aclarar el alcance — nunca como garantía del sitio, ni como estatus de proveedor preferido para todas las aseguradoras.',
       },
       {
         question: '¿Los estimados gratuitos aplican a trabajo de seguro?',
         answer:
           'Los estimados gratuitos aplican solo en el área de Fort Lauderdale. Otras ubicaciones pueden requerir revisión o arreglos de viaje.',
+      },
+      {
+        question: '¿Actúan como ajustadores públicos?',
+        answer:
+          'No. BCS no ofrece servicios de ajustador público, representación legal ni autoridad para interpretar pólizas de seguro.',
       },
     ],
   }),
