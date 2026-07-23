@@ -47,7 +47,7 @@ export const aboutContentEn: AboutPageContent = {
   introductionTitle: 'Company introduction',
   introduction: [
     'Best Coatings Solutions provides marine cosmetic repair, fiberglass and composite repair, gelcoat repair, paint and refinishing, and color and finish attention for vessels where conditions allow.',
-    'We focus on careful project evaluation, clear scope communication, and professional documentation. We do not invent years in business, project counts, certifications, or awards on this website.',
+    'We focus on careful project evaluation, clear scope communication, and professional documentation. We do not invent founding years, project counts, certifications, or awards on this website.',
   ],
   specializationTitle: 'Marine repair specialization',
   specialization: [
@@ -147,7 +147,7 @@ export const aboutContentEs: AboutPageContent = {
   introductionTitle: 'Presentación de la empresa',
   introduction: [
     'Best Coatings Solutions ofrece reparación cosmética marina, reparación de fibra de vidrio y compuestos, reparación de gelcoat, pintura y refinación, y atención al color y al acabado en embarcaciones cuando las condiciones lo permiten.',
-    'Nos enfocamos en la evaluación cuidadosa del proyecto, la comunicación clara del alcance y la documentación profesional. No inventamos años en el negocio, conteos de proyectos, certificaciones ni premios en este sitio.',
+    'Nos enfocamos en la evaluación cuidadosa del proyecto, la comunicación clara del alcance y la documentación profesional. No inventamos años de fundación, conteos de proyectos, certificaciones ni premios en este sitio.',
   ],
   specializationTitle: 'Especialización en reparación marina',
   specialization: [

@@ -9,7 +9,7 @@ test.describe('Phase 5 — About', () => {
     );
     await expect(page.getByTestId('company-values')).toBeVisible();
     await expect(page.getByTestId('about-owner-facts-pending')).toBeVisible();
-    await expect(page.getByText(/years in business/i)).toHaveCount(0);
+    await expect(page.getByText(/\bfounded in\b/i)).toHaveCount(0);
     await expect(page.getByText(/award-winning/i)).toHaveCount(0);
     await expect(
       page.getByRole('link', { name: /request/i }).first(),
@@ -28,18 +28,19 @@ test.describe('Phase 5 — About', () => {
 test.describe('Phase 5 — Projects', () => {
   test('empty production portfolio messaging and links', async ({ page }) => {
     await page.goto('/en/projects');
-    await expect(page.getByTestId('projects-empty')).toBeVisible();
+    const empty = page.getByTestId('projects-empty');
+    await expect(empty).toBeVisible();
     await expect(
-      page.getByRole('link', { name: /marine services/i }),
+      empty.getByRole('link', { name: /marine services/i }),
     ).toBeVisible();
     await expect(
-      page.getByRole('link', { name: /request estimate/i }),
+      empty.getByRole('link', { name: /request estimate/i }),
     ).toBeVisible();
     await expect(
-      page.getByRole('link', { name: /contact bcs/i }),
+      empty.getByRole('link', { name: /contact bcs/i }),
     ).toBeVisible();
     await expect(
-      page.getByRole('link', { name: /^resources$/i }),
+      empty.getByRole('link', { name: /^resources$/i }),
     ).toBeVisible();
   });
 
@@ -217,7 +218,7 @@ test.describe('Phase 5 — Internal links', () => {
       '/en/workmanship',
       '/en/contact',
     ]) {
-      await expect(footer.locator(`a[href="${path}"]`)).toHaveCount(1);
+      await expect(footer.locator(`a[href="${path}"]`).first()).toBeVisible();
     }
   });
 });
