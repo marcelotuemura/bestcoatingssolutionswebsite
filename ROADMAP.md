@@ -72,13 +72,16 @@ standard, case studies, brand manual, performance targets, future backlog):
 - RHF + Zod; spam architecture; email via `services/`.
 - Fort Lauderdale free-estimate policy honesty.
 
-## Phase 6 — SEO, analytics, accessibility & launch testing
+## Phase 6 — Production launch readiness
 
-- Locale metadata, sitemap, schema, Lighthouse gates, Playwright forms/nav.
+- Provider selection (Vercel, Resend, Turnstile, Upstash, Analytics, Sentry).
+- Delivery gates; forms stay demo until credentials + legal approvals.
+- Rate-limit / bot-protection / safe-error seams.
+- **No portal. No operations platform. No Stripe/Supabase activation.**
 
 ## Phase 7 — Production deployment preparation
 
-- Env, domain, email, legal/copy, assets. **No production deploy without
+- Env, domain, email go-live, legal/copy, assets. **No production deploy without
   approval.**
 
 ## Later
