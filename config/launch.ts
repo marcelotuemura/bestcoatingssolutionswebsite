@@ -107,10 +107,10 @@ export function getLaunchGates(): readonly LaunchGate[] {
     {
       id: 'upload-pipeline',
       label: 'Secure estimate upload pipeline',
-      ready: false,
+      ready: envPresent('BLOB_READ_WRITE_TOKEN'),
       blocker: false,
       notes:
-        'Vercel Blob selected; malware scan + retention must be approved before enabling uploads in production.',
+        'Vercel Blob selected; malware scan + retention must be approved before relying on uploads in production. Delivery can proceed with metadata-only email when Blob is absent.',
     },
   ] as const;
 }

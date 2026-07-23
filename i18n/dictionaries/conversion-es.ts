@@ -9,14 +9,27 @@ export const conversionEs: DictionaryShape<ConversionCopy> = {
     next: 'Continuar',
     back: 'Atrás',
     submit: 'Enviar solicitud',
-    submitting: 'Preparando solicitud…',
+    submitting: 'Enviando solicitud…',
+    preparing: 'Preparando solicitud…',
     errorSummary: 'Corrija lo siguiente:',
     demoBanner:
-      'Modo demostración: las solicitudes se preparan localmente hasta configurar la entrega en producción.',
+      'Modo demostración: las solicitudes se preparan localmente hasta configurar las credenciales de entrega en producción.',
+    liveBanner:
+      'Su solicitud se enviará de forma segura a Best Coatings Solutions. Nunca mostramos precios en el sitio.',
     demoSuccess:
-      'Su solicitud se preparó correctamente. La entrega directa se habilitará antes del lanzamiento.',
+      'Su solicitud se preparó correctamente. La entrega directa se habilita cuando se configuran las credenciales de producción.',
+    deliveredSuccess:
+      'Su solicitud fue enviada a Best Coatings Solutions. Le daremos seguimiento con los datos de contacto que proporcionó.',
     demoFailure:
       'No pudimos preparar su solicitud. Su información sigue aquí — intente de nuevo.',
+    deliveryFailed:
+      'No pudimos enviar su solicitud. Su información sigue aquí — intente de nuevo en breve.',
+    rateLimited:
+      'Se enviaron demasiadas solicitudes. Espere un momento e intente de nuevo.',
+    botCheckFailed:
+      'La verificación antibot falló o expiró. Complete la verificación e intente de nuevo.',
+    validationFailed: 'Corrija los campos indicados e intente de nuevo.',
+    turnstileLabel: 'Verificación de seguridad',
     retry: 'Reintentar',
   },
   validation: {
@@ -215,17 +228,28 @@ export const conversionEs: DictionaryShape<ConversionCopy> = {
       'Gracias por contactar a Best Coatings Solutions. Revise los siguientes pasos para solicitudes marinas.',
     contactTitle: 'Mensaje preparado',
     estimateTitle: 'Solicitud de estimado preparada',
+    contactDeliveredTitle: 'Mensaje enviado',
+    estimateDeliveredTitle: 'Solicitud de estimado enviada',
     fallbackTitle: 'Gracias',
     contactBody:
-      'Su mensaje de contacto se preparó en modo demostración. La entrega directa se habilitará antes del lanzamiento.',
+      'Su mensaje de contacto se preparó en modo demostración. La entrega directa se habilita cuando se configuran las credenciales de producción.',
     estimateBody:
-      'Su solicitud de estimado marino se preparó en modo demostración. La entrega directa se habilitará antes del lanzamiento.',
+      'Su solicitud de estimado marino se preparó en modo demostración. La entrega directa se habilita cuando se configuran las credenciales de producción.',
+    contactDeliveredBody:
+      'Su mensaje de contacto fue enviado a Best Coatings Solutions. Daremos seguimiento con su método de contacto preferido cuando esté disponible.',
+    estimateDeliveredBody:
+      'Su solicitud de estimado marino fue enviada a Best Coatings Solutions. Revisaremos los detalles y daremos seguimiento — el formulario no confirma una cita ni un precio.',
     fallbackBody:
-      'Si acaba de enviar un formulario, su solicitud se preparó para entrega futura. Para ayuda ahora, llame a Best Coatings Solutions o vuelva a Contacto.',
+      'Si acaba de enviar un formulario, gracias. Para ayuda ahora, llame a Best Coatings Solutions o vuelva a Contacto.',
     nextTitle: 'Qué sigue',
     nextSteps: [
-      'Cuando la entrega en producción esté activa, BCS revisará las solicitudes entrantes.',
-      'El seguimiento usa su método de contacto preferido cuando esté disponible.',
+      'BCS revisa las solicitudes de contacto y estimado entrantes.',
+      'El seguimiento usa su método de contacto preferido cuando está disponible.',
+      'Una inspección se discute solo cuando corresponde — el formulario solo no confirma nada.',
+    ],
+    nextStepsDemo: [
+      'Cuando se configuren las credenciales de entrega en producción, BCS recibe las solicitudes por correo.',
+      'El seguimiento usa su método de contacto preferido cuando está disponible.',
       'Una inspección se discute solo cuando corresponde — el formulario solo no confirma nada.',
     ],
     noFixedTime: 'No prometemos un tiempo de respuesta fijo en este sitio.',
@@ -249,7 +273,7 @@ export const conversionEs: DictionaryShape<ConversionCopy> = {
       },
       {
         title: 'Fotos e información de la embarcación',
-        body: 'La selección de fotos en el estimado es solo del lado del cliente en esta demostración. Aún no hay almacenamiento en la nube.',
+        body: 'Las fotos del estimado pueden cargarse a almacenamiento seguro de objetos cuando se configuran las credenciales de carga en producción. No incluya identificadores privados innecesarios en las fotos.',
       },
       {
         title: 'Uso previsto',
@@ -261,11 +285,11 @@ export const conversionEs: DictionaryShape<ConversionCopy> = {
       },
       {
         title: 'Servicios de terceros',
-        body: 'Futuros proveedores de correo, hosting, analítica o CRM pueden procesar datos. No están activados para entrega de formularios en esta fase.',
+        body: 'Cuando la entrega de producción esté habilitada, Resend (correo), Cloudflare Turnstile (bots), Upstash (límites de tasa) y opcionalmente Vercel Blob (fotos de estimado) pueden procesar datos de solicitudes. La analítica permanece limitada por privacidad. CRM y portal no están activados en este sitio de marketing.',
       },
       {
         title: 'Limitaciones de seguridad',
-        body: 'Ningún sitio garantiza seguridad absoluta. La producción añadirá validación en servidor, límites de tasa y manejo seguro.',
+        body: 'Ningún sitio garantiza seguridad absoluta. Los envíos de producción usan validación en servidor, límites de tasa y protección antibot cuando están configurados.',
       },
       {
         title: 'Sus opciones',

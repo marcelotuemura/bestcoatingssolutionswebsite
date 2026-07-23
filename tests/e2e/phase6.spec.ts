@@ -1,23 +1,32 @@
 import { expect, test } from '@playwright/test';
 
-test.describe('Phase 6 — Production launch readiness', () => {
-  test('contact form remains in demonstration mode', async ({ page }) => {
+test.describe('Phase 6 — Production form delivery readiness', () => {
+  test('contact form uses demonstration banner without live credentials', async ({
+    page,
+  }) => {
     await page.goto('/en/contact');
     await expect(page.getByTestId('contact-form')).toBeVisible();
-    await expect(
-      page
-        .getByText(/demonstration mode|prepared locally|direct delivery/i)
-        .first(),
-    ).toBeVisible();
+    await expect(page.getByTestId('form-demo-banner')).toBeVisible();
+    await expect(page.getByTestId('form-demo-banner')).toContainText(
+      /demonstration mode|prepared locally/i,
+    );
   });
 
-  test('estimate form remains in demonstration mode', async ({ page }) => {
+  test('estimate form uses demonstration banner without live credentials', async ({
+    page,
+  }) => {
     await page.goto('/en/estimate-request');
-    await expect(
-      page
-        .getByText(/demonstration mode|prepared locally|direct delivery/i)
-        .first(),
-    ).toBeVisible();
+    await expect(page.getByTestId('form-demo-banner')).toBeVisible();
+    await expect(page.getByTestId('form-demo-banner')).toContainText(
+      /demonstration mode|prepared locally/i,
+    );
+  });
+
+  test('thank-you supports delivered status copy', async ({ page }) => {
+    await page.goto('/en/thank-you?type=contact&status=delivered');
+    await expect(page.getByRole('heading', { level: 1 })).toContainText(
+      /Message sent/i,
+    );
   });
 
   test('robots still disallows portal', async ({ request }) => {

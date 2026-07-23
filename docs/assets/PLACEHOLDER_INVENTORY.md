@@ -14,7 +14,7 @@ Visible UI labels must include clear wording such as **Placeholder Image**, **Fu
 | Marine / service heroes | `config/marketing-placeholders.ts` | Division + service page atmosphere | Approved photography |
 | Project image slots | `config/projects.ts` framework | Empty slots labeled placeholder | Owner-approved project images |
 | Contact map | Contact page map region | Labeled map placeholder — no embed | Approved map/location treatment if desired |
-| Form delivery demo | `config/submission.ts` + mock adapters | Temporary “prepared” success state | Real email/CRM delivery |
+| Form delivery | Server Actions + Resend/Blob gates | Demo until launch env clears | Owner sets `SUBMISSION_DELIVERY_ENABLED` + credentials |
 | Legal review badges | Privacy / Terms pages | “Requires owner / legal review” | Approved final legal copy |
 | About-page owner facts | `config/about.ts` | Typed placeholders for founding year, certs, bios | Owner-approved facts only |
 | Portfolio content | `config/projects.ts` catalog | Empty published catalogue | Owner-approved projects |

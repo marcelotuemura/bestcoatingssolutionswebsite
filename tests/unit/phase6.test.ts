@@ -29,8 +29,10 @@ import {
   isTurnstileConfigured,
   verifyTurnstileToken,
 } from '@/lib/security/turnstile';
+import { processContactSubmission } from '@/lib/submissions/process-submission';
 import { mockContactAdapter } from '@/lib/submissions/mock-adapters';
 import { isResendConfigured } from '@/lib/submissions/resend-delivery';
+import { isBlobUploadConfigured } from '@/lib/submissions/blob-upload';
 import { isSentryConfigured } from '@/lib/monitoring/safe-error';
 
 describe('Phase 6 provider selection', () => {
@@ -101,18 +103,39 @@ describe('Phase 6 security seams', () => {
   });
 });
 
-describe('Phase 6 submission adapters', () => {
-  it('still prepares contact submissions in demo mode', async () => {
-    const result = await mockContactAdapter.submit({
+describe('Phase 6 submission pipeline', () => {
+  it('prepares contact submissions in demo mode via process-submission', async () => {
+    const result = await processContactSubmission({
       payload: {
-        name: 'Test',
+        name: 'Test User',
         email: 'test@example.com',
-        message: 'Hello',
+        phone: '305-747-8352',
+        inquiryType: 'general',
+        message: 'Need gelcoat advice for a hull scratch.',
+        preferredContactMethod: 'either',
+        consent: true,
       },
       identityKey: `contact-unit-${Date.now()}`,
     });
     expect(result.ok).toBe(true);
     expect(result.status).toBe('prepared');
     expect(result.messageKey).toBe('demoSuccess');
+  });
+
+  it('keeps adapter facade compatible with process-submission', async () => {
+    const result = await mockContactAdapter.submit({
+      payload: {
+        name: 'Test',
+        email: 'test@example.com',
+        message: 'Hello there friend',
+      },
+      identityKey: `contact-unit-adapter-${Date.now()}`,
+    });
+    expect(result.ok).toBe(true);
+    expect(result.status).toBe('prepared');
+  });
+
+  it('reports Blob unconfigured by default', () => {
+    expect(isBlobUploadConfigured()).toBe(false);
   });
 });

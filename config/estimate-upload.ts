@@ -1,6 +1,7 @@
 /**
- * Client-side photo upload limits for the estimate request form.
- * No cloud upload in Phase 4 — selection + validation only.
+ * Photo upload limits for the estimate request form.
+ * Binaries go to Vercel Blob only when delivery is enabled and
+ * `BLOB_READ_WRITE_TOKEN` is configured; otherwise client validation + email metadata.
  */
 export const estimateUploadPolicy = {
   maxFiles: 8,

@@ -34,7 +34,12 @@ import {
   flattenFieldErrors,
   focusFormErrorSummary,
 } from '@/lib/forms/form-errors';
-import { estimateSubmissionAdapter } from '@/lib/submissions/estimate-submission-adapter';
+import { messageForSubmissionKey } from '@/lib/forms/submission-ui';
+import { submitEstimateAction } from '@/app/[locale]/estimate-request/actions';
+import {
+  TurnstileField,
+  resetTurnstileWidget,
+} from '@/components/forms/TurnstileField';
 import type { Dictionary } from '@/i18n/get-dictionary';
 import type { Locale } from '@/i18n/config';
 import { localePath } from '@/i18n/path';
@@ -51,9 +56,13 @@ const STEPS = [
 export function EstimateRequestForm({
   locale,
   dictionary,
+  demoMode,
+  turnstileSiteKey,
 }: {
   readonly locale: Locale;
   readonly dictionary: Dictionary;
+  readonly demoMode: boolean;
+  readonly turnstileSiteKey?: string;
 }) {
   const router = useRouter();
   const copy = dictionary.conversion;
@@ -62,6 +71,8 @@ export function EstimateRequestForm({
   const [fileError, setFileError] = useState<string | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const siteKey = !demoMode && turnstileSiteKey ? turnstileSiteKey : undefined;
 
   const fullSchema = useMemo(
     () => createFullEstimateSchema(copy.validation),
@@ -102,6 +113,7 @@ export function EstimateRequestForm({
     handleSubmit,
     trigger,
     getValues,
+    setError,
     watch,
     formState: { errors },
   } = form;
@@ -255,26 +267,42 @@ export function EstimateRequestForm({
       new URLSearchParams(window.location.search).get('simulateFailure') ===
         '1';
 
-    const result = await estimateSubmissionAdapter.submit({
-      payload: { ...values },
-      attachments: files.map((file) => ({
-        name: file.name,
-        size: file.size,
-        type: file.type,
-      })),
+    const result = await submitEstimateAction({
+      locale,
+      values,
+      photos: files,
+      turnstileToken: turnstileToken ?? undefined,
       simulateFailure,
     });
 
     setSubmitting(false);
 
     if (!result.ok) {
-      setSubmitError(copy.common.demoFailure);
+      if (result.fieldErrors) {
+        for (const [field, message] of Object.entries(result.fieldErrors)) {
+          if (field === 'photos') {
+            setFileError(message);
+          } else {
+            setError(field as keyof EstimateFormValues, {
+              type: 'server',
+              message,
+            });
+          }
+        }
+      }
+      setSubmitError(messageForSubmissionKey(copy.common, result.messageKey));
+      resetTurnstileWidget();
+      setTurnstileToken(null);
       focusFormErrorSummary();
       return;
     }
 
     setFiles([]);
-    router.push(`${localePath(locale, routes.thankYou.path)}?type=estimate`);
+    const statusQuery =
+      result.status === 'delivered' ? '&status=delivered' : '';
+    router.push(
+      `${localePath(locale, routes.thankYou.path)}?type=estimate${statusQuery}`,
+    );
   });
 
   const errorItems = [
@@ -295,8 +323,11 @@ export function EstimateRequestForm({
       className="space-y-6"
       data-testid="estimate-form"
     >
-      <p className="text-silver-500 border-navy-700 rounded-xl border border-dashed px-4 py-3 text-sm">
-        {copy.common.demoBanner}
+      <p
+        className="text-silver-500 border-navy-700 rounded-xl border border-dashed px-4 py-3 text-sm"
+        data-testid={demoMode ? 'form-demo-banner' : 'form-live-banner'}
+      >
+        {demoMode ? copy.common.demoBanner : copy.common.liveBanner}
       </p>
       <p
         className="text-silver-300 text-sm"
@@ -711,6 +742,14 @@ export function EstimateRequestForm({
             label={copy.estimate.fields.acknowledgeNoAppointment}
             {...register('acknowledgeNoAppointment')}
           />
+
+          {siteKey ? (
+            <TurnstileField
+              siteKey={siteKey}
+              label={copy.common.turnstileLabel}
+              onTokenChange={setTurnstileToken}
+            />
+          ) : null}
         </div>
       ) : null}
 
