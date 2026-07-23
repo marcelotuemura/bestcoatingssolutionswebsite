@@ -1,7 +1,9 @@
 import { en } from '@/i18n/dictionaries/en';
+import { conversionEs } from '@/i18n/dictionaries/conversion-es';
 import type { DictionaryShape } from '@/i18n/dictionary-types';
 
 export const es = {
+  conversion: conversionEs,
   meta: {
     titleDefault:
       'Best Coatings Solutions — Recubrimientos Marinos y de Aviación',
@@ -35,6 +37,7 @@ export const es = {
     serviceArea: 'Área de servicio',
     scheduleVisit: 'Programar visita',
     estimateRequest: 'Solicitar estimado',
+    thankYou: 'Gracias',
     contact: 'Contacto',
     privacy: 'Privacidad',
     terms: 'Términos',
