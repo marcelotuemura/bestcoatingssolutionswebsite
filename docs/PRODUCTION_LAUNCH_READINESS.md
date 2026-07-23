@@ -58,16 +58,19 @@ Only after blockers clear:
 
 ## Related docs
 
+- `docs/GO_LIVE.md` — **next owner sequence** (domain → providers → legal → content → smoke → live)
 - `docs/PROVIDER_SELECTION.md`
 - `docs/FORM_ARCHITECTURE.md`
 - `docs/FORM_PRODUCTION_CHECKLIST.md`
 - `docs/LEGAL_REVIEW_CHECKLIST.md`
 - `docs/OWNER_CONTENT_REQUEST.md`
 - `DEPLOYMENT.md`
-- `FUTURE.md`
+- `FUTURE.md` — Operations Platform (separate product after go-live)
 
 ## Stopping rules
 
-- Do not merge portal or operations apps.
+- Do not write more marketing-site feature code before go-live owner work advances.
+- Do not merge portal or operations apps into this repo.
 - Do not invent reviews, projects, certifications, or addresses.
 - Do not enable delivery in production without owner approval.
+- Do not start the BCS Operations Platform until the website is live (unless owner overrides).

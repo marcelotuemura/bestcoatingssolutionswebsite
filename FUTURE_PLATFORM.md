@@ -12,14 +12,21 @@ Related: [`PROJECT_OVERVIEW.md`](./PROJECT_OVERVIEW.md),
 
 ## Immediate priority
 
-Ship the public marketing website before platform consolidation. Customers need
-discover → understand → trust → proof → estimate / schedule / contact / social.
+1. **Go live** the public marketing website — owner checklist in
+   [`docs/GO_LIVE.md`](./docs/GO_LIVE.md) (domain, providers, legal, content,
+   smoke tests). Stop writing marketing feature code while that runs.  
+2. **Then** start the **BCS Operations Platform** as a separate product
+   (roadmap in [`FUTURE.md`](./FUTURE.md)).
+
+Customers need discover → understand → trust → proof → estimate / contact.
+Ops needs auth → CRM → estimates → work orders → … — **different app**.
 
 ## Explicit non-goals (now)
 
-Do not: create a monorepo, merge the operations app, build the customer portal,
-rebuild the foundation, connect production Supabase/Stripe without approval, or
-duplicate CRM logic. Full deferred list: [`FUTURE.md`](./FUTURE.md).
+Do not: create a monorepo, merge the operations app, build the customer portal
+on this site, rebuild the foundation, connect production Supabase/Stripe on the
+marketing site without approval, or duplicate CRM logic. Full deferred list:
+[`FUTURE.md`](./FUTURE.md).
 
 Homepage may show one approved **Coming Soon — Customer Portal** mock
 ([`HOME_EXPERIENCE.md`](./HOME_EXPERIENCE.md)) — that is not portal delivery.
