@@ -13,11 +13,15 @@ import {
   RelatedServices,
   ServiceContextLinks,
 } from '@/components/services/ServiceLinks';
+import { InsuranceRepairProcess } from '@/components/services/InsuranceRepairProcess';
 import { marketingPlaceholders } from '@/config/marketing-placeholders';
+import { routes } from '@/config/routes';
 import type { MarineServiceSlug } from '@/config/marine-services';
 import type { ServicePageContent } from '@/content/marine-services-en';
 import type { Dictionary } from '@/i18n/get-dictionary';
 import type { Locale } from '@/i18n/config';
+import { localePath } from '@/i18n/path';
+import Link from 'next/link';
 
 /**
  * Canonical marine service page section order:
@@ -79,7 +83,60 @@ export function MarineServicePage({
         <BulletList items={content.whyPoints} />
       </ContentSection>
 
+      {slug === 'insurance-repair' ? (
+        <Section
+          id="insurance-process"
+          aria-labelledby="insurance-process-heading"
+        >
+          <Container>
+            <InsuranceRepairProcess dictionary={dictionary} />
+          </Container>
+        </Section>
+      ) : null}
+
       <FaqSection title={content.faqTitle} items={content.faqs} />
+
+      <Section>
+        <Container>
+          <ul className="text-silver-300 flex flex-wrap gap-4 text-sm">
+            <li>
+              <Link
+                href={localePath(
+                  locale,
+                  `${routes.faq.path}#faq-${slug === 'insurance-repair' ? 'insurance-related-repairs' : slug}`,
+                )}
+                className="text-electric-400 hover:text-electric-300 underline-offset-2 hover:underline"
+              >
+                {dictionary.nav.faq}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={localePath(locale, routes.resources.path)}
+                className="text-electric-400 hover:text-electric-300 underline-offset-2 hover:underline"
+              >
+                {dictionary.nav.resources}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={localePath(locale, routes.workmanship.path)}
+                className="text-electric-400 hover:text-electric-300 underline-offset-2 hover:underline"
+              >
+                {dictionary.nav.workmanship}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={localePath(locale, routes.projects.path)}
+                className="text-electric-400 hover:text-electric-300 underline-offset-2 hover:underline"
+              >
+                {dictionary.nav.projects}
+              </Link>
+            </li>
+          </ul>
+        </Container>
+      </Section>
 
       <RelatedServices locale={locale} dictionary={dictionary} slug={slug} />
 

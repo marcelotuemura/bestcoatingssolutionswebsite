@@ -19,8 +19,8 @@ export async function generateMetadata({
   return buildPageMetadata({
     locale: raw,
     path: '/projects',
-    title: dictionary.pages.projects.metaTitle,
-    description: dictionary.pages.projects.metaDescription,
+    title: dictionary.phase5.projects.metaTitle,
+    description: dictionary.phase5.projects.metaDescription,
   });
 }
 

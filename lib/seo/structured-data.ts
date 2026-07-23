@@ -73,3 +73,67 @@ export function serviceJsonLd(input: {
     areaServed: input.areaServed,
   };
 }
+
+/**
+ * FAQPage JSON-LD — only call when the same Q&A pairs are visibly rendered.
+ */
+export function faqPageJsonLd(
+  items: readonly { readonly question: string; readonly answer: string }[],
+): Record<string, unknown> | null {
+  if (items.length === 0) {
+    return null;
+  }
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  };
+}
+
+/**
+ * Article JSON-LD for published educational resources.
+ */
+export function articleJsonLd(input: {
+  readonly headline: string;
+  readonly description: string;
+  readonly url: string;
+  readonly datePublished?: string;
+  readonly dateModified?: string;
+  readonly authorName: string;
+  readonly inLanguage: string;
+}): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: input.headline,
+    description: input.description,
+    url: input.url,
+    inLanguage: input.inLanguage,
+    author: {
+      '@type': 'Organization',
+      name: input.authorName,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    ...(input.datePublished ? { datePublished: input.datePublished } : {}),
+    ...(input.dateModified ? { dateModified: input.dateModified } : {}),
+  };
+}
+
+/**
+ * Intentionally omitted without approved reviews:
+ * Review and AggregateRating structured data must not be emitted.
+ */
+export function shouldOmitReviewStructuredData(): true {
+  return true;
+}

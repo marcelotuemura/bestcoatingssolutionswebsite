@@ -427,51 +427,63 @@ export const marineServiceContentEn: Record<
     heroLead:
       'Support insurance-related marine repairs with clear scope, careful documentation habits, and finish quality.',
     overview:
-      'Insurance repair work requires clarity. We help owners and managers understand cosmetic and coatings scope. We do not display prices online or invent claim outcomes.',
+      'Insurance repair work requires clarity. We help owners and managers understand cosmetic and coatings scope through documentation, inspection when appropriate, and an agreed written scope before repair. Coverage decisions belong to the customer and the insurer. BCS does not guarantee claim approval, and a repair estimate does not determine policy coverage. We do not display prices online or invent claim outcomes.',
     problemsTitle: 'Common problems',
     problems: [
       'Dock damage and collision cosmetics',
       'Storm-related surface damage',
       'Multiple small repairs across a vessel',
       'Need for photo documentation of progress',
+      'Need for clear owner communication before authorization',
     ],
     processTitle: 'Our process',
     processSteps: [
       {
-        title: 'Review',
-        body: 'Understand the reported damage and access conditions.',
+        title: 'Initial documentation',
+        body: 'Review the reported damage description and any customer-provided photos.',
       },
       {
-        title: 'Scope',
-        body: 'Define repair areas without promising insurer decisions.',
+        title: 'Inspection where appropriate',
+        body: 'Recommend on-site inspection when photos are insufficient for responsible scope planning.',
       },
       {
-        title: 'Repair',
-        body: 'Execute agreed work with professional finish standards.',
+        title: 'Scope preparation',
+        body: 'Prepare repair scope focused on agreed cosmetic or coatings work — without promising insurer decisions.',
       },
       {
-        title: 'Document',
-        body: 'Provide clear visual records when requested for the file.',
+        title: 'Authorization & repair',
+        body: 'Proceed after appropriate authorization, then document and review completion against the agreed scope.',
       },
     ],
     whyTitle: 'Why Choose BCS',
     whyPoints: [
-      'Professional communication',
-      'Photo-friendly process when needed',
+      'Professional communication with the vessel owner',
+      'Photo-friendly documentation habits when needed',
       'Marine finish expertise',
-      'No fabricated testimonials',
+      'No fabricated testimonials or preferred-vendor claims',
+      'No public-adjuster or legal-representation claims',
     ],
     faqTitle: 'FAQ',
     faqs: [
       {
+        question: 'Do you guarantee insurance claim approval?',
+        answer:
+          'No. Coverage decisions belong to the customer and the insurer. A repair estimate does not determine policy coverage, and BCS does not guarantee claim approval.',
+      },
+      {
         question: 'Do you bill insurance companies directly?',
         answer:
-          'Billing arrangements vary. We discuss practical options after scope is clear — never as a website guarantee.',
+          'Billing arrangements vary. We discuss practical options after scope is clear — never as a website guarantee, and never as preferred-vendor status for every insurer.',
       },
       {
         question: 'Are estimates free for insurance work?',
         answer:
           'Free estimates apply only in the Fort Lauderdale area. Other locations may require review or travel arrangements.',
+      },
+      {
+        question: 'Do you act as a public adjuster?',
+        answer:
+          'No. BCS does not provide public-adjuster services, legal representation, or authority to interpret insurance policies.',
       },
     ],
   }),
