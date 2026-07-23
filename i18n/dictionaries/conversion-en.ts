@@ -6,14 +6,27 @@ export const conversionEn = {
     next: 'Continue',
     back: 'Back',
     submit: 'Submit request',
-    submitting: 'Preparing request…',
+    submitting: 'Sending request…',
+    preparing: 'Preparing request…',
     errorSummary: 'Please fix the following:',
     demoBanner:
-      'Demonstration mode: requests are prepared locally until production delivery is configured.',
+      'Demonstration mode: requests are prepared locally until production delivery credentials are configured.',
+    liveBanner:
+      'Your request will be sent securely to Best Coatings Solutions. We never display website pricing.',
     demoSuccess:
-      'Your request has been prepared successfully. Direct delivery will be enabled before production launch.',
+      'Your request has been prepared successfully. Direct delivery will be enabled once production credentials are configured.',
+    deliveredSuccess:
+      'Your request was sent to Best Coatings Solutions. We will follow up using the contact details you provided.',
     demoFailure:
       'We could not prepare your request. Your information is still here — please try again.',
+    deliveryFailed:
+      'We could not send your request. Your information is still here — please try again shortly.',
+    rateLimited:
+      'Too many requests were submitted. Please wait a moment and try again.',
+    botCheckFailed:
+      'Bot verification failed or expired. Please complete the check and try again.',
+    validationFailed: 'Please fix the highlighted fields and try again.',
+    turnstileLabel: 'Security verification',
     retry: 'Try again',
   },
   validation: {
@@ -212,16 +225,27 @@ export const conversionEn = {
       'Thank you for contacting Best Coatings Solutions. Review next steps for marine estimate and contact requests.',
     contactTitle: 'Message prepared',
     estimateTitle: 'Estimate request prepared',
+    contactDeliveredTitle: 'Message sent',
+    estimateDeliveredTitle: 'Estimate request sent',
     fallbackTitle: 'Thank you',
     contactBody:
-      'Your contact request has been prepared in demonstration mode. Direct delivery will be enabled before production launch.',
+      'Your contact request has been prepared in demonstration mode. Direct delivery is enabled when production credentials are configured.',
     estimateBody:
-      'Your marine estimate request has been prepared in demonstration mode. Direct delivery will be enabled before production launch.',
+      'Your marine estimate request has been prepared in demonstration mode. Direct delivery is enabled when production credentials are configured.',
+    contactDeliveredBody:
+      'Your contact request was sent to Best Coatings Solutions. We will follow up using your preferred contact method when available.',
+    estimateDeliveredBody:
+      'Your marine estimate request was sent to Best Coatings Solutions. We will review the details and follow up — the form does not confirm an appointment or price.',
     fallbackBody:
-      'If you just submitted a form, your request was prepared for future delivery. For help now, call Best Coatings Solutions or return to Contact.',
+      'If you just submitted a form, thank you. For help now, call Best Coatings Solutions or return to Contact.',
     nextTitle: 'What happens next',
     nextSteps: [
-      'When production delivery is enabled, BCS will review incoming requests.',
+      'BCS reviews incoming contact and estimate requests.',
+      'Follow-up uses your preferred contact method when available.',
+      'An inspection is discussed only when appropriate — nothing is confirmed by the form alone.',
+    ],
+    nextStepsDemo: [
+      'When production delivery credentials are configured, BCS receives requests by email.',
       'Follow-up uses your preferred contact method when available.',
       'An inspection is discussed only when appropriate — nothing is confirmed by the form alone.',
     ],
@@ -245,7 +269,7 @@ export const conversionEn = {
       },
       {
         title: 'Photos and vessel information',
-        body: 'Photo selection in the estimate form is client-side only in the current demonstration. No cloud storage is active yet.',
+        body: 'Estimate photos may be uploaded to secure object storage when production upload credentials are configured. Do not include unnecessary private identifiers in photos.',
       },
       {
         title: 'Intended use',
@@ -257,11 +281,11 @@ export const conversionEn = {
       },
       {
         title: 'Third-party services',
-        body: 'Future email, hosting, analytics, or CRM providers may process data. Providers are not activated for form delivery in this phase.',
+        body: 'When production delivery is enabled, Resend (email), Cloudflare Turnstile (bot checks), Upstash (rate limits), and optionally Vercel Blob (estimate photos) may process request data. Analytics stay privacy-constrained. CRM and portal platforms are not activated on this marketing site.',
       },
       {
         title: 'Security limitations',
-        body: 'No website can guarantee absolute security. Production will add server validation, rate limiting, and secure handling.',
+        body: 'No website can guarantee absolute security. Production submissions use server validation, rate limiting, and bot protection when configured.',
       },
       {
         title: 'Your choices',

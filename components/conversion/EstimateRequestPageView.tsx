@@ -4,6 +4,7 @@ import { Section } from '@/components/ui/Section';
 import { Breadcrumbs, PageHero } from '@/components/marketing';
 import { EstimateRequestForm } from '@/components/forms/EstimateRequestForm';
 import { estimatePolicy } from '@/config/estimate-policy';
+import { isDemoSubmissionMode } from '@/config/launch';
 import type { Dictionary } from '@/i18n/get-dictionary';
 import type { Locale } from '@/i18n/config';
 
@@ -15,6 +16,9 @@ export function EstimateRequestPageView({
   readonly dictionary: Dictionary;
 }) {
   const copy = dictionary.conversion.estimate;
+  const demoMode = isDemoSubmissionMode();
+  const turnstileSiteKey =
+    process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim() || undefined;
 
   return (
     <main id="main-content">
@@ -49,7 +53,12 @@ export function EstimateRequestPageView({
             <Heading as="h2" className="sr-only">
               {copy.title}
             </Heading>
-            <EstimateRequestForm locale={locale} dictionary={dictionary} />
+            <EstimateRequestForm
+              locale={locale}
+              dictionary={dictionary}
+              demoMode={demoMode}
+              turnstileSiteKey={turnstileSiteKey}
+            />
           </div>
         </Container>
       </Section>

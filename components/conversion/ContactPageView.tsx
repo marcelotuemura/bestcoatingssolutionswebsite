@@ -12,6 +12,7 @@ import {
 import { ContactForm } from '@/components/forms/ContactForm';
 import { businessHours } from '@/config/business-hours';
 import { estimatePolicy } from '@/config/estimate-policy';
+import { isDemoSubmissionMode } from '@/config/launch';
 import { routes } from '@/config/routes';
 import { siteConfig } from '@/config/site';
 import type { Dictionary } from '@/i18n/get-dictionary';
@@ -26,6 +27,9 @@ export function ContactPageView({
   readonly dictionary: Dictionary;
 }) {
   const copy = dictionary.conversion.contact;
+  const demoMode = isDemoSubmissionMode();
+  const turnstileSiteKey =
+    process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim() || undefined;
   const hoursLabels = {
     weekdays: copy.weekdays,
     saturday: copy.saturday,
@@ -107,7 +111,12 @@ export function ContactPageView({
             {copy.formLead}
           </p>
           <div className="mt-8 max-w-2xl">
-            <ContactForm locale={locale} dictionary={dictionary} />
+            <ContactForm
+              locale={locale}
+              dictionary={dictionary}
+              demoMode={demoMode}
+              turnstileSiteKey={turnstileSiteKey}
+            />
           </div>
         </Container>
       </Section>

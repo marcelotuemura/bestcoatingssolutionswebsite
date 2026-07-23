@@ -2,6 +2,8 @@
 
 Architecture is complete with professional empty states. The following owner materials unlock fuller public content.
 
+**Go-live order:** domain and providers first, then approved content — full sequence in [`GO_LIVE.md`](./GO_LIVE.md) (projects, testimonials, biography, warranty).
+
 ## About
 
 - [ ] Approved company introduction (if replacing current qualified copy)

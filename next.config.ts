@@ -10,6 +10,12 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  experimental: {
+    serverActions: {
+      // Estimate multi-photo uploads (policy max ≈ 8 × ~5MB) need headroom.
+      bodySizeLimit: '40mb',
+    },
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
   },

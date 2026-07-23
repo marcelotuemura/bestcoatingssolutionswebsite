@@ -1,5 +1,8 @@
 import { ThankYouPageView } from '@/components/conversion/ThankYouPageView';
-import type { ThankYouType } from '@/components/conversion/ThankYouPageView';
+import type {
+  ThankYouStatus,
+  ThankYouType,
+} from '@/components/conversion/ThankYouPageView';
 import { getDictionary } from '@/i18n/get-dictionary';
 import { isLocale, type Locale } from '@/i18n/config';
 import { buildPageMetadata } from '@/lib/seo/page-metadata';
@@ -32,12 +35,21 @@ function resolveType(value: string | string[] | undefined): ThankYouType {
   return 'fallback';
 }
 
+function resolveStatus(value: string | string[] | undefined): ThankYouStatus {
+  const raw = Array.isArray(value) ? value[0] : value;
+  if (raw === 'delivered') return 'delivered';
+  return 'prepared';
+}
+
 export default async function Page({
   params,
   searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ type?: string | string[] }>;
+  searchParams: Promise<{
+    type?: string | string[];
+    status?: string | string[];
+  }>;
 }) {
   const { locale: raw } = await params;
   if (!isLocale(raw)) notFound();
@@ -45,8 +57,14 @@ export default async function Page({
   const dictionary = await getDictionary(locale);
   const query = await searchParams;
   const type = resolveType(query.type);
+  const status = resolveStatus(query.status);
 
   return (
-    <ThankYouPageView locale={locale} dictionary={dictionary} type={type} />
+    <ThankYouPageView
+      locale={locale}
+      dictionary={dictionary}
+      type={type}
+      status={status}
+    />
   );
 }

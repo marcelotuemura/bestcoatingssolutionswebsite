@@ -1,5 +1,12 @@
 # Deployment
 
+## Go live
+
+Owner production cutover (domain, Vercel Production, Resend, Turnstile, Upstash,
+Sentry, Analytics, legal, content, smoke tests) is documented in
+[`docs/GO_LIVE.md`](./docs/GO_LIVE.md). Prefer that checklist over adding
+marketing feature code.
+
 ## Platform
 
 Deployed on **Vercel** (first-class Next.js App Router support, edge network,

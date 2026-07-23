@@ -72,19 +72,65 @@ standard, case studies, brand manual, performance targets, future backlog):
 - RHF + Zod; spam architecture; email via `services/`.
 - Fort Lauderdale free-estimate policy honesty.
 
-## Phase 6 — SEO, analytics, accessibility & launch testing
+## Phase 6 — Production form delivery + launch readiness
 
-- Locale metadata, sitemap, schema, Lighthouse gates, Playwright forms/nav.
+- Server Actions pipeline (Zod → rate limit → Turnstile → Resend → optional Blob).
+- Provider selection (Vercel, Resend, Turnstile, Upstash, Analytics, Sentry).
+- Delivery gates; public UI stays demo/prepared until credentials + legal approvals.
+- **No portal. No operations platform. No Stripe/Supabase activation.**
 
-## Phase 7 — Production deployment preparation
+## Phase 7 — Go live (owner-operated — stop writing feature code)
 
-- Env, domain, email, legal/copy, assets. **No production deploy without
-  approval.**
+**Priority:** get the marketing site online and generating leads.
 
-## Later
+Do **not** start new marketing features or the Operations Platform until this
+checklist advances. Full sequence:
 
-See [`FUTURE.md`](./FUTURE.md) — portal, CRM, payments, maps, reviews,
-notifications, AI, monorepo, technician app, and more.
+[`docs/GO_LIVE.md`](./docs/GO_LIVE.md)
+
+1. Purchase / configure production domain  
+2. Configure Vercel Production  
+3. Configure Resend  
+4. Configure Turnstile  
+5. Configure Upstash  
+6. Configure Sentry  
+7. Configure Vercel Analytics  
+8. Review Privacy Policy  
+9. Review Terms  
+10. Upload first real projects  
+11. Add testimonials  
+12. Add company biography  
+13. Add warranty information  
+14. Production smoke tests + enable form delivery  
+15. Go live  
+
+Engineering support is limited to env wiring, content ingestion of **approved**
+materials, and smoke-test fixes — not new product scope.
+
+## After go-live — BCS Operations Platform (separate product)
+
+Once the website is launched and stable, begin the **internal** application as a
+**separate product** (not an extension of this marketing site).
+
+Suggested ops roadmap (detail in [`FUTURE.md`](./FUTURE.md)):
+
+1. Authentication & company setup  
+2. CRM  
+3. Estimates  
+4. Work orders  
+5. Scheduling  
+6. Inventory  
+7. Billing  
+8. Management dashboards  
+9. Customer portal  
+10. AI assistant  
+
+Architecture boundaries: [`FUTURE_PLATFORM.md`](./FUTURE_PLATFORM.md).
+
+## Later (marketing enhancements)
+
+See [`FUTURE.md`](./FUTURE.md) — maps, reviews APIs, extra locales, CMS scale, etc.
+Only with approval; never block go-live.
 
 ## Cross-cutting
 

@@ -10,29 +10,44 @@ import type { Locale } from '@/i18n/config';
 import { localePath } from '@/i18n/path';
 
 export type ThankYouType = 'contact' | 'estimate' | 'fallback';
+export type ThankYouStatus = 'prepared' | 'delivered';
 
 export function ThankYouPageView({
   locale,
   dictionary,
   type,
+  status = 'prepared',
 }: {
   readonly locale: Locale;
   readonly dictionary: Dictionary;
   readonly type: ThankYouType;
+  readonly status?: ThankYouStatus;
 }) {
   const copy = dictionary.conversion.thankYou;
+  const delivered = status === 'delivered';
+
   const title =
     type === 'contact'
-      ? copy.contactTitle
+      ? delivered
+        ? copy.contactDeliveredTitle
+        : copy.contactTitle
       : type === 'estimate'
-        ? copy.estimateTitle
+        ? delivered
+          ? copy.estimateDeliveredTitle
+          : copy.estimateTitle
         : copy.fallbackTitle;
   const body =
     type === 'contact'
-      ? copy.contactBody
+      ? delivered
+        ? copy.contactDeliveredBody
+        : copy.contactBody
       : type === 'estimate'
-        ? copy.estimateBody
+        ? delivered
+          ? copy.estimateDeliveredBody
+          : copy.estimateBody
         : copy.fallbackBody;
+
+  const nextSteps = delivered ? copy.nextSteps : copy.nextStepsDemo;
 
   return (
     <main id="main-content">
@@ -53,7 +68,7 @@ export function ThankYouPageView({
 
       <ContentSection id="next" title={copy.nextTitle}>
         <ol className="text-silver-300 mt-6 list-decimal space-y-2 pl-5">
-          {copy.nextSteps.map((step) => (
+          {nextSteps.map((step) => (
             <li key={step}>{step}</li>
           ))}
         </ol>
