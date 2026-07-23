@@ -72,11 +72,11 @@ standard, case studies, brand manual, performance targets, future backlog):
 - RHF + Zod; spam architecture; email via `services/`.
 - Fort Lauderdale free-estimate policy honesty.
 
-## Phase 6 — Production launch readiness
+## Phase 6 — Production form delivery + launch readiness
 
+- Server Actions pipeline (Zod → rate limit → Turnstile → Resend → optional Blob).
 - Provider selection (Vercel, Resend, Turnstile, Upstash, Analytics, Sentry).
-- Delivery gates; forms stay demo until credentials + legal approvals.
-- Rate-limit / bot-protection / safe-error seams.
+- Delivery gates; public UI stays demo/prepared until credentials + legal approvals.
 - **No portal. No operations platform. No Stripe/Supabase activation.**
 
 ## Phase 7 — Production deployment preparation
