@@ -21,6 +21,11 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Internal Media Intelligence Platform (DAMS) — not locale-prefixed.
+  if (pathname === '/media' || pathname.startsWith('/media/')) {
+    return NextResponse.next();
+  }
+
   const segment = pathname.split('/').filter(Boolean)[0];
   if (segment && isLocale(segment)) {
     return NextResponse.next();

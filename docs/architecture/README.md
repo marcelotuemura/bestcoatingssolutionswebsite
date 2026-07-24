@@ -2,11 +2,15 @@
 
 ## System overview
 
-A single Next.js (App Router) application deployed on Vercel serves two surfaces
-from one codebase:
+A Next.js (App Router) application on Vercel serves:
 
-- **Public marketing site** — mostly static Server Components, SEO-first, fast.
-- **Customer Portal** (future) — authenticated, dynamic, behind Supabase Auth.
+- **Public marketing site** — static-first, SEO, EN/ES.
+- **Media Intelligence Platform (DAMS)** — internal `/media` (not indexed).
+- **Customer Portal** (future) — authenticated; separate from DAMS.
+
+See [`MEDIA_INTELLIGENCE_PLATFORM.md`](../MEDIA_INTELLIGENCE_PLATFORM.md) and
+ADR `decisions/0002-media-intelligence-dams.md`.
+
 
 ```
 Browser
