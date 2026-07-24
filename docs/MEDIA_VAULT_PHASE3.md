@@ -28,61 +28,80 @@ Secure, immutable Media Vault with interchangeable `MediaRepository` backends.
                     ┌─────────────────────┐
                     │   Local Media Vault │
                     │ originals (RO after │
-                    │   write-once copy)  │
+                    │   exclusive create) │
                     │ derivatives/*       │
                     │ manifests/*         │
                     └─────────┬───────────┘
                               ▲
                     ┌─────────┴───────────┐
                     │ Ingestion Pipeline  │
-                    │ SHA-256 · EXIF ·    │
-                    │ thumbs · WebP/AVIF  │
-                    │ video poster/probe  │
+                    │ content MIME · SHA  │
+                    │ exclusive originals │
+                    │ atomic manifests    │
                     └─────────────────────┘
 ```
+
+## Atomic write-once originals
+
+`preserveOriginalExclusive` uses `fs.copyFile(..., COPYFILE_EXCL)`:
+
+1. Filesystem enforces exclusive creation (no exists-then-copy TOCTOU).
+2. On `EEXIST`, re-hash the destination SHA-256.
+3. Matching checksum → accept as already present.
+4. Mismatch → `VaultIntegrityConflictError` (fail closed; never truncate/replace).
+5. Successful creates receive best-effort `chmod 0o444`.
+
+## Content-based MIME detection
+
+`detectMediaFromFile` reads magic bytes (JPEG/PNG/WEBP/TIFF/BMP/HEIC/MP4/MOV).
+Filename extensions are compared for consistency only — never trusted alone.
+Spoofed, empty, truncated, unsupported, and mismatched files are rejected.
+
+## Atomic manifest updates
+
+`mergeVaultManifestAtomic`:
+
+1. Acquire `manifests/ingestion.lock` via exclusive `wx` create.
+2. Read + schema-validate the current `media_catalog.json` (invalid → fail closed).
+3. Merge by stable asset id.
+4. Schema-validate the merged catalog.
+5. Write to `media_catalog.json.tmp.<pid>.<rand>` with `fsync`.
+6. `rename` into place.
+7. Release lock; clean abandoned temps older than 5 minutes.
+
+## Re-ingestion status model
+
+| Status | Meaning |
+|--------|---------|
+| `ingested` | New original exclusively created (+ derivatives) |
+| `already_present` | Original exists (checksum match); true no-op when derivatives complete |
+| `derivatives_repaired` | Original present; missing derivatives generated via `repairDerivatives` |
+| `rejected` | Unsupported / spoofed / mismatched content |
+| `integrity_conflict` | Destination exists with different bytes |
+| `failed` | Unexpected I/O or processing error |
+
+Default re-ingest is idempotent. Missing derivatives require
+`repairDerivatives: true`. Overwriting existing derivatives requires
+`forceRegenerateDerivatives: true`.
+
+CLI env: `INGEST_REPAIR_DERIVATIVES`, `INGEST_FORCE_REGENERATE_DERIVATIVES`.
 
 ## Storage layout
 
 See `data/media-vault/README.md`.
 
-| Path | Purpose |
-|------|---------|
-| `originals/` | Write-once preserved binaries |
-| `derivatives/thumbnails/{200,400,800,1600}/` | Aspect-preserving JPEGs |
-| `derivatives/webp/` | Optimized WebP |
-| `derivatives/avif/` | Optimized AVIF |
-| `derivatives/previews/` | Large preview JPEGs |
-| `derivatives/posters/` | Video posters |
-| `manifests/` | Vault catalog + ingestion log |
-| `inbox/` | Optional drop folder |
-
 ## Security
 
 - Authenticated `/media` session required for `/media/vault/*`
-- `Cache-Control: private, no-store` + `X-Robots-Tag: noindex`
+- `Cache-Control: private, no-store` + `X-Robots-Tag: noindex` + `nosniff`
 - Path traversal blocked (`assertInsideVault`)
-- Originals never overwritten; chmod best-effort read-only after copy
-- No external upload / no auto-publish
-
-## Backends
-
-| `MEDIA_REPOSITORY` | Implementation |
-|--------------------|----------------|
-| `json` (default) | `JsonMediaRepository` — Phase 2 catalog |
-| `local` / `local-filesystem` | `LocalFilesystemRepository` |
-| `supabase` | Stub — throws until implemented |
-| `postgres` | Stub — throws until implemented |
+- Absolute filesystem paths never returned to the client
+- Originals never overwritten/deleted; no external upload; no auto-publish
 
 ## Migration plan → Supabase Storage
 
-1. Keep `MediaRepository` as the only UI dependency (already done).
-2. Create private Supabase Storage buckets: `media-originals`, `media-derivatives` (no public policies).
-3. Implement `SupabaseStorageRepository.resolvePrivateObject` via short-lived signed URLs streamed through `/media/vault` (do not expose signed URLs to the browser long-term if possible — proxy preferred).
-4. Implement `PostgreSQLRepository` for catalog/projects/duplicates tables mirrored from manifests.
-5. Dual-run: ingest locally → upload derivatives + metadata → cut over `MEDIA_REPOSITORY=supabase`.
-6. Retain local vault as disaster-recovery cold copy; never delete originals during migration.
-7. Replace temporary access-secret auth with Supabase Auth + RBAC before production cutover.
-
-## Performance notes
-
-Ingestion and derivative generation are CPU-bound (sharp + ffmpeg). Catalog reads remain in-memory / JSON and stay under the Phase 2 &lt;100ms search target. See deliverables for measured metrics.
+1. Keep `MediaRepository` as the only UI dependency.
+2. Private Supabase buckets: `media-originals`, `media-derivatives`.
+3. Implement `SupabaseStorageRepository` + `PostgreSQLRepository`.
+4. Dual-run local ingest → upload → cut over `MEDIA_REPOSITORY`.
+5. Retain local vault as cold backup; never delete originals during migration.

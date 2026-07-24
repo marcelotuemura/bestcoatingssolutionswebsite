@@ -28,11 +28,33 @@ import type {
   VaultObjectKind,
 } from '@/lib/media-vault/types';
 
-async function readJson(filePath: string): Promise<unknown | null> {
+async function readJsonFile(
+  filePath: string,
+): Promise<
+  | { readonly status: 'ok'; readonly value: unknown }
+  | { readonly status: 'missing' }
+  | { readonly status: 'invalid'; readonly error: string }
+> {
   try {
-    return JSON.parse(await fs.readFile(filePath, 'utf8')) as unknown;
-  } catch {
-    return null;
+    const raw = await fs.readFile(filePath, 'utf8');
+    try {
+      return { status: 'ok', value: JSON.parse(raw) as unknown };
+    } catch {
+      return {
+        status: 'invalid',
+        error: `Invalid JSON in vault catalog: ${filePath}`,
+      };
+    }
+  } catch (error) {
+    const code =
+      error && typeof error === 'object' && 'code' in error
+        ? String((error as { code?: string }).code)
+        : '';
+    if (code === 'ENOENT') return { status: 'missing' };
+    return {
+      status: 'invalid',
+      error: `Unable to read vault catalog: ${filePath}`,
+    };
   }
 }
 
@@ -64,8 +86,12 @@ export class LocalFilesystemRepository implements MediaRepository {
   private async loadCatalog(): Promise<CatalogDataSource> {
     if (this.cache) return this.cache;
 
+    const vaultManifest = path.join(
+      this.layout.manifests,
+      'media_catalog.json',
+    );
     const candidates = [
-      path.join(this.layout.manifests, 'media_catalog.json'),
+      vaultManifest,
       path.join(this.layout.reports, 'media_catalog.json'),
       path.join(process.cwd(), 'data', 'media-catalog', 'media_catalog.json'),
     ];
@@ -73,8 +99,17 @@ export class LocalFilesystemRepository implements MediaRepository {
     let catalogRaw: unknown | null = null;
     let catalogDir: string | null = null;
     for (const candidate of candidates) {
-      catalogRaw = await readJson(candidate);
-      if (catalogRaw) {
+      const result = await readJsonFile(candidate);
+      if (result.status === 'invalid') {
+        // Fail closed for an existing but corrupt vault manifest — never
+        // silently replace with fixtures.
+        if (candidate === vaultManifest) {
+          throw new Error(result.error);
+        }
+        continue;
+      }
+      if (result.status === 'ok') {
+        catalogRaw = result.value;
         catalogDir = path.dirname(candidate);
         break;
       }
@@ -93,21 +128,40 @@ export class LocalFilesystemRepository implements MediaRepository {
       return this.cache;
     }
 
-    const projectsRaw =
-      (await readJson(path.join(catalogDir, 'projects_report.json'))) ??
-      (await readJson(
-        path.join(this.layout.manifests, 'projects_report.json'),
-      ));
-    const duplicatesRaw =
-      (await readJson(path.join(catalogDir, 'duplicates_report.json'))) ??
-      (await readJson(
-        path.join(this.layout.manifests, 'duplicates_report.json'),
-      ));
-    const searchRaw =
-      (await readJson(path.join(catalogDir, 'search_index.json'))) ??
-      (await readJson(path.join(this.layout.manifests, 'search_index.json')));
+    async function readOptionalJson(
+      primary: string,
+      fallback: string,
+    ): Promise<unknown | null> {
+      const first = await readJsonFile(primary);
+      if (first.status === 'ok') return first.value;
+      const second = await readJsonFile(fallback);
+      return second.status === 'ok' ? second.value : null;
+    }
 
-    const catalog = mediaCatalogSchema.parse(catalogRaw);
+    const projectsRaw = await readOptionalJson(
+      path.join(catalogDir, 'projects_report.json'),
+      path.join(this.layout.manifests, 'projects_report.json'),
+    );
+    const duplicatesRaw = await readOptionalJson(
+      path.join(catalogDir, 'duplicates_report.json'),
+      path.join(this.layout.manifests, 'duplicates_report.json'),
+    );
+    const searchRaw = await readOptionalJson(
+      path.join(catalogDir, 'search_index.json'),
+      path.join(this.layout.manifests, 'search_index.json'),
+    );
+
+    let catalog;
+    try {
+      catalog = mediaCatalogSchema.parse(catalogRaw);
+    } catch (error) {
+      if (catalogDir === this.layout.manifests) {
+        throw new Error(
+          `Vault manifest failed schema validation: ${error instanceof Error ? error.message : String(error)}`,
+        );
+      }
+      throw error;
+    }
     const projects = projectsRaw
       ? projectsReportSchema.parse(projectsRaw)
       : { generatedAt: catalog.generatedAt, version: '1.0', projects: [] };

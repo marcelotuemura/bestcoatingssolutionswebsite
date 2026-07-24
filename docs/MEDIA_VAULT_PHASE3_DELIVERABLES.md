@@ -1,61 +1,44 @@
-# Phase 3 Deliverables — Media Vault & Storage Engine
+# Phase 3 Correction Deliverables — Atomic Vault
 
-Branch: `cursor/media-intelligence-dams-foundation-5ec4` · PR #23
+## Exact files changed (this correction)
 
-## Architecture diagram
+- `lib/media-vault/preserve-original.ts` (new)
+- `lib/media-vault/mime.ts` (content magic bytes)
+- `lib/media-vault/manifest.ts` (new)
+- `lib/media-vault/derivative-paths.ts` (new)
+- `lib/media-vault/derivatives/images.ts`
+- `lib/media-vault/derivatives/video.ts`
+- `lib/media-vault/ingestion/pipeline.ts`
+- `lib/media-vault/repositories/local-filesystem-repository.ts`
+- `lib/media-vault/index.ts`
+- `scripts/ingest-media-vault.ts`
+- `docs/MEDIA_VAULT_PHASE3.md`
+- `docs/MEDIA_VAULT_PHASE3_DELIVERABLES.md`
+- `tests/unit/media-vault/vault-corrections.test.ts` (new)
+- `tests/unit/media-vault/vault.test.ts` (status model)
 
-```
-UI (Phase 2) ──► MediaRepository
-                    ├─ JsonMediaRepository (default)
-                    ├─ LocalFilesystemRepository
-                    ├─ SupabaseStorageRepository (stub)
-                    └─ PostgreSQLRepository (stub)
-                              ▲
-                     Ingestion Pipeline
-                     (checksum / EXIF / thumbs / webp / avif / video)
-                              │
-                     Local Media Vault (write-once originals)
-```
+## Atomic original-write strategy
 
-Full detail: `docs/MEDIA_VAULT_PHASE3.md`.
+`fs.copyFile(src, dest, fs.constants.COPYFILE_EXCL)` — filesystem-enforced
+exclusive creation. No pre-check. On `EEXIST`, SHA-256 verify; mismatch →
+`integrity_conflict` (never replace).
 
-## Storage layout
+## Binary MIME detection
 
-`data/media-vault/{originals,derivatives/{thumbnails/200|400|800|1600,webp,avif,previews,posters},manifests,inbox,reports}`
+Magic-byte inspection of the first 64 bytes; extension must agree with detected
+type. Spoofs / empties / truncations / mismatches rejected before preserve.
 
-## Performance metrics
+## Manifest locking + atomic replacement
 
-| Operation | Result |
-|-----------|--------|
-| Thumbnail + WebP + AVIF + preview (2000×1200 JPEG) | ~0.8–0.9 s (CI) |
-| Video poster + probe (1s 320×240 mp4) | included in vault suite (~0.3 s class) |
-| Batch ingest 40 small JPEGs | passes per-image &lt; 1.5 s budget |
-| Catalog list pressure (20× json assets) | &lt; 500 ms |
-| Phase 2 search (5k assets) | still ~7–23 ms |
+Exclusive lock file (`wx`) → validate → merge by id → temp + fsync → rename →
+unlock. Invalid existing JSON fails closed (no fixture substitution).
 
-## Test results
+## Re-ingestion status model
 
-| Suite | Result |
-|-------|--------|
-| typecheck | pass |
-| lint | pass |
-| Vitest | **110 passed** (includes 12 vault tests) |
-| Playwright media | run after vault commit |
+`ingested | already_present | derivatives_repaired | rejected | integrity_conflict | failed`
 
-## Migration plan to Supabase Storage
+## Confirmation
 
-Documented in `docs/MEDIA_VAULT_PHASE3.md`:
-
-1. Keep UI on `MediaRepository` only  
-2. Private buckets for originals + derivatives  
-3. Implement Supabase + Postgres backends  
-4. Dual-run then cut over `MEDIA_REPOSITORY`  
-5. Retain local vault as cold backup; never delete originals  
-
-## Security checklist
-
-- [x] Never overwrite originals  
-- [x] Never delete originals via vault APIs  
-- [x] Never publish automatically  
-- [x] Never upload externally  
-- [x] Authenticated `/media/vault` only (`private, no-store`, `noindex`)  
+Under concurrent exclusive creators, exactly one process creates the original;
+the other accepts checksum match. A destination with different bytes cannot be
+overwritten.

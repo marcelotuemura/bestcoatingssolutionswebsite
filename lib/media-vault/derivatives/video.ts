@@ -1,10 +1,13 @@
 import { spawn } from 'node:child_process';
-import { promises as fs } from 'node:fs';
+import { constants as fsConstants, promises as fs } from 'node:fs';
 import path from 'node:path';
 import type { VaultLayout } from '@/lib/media-vault/layout';
 import type { VideoProbeMeta } from '@/lib/media-vault/types';
 import { fileExists } from '@/lib/media-vault/checksum';
-import { generateImageDerivatives } from '@/lib/media-vault/derivatives/images';
+import {
+  generateImageDerivatives,
+  type DerivativeWriteOptions,
+} from '@/lib/media-vault/derivatives/images';
 
 function run(
   command: string,
@@ -88,6 +91,79 @@ export async function probeVideo(
   };
 }
 
+async function writePosterExclusive(
+  originalAbsolutePath: string,
+  posterAbs: string,
+  forceRegenerate: boolean,
+): Promise<'created' | 'already_present'> {
+  if (!forceRegenerate && (await fileExists(posterAbs))) {
+    return 'already_present';
+  }
+
+  const tempPath = `${posterAbs}.${process.pid}.creating.jpg`;
+  const attempts = [
+    [
+      '-y',
+      '-i',
+      originalAbsolutePath,
+      '-vf',
+      'thumbnail',
+      '-frames:v',
+      '1',
+      '-update',
+      '1',
+      tempPath,
+    ],
+    [
+      '-y',
+      '-ss',
+      '0',
+      '-i',
+      originalAbsolutePath,
+      '-frames:v',
+      '1',
+      '-q:v',
+      '2',
+      '-update',
+      '1',
+      tempPath,
+    ],
+  ] as const;
+
+  try {
+    for (const args of attempts) {
+      await fs.unlink(tempPath).catch(() => undefined);
+      const result = await run('ffmpeg', [...args]);
+      if (result.code === 0 && (await fileExists(tempPath))) break;
+    }
+    if (!(await fileExists(tempPath))) {
+      throw new Error('Failed to generate video poster frame');
+    }
+
+    if (forceRegenerate) {
+      await fs.rename(tempPath, posterAbs);
+      return 'created';
+    }
+
+    try {
+      await fs.copyFile(tempPath, posterAbs, fsConstants.COPYFILE_EXCL);
+      await fs.unlink(tempPath).catch(() => undefined);
+      return 'created';
+    } catch (error) {
+      const code =
+        error && typeof error === 'object' && 'code' in error
+          ? String((error as { code?: string }).code)
+          : '';
+      await fs.unlink(tempPath).catch(() => undefined);
+      if (code === 'EEXIST') return 'already_present';
+      throw error;
+    }
+  } catch (error) {
+    await fs.unlink(tempPath).catch(() => undefined);
+    throw error;
+  }
+}
+
 /**
  * Generate poster + metadata for a video original.
  * Poster is written under derivatives/posters, then fed into image derivative pipeline.
@@ -96,6 +172,7 @@ export async function generateVideoDerivatives(input: {
   readonly layout: VaultLayout;
   readonly assetId: string;
   readonly originalAbsolutePath: string;
+  readonly options?: DerivativeWriteOptions;
 }): Promise<{
   readonly poster?: string;
   readonly videoMeta: VideoProbeMeta;
@@ -105,54 +182,30 @@ export async function generateVideoDerivatives(input: {
   readonly preview?: string;
   readonly webp?: string;
   readonly avif?: string;
+  readonly createdCount: number;
 }> {
   const id = input.assetId.replace(/[^a-zA-Z0-9._-]+/g, '_');
   await fs.mkdir(input.layout.posters, { recursive: true });
   const posterRel = path.join('derivatives', 'posters', `${id}.jpg`);
   const posterAbs = path.join(input.layout.root, posterRel);
+  const force = Boolean(input.options?.forceRegenerate);
 
-  if (!(await fileExists(posterAbs))) {
-    const attempts = [
-      [
-        '-y',
-        '-i',
-        input.originalAbsolutePath,
-        '-vf',
-        'thumbnail',
-        '-frames:v',
-        '1',
-        posterAbs,
-      ],
-      [
-        '-y',
-        '-ss',
-        '0',
-        '-i',
-        input.originalAbsolutePath,
-        '-frames:v',
-        '1',
-        '-q:v',
-        '2',
-        posterAbs,
-      ],
-    ] as const;
-
-    for (const args of attempts) {
-      if (await fileExists(posterAbs)) break;
-      await run('ffmpeg', [...args]);
-    }
-  }
-
+  const posterStatus = await writePosterExclusive(
+    input.originalAbsolutePath,
+    posterAbs,
+    force,
+  );
   const videoMeta = await probeVideo(input.originalAbsolutePath);
 
   if (!(await fileExists(posterAbs))) {
-    return { videoMeta };
+    return { videoMeta, createdCount: 0 };
   }
 
   const imageDerivatives = await generateImageDerivatives({
     layout: input.layout,
     assetId: input.assetId,
     originalAbsolutePath: posterAbs,
+    options: input.options,
   });
 
   return {
@@ -162,5 +215,19 @@ export async function generateVideoDerivatives(input: {
     preview: imageDerivatives.preview,
     webp: imageDerivatives.webp,
     avif: imageDerivatives.avif,
+    createdCount:
+      (posterStatus === 'created' ? 1 : 0) + imageDerivatives.createdCount,
   };
+}
+
+export async function videoDerivativesComplete(
+  layout: VaultLayout,
+  assetId: string,
+): Promise<boolean> {
+  const id = assetId.replace(/[^a-zA-Z0-9._-]+/g, '_');
+  const poster = path.join(layout.root, 'derivatives', 'posters', `${id}.jpg`);
+  if (!(await fileExists(poster))) return false;
+  const { imageDerivativesComplete } =
+    await import('@/lib/media-vault/derivatives/images');
+  return imageDerivativesComplete(layout, assetId);
 }

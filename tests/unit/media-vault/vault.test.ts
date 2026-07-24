@@ -5,7 +5,7 @@ import path from 'node:path';
 import sharp from 'sharp';
 import { sha256Bytes, sha256File } from '@/lib/media-vault/checksum';
 import {
-  assertSupportedMedia,
+  detectMediaFromFile,
   detectMimeFromFilename,
 } from '@/lib/media-vault/mime';
 import { generateImageDerivatives } from '@/lib/media-vault/derivatives/images';
@@ -59,15 +59,20 @@ describe('media vault checksum', () => {
 });
 
 describe('media vault mime', () => {
-  it('detects supported image and video types', () => {
+  it('keeps extension helper for non-authoritative hints only', () => {
     expect(detectMimeFromFilename('a.JPG')?.mimeType).toBe('image/jpeg');
     expect(detectMimeFromFilename('clip.mp4')?.mediaKind).toBe('video');
-    expect(assertSupportedMedia('boat.png').mimeType).toBe('image/png');
+    expect(detectMimeFromFilename('archive.zip')).toBeNull();
   });
 
-  it('rejects unsupported formats', () => {
-    expect(() => assertSupportedMedia('notes.pdf')).toThrow(/Unsupported/);
-    expect(detectMimeFromFilename('archive.zip')).toBeNull();
+  it('authoritative detection uses file contents', async () => {
+    const dir = await makeTempVault();
+    const jpeg = path.join(dir, 'boat.jpg');
+    await writeTestJpeg(jpeg);
+    await expect(detectMediaFromFile(jpeg)).resolves.toMatchObject({
+      mimeType: 'image/jpeg',
+    });
+    await fs.rm(dir, { recursive: true, force: true });
   });
 });
 
@@ -178,13 +183,12 @@ describe('media vault repositories', () => {
       const original = await repo.resolvePrivateObject(asset.id, 'original');
       expect(original?.absolutePath).toContain('originals');
 
-      // Re-ingest does not overwrite original (skipped).
+      // Re-ingest does not overwrite original (idempotent already_present).
       const again = await ingestFile({
         sourcePath: path.join(inbox, 'sea_ray_after.jpg'),
         layout: getVaultLayout(vaultRoot),
       });
-      expect(again.skipped).toBe(true);
-      expect(again.reason).toBe('original-already-present');
+      expect(again.status).toBe('already_present');
     } finally {
       if (prev === undefined) delete process.env.MEDIA_VAULT_ROOT;
       else process.env.MEDIA_VAULT_ROOT = prev;
