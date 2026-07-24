@@ -48,24 +48,36 @@ export default async function CatalogAssetDetailPage({
       <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr]">
         <section>
           <div
-            className="border-navy-700 bg-navy-900 media-light:border-slate-200 media-light:bg-slate-100 flex aspect-[4/3] items-center justify-center rounded-2xl border"
+            className="border-navy-700 bg-navy-900 media-light:border-slate-200 media-light:bg-slate-100 relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-2xl border"
             data-testid="asset-preview"
             role="img"
             aria-label={`${asset.mediaKind} preview for ${asset.filename}`}
           >
-            <div className="text-center">
-              <p className="text-silver-300 media-light:text-slate-700 text-sm tracking-[0.2em] uppercase">
-                {asset.mediaKind} · {asset.stage}
-              </p>
-              <p className="text-silver-500 mt-2 text-xs">
-                {asset.resolution ?? 'Resolution unknown'} · zoom via details
-                tools in Phase 3 vault
-              </p>
-              <p className="text-silver-500 mt-4 max-w-sm text-xs">
-                Original binaries are never served here. Catalog metadata only
-                {data.isFixture ? ' (fixture)' : ''}.
-              </p>
-            </div>
+            {asset.derivatives?.preview ||
+            asset.derivatives?.poster ||
+            asset.previewPath ? (
+              // eslint-disable-next-line @next/next/no-img-element -- private vault stream
+              <img
+                src={`/media/vault/${encodeURIComponent(asset.id)}/preview`}
+                alt=""
+                className="absolute inset-0 h-full w-full object-contain"
+              />
+            ) : (
+              <div className="text-center">
+                <p className="text-silver-300 media-light:text-slate-700 text-sm tracking-[0.2em] uppercase">
+                  {asset.mediaKind} · {asset.stage}
+                </p>
+                <p className="text-silver-500 mt-2 text-xs">
+                  {asset.resolution ?? 'Resolution unknown'} · private vault
+                  preview when derivatives exist
+                </p>
+                <p className="text-silver-500 mt-4 max-w-sm text-xs">
+                  Original binaries are never publicly exposed. Authenticated
+                  vault access only
+                  {data.isFixture ? ' (fixture catalog)' : ''}.
+                </p>
+              </div>
+            )}
           </div>
 
           <div className="mt-6 flex flex-wrap gap-2">

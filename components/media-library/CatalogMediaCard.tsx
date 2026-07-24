@@ -22,6 +22,15 @@ export function CatalogMediaCard({
   readonly asset: CatalogAsset;
   readonly priority?: boolean;
 }) {
+  const thumb =
+    asset.derivatives?.thumbnails?.[400] ||
+    asset.derivatives?.poster ||
+    asset.thumbnailPath ||
+    null;
+  const thumbSrc = thumb
+    ? `/media/vault/${encodeURIComponent(asset.id)}/thumbnail/400`
+    : null;
+
   return (
     <article
       className="border-navy-700 bg-navy-900/50 media-light:border-slate-200 media-light:bg-white group content-visibility-auto relative flex flex-col overflow-hidden rounded-2xl border"
@@ -30,24 +39,36 @@ export function CatalogMediaCard({
     >
       <div
         className={`relative aspect-[4/3] bg-gradient-to-br ${stageTone(asset.stage)}`}
-        aria-hidden="true"
+        aria-hidden={thumbSrc ? undefined : true}
       >
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-silver-300/80 media-light:text-white/90 text-xs tracking-[0.2em] uppercase">
-            {asset.mediaKind === 'video' ? 'Video' : 'Image'} · {asset.stage}
-          </span>
-        </div>
+        {thumbSrc ? (
+          // eslint-disable-next-line @next/next/no-img-element -- private authenticated vault stream; not a public CDN asset
+          <img
+            src={thumbSrc}
+            alt=""
+            loading={priority ? 'eager' : 'lazy'}
+            decoding="async"
+            className="absolute inset-0 h-full w-full object-cover"
+            data-testid="catalog-media-thumb"
+          />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="text-silver-300/80 media-light:text-white/90 text-xs tracking-[0.2em] uppercase">
+              {asset.mediaKind === 'video' ? 'Video' : 'Image'} · {asset.stage}
+            </span>
+          </div>
+        )}
         {asset.isHeroCandidate ? (
-          <span className="bg-electric-500/90 absolute top-2 left-2 rounded-md px-2 py-0.5 text-[10px] font-medium text-white">
+          <span className="bg-electric-500/90 absolute top-2 left-2 z-10 rounded-md px-2 py-0.5 text-[10px] font-medium text-white">
             Hero
           </span>
         ) : null}
         {asset.privacyStatus !== 'clear' ? (
-          <span className="text-navy-950 absolute top-2 right-2 rounded-md bg-amber-500/90 px-2 py-0.5 text-[10px] font-medium">
+          <span className="text-navy-950 absolute top-2 right-2 z-10 rounded-md bg-amber-500/90 px-2 py-0.5 text-[10px] font-medium">
             Privacy
           </span>
         ) : null}
-        <div className="absolute inset-x-0 bottom-0 flex translate-y-2 gap-1 p-2 opacity-0 transition group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:translate-y-0 group-hover:opacity-100">
+        <div className="absolute inset-x-0 bottom-0 z-10 flex translate-y-2 gap-1 p-2 opacity-0 transition group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:translate-y-0 group-hover:opacity-100">
           <Link
             href={`/media/catalog/${asset.id}`}
             className="bg-navy-950/90 hover:bg-electric-500 focus-visible:ring-electric-500 flex-1 rounded-lg px-2 py-1.5 text-center text-xs text-white focus-visible:ring-2 focus-visible:outline-none"

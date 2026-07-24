@@ -186,13 +186,30 @@ originals · never upload · never publish · no AI vision providers in this pha
 
 Modules: `lib/media-library/*`, `components/media-library/*`.
 
+## Phase 3 — Media Vault & Storage Engine
+
+Interchangeable `MediaRepository` backends + local immutable vault:
+
+| Backend | Class |
+|---------|-------|
+| `json` | `JsonMediaRepository` |
+| `local-filesystem` | `LocalFilesystemRepository` |
+| `supabase` | `SupabaseStorageRepository` (stub) |
+| `postgres` | `PostgreSQLRepository` (stub) |
+
+Ingestion pipeline: SHA-256 · EXIF · thumbnails (200/400/800/1600) · WebP ·
+AVIF · video posters/probe. Private streaming via authenticated
+`/media/vault/[...key]` (`Cache-Control: private, no-store`).
+
+Docs: [`MEDIA_VAULT_PHASE3.md`](./MEDIA_VAULT_PHASE3.md).
+
 ## Implementation phases
 
 | Phase | Deliverable |
 |-------|-------------|
 | **1 — Foundation** | Schemas, workflow, scoring, search, privacy, duplicates, analysis seam, in-memory repo + seed, auth session, approvals |
-| **2 — Interactive Media Library (this PR)** | Catalog loader, dashboard, gallery, project/details, duplicates, heroes, reports, dark/light, tests |
-| **3 — Real ingest / vault** | Disk/cloud import adapters, original vault, derivative pipeline (sharp), HEIC/RAW handling, real thumbnails |
+| **2 — Interactive Media Library** | Catalog loader, dashboard, gallery, project/details, duplicates, heroes, reports, dark/light, tests |
+| **3 — Media Vault & Storage (this PR)** | MediaRepository abstraction, local vault, ingestion/derivatives, private vault routes, Supabase/Postgres stubs |
 | **4 — Vision providers** | Pluggable AI analysis; batch re-analyze; confidence calibration |
 | **5 — Auth + Postgres** | Supabase/auth roles; durable library; audit trail |
 | **6 — Publishers** | Website content bridge, social/GBP draft scheduling APIs |

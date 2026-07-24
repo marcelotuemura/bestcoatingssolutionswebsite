@@ -26,7 +26,7 @@ export type CatalogDataSource = {
 
 const DEFAULT_RELATIVE_DIR = 'data/media-catalog';
 
-function resolveCatalogDir(): string {
+export function resolveCatalogDir(): string {
   const configured = process.env.MEDIA_CATALOG_DIR?.trim();
   if (configured) {
     return path.isAbsolute(configured)
@@ -45,27 +45,20 @@ async function readJsonIfExists(filePath: string): Promise<unknown | null> {
   }
 }
 
-let cache: CatalogDataSource | null = null;
-let cacheKey: string | null = null;
+let diskCache: CatalogDataSource | null = null;
+let diskCacheKey: string | null = null;
 
 /**
- * Loads catalog reports from MEDIA_CATALOG_DIR / data/media-catalog.
- * Expected filenames (08_Reports sync):
- *   media_catalog.json
- *   projects_report.json
- *   duplicates_report.json
- *   search_index.json (optional)
- *
- * Falls back to deterministic fixtures when reports are absent.
- * Never modifies files. Read-only.
+ * Low-level JSON catalog loader (08_Reports / data/media-catalog).
+ * Used by JsonMediaRepository. UI should prefer getMediaRepository().
  */
-export async function loadCatalogDataSource(
+export async function loadCatalogJsonFromDisk(
   options: { readonly forceReload?: boolean } = {},
 ): Promise<CatalogDataSource> {
   const dir = resolveCatalogDir();
   const key = dir;
-  if (!options.forceReload && cache && cacheKey === key) {
-    return cache;
+  if (!options.forceReload && diskCache && diskCacheKey === key) {
+    return diskCache;
   }
 
   const catalogRaw = await readJsonIfExists(
@@ -99,8 +92,8 @@ export async function loadCatalogDataSource(
       sourcePath: dir,
       isFixture: Boolean(catalog.isFixture),
     };
-    cache = source;
-    cacheKey = key;
+    diskCache = source;
+    diskCacheKey = key;
     return source;
   }
 
@@ -113,56 +106,84 @@ export async function loadCatalogDataSource(
     sourcePath: 'fixture://media-library',
     isFixture: true,
   };
-  cache = source;
-  cacheKey = key;
+  diskCache = source;
+  diskCacheKey = key;
   return source;
+}
+
+export function clearCatalogDiskCache(): void {
+  diskCache = null;
+  diskCacheKey = null;
+}
+
+/**
+ * UI-facing catalog load — routes through MediaRepository.
+ * Disk JSON loading lives in loadCatalogJsonFromDisk (JsonMediaRepository).
+ */
+export async function loadCatalogDataSource(
+  options: { readonly forceReload?: boolean } = {},
+): Promise<CatalogDataSource> {
+  if (options.forceReload) {
+    clearCatalogDiskCache();
+  }
+  const { getMediaRepository } = await import('@/lib/media-vault/factory');
+  const repo = getMediaRepository();
+  if (options.forceReload) {
+    await repo.invalidate?.();
+  }
+  return repo.getCatalog();
 }
 
 /** Sync helper for unit tests — bypasses filesystem. */
 export function setCatalogDataSourceForTests(
   source: CatalogDataSource | null,
 ): void {
-  cache = source;
-  cacheKey = source ? 'test' : null;
+  diskCache = source;
+  diskCacheKey = source ? 'test' : null;
 }
 
+/**
+ * Facade helpers — route through MediaRepository so UI stays backend-agnostic.
+ */
 export async function getCatalogAssets(): Promise<readonly CatalogAsset[]> {
-  const data = await loadCatalogDataSource();
-  return data.catalog.assets;
+  const { getMediaRepository } = await import('@/lib/media-vault/factory');
+  return getMediaRepository().getAssets();
 }
 
 export async function getCatalogProjects(): Promise<readonly CatalogProject[]> {
-  const data = await loadCatalogDataSource();
-  return data.projects.projects;
+  const { getMediaRepository } = await import('@/lib/media-vault/factory');
+  return getMediaRepository().getProjects();
 }
 
 export async function getDuplicateGroups(): Promise<readonly DuplicateGroup[]> {
-  const data = await loadCatalogDataSource();
-  return data.duplicates.groups;
+  const { getMediaRepository } = await import('@/lib/media-vault/factory');
+  return getMediaRepository().getDuplicateGroups();
 }
 
 export async function getCatalogAssetById(
   id: string,
 ): Promise<CatalogAsset | undefined> {
-  const assets = await getCatalogAssets();
-  return assets.find((asset) => asset.id === id);
+  const { getMediaRepository } = await import('@/lib/media-vault/factory');
+  return getMediaRepository().getAssetById(id);
 }
 
 export async function getCatalogProjectById(
   id: string,
 ): Promise<CatalogProject | undefined> {
-  const projects = await getCatalogProjects();
-  return projects.find((project) => project.id === id);
+  const { getMediaRepository } = await import('@/lib/media-vault/factory');
+  return getMediaRepository().getProjectById(id);
 }
 
 export async function getDuplicateGroupById(
   id: string,
 ): Promise<DuplicateGroup | undefined> {
-  const groups = await getDuplicateGroups();
-  return groups.find((group) => group.id === id);
+  const { getMediaRepository } = await import('@/lib/media-vault/factory');
+  return getMediaRepository().getDuplicateGroupById(id);
 }
 
 export function clearCatalogCache(): void {
-  cache = null;
-  cacheKey = null;
+  clearCatalogDiskCache();
+  void import('@/lib/media-vault/factory').then(({ getMediaRepository }) => {
+    getMediaRepository().invalidate?.();
+  });
 }

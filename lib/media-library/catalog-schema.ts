@@ -86,6 +86,37 @@ export const catalogAssetSchema = z.object({
   recommendations: catalogRecommendationsSchema.optional(),
   indexedAt: z.string().optional(),
   notes: z.string().optional(),
+  /** Phase 3 vault fields (optional; ignored by Phase 2 UI when absent). */
+  originalRelativePath: z.string().optional(),
+  sha256: z.string().optional(),
+  ingestedAt: z.string().optional(),
+  derivatives: z
+    .object({
+      thumbnails: z
+        .object({
+          200: z.string().optional(),
+          400: z.string().optional(),
+          800: z.string().optional(),
+          1600: z.string().optional(),
+        })
+        .partial()
+        .optional(),
+      webp: z.string().optional(),
+      avif: z.string().optional(),
+      preview: z.string().optional(),
+      poster: z.string().optional(),
+    })
+    .optional(),
+  videoMeta: z
+    .object({
+      durationSeconds: z.number().nullable(),
+      width: z.number().nullable(),
+      height: z.number().nullable(),
+      codec: z.string().nullable(),
+      container: z.string().nullable(),
+      frameRate: z.number().nullable(),
+    })
+    .optional(),
 });
 
 export const mediaCatalogSchema = z.object({

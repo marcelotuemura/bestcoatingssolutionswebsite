@@ -42,3 +42,15 @@ pnpm-debug.log*
 .DS_Store
 *.pem
 Thumbs.db
+
+# Media vault binaries (keep README / empty structure only)
+/data/media-vault/originals/**
+!/data/media-vault/originals/.gitkeep
+/data/media-vault/derivatives/**
+!/data/media-vault/derivatives/**/.gitkeep
+/data/media-vault/inbox/**
+!/data/media-vault/inbox/.gitkeep
+/data/media-vault/manifests/**
+!/data/media-vault/manifests/.gitkeep
+/data/media-vault/reports/**
+!/data/media-vault/reports/.gitkeep
