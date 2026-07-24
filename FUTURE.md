@@ -6,6 +6,11 @@ The public website ships first. Items below are intentional **not now** — unle
 explicitly approved later. Do not expand Phase 1–7 scope by quietly pulling from
 this list.
 
+**Active parallel product (foundation shipping):** Media Intelligence Platform
+(DAMS) — [`docs/MEDIA_INTELLIGENCE_PLATFORM.md`](./docs/MEDIA_INTELLIGENCE_PLATFORM.md).
+Internal `/media` UI. Never auto-publishes. Feeds website/SEO/social/training and
+future AI estimate / ops APIs. Not the Operations Platform.
+
 Related: [`ROADMAP.md`](./ROADMAP.md), [`FUTURE_PLATFORM.md`](./FUTURE_PLATFORM.md)
 (architecture boundaries), [`PROJECT_OVERVIEW.md`](./PROJECT_OVERVIEW.md).
 

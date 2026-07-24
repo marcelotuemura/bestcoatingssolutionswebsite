@@ -30,6 +30,7 @@ export default defineConfig({
     env: {
       ...process.env,
       BCS_INCLUDE_TEST_FIXTURES: '1',
+      MEDIA_INTELLIGENCE_ENABLED: 'true',
     },
   },
 });

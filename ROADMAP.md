@@ -6,9 +6,10 @@ Each implementation phase ends with green quality gates (`pnpm typecheck`,
 Lighthouse vs [`PERFORMANCE_BUDGET.md`](./PERFORMANCE_BUDGET.md), and a Vercel
 preview.
 
-**Launch priority:** public marketing site first. Everything postponed is listed
-in [`FUTURE.md`](./FUTURE.md) — do not pull portal, CRM, Stripe, AI, maps, etc.
-into active phases without approval.
+**Launch priority:** public marketing site go-live first
+([`docs/GO_LIVE.md`](./docs/GO_LIVE.md)). Parallel long-term asset:
+[`docs/MEDIA_INTELLIGENCE_PLATFORM.md`](./docs/MEDIA_INTELLIGENCE_PLATFORM.md)
+(DAMS). Do not pull portal/CRM/Stripe into marketing pages without approval.
 
 ## Phase 0 — Foundation ✅
 
@@ -79,12 +80,25 @@ standard, case studies, brand manual, performance targets, future backlog):
 ## Phase 7 — Production deployment preparation
 
 - Env, domain, email, legal/copy, assets. **No production deploy without
-  approval.**
+  approval.** See [`docs/GO_LIVE.md`](./docs/GO_LIVE.md).
+
+## Media Intelligence Platform (DAMS) — parallel long-term product
+
+Permanent AI-powered Digital Asset Management — not a one-time photo sorter.
+Foundation UI: `/media` (internal, robots-disallowed).
+
+- Spec: [`docs/MEDIA_INTELLIGENCE_PLATFORM.md`](./docs/MEDIA_INTELLIGENCE_PLATFORM.md)
+- ADR: [`docs/architecture/decisions/0002-media-intelligence-dams.md`](./docs/architecture/decisions/0002-media-intelligence-dams.md)
+- Rules: never modify originals · never auto-publish · owner approval required
+- Feeds: website, GBP, SEO, blog, social, insurance case studies, sales, training, future AI estimates / ops API
+
+Phases 1–6 of DAMS delivery are listed in the media platform doc (foundation →
+ingest → vision → auth/Postgres → publishers → training corpus).
 
 ## Later
 
 See [`FUTURE.md`](./FUTURE.md) — portal, CRM, payments, maps, reviews,
-notifications, AI, monorepo, technician app, and more.
+notifications, Operations Platform, monorepo, technician app, and more.
 
 ## Cross-cutting
 
