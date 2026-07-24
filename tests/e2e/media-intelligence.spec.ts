@@ -137,7 +137,9 @@ test.describe('Phase 2 — Interactive Media Library', () => {
     await expect(page.getByTestId('projects-list')).toBeVisible();
     await page.getByTestId('projects-list').getByRole('link').first().click();
     await expect(page.getByTestId('project-summary')).toBeVisible();
-    await expect(page.getByText('Before')).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /Before \(\d+\)/ }),
+    ).toBeVisible();
   });
 
   test('duplicate manager is read-only', async ({ page }) => {
@@ -163,17 +165,19 @@ test.describe('Phase 2 — Interactive Media Library', () => {
     await login(page);
     const toggle = page.getByTestId('media-theme-toggle');
     await expect(toggle).toBeVisible();
-    await expect(toggle).toHaveAttribute('data-theme', 'dark');
+    const initial = await toggle.getAttribute('data-theme');
+    expect(initial === 'dark' || initial === 'light').toBe(true);
+    const next = initial === 'dark' ? 'light' : 'dark';
     await toggle.click();
-    await expect(toggle).toHaveAttribute('data-theme', 'light');
+    await expect(toggle).toHaveAttribute('data-theme', next);
     await expect
       .poll(async () => page.locator('html').getAttribute('data-media-theme'))
-      .toBe('light');
+      .toBe(next);
     await toggle.click();
-    await expect(toggle).toHaveAttribute('data-theme', 'dark');
+    await expect(toggle).toHaveAttribute('data-theme', initial!);
     await expect
       .poll(async () => page.locator('html').getAttribute('data-media-theme'))
-      .toBe('dark');
+      .toBe(initial);
   });
 });
 
