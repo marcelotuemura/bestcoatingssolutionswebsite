@@ -1,87 +1,115 @@
 import Link from 'next/link';
-import { AssetCard } from '@/components/media-intelligence/AssetCard';
+import { CatalogMediaCard } from '@/components/media-library/CatalogMediaCard';
+import {
+  DistributionList,
+  StatWidget,
+} from '@/components/media-library/StatWidget';
 import { MediaShell } from '@/components/media-intelligence/MediaShell';
-import { StatCard } from '@/components/media-intelligence/MediaBadges';
-import { getMediaIntelligenceRepository } from '@/lib/media-intelligence/repository';
 import { requireMediaPageAccess } from '@/lib/media-intelligence/auth/page-guard';
-
-function formatBytes(bytes: number): string {
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-}
+import {
+  buildCatalogDashboardStats,
+  loadCatalogDataSource,
+} from '@/lib/media-library';
 
 export default async function MediaDashboardPage() {
   await requireMediaPageAccess();
-  const stats = getMediaIntelligenceRepository().getDashboardStats();
+  const data = await loadCatalogDataSource();
+  const stats = buildCatalogDashboardStats({
+    assets: data.catalog.assets,
+    projects: data.projects.projects,
+    duplicateGroups: data.duplicates.groups,
+    isFixture: data.isFixture,
+    generatedAt: data.catalog.generatedAt,
+    source: data.sourcePath,
+  });
 
   return (
     <MediaShell
-      title="Command Center"
-      subtitle="AI-powered Digital Asset Management for every BCS repair — growing into the company media knowledge base."
+      title="Media Library Dashboard"
+      subtitle="Interactive Media Library — catalog-driven, read-only. Consumes indexing reports as the source of truth."
     >
+      {stats.isFixture ? (
+        <p
+          className="media-light:border-amber-300 media-light:bg-amber-50 media-light:text-amber-900 mb-6 rounded-xl border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm text-amber-100"
+          role="status"
+          data-testid="catalog-fixture-banner"
+        >
+          Showing fixture catalog. Sync real{' '}
+          <code className="font-mono text-xs">08_Reports</code> into{' '}
+          <code className="font-mono text-xs">data/media-catalog</code> or set{' '}
+          <code className="font-mono text-xs">MEDIA_CATALOG_DIR</code>.
+        </p>
+      ) : null}
+
       <div
         className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
         data-testid="media-dashboard-stats"
       >
-        <StatCard label="Images imported" value={stats.imagesImported} />
-        <StatCard label="Projects" value={stats.projects} />
-        <StatCard label="Pending review" value={stats.pendingReview} />
-        <StatCard label="Approved" value={stats.approved} />
-        <StatCard label="Rejected" value={stats.rejected} />
-        <StatCard label="Duplicates flagged" value={stats.duplicates} />
-        <StatCard label="Website ready" value={stats.websiteReady} />
-        <StatCard label="Social ready" value={stats.socialReady} />
-        <StatCard label="SEO ready" value={stats.seoReady} />
-        <StatCard
-          label="Storage (originals meta)"
-          value={formatBytes(stats.storageBytes)}
-          hint="Original binaries stay in private vault"
+        <StatWidget label="Total Images" value={stats.totalImages} />
+        <StatWidget label="Total Videos" value={stats.totalVideos} />
+        <StatWidget label="Total Projects" value={stats.totalProjects} />
+        <StatWidget
+          label="Exact Duplicate Groups"
+          value={stats.exactDuplicateGroups}
+        />
+        <StatWidget
+          label="Near Duplicate Groups"
+          value={stats.nearDuplicateGroups}
+        />
+        <StatWidget
+          label="Hero Image Candidates"
+          value={stats.heroImageCandidates}
+        />
+        <StatWidget
+          label="Avg Marketing Score"
+          value={stats.averageMarketingScore}
+        />
+        <StatWidget
+          label="Avg Website Score"
+          value={stats.averageWebsiteScore}
+        />
+        <StatWidget
+          label="Avg Technical Score"
+          value={stats.averageTechnicalScore}
+        />
+        <StatWidget label="Privacy Warnings" value={stats.privacyWarnings} />
+        <StatWidget label="Has EXIF" value={stats.withExif} />
+        <StatWidget label="Missing EXIF" value={stats.missingExif} />
+      </div>
+
+      <div className="mt-10 grid gap-6 lg:grid-cols-3">
+        <DistributionList
+          title="Project Distribution"
+          buckets={stats.projectDistribution}
+        />
+        <DistributionList
+          title="Repair Category Distribution"
+          buckets={stats.repairCategoryDistribution}
+        />
+        <DistributionList
+          title="Boat Manufacturer Distribution"
+          buckets={stats.manufacturerDistribution}
         />
       </div>
 
-      <div className="mt-10 grid gap-8 lg:grid-cols-2">
-        <section>
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-xl font-semibold text-white">
-              Recently imported
-            </h2>
-            <Link
-              href="/media/library"
-              className="text-electric-400 text-sm hover:underline"
-            >
-              Open library
-            </Link>
-          </div>
-          <div className="space-y-3">
-            {stats.recentlyImported.map((asset) => (
-              <AssetCard key={asset.id} asset={asset} />
-            ))}
-          </div>
-        </section>
-        <section>
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-xl font-semibold text-white">
-              Approvals queue
-            </h2>
-            <Link
-              href="/media/approvals"
-              className="text-electric-400 text-sm hover:underline"
-            >
-              Review all
-            </Link>
-          </div>
-          <div className="space-y-3">
-            {getMediaIntelligenceRepository()
-              .listAssets()
-              .filter((asset) => asset.status === 'pending_approval')
-              .slice(0, 6)
-              .map((asset) => (
-                <AssetCard key={asset.id} asset={asset} />
-              ))}
-          </div>
-        </section>
-      </div>
+      <section className="mt-10">
+        <div className="mb-4 flex items-center justify-between gap-3">
+          <h2 className="media-light:text-slate-900 text-xl font-semibold text-white">
+            Recently Indexed Assets
+          </h2>
+          <Link
+            href="/media/library"
+            className="text-electric-400 text-sm hover:underline"
+          >
+            Open gallery
+          </Link>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {stats.recentlyIndexed.map((asset) => (
+            <CatalogMediaCard key={asset.id} asset={asset} />
+          ))}
+        </div>
+      </section>
     </MediaShell>
   );
 }

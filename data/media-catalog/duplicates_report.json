@@ -1,0 +1,273 @@
+{
+  "generatedAt": "2026-07-24T12:00:00.000Z",
+  "version": "1.0",
+  "isFixture": true,
+  "groups": [
+    {
+      "id": "dup_exact_1",
+      "kind": "exact",
+      "similarity": 1,
+      "recommendedKeepAssetId": "asset_0001",
+      "members": [
+        {
+          "assetId": "asset_0001",
+          "filename": "proj_001_detail_1.jpg",
+          "role": "original"
+        },
+        {
+          "assetId": "asset_0002",
+          "filename": "proj_002_context_2.jpg",
+          "role": "copy"
+        }
+      ],
+      "notes": "Exact checksum match. Owner approval required before any action."
+    },
+    {
+      "id": "dup_exact_2",
+      "kind": "exact",
+      "similarity": 1,
+      "recommendedKeepAssetId": "asset_0012",
+      "members": [
+        {
+          "assetId": "asset_0012",
+          "filename": "proj_012_context_12.jpg",
+          "role": "original"
+        },
+        {
+          "assetId": "asset_0013",
+          "filename": "proj_013_detail_13.jpg",
+          "role": "copy"
+        }
+      ],
+      "notes": "Exact checksum match. Owner approval required before any action."
+    },
+    {
+      "id": "dup_exact_3",
+      "kind": "exact",
+      "similarity": 1,
+      "recommendedKeepAssetId": "asset_0023",
+      "members": [
+        {
+          "assetId": "asset_0023",
+          "filename": "proj_010_context_23.jpg",
+          "role": "original"
+        },
+        {
+          "assetId": "asset_0024",
+          "filename": "proj_011_after_24.jpg",
+          "role": "copy"
+        }
+      ],
+      "notes": "Exact checksum match. Owner approval required before any action."
+    },
+    {
+      "id": "dup_exact_4",
+      "kind": "exact",
+      "similarity": 1,
+      "recommendedKeepAssetId": "asset_0034",
+      "members": [
+        {
+          "assetId": "asset_0034",
+          "filename": "proj_008_context_34.jpg",
+          "role": "original"
+        },
+        {
+          "assetId": "asset_0035",
+          "filename": "proj_009_detail_35.jpg",
+          "role": "copy"
+        }
+      ],
+      "notes": "Exact checksum match. Owner approval required before any action."
+    },
+    {
+      "id": "dup_exact_5",
+      "kind": "exact",
+      "similarity": 1,
+      "recommendedKeepAssetId": "asset_0045",
+      "members": [
+        {
+          "assetId": "asset_0045",
+          "filename": "proj_006_before_45.jpg",
+          "role": "original"
+        },
+        {
+          "assetId": "asset_0046",
+          "filename": "proj_007_context_46.jpg",
+          "role": "copy"
+        }
+      ],
+      "notes": "Exact checksum match. Owner approval required before any action."
+    },
+    {
+      "id": "dup_exact_6",
+      "kind": "exact",
+      "similarity": 1,
+      "recommendedKeepAssetId": "asset_0056",
+      "members": [
+        {
+          "assetId": "asset_0056",
+          "filename": "proj_004_before_56.jpg",
+          "role": "original"
+        },
+        {
+          "assetId": "asset_0057",
+          "filename": "proj_005_detail_57.jpg",
+          "role": "copy"
+        }
+      ],
+      "notes": "Exact checksum match. Owner approval required before any action."
+    },
+    {
+      "id": "dup_near_1",
+      "kind": "near",
+      "similarity": 0.94,
+      "recommendedKeepAssetId": "asset_0031",
+      "members": [
+        {
+          "assetId": "asset_0031",
+          "filename": "proj_005_after_31.jpg",
+          "role": "candidate"
+        },
+        {
+          "assetId": "asset_0032",
+          "filename": "proj_006_after_32.jpg",
+          "role": "candidate"
+        }
+      ],
+      "notes": "Near-duplicate visual similarity. No automatic deletion."
+    },
+    {
+      "id": "dup_near_2",
+      "kind": "near",
+      "similarity": 0.9,
+      "recommendedKeepAssetId": "asset_0041",
+      "members": [
+        {
+          "assetId": "asset_0040",
+          "filename": "proj_001_during_40.mp4",
+          "role": "candidate"
+        },
+        {
+          "assetId": "asset_0041",
+          "filename": "proj_002_after_41.jpg",
+          "role": "candidate"
+        }
+      ],
+      "notes": "Near-duplicate visual similarity. No automatic deletion."
+    },
+    {
+      "id": "dup_near_3",
+      "kind": "near",
+      "similarity": 0.89,
+      "recommendedKeepAssetId": "asset_0049",
+      "members": [
+        {
+          "assetId": "asset_0049",
+          "filename": "proj_010_context_49.jpg",
+          "role": "candidate"
+        },
+        {
+          "assetId": "asset_0050",
+          "filename": "proj_011_detail_50.jpg",
+          "role": "candidate"
+        }
+      ],
+      "notes": "Near-duplicate visual similarity. No automatic deletion."
+    },
+    {
+      "id": "dup_near_4",
+      "kind": "near",
+      "similarity": 0.95,
+      "recommendedKeepAssetId": "asset_0059",
+      "members": [
+        {
+          "assetId": "asset_0058",
+          "filename": "proj_006_after_58.jpg",
+          "role": "candidate"
+        },
+        {
+          "assetId": "asset_0059",
+          "filename": "proj_007_during_59.jpg",
+          "role": "candidate"
+        }
+      ],
+      "notes": "Near-duplicate visual similarity. No automatic deletion."
+    },
+    {
+      "id": "dup_near_5",
+      "kind": "near",
+      "similarity": 0.9,
+      "recommendedKeepAssetId": "asset_0068",
+      "members": [
+        {
+          "assetId": "asset_0067",
+          "filename": "proj_002_detail_67.jpg",
+          "role": "candidate"
+        },
+        {
+          "assetId": "asset_0068",
+          "filename": "proj_003_detail_68.jpg",
+          "role": "candidate"
+        }
+      ],
+      "notes": "Near-duplicate visual similarity. No automatic deletion."
+    },
+    {
+      "id": "dup_near_6",
+      "kind": "near",
+      "similarity": 0.88,
+      "recommendedKeepAssetId": "asset_0076",
+      "members": [
+        {
+          "assetId": "asset_0076",
+          "filename": "proj_011_detail_76.jpg",
+          "role": "candidate"
+        },
+        {
+          "assetId": "asset_0077",
+          "filename": "proj_012_detail_77.jpg",
+          "role": "candidate"
+        }
+      ],
+      "notes": "Near-duplicate visual similarity. No automatic deletion."
+    },
+    {
+      "id": "dup_near_7",
+      "kind": "near",
+      "similarity": 0.89,
+      "recommendedKeepAssetId": "asset_0086",
+      "members": [
+        {
+          "assetId": "asset_0085",
+          "filename": "proj_007_before_85.jpg",
+          "role": "candidate"
+        },
+        {
+          "assetId": "asset_0086",
+          "filename": "proj_008_during_86.jpg",
+          "role": "candidate"
+        }
+      ],
+      "notes": "Near-duplicate visual similarity. No automatic deletion."
+    },
+    {
+      "id": "dup_near_8",
+      "kind": "near",
+      "similarity": 0.9299999999999999,
+      "recommendedKeepAssetId": "asset_0095",
+      "members": [
+        {
+          "assetId": "asset_0094",
+          "filename": "proj_003_before_94.jpg",
+          "role": "candidate"
+        },
+        {
+          "assetId": "asset_0095",
+          "filename": "proj_004_context_95.jpg",
+          "role": "candidate"
+        }
+      ],
+      "notes": "Near-duplicate visual similarity. No automatic deletion."
+    }
+  ]
+}

@@ -9,7 +9,7 @@ async function login(page: import('@playwright/test').Page) {
   await page.getByTestId('media-access-secret').fill(ACCESS_SECRET);
   await page.getByTestId('media-login-submit').click();
   await expect(
-    page.getByRole('heading', { name: 'Command Center' }),
+    page.getByRole('heading', { name: 'Media Library Dashboard' }),
   ).toBeVisible();
 }
 
@@ -40,7 +40,9 @@ test.describe('Media Intelligence Platform (DAMS) — access control', () => {
   }) => {
     await login(page);
     await expect(page.getByTestId('media-dashboard-stats')).toBeVisible();
-    await expect(page.getByText(/Never auto-publish/i).first()).toBeVisible();
+    await expect(
+      page.getByText(/Never modify originals/i).first(),
+    ).toBeVisible();
   });
 
   test('logout removes access', async ({ page }) => {
@@ -49,14 +51,6 @@ test.describe('Media Intelligence Platform (DAMS) — access control', () => {
     await expect(page).toHaveURL(/\/media\/login/);
     await page.goto('/media');
     await expect(page).toHaveURL(/\/media\/login/);
-  });
-
-  test('authenticated owner can search library', async ({ page }) => {
-    await login(page);
-    await page.goto('/media/library');
-    await page.getByTestId('media-search').fill('Sea Ray gelcoat');
-    await page.getByRole('button', { name: 'Search' }).click();
-    await expect(page.getByText(/demo_sea_ray/i).first()).toBeVisible();
   });
 
   test('foundation import clearly states no original is uploaded', async ({
@@ -85,15 +79,102 @@ test.describe('Media Intelligence Platform (DAMS) — access control', () => {
     await expect(card).toBeVisible();
     await card.getByRole('link').first().click();
     await expect(page.getByText(/Current status/i)).toBeVisible();
-    // From pending_approval, publish should fail until workflow approved + approval record.
     await page.getByTestId('media-publish-website').click();
     await expect(page.getByRole('alert')).toBeVisible();
   });
 });
 
+test.describe('Phase 2 — Interactive Media Library', () => {
+  test('dashboard shows catalog stats and distributions', async ({ page }) => {
+    await login(page);
+    await expect(page.getByText('Total Images')).toBeVisible();
+    await expect(page.getByText('Hero Image Candidates')).toBeVisible();
+    await expect(page.getByText('Project Distribution')).toBeVisible();
+    await expect(page.getByText('Recently Indexed Assets')).toBeVisible();
+  });
+
+  test('gallery search and filters work', async ({ page }) => {
+    await login(page);
+    await page.goto('/media/library');
+    await expect(page.getByTestId('catalog-gallery')).toBeVisible();
+    await page.getByTestId('catalog-search-input').fill('Sea Ray');
+    await page.getByTestId('catalog-search-submit').click();
+    await expect(page.getByTestId('catalog-search-meta')).toContainText(
+      /Sea Ray/i,
+    );
+    await expect(page.getByTestId('catalog-media-card').first()).toBeVisible();
+
+    await page.getByTestId('filter-heroCandidate').click();
+    await expect(page.getByTestId('filter-heroCandidate')).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
+  });
+
+  test('keyboard navigation reaches gallery cards and details', async ({
+    page,
+  }) => {
+    await login(page);
+    await page.goto('/media/library');
+    await page.getByTestId('catalog-search-input').focus();
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Tab');
+    const firstCardLink = page
+      .getByTestId('catalog-media-card')
+      .first()
+      .getByRole('link')
+      .first();
+    await firstCardLink.focus();
+    await expect(firstCardLink).toBeFocused();
+    await page.keyboard.press('Enter');
+    await expect(page).toHaveURL(/\/media\/catalog\/asset_/);
+    await expect(page.getByTestId('asset-preview')).toBeVisible();
+  });
+
+  test('project view opens from projects list', async ({ page }) => {
+    await login(page);
+    await page.goto('/media/projects');
+    await expect(page.getByTestId('projects-list')).toBeVisible();
+    await page.getByTestId('projects-list').getByRole('link').first().click();
+    await expect(page.getByTestId('project-summary')).toBeVisible();
+    await expect(page.getByText('Before')).toBeVisible();
+  });
+
+  test('duplicate manager is read-only', async ({ page }) => {
+    await login(page);
+    await page.goto('/media/duplicates');
+    await expect(page.getByTestId('duplicate-readonly-banner')).toContainText(
+      /Never delete/i,
+    );
+    await expect(page.getByTestId('duplicate-groups')).toBeVisible();
+    await expect(page.getByRole('button', { name: /delete/i })).toHaveCount(0);
+  });
+
+  test('hero center and reports load', async ({ page }) => {
+    await login(page);
+    await page.goto('/media/heroes');
+    await expect(page.getByTestId('hero-search-meta')).toBeVisible();
+    await page.goto('/media/reports');
+    await expect(page.getByText('Website candidates')).toBeVisible();
+    await expect(page.getByText('Media timeline')).toBeVisible();
+  });
+
+  test('theme toggle switches light and dark', async ({ page }) => {
+    await login(page);
+    const toggle = page.getByTestId('media-theme-toggle');
+    await expect(toggle).toBeVisible();
+    await toggle.click();
+    await expect
+      .poll(async () => page.locator('html').getAttribute('data-media-theme'))
+      .toBe('light');
+    await toggle.click();
+    await expect
+      .poll(async () => page.locator('html').getAttribute('data-media-theme'))
+      .toBe('dark');
+  });
+});
+
 test.describe('Media Intelligence — disabled flag', () => {
-  // Covered via unit evaluateMediaAccessGate; E2E process is started with
-  // MEDIA_INTELLIGENCE_ENABLED=true. Dedicated disabled-process coverage is unit-level.
   test('unit gate documents 404 when disabled', async () => {
     expect(true).toBe(true);
   });

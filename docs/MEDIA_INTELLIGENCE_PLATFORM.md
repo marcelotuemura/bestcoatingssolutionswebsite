@@ -161,16 +161,42 @@ Route prefix: **`/media`** (not under EN/ES marketing locales).
 - Not linked from public nav
 - Middleware allows `/media` without locale redirect
 
+## Phase 2 — Interactive Media Library (catalog-driven)
+
+Read-only internal app consuming indexing engine reports:
+
+`media_catalog.json` · `projects_report.json` · `duplicates_report.json` ·
+`search_index.json` · `MEDIA_INDEX_SUMMARY.md`
+
+| Surface | Route |
+|---------|-------|
+| Dashboard | `/media` |
+| Gallery + search/filters | `/media/library` |
+| Asset details | `/media/catalog/[id]` |
+| Project view | `/media/catalog/projects/[id]` |
+| Duplicate manager | `/media/duplicates` |
+| Hero Image Center | `/media/heroes` |
+| Reports viewer | `/media/reports` |
+
+Datasource: `MEDIA_CATALOG_DIR` or `data/media-catalog/` (sync from local
+`08_Reports`). Missing reports → deterministic fixture catalog (`isFixture`).
+
+Hard rules unchanged: authenticated only · never modify/rename/move/delete
+originals · never upload · never publish · no AI vision providers in this phase.
+
+Modules: `lib/media-library/*`, `components/media-library/*`.
+
 ## Implementation phases
 
 | Phase | Deliverable |
 |-------|-------------|
-| **1 — Foundation (this PR)** | Schemas, workflow, scoring, search, privacy, duplicates, analysis seam, in-memory repo + seed, dashboard / library / asset / import / projects / approvals / studio / calendar / analytics shells, tests |
-| **2 — Real ingest** | Disk/cloud import adapters, original vault, derivative pipeline (sharp), HEIC/RAW handling |
-| **3 — Vision providers** | Pluggable AI analysis; batch re-analyze; confidence calibration |
-| **4 — Auth + Postgres** | Supabase/auth roles; durable library; audit trail |
-| **5 — Publishers** | Website content bridge, social/GBP draft scheduling APIs |
-| **6 — Training corpus** | Export labeled sets for estimate / damage AI |
+| **1 — Foundation** | Schemas, workflow, scoring, search, privacy, duplicates, analysis seam, in-memory repo + seed, auth session, approvals |
+| **2 — Interactive Media Library (this PR)** | Catalog loader, dashboard, gallery, project/details, duplicates, heroes, reports, dark/light, tests |
+| **3 — Real ingest / vault** | Disk/cloud import adapters, original vault, derivative pipeline (sharp), HEIC/RAW handling, real thumbnails |
+| **4 — Vision providers** | Pluggable AI analysis; batch re-analyze; confidence calibration |
+| **5 — Auth + Postgres** | Supabase/auth roles; durable library; audit trail |
+| **6 — Publishers** | Website content bridge, social/GBP draft scheduling APIs |
+| **7 — Training corpus** | Export labeled sets for estimate / damage AI |
 
 ## Relationship to go-live & ops
 

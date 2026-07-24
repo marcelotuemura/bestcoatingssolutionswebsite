@@ -29,6 +29,18 @@
   color-scheme: dark;
 }
 
+/* Media Library theme variant (dark default / light optional) */
+@custom-variant media-light (&:where([data-media-theme='light'], [data-media-theme='light'] *));
+
+html[data-media-theme='light'] {
+  color-scheme: light;
+}
+
+.content-visibility-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 320px;
+}
+
 html {
   scroll-behavior: smooth;
 }

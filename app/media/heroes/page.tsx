@@ -16,7 +16,7 @@ import {
   uniqueFacetValues,
 } from '@/lib/media-library';
 
-export default async function MediaLibraryPage({
+export default async function HeroImageCenterPage({
   searchParams,
 }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -25,8 +25,11 @@ export default async function MediaLibraryPage({
   const raw = await searchParams;
   const options = parseCatalogSearchParams(raw);
   const data = await loadCatalogDataSource();
+
   const result = queryCatalogAssets(data.catalog.assets, {
     ...options,
+    mediaKind: options.mediaKind ?? 'image',
+    sort: options.sort ?? 'hero_rank',
     pageSize: options.pageSize ?? 48,
   });
 
@@ -44,27 +47,29 @@ export default async function MediaLibraryPage({
 
   return (
     <MediaShell
-      title="Media Gallery"
-      subtitle="Searchable card gallery — instant filtering across filename, boat, manufacturer, project, folder, repair, stage, camera, date, and scores."
+      title="Hero Image Center"
+      subtitle="Sorted by website score, marketing score, landscape orientation, image quality, and clear privacy. Filtering supported."
     >
       <Suspense fallback={null}>
-        <CatalogSearchBar />
-        <CatalogFilters facets={facets} />
+        <CatalogSearchBar actionPath="/media/heroes" />
+        <CatalogFilters facets={facets} actionPath="/media/heroes" />
       </Suspense>
       <p
         className="text-silver-500 media-light:text-slate-500 mt-4 text-sm"
-        data-testid="catalog-search-meta"
+        data-testid="hero-search-meta"
       >
-        {result.total} asset{result.total === 1 ? '' : 's'}
-        {options.q ? ` matching “${options.q}”` : ''} · query{' '}
-        {result.durationMs.toFixed(1)}ms
+        {result.total} hero candidate{result.total === 1 ? '' : 's'} · ranked ·
+        query {result.durationMs.toFixed(1)}ms
       </p>
-      <CatalogGallery assets={result.items} />
+      <CatalogGallery
+        assets={result.items}
+        emptyMessage="No hero candidates matched. Try relaxing privacy or landscape filters."
+      />
       <CatalogPagination
         page={result.page}
         pageCount={result.pageCount}
         total={result.total}
-        basePath="/media/library"
+        basePath="/media/heroes"
         searchParams={flatParams}
       />
     </MediaShell>
