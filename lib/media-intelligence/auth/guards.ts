@@ -4,19 +4,14 @@ import type {
 } from '@/lib/media-intelligence/schemas';
 import type { MediaTrustedActor } from '@/lib/media-intelligence/auth/session';
 import { resolveMediaTrustedActor } from '@/lib/media-intelligence/auth/session';
+import {
+  actorRolesHavePermission,
+  type MediaPermission,
+} from '@/lib/media-intelligence/auth/roles';
 
-export type MediaPermission =
-  | 'read'
-  | 'import_metadata'
-  | 'rebuild_projects'
-  | 'approve_workflow'
-  | 'reject'
-  | 'archive'
-  | 'hide'
-  | 'schedule'
-  | 'create_publication_approval'
-  | 'publish';
+export type { MediaPermission } from '@/lib/media-intelligence/auth/roles';
 
+/** @deprecated Prefer roles.ts ROLE_PERMISSIONS — kept for Phase 1 test compat. */
 const ownerPermissions: readonly MediaPermission[] = [
   'read',
   'import_metadata',
@@ -34,8 +29,14 @@ export function actorHasPermission(
   actor: MediaTrustedActor,
   permission: MediaPermission,
 ): boolean {
-  if (actor.role !== 'owner') return false;
-  return ownerPermissions.includes(permission);
+  const roles = actor.roles?.length ? actor.roles : [actor.role];
+  if (actorRolesHavePermission(roles, permission)) return true;
+  // Temporary Phase 1 sessions were owner-only with a narrower enum —
+  // keep ownerPermissions bridge for tests that only pass role: 'owner'.
+  if (actor.role === 'owner' && ownerPermissions.includes(permission)) {
+    return true;
+  }
+  return false;
 }
 
 export type GuardFailure = {

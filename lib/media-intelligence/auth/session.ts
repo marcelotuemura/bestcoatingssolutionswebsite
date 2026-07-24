@@ -5,20 +5,28 @@ import {
   isMediaLocalAuthBypass,
   mediaIntelligenceConfig,
 } from '@/config/media-intelligence';
+import {
+  primaryRole,
+  type MediaAccessRole,
+} from '@/lib/media-intelligence/auth/roles';
+import { resolveMediaAuthProvider } from '@/lib/media-intelligence/supabase/config';
 
 /**
- * Temporary trusted actor until Supabase Auth + RBAC.
- * Never accept role/id from the client.
+ * Trusted actor — server-derived only. Never accept role/id from the client.
  */
 export interface MediaTrustedActor {
   readonly id: string;
-  readonly role: 'owner';
-  readonly source: 'temporary-media-session' | 'local-dev-bypass';
+  readonly role: MediaAccessRole;
+  readonly roles: readonly MediaAccessRole[];
+  readonly email?: string;
+  readonly source:
+    'temporary-media-session' | 'local-dev-bypass' | 'supabase-auth';
 }
 
 export interface MediaSessionPayload {
   readonly id: string;
-  readonly role: 'owner';
+  readonly role: MediaAccessRole;
+  readonly roles?: readonly MediaAccessRole[];
   readonly iat: number;
   readonly exp: number;
   readonly nonce: string;
@@ -80,12 +88,15 @@ export function parseSignedSessionToken(
   try {
     const json = Buffer.from(body, 'base64url').toString('utf8');
     const payload = JSON.parse(json) as MediaSessionPayload;
-    if (payload.role !== 'owner') return null;
     if (typeof payload.exp !== 'number' || payload.exp * 1000 < Date.now()) {
       return null;
     }
     if (typeof payload.id !== 'string' || payload.id.length < 1) return null;
-    return payload;
+    const roles = payload.roles?.length
+      ? payload.roles
+      : ([payload.role] as MediaAccessRole[]);
+    if (!roles.includes(payload.role)) return null;
+    return { ...payload, roles };
   } catch {
     return null;
   }
@@ -96,6 +107,7 @@ export function issueOwnerSessionToken(): string {
   return createSignedSessionToken({
     id: `owner-${randomBytes(8).toString('hex')}`,
     role: 'owner',
+    roles: ['owner'],
     iat: now,
     exp: now + mediaIntelligenceConfig.sessionTtlSeconds,
     nonce: randomBytes(12).toString('hex'),
@@ -144,11 +156,7 @@ export type MediaSessionResult =
   | { readonly ok: true; readonly actor: MediaTrustedActor }
   | { readonly ok: false; readonly error: string; readonly status: number };
 
-/**
- * Establish trusted actor from server session (or documented local bypass).
- * Never trusts client-supplied actor fields.
- */
-export async function resolveMediaTrustedActor(): Promise<MediaSessionResult> {
+async function resolveTemporarySession(): Promise<MediaSessionResult> {
   const gate = evaluateMediaAccessGate();
   if (!gate.ok) {
     return { ok: false, error: gate.reason, status: gate.status };
@@ -160,6 +168,7 @@ export async function resolveMediaTrustedActor(): Promise<MediaSessionResult> {
       actor: {
         id: 'local-dev-owner',
         role: 'owner',
+        roles: ['owner'],
         source: 'local-dev-bypass',
       },
     };
@@ -188,12 +197,30 @@ export async function resolveMediaTrustedActor(): Promise<MediaSessionResult> {
     };
   }
 
+  const roles = payload.roles ?? [payload.role];
   return {
     ok: true,
     actor: {
       id: payload.id,
-      role: 'owner',
+      role: primaryRole(roles),
+      roles,
       source: 'temporary-media-session',
     },
   };
+}
+
+/**
+ * Establish trusted actor from server session (temporary HMAC or Supabase Auth).
+ * Never trusts client-supplied actor fields.
+ *
+ * Rollback: set MEDIA_AUTH_PROVIDER=temporary (default) to use Phase 1 gate.
+ */
+export async function resolveMediaTrustedActor(): Promise<MediaSessionResult> {
+  const provider = resolveMediaAuthProvider();
+  if (provider === 'supabase') {
+    const { resolveSupabaseMediaActor } =
+      await import('@/lib/media-intelligence/auth/supabase-auth');
+    return resolveSupabaseMediaActor();
+  }
+  return resolveTemporarySession();
 }

@@ -35,14 +35,28 @@ export function middleware(request: NextRequest) {
     }
 
     const isLogin = pathname === '/media/login';
-    const hasCookie = Boolean(request.cookies.get('bcs_media_session')?.value);
+    const authProvider =
+      process.env.MEDIA_AUTH_PROVIDER?.trim().toLowerCase() === 'supabase'
+        ? 'supabase'
+        : 'temporary';
+    const hasTemporaryCookie = Boolean(
+      request.cookies.get('bcs_media_session')?.value,
+    );
+    const hasSupabaseCookie = request.cookies
+      .getAll()
+      .some(
+        (cookie) =>
+          cookie.name.startsWith('sb-') && cookie.name.includes('-auth-token'),
+      );
+    const hasSession =
+      authProvider === 'supabase' ? hasSupabaseCookie : hasTemporaryCookie;
     const localBypass =
       process.env.NODE_ENV !== 'production' &&
       process.env.VERCEL_ENV !== 'preview' &&
       process.env.VERCEL_ENV !== 'production' &&
       process.env.MEDIA_INTELLIGENCE_LOCAL_BYPASS === 'true';
 
-    if (!isLogin && !hasCookie && !localBypass) {
+    if (!isLogin && !hasSession && !localBypass) {
       const url = request.nextUrl.clone();
       url.pathname = '/media/login';
       return NextResponse.redirect(url);

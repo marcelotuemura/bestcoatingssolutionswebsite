@@ -6,6 +6,7 @@ import {
 } from '@/config/media-intelligence';
 import { notFound, redirect } from 'next/navigation';
 import { resolveMediaTrustedActor } from '@/lib/media-intelligence/auth/session';
+import { resolveMediaAuthProvider } from '@/lib/media-intelligence/supabase/config';
 
 export const metadata = {
   title: 'Media Login | Best Coatings Solutions',
@@ -27,10 +28,16 @@ export default async function MediaLoginPage() {
     redirect('/media');
   }
 
+  const authProvider = resolveMediaAuthProvider();
+
   return (
     <MediaShell
       title="Secure access"
-      subtitle="Temporary owner authentication for the Media Intelligence foundation. Full Supabase Auth + RBAC replaces this later."
+      subtitle={
+        authProvider === 'supabase'
+          ? 'Supabase Auth for the internal Media Intelligence studio. Roles enforced server-side.'
+          : 'Temporary shared-secret authentication (rollback path). Switch to MEDIA_AUTH_PROVIDER=supabase after acceptance tests.'
+      }
       showNav={false}
       showLogout={false}
     >
@@ -39,7 +46,7 @@ export default async function MediaLoginPage() {
           {gate.reason}
         </p>
       ) : (
-        <MediaLoginForm />
+        <MediaLoginForm authProvider={authProvider} />
       )}
     </MediaShell>
   );

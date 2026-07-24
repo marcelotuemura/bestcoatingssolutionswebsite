@@ -27,3 +27,20 @@ export * from '@/lib/media-intelligence/vision/merge';
 export * from '@/lib/media-intelligence/vision/project-enrichment';
 export * from '@/lib/media-intelligence/vision/search-enrichment';
 export * from '@/lib/media-intelligence/vision/adapter';
+export {
+  MEDIA_ROLES,
+  MEDIA_PERMISSIONS,
+  ROLE_PERMISSIONS,
+  roleHasPermission,
+  actorRolesHavePermission,
+  primaryRole,
+  canManageRole,
+  type MediaAccessRole,
+  type MediaPermission as MediaAccessPermission,
+} from '@/lib/media-intelligence/auth/roles';
+export * from '@/lib/media-intelligence/supabase/config';
+export * from '@/lib/media-intelligence/audit/audit';
+export * from '@/lib/media-intelligence/storage/object-keys';
+export * from '@/lib/media-intelligence/migration/mapping';
+export * from '@/lib/media-intelligence/vision/analysis-repository';
+export * from '@/lib/media-intelligence/vision/analysis-factory';

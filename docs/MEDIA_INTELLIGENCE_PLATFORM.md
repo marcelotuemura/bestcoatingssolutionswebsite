@@ -223,8 +223,8 @@ CLI: `pnpm media:analyze`. Docs: [`MEDIA_VISION_PHASE4.md`](./MEDIA_VISION_PHASE
 | **1 — Foundation** | Schemas, workflow, scoring, search, privacy, duplicates, analysis seam, in-memory repo + seed, auth session, approvals |
 | **2 — Interactive Media Library** | Catalog loader, dashboard, gallery, project/details, duplicates, heroes, reports, dark/light, tests |
 | **3 — Media Vault & Storage** | MediaRepository abstraction, local vault, ingestion/derivatives, private vault routes, Supabase/Postgres stubs |
-| **4 — Vision providers (this PR)** | VisionProvider, mock + OpenAI stub, quality/privacy/project/search enrichment, AI overlay store |
-| **5 — Auth + Postgres** | Supabase/auth roles; durable library; audit trail |
+| **4 — Vision providers** | VisionProvider, mock + OpenAI stub, quality/privacy/project/search enrichment, AI overlay store |
+| **5 — Auth + Postgres (this PR)** | Supabase Auth dual-mode, RBAC, Postgres + RLS, private storage, migration CLI |
 | **6 — Publishers** | Website content bridge, social/GBP draft scheduling APIs |
 | **7 — Training corpus** | Export labeled sets for estimate / damage AI |
 

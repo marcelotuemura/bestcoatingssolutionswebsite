@@ -27,10 +27,13 @@
     "media:fixtures": "node scripts/generate-media-catalog-fixtures.mjs",
     "media:ingest": "node --import ./scripts/register-ts-alias.mjs --experimental-strip-types scripts/ingest-media-vault.ts",
     "media:analyze": "node --import ./scripts/register-ts-alias.mjs --experimental-strip-types scripts/analyze-media-vision.ts",
+    "media:migrate:supabase": "node --import ./scripts/register-ts-alias.mjs --experimental-strip-types scripts/migrate-media-supabase.ts",
     "prepare": "husky"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
+    "@supabase/ssr": "^0.12.3",
+    "@supabase/supabase-js": "^2.110.8",
     "@vercel/analytics": "^1.4.1",
     "framer-motion": "^12.0.0",
     "next": "^15.5.4",

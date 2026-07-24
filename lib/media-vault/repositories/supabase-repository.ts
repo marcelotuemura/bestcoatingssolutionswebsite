@@ -1,3 +1,4 @@
+import { PostgreSQLRepository } from '@/lib/media-vault/repositories/postgres-repository';
 import type {
   CatalogAsset,
   CatalogDataSource,
@@ -12,54 +13,53 @@ import type {
 } from '@/lib/media-vault/types';
 
 /**
- * Future Supabase Storage + Postgres catalog backend.
- * Interface-only stub — not implemented in Phase 3.
+ * Supabase Storage + Postgres catalog backend.
+ * Metadata via PostgreSQLRepository; private objects via signed URLs.
+ * UI depends only on MediaRepository.
  */
 export class SupabaseStorageRepository implements MediaRepository {
   readonly name = 'supabase-storage-repository';
   readonly backend = 'supabase' as const;
 
-  private notReady(): never {
-    throw new Error(
-      'SupabaseStorageRepository is not implemented yet. Use json or local-filesystem backends. See docs/MEDIA_VAULT_PHASE3.md migration plan.',
-    );
+  private readonly postgres: PostgreSQLRepository;
+
+  constructor(postgres = new PostgreSQLRepository()) {
+    this.postgres = postgres;
   }
 
-  async getCatalog(): Promise<CatalogDataSource> {
-    this.notReady();
+  getCatalog(): Promise<CatalogDataSource> {
+    return this.postgres.getCatalog();
   }
 
-  async getAssets(): Promise<readonly CatalogAsset[]> {
-    this.notReady();
+  getAssets(): Promise<readonly CatalogAsset[]> {
+    return this.postgres.getAssets();
   }
 
-  async getAssetById(_id: string): Promise<CatalogAsset | undefined> {
-    this.notReady();
+  getAssetById(id: string): Promise<CatalogAsset | undefined> {
+    return this.postgres.getAssetById(id);
   }
 
-  async getProjects(): Promise<readonly CatalogProject[]> {
-    this.notReady();
+  getProjects(): Promise<readonly CatalogProject[]> {
+    return this.postgres.getProjects();
   }
 
-  async getProjectById(_id: string): Promise<CatalogProject | undefined> {
-    this.notReady();
+  getProjectById(id: string): Promise<CatalogProject | undefined> {
+    return this.postgres.getProjectById(id);
   }
 
-  async getDuplicateGroups(): Promise<readonly DuplicateGroup[]> {
-    this.notReady();
+  getDuplicateGroups(): Promise<readonly DuplicateGroup[]> {
+    return this.postgres.getDuplicateGroups();
   }
 
-  async getDuplicateGroupById(
-    _id: string,
-  ): Promise<DuplicateGroup | undefined> {
-    this.notReady();
+  getDuplicateGroupById(id: string): Promise<DuplicateGroup | undefined> {
+    return this.postgres.getDuplicateGroupById(id);
   }
 
-  async resolvePrivateObject(
-    _assetId: string,
-    _kind: VaultObjectKind,
-    _size?: ThumbnailSize,
+  resolvePrivateObject(
+    assetId: string,
+    kind: VaultObjectKind,
+    size?: ThumbnailSize,
   ): Promise<PrivateObjectRef | null> {
-    this.notReady();
+    return this.postgres.resolvePrivateObject(assetId, kind, size);
   }
 }

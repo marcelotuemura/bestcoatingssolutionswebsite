@@ -45,10 +45,21 @@ export type VaultAssetRecord = CatalogAsset & {
 
 export type PrivateObjectRef = {
   readonly kind: VaultObjectKind;
-  readonly absolutePath: string;
+  /**
+   * Local filesystem path (json/local-filesystem backends only).
+   * Never expose to the client.
+   */
+  readonly absolutePath?: string;
+  /**
+   * Ephemeral signed URL for private Supabase Storage.
+   * Never persist in the database. Never log query parameters.
+   */
+  readonly signedUrl?: string;
   readonly contentType: string;
   readonly bytes: number;
   readonly size?: ThumbnailSize;
+  readonly storageBucket?: string;
+  readonly objectKey?: string;
 };
 
 /**

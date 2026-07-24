@@ -137,10 +137,23 @@ describe('Media Intelligence session tokens', () => {
     const actor: MediaTrustedActor = {
       id: 'o1',
       role: 'owner',
+      roles: ['owner'],
       source: 'temporary-media-session',
     };
     expect(actorHasPermission(actor, 'publish')).toBe(true);
     expect(actorHasPermission(actor, 'create_publication_approval')).toBe(true);
+  });
+
+  it('viewer cannot publish or manage users', () => {
+    const viewer: MediaTrustedActor = {
+      id: 'v1',
+      role: 'viewer',
+      roles: ['viewer'],
+      source: 'supabase-auth',
+    };
+    expect(actorHasPermission(viewer, 'read')).toBe(true);
+    expect(actorHasPermission(viewer, 'publish')).toBe(false);
+    expect(actorHasPermission(viewer, 'manage_users')).toBe(false);
   });
 });
 
