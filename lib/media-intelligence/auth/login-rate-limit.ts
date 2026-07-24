@@ -24,7 +24,7 @@ export function checkMediaLoginRateLimit(identity: string): {
   const key = createHash('sha256').update(identity).digest('hex').slice(0, 24);
   const now = Date.now();
   const windowMs = mediaIntelligenceConfig.loginRateLimit.windowMs;
-  const max = mediaIntelligenceConfig.loginRateLimit.maxAttempts;
+  const max = resolveMaxAttempts();
   const existing = buckets.get(key);
   if (!existing || existing.resetAt <= now) {
     buckets.set(key, { count: 1, resetAt: now + windowMs });
@@ -35,4 +35,10 @@ export function checkMediaLoginRateLimit(identity: string): {
   }
   existing.count += 1;
   return { allowed: true, remaining: max - existing.count };
+}
+
+function resolveMaxAttempts(): number {
+  const fromEnv = Number(process.env.MEDIA_LOGIN_RATE_LIMIT_MAX);
+  if (Number.isFinite(fromEnv) && fromEnv > 0) return Math.floor(fromEnv);
+  return mediaIntelligenceConfig.loginRateLimit.maxAttempts;
 }

@@ -34,6 +34,7 @@ export default defineConfig({
       MEDIA_INTELLIGENCE_ACCESS_SECRET: 'e2e-media-access-secret-32ch!!',
       MEDIA_INTELLIGENCE_SESSION_SECRET: 'e2e-media-session-secret-32ch!',
       MEDIA_INTELLIGENCE_LOCAL_BYPASS: 'false',
+      MEDIA_LOGIN_RATE_LIMIT_MAX: '500',
     },
   },
 });

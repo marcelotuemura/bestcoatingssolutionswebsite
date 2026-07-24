@@ -8,9 +8,9 @@ async function login(page: import('@playwright/test').Page) {
   await page.goto('/media/login');
   await page.getByTestId('media-access-secret').fill(ACCESS_SECRET);
   await page.getByTestId('media-login-submit').click();
-  await expect(
-    page.getByRole('heading', { name: 'Media Library Dashboard' }),
-  ).toBeVisible();
+  await expect(page.getByTestId('media-dashboard-stats')).toBeVisible({
+    timeout: 15_000,
+  });
 }
 
 test.describe('Media Intelligence Platform (DAMS) — access control', () => {
@@ -163,11 +163,14 @@ test.describe('Phase 2 — Interactive Media Library', () => {
     await login(page);
     const toggle = page.getByTestId('media-theme-toggle');
     await expect(toggle).toBeVisible();
+    await expect(toggle).toHaveAttribute('data-theme', 'dark');
     await toggle.click();
+    await expect(toggle).toHaveAttribute('data-theme', 'light');
     await expect
       .poll(async () => page.locator('html').getAttribute('data-media-theme'))
       .toBe('light');
     await toggle.click();
+    await expect(toggle).toHaveAttribute('data-theme', 'dark');
     await expect
       .poll(async () => page.locator('html').getAttribute('data-media-theme'))
       .toBe('dark');
