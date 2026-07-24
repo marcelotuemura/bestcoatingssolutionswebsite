@@ -12,12 +12,8 @@ export function useMediaTheme() {
 
   useEffect(() => {
     const stored = window.localStorage.getItem(STORAGE_KEY);
-    const preferred: MediaTheme =
-      stored === 'light' || stored === 'dark'
-        ? stored
-        : window.matchMedia('(prefers-color-scheme: light)').matches
-          ? 'light'
-          : 'dark';
+    // Media Library defaults to brand dark; only honor an explicit user choice.
+    const preferred: MediaTheme = stored === 'light' ? 'light' : 'dark';
     setThemeState(preferred);
     document.documentElement.dataset.mediaTheme = preferred;
     setReady(true);
