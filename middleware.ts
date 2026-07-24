@@ -22,7 +22,32 @@ export function middleware(request: NextRequest) {
   }
 
   // Internal Media Intelligence Platform (DAMS) — not locale-prefixed.
+  // Availability + cookie presence are checked here; Server Actions and pages
+  // independently verify signed sessions. robots.txt is not access control.
   if (pathname === '/media' || pathname.startsWith('/media/')) {
+    const enabled = process.env.MEDIA_INTELLIGENCE_ENABLED === 'true';
+    if (!enabled) {
+      const url = request.nextUrl.clone();
+      url.pathname = '/media-not-found';
+      // Let the app route return 404 via layout/notFound when hit directly.
+      // Middleware cannot easily call notFound(); pass through and let layout gate.
+      return NextResponse.next();
+    }
+
+    const isLogin = pathname === '/media/login';
+    const hasCookie = Boolean(request.cookies.get('bcs_media_session')?.value);
+    const localBypass =
+      process.env.NODE_ENV !== 'production' &&
+      process.env.VERCEL_ENV !== 'preview' &&
+      process.env.VERCEL_ENV !== 'production' &&
+      process.env.MEDIA_INTELLIGENCE_LOCAL_BYPASS === 'true';
+
+    if (!isLogin && !hasCookie && !localBypass) {
+      const url = request.nextUrl.clone();
+      url.pathname = '/media/login';
+      return NextResponse.redirect(url);
+    }
+
     return NextResponse.next();
   }
 

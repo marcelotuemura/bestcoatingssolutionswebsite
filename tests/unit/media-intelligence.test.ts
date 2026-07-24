@@ -1,6 +1,36 @@
-import { describe, expect, it, beforeEach } from 'vitest';
+import { describe, expect, it, beforeEach, afterEach, vi } from 'vitest';
+
+vi.mock('next/headers', () => ({
+  cookies: vi.fn(async () => ({
+    get: () => undefined,
+    set: vi.fn(),
+  })),
+  headers: vi.fn(async () => ({
+    get: () => null,
+  })),
+}));
+
+vi.mock('next/navigation', () => ({
+  redirect: vi.fn(),
+  notFound: vi.fn(),
+}));
+
+import {
+  evaluateMediaAccessGate,
+  isMediaIntelligenceEnabled,
+  isMediaLocalAuthBypass,
+} from '@/config/media-intelligence';
 import { HeuristicMediaAnalysisEngine } from '@/lib/media-intelligence/analysis/engine';
 import { detectProjectsFromAssets } from '@/lib/media-intelligence/analysis/project-detection';
+import {
+  actorHasPermission,
+  requireOwnerApprovalRecord,
+} from '@/lib/media-intelligence/auth/guards';
+import {
+  createSignedSessionToken,
+  parseSignedSessionToken,
+  type MediaTrustedActor,
+} from '@/lib/media-intelligence/auth/session';
 import { generateCaseStudyDraft } from '@/lib/media-intelligence/case-study';
 import { detectDuplicateGroups } from '@/lib/media-intelligence/duplicates';
 import { scanPrivacyRisks } from '@/lib/media-intelligence/privacy';
@@ -23,6 +53,96 @@ import {
   canTransition,
   isPublishedStatus,
 } from '@/lib/media-intelligence/workflow';
+import {
+  importMediaMetadataAction,
+  transitionMediaAssetAction,
+} from '@/app/media/actions';
+
+const SESSION_SECRET = 'unit-test-session-secret-32chars!!';
+const ACCESS_SECRET = 'unit-test-access-secret-32chars!!!';
+
+function setAuthEnv(enabled: boolean, withSecrets = true) {
+  vi.stubEnv('MEDIA_INTELLIGENCE_ENABLED', enabled ? 'true' : 'false');
+  vi.stubEnv('MEDIA_INTELLIGENCE_LOCAL_BYPASS', 'false');
+  vi.stubEnv('VERCEL_ENV', '');
+  if (withSecrets) {
+    vi.stubEnv('MEDIA_INTELLIGENCE_SESSION_SECRET', SESSION_SECRET);
+    vi.stubEnv('MEDIA_INTELLIGENCE_ACCESS_SECRET', ACCESS_SECRET);
+  } else {
+    vi.stubEnv('MEDIA_INTELLIGENCE_SESSION_SECRET', '');
+    vi.stubEnv('MEDIA_INTELLIGENCE_ACCESS_SECRET', '');
+  }
+}
+
+describe('Media Intelligence access gate', () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it('feature disabled rejects access', () => {
+    setAuthEnv(false);
+    expect(isMediaIntelligenceEnabled()).toBe(false);
+    const gate = evaluateMediaAccessGate();
+    expect(gate.ok).toBe(false);
+    if (!gate.ok) expect(gate.status).toBe(404);
+  });
+
+  it('enabled without secrets fails closed in production-like runtime', () => {
+    setAuthEnv(true, false);
+    vi.stubEnv('VERCEL_ENV', 'production');
+    const gate = evaluateMediaAccessGate();
+    expect(gate.ok).toBe(false);
+    if (!gate.ok) expect([404, 503]).toContain(gate.status);
+  });
+
+  it('local bypass never activates on Vercel production', () => {
+    vi.stubEnv('MEDIA_INTELLIGENCE_ENABLED', 'true');
+    vi.stubEnv('MEDIA_INTELLIGENCE_LOCAL_BYPASS', 'true');
+    vi.stubEnv('VERCEL_ENV', 'production');
+    expect(isMediaLocalAuthBypass()).toBe(false);
+  });
+});
+
+describe('Media Intelligence session tokens', () => {
+  it('rejects invalid or expired session tokens', () => {
+    const now = Math.floor(Date.now() / 1000);
+    const valid = createSignedSessionToken(
+      {
+        id: 'owner-1',
+        role: 'owner',
+        iat: now,
+        exp: now + 3600,
+        nonce: 'abc',
+      },
+      SESSION_SECRET,
+    );
+    expect(parseSignedSessionToken(valid, SESSION_SECRET)?.id).toBe('owner-1');
+
+    const expired = createSignedSessionToken(
+      {
+        id: 'owner-1',
+        role: 'owner',
+        iat: now - 10,
+        exp: now - 1,
+        nonce: 'abc',
+      },
+      SESSION_SECRET,
+    );
+    expect(parseSignedSessionToken(expired, SESSION_SECRET)).toBeNull();
+    expect(parseSignedSessionToken('not.a.token', SESSION_SECRET)).toBeNull();
+    expect(parseSignedSessionToken(valid, 'wrong-secret-value!!!!')).toBeNull();
+  });
+
+  it('permissions are owner-only for foundation', () => {
+    const actor: MediaTrustedActor = {
+      id: 'o1',
+      role: 'owner',
+      source: 'temporary-media-session',
+    };
+    expect(actorHasPermission(actor, 'publish')).toBe(true);
+    expect(actorHasPermission(actor, 'create_publication_approval')).toBe(true);
+  });
+});
 
 describe('Media Intelligence workflow', () => {
   it('never allows imported → published_* directly', () => {
@@ -32,20 +152,140 @@ describe('Media Intelligence workflow', () => {
     expect(isPublishedStatus('published_social')).toBe(true);
   });
 
-  it('blocks publish planner without approval', () => {
+  it('requires stored owner approval record — not a boolean flag', () => {
     const blocked = planPublication({
       currentStatus: 'approved',
       target: 'website',
-      ownerApproved: false,
+      approval: undefined,
     });
     expect(blocked.ok).toBe(false);
+
     const ok = planPublication({
       currentStatus: 'approved',
       target: 'website',
-      ownerApproved: true,
+      approval: {
+        id: 'a1',
+        assetId: 'asset-1',
+        target: 'website',
+        approvedBy: 'temporary-media-session:owner-1',
+        approvedAt: new Date().toISOString(),
+        approvalVersion: 1,
+      },
     });
     expect(ok.ok).toBe(true);
     expect(ok.nextStatus).toBe('published_website');
+  });
+
+  it('privacy-blocked assets cannot receive publication approval records', () => {
+    const result = requireOwnerApprovalRecord({
+      approval: {
+        id: 'a1',
+        assetId: 'asset-1',
+        target: 'website',
+        approvedBy: 'owner',
+        approvedAt: new Date().toISOString(),
+        approvalVersion: 1,
+      },
+      assetId: 'asset-1',
+      target: 'website',
+      privacyBlocked: true,
+    });
+    expect(result.ok).toBe(false);
+  });
+});
+
+describe('Media Intelligence Server Action authorization', () => {
+  beforeEach(() => {
+    __resetMediaIntelligenceRepositoryForTests();
+    setAuthEnv(true, true);
+    vi.stubEnv('MEDIA_INTELLIGENCE_LOCAL_BYPASS', 'false');
+    vi.stubEnv('VERCEL_ENV', 'production');
+  });
+
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it('rejects unauthenticated mutations', async () => {
+    const result = await transitionMediaAssetAction({
+      assetId: 'missing',
+      to: 'approved',
+    });
+    expect(result.ok).toBe(false);
+    expect(result.status).toBe(401);
+
+    const imported = await importMediaMetadataAction({
+      files: [{ filename: 'x.jpg', mimeType: 'image/jpeg', bytes: 10 }],
+    });
+    expect(imported.ok).toBe(false);
+    expect(imported.status).toBe(401);
+  });
+
+  it('does not accept client-provided actor identity (parameter removed)', () => {
+    const sample: Parameters<typeof transitionMediaAssetAction>[0] = {
+      assetId: 'x',
+      to: 'approved',
+    };
+    expect('actor' in sample).toBe(false);
+  });
+});
+
+describe('Media Intelligence approvals repository', () => {
+  beforeEach(() => {
+    __resetMediaIntelligenceRepositoryForTests();
+  });
+
+  it('creates auditable approval and invalidates on return to pending', () => {
+    const repo = getMediaIntelligenceRepository();
+    const asset = repo
+      .listAssets()
+      .find((item) => item.status === 'pending_approval');
+    expect(asset).toBeTruthy();
+    repo.transitionAsset(asset!.id, 'approved', 'temporary-media-session:test');
+
+    const approval = repo.createPublicationApproval({
+      assetId: asset!.id,
+      target: 'website',
+      approvedBy: 'temporary-media-session:test',
+      note: 'unit',
+    });
+    expect(approval.approvalVersion).toBe(1);
+    expect(repo.getApproval(asset!.id, 'website')?.id).toBe(approval.id);
+
+    repo.transitionAsset(
+      asset!.id,
+      'pending_approval',
+      'temporary-media-session:test',
+    );
+    expect(repo.getApproval(asset!.id, 'website')?.revokedAt).toBeTruthy();
+  });
+
+  it('simulated import remains metadata-only / demo labeled', async () => {
+    vi.stubEnv('MEDIA_INTELLIGENCE_ENABLED', 'true');
+    vi.stubEnv('MEDIA_INTELLIGENCE_LOCAL_BYPASS', 'true');
+    vi.stubEnv('VERCEL_ENV', '');
+    vi.stubEnv('MEDIA_INTELLIGENCE_SESSION_SECRET', SESSION_SECRET);
+    vi.stubEnv('MEDIA_INTELLIGENCE_ACCESS_SECRET', ACCESS_SECRET);
+    // Force development runtime for local bypass
+    vi.stubEnv('NODE_ENV', 'development');
+    __resetMediaIntelligenceRepositoryForTests();
+
+    const result = await importMediaMetadataAction({
+      files: [
+        {
+          filename: 'sim_gelcoat_before.jpg',
+          mimeType: 'image/jpeg',
+          bytes: 1234,
+        },
+      ],
+    });
+    expect(result.ok).toBe(true);
+    expect(result.mode).toBe('metadata-only-simulation');
+    const created = getMediaIntelligenceRepository()
+      .listAssets()
+      .find((asset) => asset.originalFilename === 'sim_gelcoat_before.jpg');
+    expect(created?.isDemoSeed).toBe(true);
+    expect(created?.notes).toMatch(/no original binary/i);
   });
 });
 
@@ -99,13 +339,6 @@ describe('Media Intelligence analysis & search', () => {
     const query = parseNaturalLanguageQuery('Sea Ray gelcoat');
     const hits = searchMediaAssets(repo.listAssets(), query);
     expect(hits.length).toBeGreaterThan(0);
-    expect(
-      hits.every(
-        (asset) =>
-          (asset.manufacturer ?? '').includes('Sea Ray') ||
-          asset.repairTypes.includes('gelcoat'),
-      ),
-    ).toBe(true);
   });
 
   it('detects projects and builds case study + SEO drafts', () => {

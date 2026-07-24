@@ -14,9 +14,51 @@ studies, and future AI estimate / damage recognition capabilities.
 4. Never overwrite immutable metadata history (append audit events).  
 5. Generate optimized **copies** only (WebP / AVIF / thumbnails).  
 6. Never expose originals on the public marketing site.  
-7. Never invent real projects, testimonials, or published workmanship.
+7. Never invent real projects, testimonials, or published workmanship.  
+8. Never treat `robots.txt`, feature flags, or obscurity as authorization.  
+9. Never accept actor identity from the client.  
+10. Never claim binary originals exist until the real vault phase ships.
 
-## Surfaces this platform feeds
+## Access control (foundation — temporary)
+
+`/media` is an **authenticated internal studio**.
+
+| Control | Behavior |
+|---------|----------|
+| `MEDIA_INTELLIGENCE_ENABLED` | Availability only (default false). Not auth. |
+| Preview / Production when enabled | Requires `MEDIA_INTELLIGENCE_ACCESS_SECRET` + `MEDIA_INTELLIGENCE_SESSION_SECRET` (min 16 chars). Fail closed if missing. |
+| Login | `/media/login` — server-validated access secret, rate-limited |
+| Session | HttpOnly, SameSite=Strict, Path=/media, HMAC-signed cookie (12h) |
+| Actor | Server-derived `{ id, role: 'owner', source: 'temporary-media-session' }` |
+| Local bypass | `MEDIA_INTELLIGENCE_LOCAL_BYPASS=true` **only** in development — never Preview/Production |
+| Disable / rollback | Set `MEDIA_INTELLIGENCE_ENABLED=false` |
+| Future | Replace with Supabase Auth + full RBAC |
+
+**Threat model (foundation):** anonymous Preview/Production access, client-spoofed actors, hard-coded `ownerApproved: true`, and status-only publish authorization are explicitly defended against. Full auth providers, MFA, and RBAC remain deferred.
+
+Also prefer **Vercel Deployment Protection** on Preview when available (defense in depth).
+
+## Owner publication approval
+
+Workflow status `approved` is **not** sufficient to publish.
+
+Publishing requires a stored `MediaApproval` record:
+
+- `assetId`, `target`, `approvedBy`, `approvedAt`, `approvalVersion`
+- Created only by an authenticated owner session
+- Privacy-blocked assets cannot receive publication approval
+- Returning to pending/editing revokes stale publication approvals
+
+## Import truthfulness (Phase 1)
+
+The foundation UI is a **metadata-only simulation**:
+
+- No original binaries are uploaded or stored
+- UI states this explicitly
+- Demo seeds are labeled non-client data
+- Do not use confidential production photos until the real vault exists
+
+Real vault (later): binary upload, checksum, immutable storage, derivatives, malware validation, EXIF policy, recovery.
 
 | Surface | How DAMS helps |
 |---------|----------------|
@@ -48,6 +90,7 @@ Import Engine → Storage (originals immutable)
 
 | Module | Path |
 |--------|------|
+| Auth / session / guards | `lib/media-intelligence/auth/` |
 | Domain types & Zod | `lib/media-intelligence/schemas.ts` |
 | Workflow state machine | `lib/media-intelligence/workflow.ts` |
 | Scoring | `lib/media-intelligence/scoring.ts` |

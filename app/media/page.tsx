@@ -3,6 +3,7 @@ import { AssetCard } from '@/components/media-intelligence/AssetCard';
 import { MediaShell } from '@/components/media-intelligence/MediaShell';
 import { StatCard } from '@/components/media-intelligence/MediaBadges';
 import { getMediaIntelligenceRepository } from '@/lib/media-intelligence/repository';
+import { requireMediaPageAccess } from '@/lib/media-intelligence/auth/page-guard';
 
 function formatBytes(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
@@ -10,7 +11,8 @@ function formatBytes(bytes: number): string {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
-export default function MediaDashboardPage() {
+export default async function MediaDashboardPage() {
+  await requireMediaPageAccess();
   const stats = getMediaIntelligenceRepository().getDashboardStats();
 
   return (

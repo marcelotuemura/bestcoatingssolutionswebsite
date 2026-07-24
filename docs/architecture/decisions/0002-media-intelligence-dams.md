@@ -27,3 +27,8 @@ systems. A one-off folder of photos will not scale.
 - Extractable later to `apps/media` in a monorepo without rewriting domain types.
 - Go-live of the marketing site does not depend on DAMS completion.
 - Ops Platform consumes DAMS via future API — not by embedding ops in `/media`.
+- Foundation uses a temporary owner session (HMAC cookie + access secret). This
+  is not RBAC. Migrate to Supabase Auth before treating `/media` as a multi-user
+  production tool.
+- Feature flags never authorize. Missing secrets fail closed in Preview/Production.
+- Binary originals are **not** stored in Phase 1 — metadata simulation only.

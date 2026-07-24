@@ -187,6 +187,33 @@ export const auditEventSchema = z.object({
   note: z.string().optional(),
 });
 
+export const publishTargetSchema = z.enum([
+  'website',
+  'portfolio',
+  'service_page',
+  'blog',
+  'gallery',
+  'social',
+  'google_business',
+]);
+
+/**
+ * Target-specific owner approval — distinct from workflow status `approved`.
+ * Status === approved alone never authorizes publication.
+ */
+export const mediaApprovalSchema = z.object({
+  id: z.string(),
+  assetId: z.string(),
+  target: publishTargetSchema,
+  approvedBy: z.string(),
+  approvedAt: z.string(),
+  approvalVersion: z.number().int().positive(),
+  note: z.string().optional(),
+  revokedAt: z.string().optional(),
+  revokedBy: z.string().optional(),
+  revokeReason: z.string().optional(),
+});
+
 export const mediaAssetSchema = z.object({
   id: z.string(),
   originalFilename: z.string(),
@@ -325,6 +352,8 @@ export type DamageFinding = z.infer<typeof damageFindingSchema>;
 export type RepairFinding = z.infer<typeof repairFindingSchema>;
 export type MediaDerivative = z.infer<typeof mediaDerivativeSchema>;
 export type AuditEvent = z.infer<typeof auditEventSchema>;
+export type PublishTarget = z.infer<typeof publishTargetSchema>;
+export type MediaApproval = z.infer<typeof mediaApprovalSchema>;
 export type MediaAsset = z.infer<typeof mediaAssetSchema>;
 export type MediaProject = z.infer<typeof mediaProjectSchema>;
 export type CaseStudyDraft = z.infer<typeof caseStudyDraftSchema>;

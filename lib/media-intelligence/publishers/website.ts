@@ -1,14 +1,11 @@
-import type { AssetWorkflowStatus } from '@/lib/media-intelligence/schemas';
+import type {
+  AssetWorkflowStatus,
+  MediaApproval,
+  PublishTarget,
+} from '@/lib/media-intelligence/schemas';
 import { canTransition } from '@/lib/media-intelligence/workflow';
 
-export type PublishTarget =
-  | 'website'
-  | 'portfolio'
-  | 'service_page'
-  | 'blog'
-  | 'gallery'
-  | 'social'
-  | 'google_business';
+export type { PublishTarget };
 
 const targetStatus: Record<PublishTarget, AssetWorkflowStatus> = {
   website: 'published_website',
@@ -20,37 +17,55 @@ const targetStatus: Record<PublishTarget, AssetWorkflowStatus> = {
   google_business: 'published_google_business',
 };
 
+export function publishTargetFromStatus(
+  status: AssetWorkflowStatus,
+): PublishTarget | null {
+  if (!status.startsWith('published_')) return null;
+  return status.replace('published_', '') as PublishTarget;
+}
+
 /**
- * Publishing is never automatic. Callers must pass ownerApproved=true.
+ * Publishing is never automatic.
+ * Requires a stored MediaApproval record for the exact asset + target.
+ * Workflow status `approved` alone is never sufficient.
  */
 export function planPublication(input: {
   readonly currentStatus: AssetWorkflowStatus;
   readonly target: PublishTarget;
-  readonly ownerApproved: boolean;
+  readonly approval: MediaApproval | undefined;
   readonly privacyBlocked?: boolean;
 }): {
   readonly ok: boolean;
   readonly nextStatus?: AssetWorkflowStatus;
   readonly reason?: string;
 } {
-  if (!input.ownerApproved) {
-    return { ok: false, reason: 'Owner approval required before publishing.' };
-  }
   if (input.privacyBlocked) {
     return {
       ok: false,
       reason: 'Privacy risks must be resolved before publishing.',
     };
   }
+
+  const approval = input.approval;
+  if (!approval || approval.revokedAt || approval.target !== input.target) {
+    return {
+      ok: false,
+      reason:
+        'Target-specific owner approval record required before publication.',
+    };
+  }
+
   if (
     input.currentStatus !== 'approved' &&
     input.currentStatus !== 'scheduled'
   ) {
     return {
       ok: false,
-      reason: 'Asset must be approved (or scheduled) before publish targets.',
+      reason:
+        'Asset workflow must be approved or scheduled before publish targets.',
     };
   }
+
   const next = targetStatus[input.target];
   if (!canTransition(input.currentStatus, next)) {
     return {

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
+import { mediaLogoutAction } from '@/app/media/actions';
 import { mediaIntelligenceConfig } from '@/config/media-intelligence';
 
 const nav = [
@@ -17,10 +18,14 @@ export function MediaShell({
   title,
   subtitle,
   children,
+  showNav = true,
+  showLogout = true,
 }: {
   readonly title: string;
   readonly subtitle?: string;
   readonly children: ReactNode;
+  readonly showNav?: boolean;
+  readonly showLogout?: boolean;
 }) {
   return (
     <div className="bg-navy-950 text-silver-100 min-h-screen">
@@ -40,27 +45,46 @@ export function MediaShell({
                 </p>
               ) : null}
             </div>
-            <p
-              className="rounded-xl border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-xs text-amber-100"
-              role="status"
-            >
-              Never auto-publish · Originals immutable · Owner approval required
-            </p>
-          </div>
-          <nav aria-label="Media Intelligence" className="flex flex-wrap gap-2">
-            {nav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="border-navy-700 bg-navy-900/70 text-silver-300 hover:border-electric-500 focus-visible:ring-electric-500 rounded-lg border px-3 py-1.5 text-sm transition hover:text-white focus-visible:ring-2 focus-visible:outline-none"
+            <div className="flex flex-col items-end gap-2">
+              <p
+                className="rounded-xl border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-xs text-amber-100"
+                role="status"
               >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
+                Never auto-publish · Metadata vault deferred · Owner approval
+                required
+              </p>
+              {showLogout ? (
+                <form action={mediaLogoutAction}>
+                  <button
+                    type="submit"
+                    className="border-navy-700 text-silver-300 hover:border-electric-500 rounded-lg border px-3 py-1.5 text-xs"
+                    data-testid="media-logout"
+                  >
+                    Log out
+                  </button>
+                </form>
+              ) : null}
+            </div>
+          </div>
+          {showNav ? (
+            <nav
+              aria-label="Media Intelligence"
+              className="flex flex-wrap gap-2"
+            >
+              {nav.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="border-navy-700 bg-navy-900/70 text-silver-300 hover:border-electric-500 focus-visible:ring-electric-500 rounded-lg border px-3 py-1.5 text-sm transition hover:text-white focus-visible:ring-2 focus-visible:outline-none"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+          ) : null}
           <p className="text-silver-500 text-xs">
-            Internal route {mediaIntelligenceConfig.routePrefix} · not indexed ·
-            not part of public marketing nav
+            Internal route {mediaIntelligenceConfig.routePrefix} · authenticated
+            sessions only · robots.txt is not an access control
           </p>
         </div>
       </div>

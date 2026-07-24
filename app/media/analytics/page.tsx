@@ -1,8 +1,10 @@
 import { MediaShell } from '@/components/media-intelligence/MediaShell';
 import { StatCard } from '@/components/media-intelligence/MediaBadges';
 import { getMediaIntelligenceRepository } from '@/lib/media-intelligence/repository';
+import { requireMediaPageAccess } from '@/lib/media-intelligence/auth/page-guard';
 
-export default function MediaAnalyticsPage() {
+export default async function MediaAnalyticsPage() {
+  await requireMediaPageAccess();
   const stats = getMediaIntelligenceRepository().getDashboardStats();
   const assets = getMediaIntelligenceRepository().listAssets();
   const unused = assets.filter(

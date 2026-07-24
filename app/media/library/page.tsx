@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import { AssetCard } from '@/components/media-intelligence/AssetCard';
 import { MediaSearchBar } from '@/components/media-intelligence/MediaSearchBar';
 import { MediaShell } from '@/components/media-intelligence/MediaShell';
+import { requireMediaPageAccess } from '@/lib/media-intelligence/auth/page-guard';
 import { getMediaIntelligenceRepository } from '@/lib/media-intelligence/repository';
 import {
   parseNaturalLanguageQuery,
@@ -13,6 +14,7 @@ export default async function MediaLibraryPage({
 }: {
   searchParams: Promise<{ q?: string }>;
 }) {
+  await requireMediaPageAccess();
   const { q } = await searchParams;
   const repo = getMediaIntelligenceRepository();
   const query = q ? parseNaturalLanguageQuery(q) : {};

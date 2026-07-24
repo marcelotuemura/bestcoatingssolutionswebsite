@@ -5,6 +5,7 @@ import {
   StatusBadge,
 } from '@/components/media-intelligence/MediaBadges';
 import { MediaShell } from '@/components/media-intelligence/MediaShell';
+import { requireMediaPageAccess } from '@/lib/media-intelligence/auth/page-guard';
 import { getMediaIntelligenceRepository } from '@/lib/media-intelligence/repository';
 import { generateSeoPackage } from '@/lib/media-intelligence/seo';
 
@@ -13,6 +14,7 @@ export default async function MediaAssetDetailPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
+  await requireMediaPageAccess();
   const { id } = await params;
   const asset = getMediaIntelligenceRepository().getAsset(id);
   if (!asset) notFound();

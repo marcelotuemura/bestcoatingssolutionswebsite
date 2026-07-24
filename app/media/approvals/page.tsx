@@ -1,8 +1,10 @@
 import { AssetCard } from '@/components/media-intelligence/AssetCard';
 import { MediaShell } from '@/components/media-intelligence/MediaShell';
 import { getMediaIntelligenceRepository } from '@/lib/media-intelligence/repository';
+import { requireMediaPageAccess } from '@/lib/media-intelligence/auth/page-guard';
 
-export default function MediaApprovalsPage() {
+export default async function MediaApprovalsPage() {
+  await requireMediaPageAccess();
   const pending = getMediaIntelligenceRepository()
     .listAssets()
     .filter((asset) => asset.status === 'pending_approval');

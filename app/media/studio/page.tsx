@@ -1,8 +1,10 @@
 import { MediaShell } from '@/components/media-intelligence/MediaShell';
 import { getMediaIntelligenceRepository } from '@/lib/media-intelligence/repository';
 import { generateSocialDrafts } from '@/lib/media-intelligence/social';
+import { requireMediaPageAccess } from '@/lib/media-intelligence/auth/page-guard';
 
-export default function MediaStudioPage() {
+export default async function MediaStudioPage() {
+  await requireMediaPageAccess();
   const repo = getMediaIntelligenceRepository();
   const project = repo.listProjects()[0];
   const assets = project

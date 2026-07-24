@@ -7,8 +7,10 @@ import { detectProjectsFromAssets } from '@/lib/media-intelligence/analysis/proj
 import type {
   AssetWorkflowStatus,
   AuditEvent,
+  MediaApproval,
   MediaAsset,
   MediaProject,
+  PublishTarget,
 } from '@/lib/media-intelligence/schemas';
 import { assertTransition } from '@/lib/media-intelligence/workflow';
 
@@ -34,10 +36,15 @@ function audit(
   };
 }
 
+function approvalKey(assetId: string, target: PublishTarget): string {
+  return `${assetId}::${target}`;
+}
+
 /** In-memory foundation repository — swap for Postgres later. */
 export class MediaIntelligenceRepository {
   private assets = new Map<string, MediaAsset>();
   private projects = new Map<string, MediaProject>();
+  private approvals = new Map<string, MediaApproval>();
 
   listAssets(): readonly MediaAsset[] {
     return [...this.assets.values()].sort((a, b) =>
@@ -59,6 +66,19 @@ export class MediaIntelligenceRepository {
     return this.projects.get(id);
   }
 
+  getApproval(
+    assetId: string,
+    target: PublishTarget,
+  ): MediaApproval | undefined {
+    return this.approvals.get(approvalKey(assetId, target));
+  }
+
+  listApprovalsForAsset(assetId: string): readonly MediaApproval[] {
+    return [...this.approvals.values()].filter(
+      (approval) => approval.assetId === assetId,
+    );
+  }
+
   upsertAsset(asset: MediaAsset): MediaAsset {
     this.assets.set(asset.id, asset);
     return asset;
@@ -69,10 +89,81 @@ export class MediaIntelligenceRepository {
     return project;
   }
 
+  /**
+   * Create a target-specific publication approval.
+   * Privacy-blocked assets cannot receive publication approval.
+   */
+  createPublicationApproval(input: {
+    readonly assetId: string;
+    readonly target: PublishTarget;
+    readonly approvedBy: string;
+    readonly note?: string;
+  }): MediaApproval {
+    const asset = this.assets.get(input.assetId);
+    if (!asset) {
+      throw new Error(`Unknown asset: ${input.assetId}`);
+    }
+    if (asset.privacyRisks.length > 0) {
+      throw new Error(
+        'Privacy-blocked assets cannot receive publication approval.',
+      );
+    }
+    if (asset.status !== 'approved' && asset.status !== 'scheduled') {
+      throw new Error(
+        'Workflow status must be approved or scheduled before creating a publication approval.',
+      );
+    }
+
+    const existing = this.getApproval(input.assetId, input.target);
+    const approval: MediaApproval = {
+      id: createId('approval'),
+      assetId: input.assetId,
+      target: input.target,
+      approvedBy: input.approvedBy,
+      approvedAt: new Date().toISOString(),
+      approvalVersion: (existing?.approvalVersion ?? 0) + 1,
+      note: input.note,
+    };
+    this.approvals.set(approvalKey(input.assetId, input.target), approval);
+
+    const next: MediaAsset = {
+      ...asset,
+      audit: [
+        ...asset.audit,
+        audit(
+          input.approvedBy,
+          `publication-approval:${input.target}`,
+          asset.status,
+          asset.status,
+          input.note,
+        ),
+      ],
+    };
+    this.assets.set(asset.id, next);
+    return approval;
+  }
+
+  revokePublicationApprovals(
+    assetId: string,
+    actor: string,
+    reason: string,
+  ): void {
+    for (const approval of this.listApprovalsForAsset(assetId)) {
+      if (approval.revokedAt) continue;
+      const revoked: MediaApproval = {
+        ...approval,
+        revokedAt: new Date().toISOString(),
+        revokedBy: actor,
+        revokeReason: reason,
+      };
+      this.approvals.set(approvalKey(assetId, approval.target), revoked);
+    }
+  }
+
   transitionAsset(
     id: string,
     to: AssetWorkflowStatus,
-    actor = 'owner',
+    actor: string,
     note?: string,
   ): MediaAsset {
     const asset = this.assets.get(id);
@@ -80,6 +171,22 @@ export class MediaIntelligenceRepository {
       throw new Error(`Unknown asset: ${id}`);
     }
     assertTransition(asset.status, to);
+
+    // Returning to editing / pending invalidates stale publication approvals.
+    if (
+      to === 'pending_approval' ||
+      to === 'analyzed' ||
+      to === 'optimized' ||
+      to === 'imported' ||
+      to === 'rejected'
+    ) {
+      this.revokePublicationApprovals(
+        id,
+        actor,
+        `Invalidated by transition to ${to}`,
+      );
+    }
+
     const next: MediaAsset = {
       ...asset,
       status: to,

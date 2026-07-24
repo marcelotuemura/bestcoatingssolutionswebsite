@@ -1,61 +1,128 @@
 'use server';
 
+import { headers } from 'next/headers';
+import { redirect } from 'next/navigation';
+import {
+  evaluateMediaAccessGate,
+  mediaIntelligenceConfig,
+} from '@/config/media-intelligence';
+import { requireMediaPermission } from '@/lib/media-intelligence/auth/guards';
+import { checkMediaLoginRateLimit } from '@/lib/media-intelligence/auth/login-rate-limit';
+import {
+  clearMediaSessionCookie,
+  issueOwnerSessionToken,
+  setMediaSessionCookie,
+  verifyAccessSecret,
+} from '@/lib/media-intelligence/auth/session';
+import {
+  planPublication,
+  publishTargetFromStatus,
+  type PublishTarget,
+} from '@/lib/media-intelligence/publishers/website';
 import { getMediaIntelligenceRepository } from '@/lib/media-intelligence/repository';
 import type { AssetWorkflowStatus } from '@/lib/media-intelligence/schemas';
-import { planPublication } from '@/lib/media-intelligence/publishers/website';
-import { isMediaIntelligenceEnabled } from '@/config/media-intelligence';
 
-function guardEnabled() {
-  if (!isMediaIntelligenceEnabled()) {
-    return { ok: false as const, error: 'Media Intelligence is disabled.' };
-  }
-  return null;
+function mapPublishStatus(to: AssetWorkflowStatus): PublishTarget | null {
+  return publishTargetFromStatus(to);
 }
 
+function permissionForTransition(
+  to: AssetWorkflowStatus,
+):
+  | 'approve_workflow'
+  | 'reject'
+  | 'archive'
+  | 'hide'
+  | 'schedule'
+  | 'publish'
+  | 'import_metadata' {
+  if (to === 'approved' || to === 'pending_approval' || to === 'optimized') {
+    return 'approve_workflow';
+  }
+  if (to === 'rejected') return 'reject';
+  if (to === 'archived') return 'archive';
+  if (to === 'hidden') return 'hide';
+  if (to === 'scheduled') return 'schedule';
+  if (to.startsWith('published_')) return 'publish';
+  return 'approve_workflow';
+}
+
+export async function mediaLoginAction(input: {
+  readonly accessSecret: string;
+}): Promise<{ ok: boolean; error?: string }> {
+  const gate = evaluateMediaAccessGate();
+  if (!gate.ok) {
+    return { ok: false, error: gate.reason };
+  }
+  if (gate.mode === 'local-bypass') {
+    return { ok: true };
+  }
+
+  const headerStore = await headers();
+  const ip =
+    headerStore.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+    headerStore.get('x-real-ip') ||
+    'unknown';
+  const rate = checkMediaLoginRateLimit(`media-login:${ip}`);
+  if (!rate.allowed) {
+    return {
+      ok: false,
+      error: 'Too many login attempts. Please wait and try again.',
+    };
+  }
+
+  try {
+    if (!verifyAccessSecret(input.accessSecret)) {
+      return { ok: false, error: 'Invalid access credentials.' };
+    }
+  } catch {
+    return { ok: false, error: 'Access secrets are not configured.' };
+  }
+
+  const token = issueOwnerSessionToken();
+  await setMediaSessionCookie(token);
+  return { ok: true };
+}
+
+export async function mediaLogoutAction(): Promise<void> {
+  await clearMediaSessionCookie();
+  redirect(mediaIntelligenceConfig.loginPath);
+}
+
+/**
+ * Workflow / publication transitions.
+ * Actor identity is NEVER accepted from the client.
+ */
 export async function transitionMediaAssetAction(input: {
   readonly assetId: string;
   readonly to: AssetWorkflowStatus;
-  readonly actor?: string;
   readonly note?: string;
-}): Promise<{ ok: boolean; error?: string }> {
-  const disabled = guardEnabled();
-  if (disabled) return disabled;
+}): Promise<{ ok: boolean; error?: string; status?: number }> {
+  const permission = permissionForTransition(input.to);
+  const auth = await requireMediaPermission(permission);
+  if (!auth.ok) {
+    return { ok: false, error: auth.error, status: auth.status };
+  }
 
   try {
     const repo = getMediaIntelligenceRepository();
     const asset = repo.getAsset(input.assetId);
-    if (!asset) return { ok: false, error: 'Asset not found.' };
+    if (!asset) return { ok: false, error: 'Asset not found.', status: 404 };
 
-    if (input.to.startsWith('published_')) {
-      const target = input.to.replace('published_', '') as
-        | 'website'
-        | 'portfolio'
-        | 'service_page'
-        | 'blog'
-        | 'gallery'
-        | 'social'
-        | 'google_business';
-      const mapped =
-        target === 'google_business'
-          ? 'google_business'
-          : target === 'service_page'
-            ? 'service_page'
-            : (target as
-                'website' | 'portfolio' | 'blog' | 'gallery' | 'social');
+    const publishTarget = mapPublishStatus(input.to);
+    if (publishTarget) {
+      const approval = repo.getApproval(input.assetId, publishTarget);
       const plan = planPublication({
         currentStatus: asset.status,
-        target: mapped,
-        ownerApproved: true,
+        target: publishTarget,
+        approval,
         privacyBlocked: asset.privacyRisks.length > 0,
       });
       if (!plan.ok || !plan.nextStatus) {
-        return { ok: false, error: plan.reason ?? 'Publish blocked.' };
-      }
-      // Ensure approved first if still pending
-      if (asset.status === 'pending_approval') {
         return {
           ok: false,
-          error: 'Approve the asset before publishing to any channel.',
+          error: plan.reason ?? 'Publish blocked.',
+          status: 403,
         };
       }
     }
@@ -63,7 +130,7 @@ export async function transitionMediaAssetAction(input: {
     repo.transitionAsset(
       input.assetId,
       input.to,
-      input.actor ?? 'owner',
+      `${auth.actor.source}:${auth.actor.id}`,
       input.note,
     );
     return { ok: true };
@@ -71,50 +138,103 @@ export async function transitionMediaAssetAction(input: {
     return {
       ok: false,
       error: error instanceof Error ? error.message : 'Transition failed',
+      status: 400,
     };
   }
 }
 
-export async function importMediaFilesAction(input: {
+/**
+ * Creates a target-specific MediaApproval record (not a hard-coded boolean).
+ */
+export async function createPublicationApprovalAction(input: {
+  readonly assetId: string;
+  readonly target: PublishTarget;
+  readonly note?: string;
+}): Promise<{ ok: boolean; error?: string; status?: number }> {
+  const auth = await requireMediaPermission('create_publication_approval');
+  if (!auth.ok) {
+    return { ok: false, error: auth.error, status: auth.status };
+  }
+
+  try {
+    const repo = getMediaIntelligenceRepository();
+    repo.createPublicationApproval({
+      assetId: input.assetId,
+      target: input.target,
+      approvedBy: `${auth.actor.source}:${auth.actor.id}`,
+      note: input.note,
+    });
+    return { ok: true };
+  } catch (error) {
+    return {
+      ok: false,
+      error: error instanceof Error ? error.message : 'Approval failed',
+      status: 400,
+    };
+  }
+}
+
+/**
+ * Foundation simulation only — metadata records, no binary upload/storage.
+ */
+export async function importMediaMetadataAction(input: {
   readonly files: readonly {
     readonly filename: string;
     readonly mimeType: string;
     readonly bytes: number;
   }[];
-}): Promise<{ ok: boolean; imported?: number; error?: string }> {
-  const disabled = guardEnabled();
-  if (disabled) return disabled;
+}): Promise<{
+  ok: boolean;
+  created?: number;
+  mode?: 'metadata-only-simulation';
+  error?: string;
+  status?: number;
+}> {
+  const auth = await requireMediaPermission('import_metadata');
+  if (!auth.ok) {
+    return { ok: false, error: auth.error, status: auth.status };
+  }
 
   try {
     const repo = getMediaIntelligenceRepository();
-    let imported = 0;
+    let created = 0;
     for (const file of input.files) {
       await repo.importAndAnalyze({
         filename: file.filename,
         mimeType: file.mimeType,
         bytes: file.bytes,
+        // Simulated dimensions — no binary was received or stored.
         width: 2400,
         height: 1800,
+        notes:
+          'FOUNDATION METADATA SIMULATION — no original binary uploaded or stored.',
+        isDemoSeed: true,
       });
-      imported += 1;
+      created += 1;
     }
     repo.rebuildProjectsFromAssets();
-    return { ok: true, imported };
+    return { ok: true, created, mode: 'metadata-only-simulation' };
   } catch (error) {
     return {
       ok: false,
       error: error instanceof Error ? error.message : 'Import failed',
+      status: 400,
     };
   }
 }
+
+/** @deprecated Use importMediaMetadataAction — kept name alias removed intentionally. */
 
 export async function rebuildProjectsAction(): Promise<{
   ok: boolean;
   count?: number;
   error?: string;
+  status?: number;
 }> {
-  const disabled = guardEnabled();
-  if (disabled) return disabled;
+  const auth = await requireMediaPermission('rebuild_projects');
+  if (!auth.ok) {
+    return { ok: false, error: auth.error, status: auth.status };
+  }
   const projects = getMediaIntelligenceRepository().rebuildProjectsFromAssets();
   return { ok: true, count: projects.length };
 }

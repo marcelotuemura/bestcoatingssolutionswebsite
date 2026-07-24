@@ -1,3 +1,6 @@
+export * from '@/lib/media-intelligence/auth/session';
+export * from '@/lib/media-intelligence/auth/guards';
+export * from '@/lib/media-intelligence/auth/login-rate-limit';
 export * from '@/lib/media-intelligence/schemas';
 export * from '@/lib/media-intelligence/workflow';
 export * from '@/lib/media-intelligence/scoring';

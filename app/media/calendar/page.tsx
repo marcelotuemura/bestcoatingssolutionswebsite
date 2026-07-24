@@ -1,7 +1,9 @@
 import { MediaShell } from '@/components/media-intelligence/MediaShell';
 import { recommendContentCalendar } from '@/lib/media-intelligence/social';
+import { requireMediaPageAccess } from '@/lib/media-intelligence/auth/page-guard';
 
-export default function MediaCalendarPage() {
+export default async function MediaCalendarPage() {
+  await requireMediaPageAccess();
   const recommendations = recommendContentCalendar();
 
   return (

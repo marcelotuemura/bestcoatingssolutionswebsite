@@ -85,11 +85,13 @@ standard, case studies, brand manual, performance targets, future backlog):
 ## Media Intelligence Platform (DAMS) — parallel long-term product
 
 Permanent AI-powered Digital Asset Management — not a one-time photo sorter.
-Foundation UI: `/media` (internal, robots-disallowed).
+Foundation UI: `/media` (internal, robots-disallowed, **authenticated**).
 
 - Spec: [`docs/MEDIA_INTELLIGENCE_PLATFORM.md`](./docs/MEDIA_INTELLIGENCE_PLATFORM.md)
 - ADR: [`docs/architecture/decisions/0002-media-intelligence-dams.md`](./docs/architecture/decisions/0002-media-intelligence-dams.md)
 - Rules: never modify originals · never auto-publish · owner approval required
+- Access: temporary owner session (ACCESS/SESSION secrets); feature flag ≠ auth
+- Import: metadata simulation only until real vault phase
 - Feeds: website, GBP, SEO, blog, social, insurance case studies, sales, training, future AI estimates / ops API
 
 Phases 1–6 of DAMS delivery are listed in the media platform doc (foundation →

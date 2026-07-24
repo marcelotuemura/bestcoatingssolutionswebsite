@@ -2,8 +2,10 @@ import Link from 'next/link';
 import { MediaShell } from '@/components/media-intelligence/MediaShell';
 import { StatusBadge } from '@/components/media-intelligence/MediaBadges';
 import { getMediaIntelligenceRepository } from '@/lib/media-intelligence/repository';
+import { requireMediaPageAccess } from '@/lib/media-intelligence/auth/page-guard';
 
-export default function MediaProjectsPage() {
+export default async function MediaProjectsPage() {
+  await requireMediaPageAccess();
   const projects = getMediaIntelligenceRepository().listProjects();
 
   return (
