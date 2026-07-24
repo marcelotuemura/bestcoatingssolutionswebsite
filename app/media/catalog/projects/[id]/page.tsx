@@ -1,13 +1,16 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { CatalogMediaCard } from '@/components/media-library/CatalogMediaCard';
+import { ProjectEnrichmentPanel } from '@/components/media-library/ProjectEnrichmentPanel';
 import { StatWidget } from '@/components/media-library/StatWidget';
 import { MediaShell } from '@/components/media-intelligence/MediaShell';
 import { requireMediaPageAccess } from '@/lib/media-intelligence/auth/page-guard';
+import { suggestProjectEnrichment } from '@/lib/media-intelligence/vision/project-enrichment';
 import {
   buildProjectView,
   getCatalogAssets,
   getCatalogProjectById,
+  loadAiAnalysisIndex,
 } from '@/lib/media-library';
 
 function StageSection({
@@ -49,6 +52,13 @@ export default async function CatalogProjectPage({
   if (!project) notFound();
   const assets = await getCatalogAssets();
   const view = buildProjectView(project, assets);
+  const aiByAssetId = await loadAiAnalysisIndex();
+  const enrichment = suggestProjectEnrichment({
+    project,
+    assets: view.assets,
+    aiByAssetId,
+    pool: assets,
+  });
 
   return (
     <MediaShell
@@ -110,6 +120,10 @@ export default async function CatalogProjectPage({
           </p>
         ) : null}
       </section>
+
+      <div className="mt-8">
+        <ProjectEnrichmentPanel suggestion={enrichment} />
+      </div>
 
       <div className="mt-8 grid gap-6 lg:grid-cols-3">
         <div>

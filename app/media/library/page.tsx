@@ -9,10 +9,11 @@ import {
 } from '@/components/media-library/CatalogGallery';
 import { MediaShell } from '@/components/media-intelligence/MediaShell';
 import { requireMediaPageAccess } from '@/lib/media-intelligence/auth/page-guard';
+import { searchCatalogWithAiEnrichment } from '@/lib/media-intelligence/vision/search-enrichment';
 import {
+  loadAiAnalysisIndex,
   loadCatalogDataSource,
   parseCatalogSearchParams,
-  queryCatalogAssets,
   uniqueFacetValues,
 } from '@/lib/media-library';
 
@@ -25,9 +26,12 @@ export default async function MediaLibraryPage({
   const raw = await searchParams;
   const options = parseCatalogSearchParams(raw);
   const data = await loadCatalogDataSource();
-  const result = queryCatalogAssets(data.catalog.assets, {
+  const aiByAssetId = await loadAiAnalysisIndex();
+  const result = searchCatalogWithAiEnrichment(data.catalog.assets, {
     ...options,
     pageSize: options.pageSize ?? 48,
+    aiByAssetId,
+    includeAiText: true,
   });
 
   const facets = {
@@ -45,7 +49,7 @@ export default async function MediaLibraryPage({
   return (
     <MediaShell
       title="Media Gallery"
-      subtitle="Searchable card gallery — instant filtering across filename, boat, manufacturer, project, folder, repair, stage, camera, date, and scores."
+      subtitle="Searchable card gallery — instant filtering across filename, boat, manufacturer, project, folder, repair, stage, camera, date, scores, and AI keywords."
     >
       <Suspense fallback={null}>
         <CatalogSearchBar />
@@ -58,6 +62,9 @@ export default async function MediaLibraryPage({
         {result.total} asset{result.total === 1 ? '' : 's'}
         {options.q ? ` matching “${options.q}”` : ''} · query{' '}
         {result.durationMs.toFixed(1)}ms
+        {result.matchedViaAi > 0
+          ? ` · ${result.matchedViaAi} via AI overlay`
+          : ''}
       </p>
       <CatalogGallery assets={result.items} />
       <CatalogPagination

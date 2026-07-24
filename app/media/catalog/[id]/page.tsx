@@ -1,10 +1,12 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { AiAnalysisPanel } from '@/components/media-library/AiAnalysisPanel';
 import { CatalogMediaCard } from '@/components/media-library/CatalogMediaCard';
 import { ScoreChip, StatWidget } from '@/components/media-library/StatWidget';
 import { MediaShell } from '@/components/media-intelligence/MediaShell';
 import { requireMediaPageAccess } from '@/lib/media-intelligence/auth/page-guard';
 import {
+  getAiAnalysisForAsset,
   getCatalogAssetById,
   getCatalogAssets,
   getDuplicateGroupById,
@@ -39,6 +41,7 @@ export default async function CatalogAssetDetailPage({
     : undefined;
 
   const data = await loadCatalogDataSource();
+  const aiAnalysis = await getAiAnalysisForAsset(asset.id);
 
   return (
     <MediaShell
@@ -183,6 +186,18 @@ export default async function CatalogAssetDetailPage({
               </Link>
             </div>
           ) : null}
+
+          {aiAnalysis ? (
+            <AiAnalysisPanel analysis={aiAnalysis} />
+          ) : (
+            <p
+              className="text-silver-500 text-xs"
+              data-testid="ai-analysis-pending"
+            >
+              No AI vision overlay yet. Run <code>pnpm media:analyze</code> to
+              enrich this asset without modifying the original.
+            </p>
+          )}
         </aside>
       </div>
 

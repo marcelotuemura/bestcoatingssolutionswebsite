@@ -203,14 +203,27 @@ AVIF · video posters/probe. Private streaming via authenticated
 
 Docs: [`MEDIA_VAULT_PHASE3.md`](./MEDIA_VAULT_PHASE3.md).
 
+## Phase 4 — AI Vision & Intelligent Classification
+
+Pluggable `VisionProvider` analyzes vault/catalog assets and writes a separate
+`ai_analysis.json` overlay (never originals, never auto-publish, never workflow
+mutation).
+
+| Provider | Status |
+|----------|--------|
+| `MockVisionProvider` | Default for CI / demos |
+| `OpenAIVisionProvider` | Stub / future integration |
+
+CLI: `pnpm media:analyze`. Docs: [`MEDIA_VISION_PHASE4.md`](./MEDIA_VISION_PHASE4.md).
+
 ## Implementation phases
 
 | Phase | Deliverable |
 |-------|-------------|
 | **1 — Foundation** | Schemas, workflow, scoring, search, privacy, duplicates, analysis seam, in-memory repo + seed, auth session, approvals |
 | **2 — Interactive Media Library** | Catalog loader, dashboard, gallery, project/details, duplicates, heroes, reports, dark/light, tests |
-| **3 — Media Vault & Storage (this PR)** | MediaRepository abstraction, local vault, ingestion/derivatives, private vault routes, Supabase/Postgres stubs |
-| **4 — Vision providers** | Pluggable AI analysis; batch re-analyze; confidence calibration |
+| **3 — Media Vault & Storage** | MediaRepository abstraction, local vault, ingestion/derivatives, private vault routes, Supabase/Postgres stubs |
+| **4 — Vision providers (this PR)** | VisionProvider, mock + OpenAI stub, quality/privacy/project/search enrichment, AI overlay store |
 | **5 — Auth + Postgres** | Supabase/auth roles; durable library; audit trail |
 | **6 — Publishers** | Website content bridge, social/GBP draft scheduling APIs |
 | **7 — Training corpus** | Export labeled sets for estimate / damage AI |

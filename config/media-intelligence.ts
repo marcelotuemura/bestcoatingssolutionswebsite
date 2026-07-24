@@ -49,6 +49,15 @@ export const mediaIntelligenceConfig = {
     'technician',
     'viewer',
   ] as const,
+  /**
+   * Phase 4 vision — provider selection via VISION_PROVIDER (mock|openai).
+   * Default mock for CI/dev. OpenAI is stub-only until keys + integration land.
+   */
+  vision: {
+    defaultProvider: 'mock' as const,
+    analysisVersion: '1.0.0' as const,
+    storeFilename: 'ai_analysis.json' as const,
+  },
 } as const;
 
 export type MediaIntelligenceConfig = typeof mediaIntelligenceConfig;

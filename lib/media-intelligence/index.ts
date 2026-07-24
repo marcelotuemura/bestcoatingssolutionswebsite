@@ -15,3 +15,15 @@ export * from '@/lib/media-intelligence/analysis/engine';
 export * from '@/lib/media-intelligence/analysis/project-detection';
 export * from '@/lib/media-intelligence/storage/types';
 export * from '@/lib/media-intelligence/publishers/website';
+// Phase 4 vision — schema/providers/enrichment (node store/pipeline imported directly)
+export * from '@/lib/media-intelligence/vision/schema';
+export * from '@/lib/media-intelligence/vision/provider';
+export * from '@/lib/media-intelligence/vision/factory';
+export * from '@/lib/media-intelligence/vision/quality';
+export * from '@/lib/media-intelligence/vision/privacy-detect';
+export * from '@/lib/media-intelligence/vision/providers/mock';
+export * from '@/lib/media-intelligence/vision/providers/openai';
+export * from '@/lib/media-intelligence/vision/merge';
+export * from '@/lib/media-intelligence/vision/project-enrichment';
+export * from '@/lib/media-intelligence/vision/search-enrichment';
+export * from '@/lib/media-intelligence/vision/adapter';
