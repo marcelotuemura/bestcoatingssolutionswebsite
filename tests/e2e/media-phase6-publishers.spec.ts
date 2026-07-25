@@ -18,6 +18,21 @@ test.describe('Phase 6 — Publications', () => {
     await expect(page.getByTestId('publication-readiness')).toBeVisible();
     await expect(page.getByTestId('publication-draft-form')).toBeVisible();
 
+    // Prefer a stable demo seed asset (imports from earlier e2e can sort first).
+    const assetSelect = page.getByTestId('publication-asset');
+    const seedValue = await assetSelect
+      .locator('option')
+      .evaluateAll((options) => {
+        const seed = options.find((o) =>
+          (o as HTMLOptionElement).value.startsWith('asset-seed-'),
+        ) as HTMLOptionElement | undefined;
+        return (
+          seed?.value ?? (options[0] as HTMLOptionElement | undefined)?.value
+        );
+      });
+    expect(seedValue).toBeTruthy();
+    await assetSelect.selectOption(seedValue!);
+
     await page.getByTestId('publication-title').fill('Phase 6 portfolio draft');
     await page.getByTestId('publication-alt').fill('Demo after repair');
     await page.getByTestId('publication-create').click();

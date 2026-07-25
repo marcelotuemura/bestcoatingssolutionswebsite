@@ -13,7 +13,17 @@ export default async function PublicationsPage() {
   if (!session.ok) return null;
 
   const repo = getMediaIntelligenceRepository();
-  const assets = repo.listAssets().filter((a) => a.privacyRisks.length === 0);
+  const assets = repo
+    .listAssets()
+    .filter((a) => a.privacyRisks.length === 0)
+    .slice()
+    .sort((a, b) => {
+      // Prefer stable demo seeds in the draft picker for predictable ops/e2e.
+      const aSeed = a.id.startsWith('asset-seed-') ? 0 : 1;
+      const bSeed = b.id.startsWith('asset-seed-') ? 0 : 1;
+      if (aSeed !== bSeed) return aSeed - bSeed;
+      return b.importedAt.localeCompare(a.importedAt);
+    });
   const jobs = listJobsForActor();
   const canPrepare = actorHasPermission(session.actor, 'prepare_publish_draft');
 

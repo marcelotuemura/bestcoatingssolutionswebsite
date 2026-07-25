@@ -312,12 +312,33 @@ export class MediaIntelligenceRepository {
   }
 }
 
-let singleton: MediaIntelligenceRepository | null = null;
+const REPO_GLOBAL_KEY = '__bcs_media_intelligence_repository_v1__';
+
+type RepoGlobal = typeof globalThis & {
+  [REPO_GLOBAL_KEY]?: MediaIntelligenceRepository;
+};
+
+function getSingletonRef(): {
+  get(): MediaIntelligenceRepository | undefined;
+  set(repo: MediaIntelligenceRepository | null): void;
+} {
+  const g = globalThis as RepoGlobal;
+  return {
+    get: () => g[REPO_GLOBAL_KEY],
+    set: (repo) => {
+      if (repo) g[REPO_GLOBAL_KEY] = repo;
+      else delete g[REPO_GLOBAL_KEY];
+    },
+  };
+}
 
 export function getMediaIntelligenceRepository(): MediaIntelligenceRepository {
+  const ref = getSingletonRef();
+  let singleton = ref.get();
   if (!singleton) {
     singleton = new MediaIntelligenceRepository();
     seedDemoLibrarySync(singleton);
+    ref.set(singleton);
   }
   return singleton;
 }
@@ -462,5 +483,5 @@ function seedDemoLibrarySync(repo: MediaIntelligenceRepository): void {
 }
 
 export function __resetMediaIntelligenceRepositoryForTests(): void {
-  singleton = null;
+  getSingletonRef().set(null);
 }

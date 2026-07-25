@@ -1,9 +1,9 @@
 {
   "kind": "local_postgres_rbac",
   "liveSupabaseClaimed": false,
-  "database": "media_phase5_dbcf0d",
-  "startedAt": "2026-07-25T20:30:49.243Z",
-  "finishedAt": "2026-07-25T20:30:49.778Z",
+  "database": "media_phase5_6ceb45",
+  "startedAt": "2026-07-25T20:36:34.112Z",
+  "finishedAt": "2026-07-25T20:36:34.721Z",
   "migrationsApplied": [
     "supabase/migrations/20260724190000_media_phase5_schema.sql",
     "supabase/migrations/20260724190001_media_phase5_rls.sql",
