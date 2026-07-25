@@ -1,6 +1,8 @@
 import { expect, test } from '@playwright/test';
 
-const secret = process.env.MEDIA_INTELLIGENCE_ACCESS_SECRET!;
+const secret =
+  process.env.MEDIA_INTELLIGENCE_ACCESS_SECRET ??
+  'e2e-media-access-secret-32ch!!';
 
 async function login(page: import('@playwright/test').Page) {
   await page.goto('/media/login');
@@ -10,12 +12,6 @@ async function login(page: import('@playwright/test').Page) {
 }
 
 test.describe('Phase 6 — Publications', () => {
-  test.skip(
-    !process.env.MEDIA_INTELLIGENCE_ENABLED ||
-      process.env.MEDIA_INTELLIGENCE_ENABLED === 'false',
-    'Media intelligence disabled',
-  );
-
   test('publication queue and draft creation', async ({ page }) => {
     await login(page);
     await page.goto('/media/publications');
