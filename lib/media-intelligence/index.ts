@@ -14,7 +14,7 @@ export * from '@/lib/media-intelligence/repository';
 export * from '@/lib/media-intelligence/analysis/engine';
 export * from '@/lib/media-intelligence/analysis/project-detection';
 export * from '@/lib/media-intelligence/storage/types';
-export * from '@/lib/media-intelligence/publishers/website';
+export * from '@/lib/media-intelligence/publishers';
 // Phase 4 vision — schema/providers/enrichment (node store/pipeline imported directly)
 export * from '@/lib/media-intelligence/vision/schema';
 export * from '@/lib/media-intelligence/vision/provider';

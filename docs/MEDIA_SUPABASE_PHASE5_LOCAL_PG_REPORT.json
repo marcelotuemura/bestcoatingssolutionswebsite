@@ -1,15 +1,17 @@
 {
   "kind": "local_postgres_rbac",
   "liveSupabaseClaimed": false,
-  "database": "media_phase5_100cab",
-  "startedAt": "2026-07-25T19:51:52.558Z",
-  "finishedAt": "2026-07-25T19:51:53.105Z",
+  "database": "media_phase5_dbcf0d",
+  "startedAt": "2026-07-25T20:30:49.243Z",
+  "finishedAt": "2026-07-25T20:30:49.778Z",
   "migrationsApplied": [
     "supabase/migrations/20260724190000_media_phase5_schema.sql",
     "supabase/migrations/20260724190001_media_phase5_rls.sql",
     "supabase/migrations/20260724190002_media_phase5_storage.sql",
     "supabase/migrations/20260724190003_media_phase5_rbac_hardening.sql",
-    "supabase/migrations/20260725193000_media_phase5_authz_denials.sql"
+    "supabase/migrations/20260725193000_media_phase5_authz_denials.sql",
+    "supabase/migrations/20260725210000_media_phase6_publications_schema.sql",
+    "supabase/migrations/20260725210001_media_phase6_publications_rls.sql"
   ],
   "passes": [
     "anon_no_assets",

@@ -4,6 +4,8 @@ import type {
   PublishTarget,
 } from '@/lib/media-intelligence/schemas';
 import { canTransition } from '@/lib/media-intelligence/workflow';
+import type { PublisherAdapter } from '@/lib/media-intelligence/publishers/contract';
+import { assertNoPersistedSignedUrl } from '@/lib/media-intelligence/publishers/validation';
 
 export type { PublishTarget };
 
@@ -75,3 +77,48 @@ export function planPublication(input: {
   }
   return { ok: true, nextStatus: next };
 }
+
+/** Internal website content bridge — never deploys production silently. */
+export const websitePublisherAdapter: PublisherAdapter = {
+  target: 'website',
+  displayName: 'Website content bridge',
+  normalize({ payload }) {
+    if (payload.kind !== 'website') {
+      return { ok: false, error: 'Website adapter requires website payload.' };
+    }
+    if (payload.ctaHref && !assertNoPersistedSignedUrl(payload.ctaHref)) {
+      return {
+        ok: false,
+        error: 'CTA URL must not contain signed URL tokens.',
+      };
+    }
+    return {
+      ok: true,
+      payload,
+      destinationRef: `website:${payload.placement}`,
+      providerDeliveryStatus: 'draft_ready',
+      providerMetadata: {
+        bridge: 'internal_content_draft',
+        placement: payload.placement,
+        autoPublish: false,
+      },
+    };
+  },
+  execute({ payload, jobId }) {
+    if (payload.kind !== 'website') {
+      return { ok: false, error: 'Invalid payload for website adapter.' };
+    }
+    return {
+      ok: true,
+      externallyDelivered: false,
+      providerDeliveryStatus: 'draft_ready',
+      providerMetadata: {
+        bridge: 'internal_content_draft',
+        jobId,
+        note: 'Internal website draft prepared — not deployed to production.',
+      },
+      message:
+        'Website content draft prepared. Owner must publish through the marketing content workflow separately.',
+    };
+  },
+};

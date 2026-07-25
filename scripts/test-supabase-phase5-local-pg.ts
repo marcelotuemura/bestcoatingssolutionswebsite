@@ -146,6 +146,8 @@ alter table storage.objects enable row level security;
     'supabase/migrations/20260724190002_media_phase5_storage.sql',
     'supabase/migrations/20260724190003_media_phase5_rbac_hardening.sql',
     'supabase/migrations/20260725193000_media_phase5_authz_denials.sql',
+    'supabase/migrations/20260725210000_media_phase6_publications_schema.sql',
+    'supabase/migrations/20260725210001_media_phase6_publications_rls.sql',
   ];
 
   for (const rel of migrations) {

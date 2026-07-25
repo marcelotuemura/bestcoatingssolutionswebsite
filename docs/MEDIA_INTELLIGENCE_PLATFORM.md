@@ -225,7 +225,7 @@ CLI: `pnpm media:analyze`. Docs: [`MEDIA_VISION_PHASE4.md`](./MEDIA_VISION_PHASE
 | **3 — Media Vault & Storage** | MediaRepository abstraction, local vault, ingestion/derivatives, private vault routes, Supabase/Postgres stubs |
 | **4 — Vision providers** | VisionProvider, mock + OpenAI stub, quality/privacy/project/search enrichment, AI overlay store |
 | **5 — Auth + Postgres (this PR)** | Supabase Auth dual-mode, RBAC, Postgres + RLS, private storage, migration CLI |
-| **6 — Publishers** | Website content bridge, social/GBP draft scheduling APIs |
+| **6 — Publishers** | Website content bridge, social/GBP draft scheduling APIs — see [`MEDIA_PUBLISHERS_PHASE6.md`](./MEDIA_PUBLISHERS_PHASE6.md) |
 | **7 — Training corpus** | Export labeled sets for estimate / damage AI |
 
 ## Relationship to go-live & ops
