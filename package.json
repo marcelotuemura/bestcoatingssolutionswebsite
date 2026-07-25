@@ -30,6 +30,7 @@
     "media:migrate:supabase": "node --import ./scripts/register-ts-alias.mjs --experimental-strip-types scripts/migrate-media-supabase.ts",
     "test:supabase:phase5": "node --import ./scripts/register-ts-alias.mjs --experimental-strip-types scripts/test-supabase-phase5.ts",
     "test:supabase:phase5:local": "node --import ./scripts/register-ts-alias.mjs --experimental-strip-types scripts/test-supabase-phase5-local-pg.ts",
+    "media:supabase:apply-sql": "node --import ./scripts/register-ts-alias.mjs --experimental-strip-types scripts/apply-supabase-sql-file.ts",
     "prepare": "husky"
   },
   "dependencies": {

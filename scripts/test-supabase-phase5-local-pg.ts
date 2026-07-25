@@ -145,6 +145,7 @@ alter table storage.objects enable row level security;
     'supabase/migrations/20260724190001_media_phase5_rls.sql',
     'supabase/migrations/20260724190002_media_phase5_storage.sql',
     'supabase/migrations/20260724190003_media_phase5_rbac_hardening.sql',
+    'supabase/migrations/20260725193000_media_phase5_authz_denials.sql',
   ];
 
   for (const rel of migrations) {
@@ -153,6 +154,7 @@ alter table storage.objects enable row level security;
   }
 
   // Table grants mirroring typical Supabase authenticated access + RLS.
+  // Then re-apply Phase 5 authz denials so broad grants do not undo revokes.
   psql(`
 grant usage on schema public to anon, authenticated;
 grant select, insert, update, delete on all tables in schema public to authenticated;
@@ -160,6 +162,15 @@ grant select on all tables in schema public to anon;
 grant usage on schema storage to anon, authenticated;
 grant select, insert, update, delete on all tables in schema storage to authenticated;
 grant select on all tables in schema storage to anon;
+
+-- Match 20260725193000 privilege posture
+revoke insert, update, delete on public.media_assets from public, anon, authenticated;
+revoke insert, update, delete on public.media_ai_analyses from public, anon, authenticated;
+revoke update, delete on public.media_users from public, anon, authenticated;
+grant select on public.media_assets to authenticated;
+grant select on public.media_ai_analyses to authenticated;
+grant select on public.media_users to authenticated;
+
 alter table public.media_users force row level security;
 alter table public.media_user_roles force row level security;
 alter table public.media_assets force row level security;

@@ -86,21 +86,22 @@ begin
   if not ok then raise exception 'FAIL: anon/unauth should see 0 assets'; end if;
   raise notice 'PASS: anon_no_assets';
 
-  -- ── Viewer: read ok, mutate denied ──────────────────────────────────────
+  -- ── Viewer: read ok, mutate denied (must raise) ─────────────────────────
   perform test_helpers.set_auth(viewer1);
   set local role authenticated;
   select count(*) > 0 into ok from public.media_assets where external_id = asset_ext;
   begin
     update public.media_assets set notes = 'hack' where external_id = asset_ext;
-    if found then
-      reset role;
-      raise exception 'FAIL: viewer updated asset';
-    end if;
+    reset role;
+    raise exception 'FAIL: viewer update did not raise';
   exception when insufficient_privilege or others then
-    null;
+    if sqlerrm like 'FAIL:%' then raise; end if;
   end;
   reset role;
   if not ok then raise exception 'FAIL: viewer should read assets'; end if;
+  if exists (select 1 from public.media_assets where external_id = asset_ext and notes = 'hack') then
+    raise exception 'FAIL: viewer notes were changed';
+  end if;
   raise notice 'PASS: viewer_read_no_mutate';
 
   -- ── Editor: RPC metadata ok; direct checksum denied ─────────────────────
@@ -136,12 +137,10 @@ begin
   set local role authenticated;
   begin
     delete from public.media_ai_analyses where id = analysis_id;
-    if found then
-      reset role;
-      raise exception 'FAIL: reviewer deleted analysis';
-    end if;
+    reset role;
+    raise exception 'FAIL: reviewer delete did not raise';
   exception when insufficient_privilege or others then
-    null;
+    if sqlerrm like 'FAIL:%' then raise; end if;
   end;
   begin
     insert into public.media_duplicate_groups (external_id, kind, similarity)
@@ -182,12 +181,10 @@ begin
   perform public.media_update_own_display_name('Viewer Renamed');
   begin
     update public.media_users set is_active = false, email = 'evil@x.test' where id = viewer1;
-    if found then
-      reset role;
-      raise exception 'FAIL: viewer direct profile security update';
-    end if;
+    reset role;
+    raise exception 'FAIL: viewer direct profile update did not raise';
   exception when insufficient_privilege or others then
-    null;
+    if sqlerrm like 'FAIL:%' then raise; end if;
   end;
   reset role;
   if not exists (

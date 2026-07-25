@@ -265,7 +265,7 @@ async function main() {
     source_system: 'manual',
   });
 
-  // Viewer cannot mutate
+  // Viewer cannot mutate (must error — privilege revoke and/or denial trigger)
   try {
     const viewer = await clientAs(
       cfg.url,
@@ -273,11 +273,29 @@ async function main() {
       emails.viewer,
       password,
     );
-    const { error } = await viewer
+    const before = await admin
+      .from('media_assets')
+      .select('notes')
+      .eq('external_id', externalId)
+      .maybeSingle();
+    const { data, error } = await viewer
       .from('media_assets')
       .update({ notes: 'hack' })
-      .eq('external_id', externalId);
-    record('rls_viewer_cannot_update', Boolean(error));
+      .eq('external_id', externalId)
+      .select('id');
+    const after = await admin
+      .from('media_assets')
+      .select('notes')
+      .eq('external_id', externalId)
+      .maybeSingle();
+    const unchanged = after.data?.notes === before.data?.notes;
+    const denied =
+      Boolean(error) || (Array.isArray(data) && data.length === 0 && unchanged);
+    record(
+      'rls_viewer_cannot_update',
+      denied && unchanged,
+      error?.message ?? `rows=${data?.length ?? 0}`,
+    );
   } catch (error) {
     record(
       'rls_viewer_cannot_update',
@@ -336,11 +354,25 @@ async function main() {
       emails.reviewer,
       password,
     );
-    const { error } = await reviewer
+    const beforeCount = await admin
+      .from('media_ai_analyses')
+      .select('id', { count: 'exact', head: true });
+    const { data, error } = await reviewer
       .from('media_ai_analyses')
       .delete()
-      .neq('id', '00000000-0000-0000-0000-000000000000');
-    record('reviewer_cannot_delete_analyses', Boolean(error));
+      .neq('id', '00000000-0000-0000-0000-000000000000')
+      .select('id');
+    const afterCount = await admin
+      .from('media_ai_analyses')
+      .select('id', { count: 'exact', head: true });
+    const unchanged = (beforeCount.count ?? 0) === (afterCount.count ?? 0);
+    const denied =
+      Boolean(error) || (Array.isArray(data) && data.length === 0 && unchanged);
+    record(
+      'reviewer_cannot_delete_analyses',
+      denied && unchanged,
+      error?.message ?? `deleted=${data?.length ?? 0}`,
+    );
     const dup = await reviewer.from('media_duplicate_groups').insert({
       external_id: `dup_${suffix}`,
       kind: 'exact',
@@ -373,9 +405,61 @@ async function main() {
     );
   }
 
-  // Final owner protection: revoke owner2 first (ok), then sole owner fails
+  // Final owner protection: isolate to exactly two active owners, revoke one,
+  // then sole owner self-revoke/archive must fail.
   try {
     const owner = await clientAs(cfg.url, cfg.anonKey, emails.owner, password);
+
+    // Revoke any leftover active owners from prior runs (service role).
+    const { data: allOwners } = await admin
+      .from('media_user_roles')
+      .select('user_id')
+      .eq('role', 'owner')
+      .is('revoked_at', null);
+    for (const row of allOwners ?? []) {
+      if (row.user_id === ids.owner || row.user_id === ids.owner2) continue;
+      await admin
+        .from('media_user_roles')
+        .update({ revoked_at: new Date().toISOString() })
+        .eq('user_id', row.user_id)
+        .eq('role', 'owner')
+        .is('revoked_at', null);
+    }
+    // Ensure both test owners are active
+    await admin.from('media_users').upsert([
+      {
+        id: ids.owner,
+        email: emails.owner,
+        display_name: 'owner',
+        is_active: true,
+        archived_at: null,
+      },
+      {
+        id: ids.owner2,
+        email: emails.owner2,
+        display_name: 'owner2',
+        is_active: true,
+        archived_at: null,
+      },
+    ]);
+    await admin.from('media_user_roles').upsert(
+      [
+        {
+          user_id: ids.owner,
+          role: 'owner',
+          assigned_at: new Date().toISOString(),
+          revoked_at: null,
+        },
+        {
+          user_id: ids.owner2,
+          role: 'owner',
+          assigned_at: new Date().toISOString(),
+          revoked_at: null,
+        },
+      ],
+      { onConflict: 'user_id,role' },
+    );
+
     const r1 = await rpcRevokeRole(owner, ids.owner2, 'owner');
     record('owner_can_revoke_second_owner', !r1.error, r1.error?.message);
     const r2 = await rpcRevokeRole(owner, ids.owner, 'owner');
@@ -408,11 +492,32 @@ async function main() {
     );
     const ok = await rpcUpdateOwnDisplayName(viewer, 'Viewer Name');
     record('profile_display_name_rpc', !ok.error, ok.error?.message);
+    const before = await admin
+      .from('media_users')
+      .select('email,is_active')
+      .eq('id', ids.viewer)
+      .maybeSingle();
     const bad = await viewer
       .from('media_users')
       .update({ is_active: false, email: 'evil@example.test' })
-      .eq('id', ids.viewer);
-    record('profile_direct_update_denied', Boolean(bad.error));
+      .eq('id', ids.viewer)
+      .select('id');
+    const after = await admin
+      .from('media_users')
+      .select('email,is_active')
+      .eq('id', ids.viewer)
+      .maybeSingle();
+    const unchanged =
+      after.data?.email === before.data?.email &&
+      after.data?.is_active === before.data?.is_active;
+    const denied =
+      Boolean(bad.error) ||
+      (Array.isArray(bad.data) && bad.data.length === 0 && unchanged);
+    record(
+      'profile_direct_update_denied',
+      denied && unchanged,
+      bad.error?.message ?? `rows=${bad.data?.length ?? 0}`,
+    );
   } catch (error) {
     record(
       'profile_suite',

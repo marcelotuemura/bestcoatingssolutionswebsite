@@ -55,7 +55,8 @@ Migrations in `supabase/migrations/`:
 1. `20260724190000_media_phase5_schema.sql` — tables + helpers  
 2. `20260724190001_media_phase5_rls.sql` — RLS policies  
 3. `20260724190002_media_phase5_storage.sql` — private buckets  
-4. `20260724190003_media_phase5_rbac_hardening.sql` — column-limited RPCs, final-owner protection
+4. `20260724190003_media_phase5_rbac_hardening.sql` — column-limited RPCs, final-owner protection  
+5. `20260725193000_media_phase5_authz_denials.sql` — privilege revokes, denial triggers, final-owner count fix
 
 AI history: `media_ai_analyses` with `is_current` (history retained).
 

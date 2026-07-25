@@ -69,6 +69,26 @@ describe('Phase 5 RBAC hardening contracts', () => {
 });
 
 describe('Phase 5 SQL hardening migration presence', () => {
+  it('ships authz denial migration after 003 without editing prior migrations', async () => {
+    const { readFile, readdir } = await import('node:fs/promises');
+    const files = await readdir('supabase/migrations');
+    expect(files).toContain('20260725193000_media_phase5_authz_denials.sql');
+    const sql = await readFile(
+      'supabase/migrations/20260725193000_media_phase5_authz_denials.sql',
+      'utf8',
+    );
+    expect(sql).toMatch(
+      /revoke insert, update, delete on public.media_assets/i,
+    );
+    expect(sql).toMatch(
+      /revoke insert, update, delete on public.media_ai_analyses/i,
+    );
+    expect(sql).toMatch(/revoke update, delete on public.media_users/i);
+    expect(sql).toMatch(/media_enforce_assets_mutation/);
+    expect(sql).toMatch(/other_owners/);
+    expect(sql).toMatch(/cannot remove the final active owner/);
+  });
+
   it('ships RBAC hardening migration with required RPCs', async () => {
     const { readFile } = await import('node:fs/promises');
     const sql = await readFile(
