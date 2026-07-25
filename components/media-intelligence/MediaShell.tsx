@@ -13,6 +13,7 @@ const nav = [
   { href: '/media/reports', label: 'Reports' },
   { href: '/media/import', label: 'Import (meta)' },
   { href: '/media/approvals', label: 'Approvals' },
+  { href: '/media/users', label: 'Users' },
 ] as const;
 
 export function MediaShell({

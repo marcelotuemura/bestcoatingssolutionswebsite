@@ -15,6 +15,13 @@ import {
   verifyAccessSecret,
 } from '@/lib/media-intelligence/auth/session';
 import {
+  supabaseEmailPasswordLogin,
+  supabaseLogout,
+  supabaseRequestPasswordReset,
+} from '@/lib/media-intelligence/auth/supabase-auth';
+import { resolveMediaAuthProvider } from '@/lib/media-intelligence/supabase/config';
+import { recordAuditEvent } from '@/lib/media-intelligence/audit/audit';
+import {
   planPublication,
   publishTargetFromStatus,
   type PublishTarget,
@@ -48,7 +55,9 @@ function permissionForTransition(
 }
 
 export async function mediaLoginAction(input: {
-  readonly accessSecret: string;
+  readonly accessSecret?: string;
+  readonly email?: string;
+  readonly password?: string;
 }): Promise<{ ok: boolean; error?: string }> {
   const gate = evaluateMediaAccessGate();
   if (!gate.ok) {
@@ -71,8 +80,25 @@ export async function mediaLoginAction(input: {
     };
   }
 
+  const provider = resolveMediaAuthProvider();
+  if (provider === 'supabase') {
+    if (!input.email || !input.password) {
+      return { ok: false, error: 'Email and password are required.' };
+    }
+    return supabaseEmailPasswordLogin({
+      email: input.email,
+      password: input.password,
+    });
+  }
+
   try {
-    if (!verifyAccessSecret(input.accessSecret)) {
+    if (!input.accessSecret || !verifyAccessSecret(input.accessSecret)) {
+      await recordAuditEvent({
+        action: 'login_failed',
+        success: false,
+        ip,
+        metadata: { provider: 'temporary' },
+      });
       return { ok: false, error: 'Invalid access credentials.' };
     }
   } catch {
@@ -81,11 +107,34 @@ export async function mediaLoginAction(input: {
 
   const token = issueOwnerSessionToken();
   await setMediaSessionCookie(token);
+  await recordAuditEvent({
+    action: 'login',
+    success: true,
+    ip,
+    metadata: { provider: 'temporary' },
+  });
   return { ok: true };
 }
 
+export async function mediaPasswordResetAction(input: {
+  readonly email: string;
+}): Promise<{ ok: boolean; error?: string }> {
+  if (resolveMediaAuthProvider() !== 'supabase') {
+    return {
+      ok: false,
+      error: 'Password reset requires MEDIA_AUTH_PROVIDER=supabase.',
+    };
+  }
+  return supabaseRequestPasswordReset(input.email);
+}
+
 export async function mediaLogoutAction(): Promise<void> {
-  await clearMediaSessionCookie();
+  if (resolveMediaAuthProvider() === 'supabase') {
+    await supabaseLogout();
+  } else {
+    await clearMediaSessionCookie();
+    await recordAuditEvent({ action: 'logout', success: true });
+  }
   redirect(mediaIntelligenceConfig.loginPath);
 }
 

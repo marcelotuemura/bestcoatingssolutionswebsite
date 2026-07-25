@@ -17,9 +17,16 @@ const KINDS = new Set<VaultObjectKind>([
   'poster',
 ]);
 
+const PRIVATE_HEADERS = {
+  'Cache-Control': 'private, no-store',
+  'X-Robots-Tag': 'noindex, nofollow, noarchive',
+  'X-Content-Type-Options': 'nosniff',
+  'Content-Disposition': 'inline',
+} as const;
+
 /**
  * Authenticated private vault object stream.
- * Never publicly cacheable. Never indexes. Path traversal blocked in repository.
+ * Supports local absolutePath or ephemeral signedUrl (never persisted).
  */
 export async function GET(
   request: Request,
@@ -30,7 +37,6 @@ export async function GET(
 
   const url = new URL(request.url);
   const { key } = await context.params;
-  // /media/vault/<assetId>/<kind>/[size]
   const assetId = key[0];
   const kind = key[1] as VaultObjectKind | undefined;
   const sizeRaw = key[2];
@@ -57,6 +63,27 @@ export async function GET(
     return new Response('Not found', { status: 404 });
   }
 
+  if (object.signedUrl) {
+    // Proxy through the app so the client never needs the signed URL,
+    // and so query tokens are not embedded in HTML.
+    const upstream = await fetch(object.signedUrl);
+    if (!upstream.ok || !upstream.body) {
+      return new Response('Not found', { status: 404 });
+    }
+    return new Response(upstream.body, {
+      status: 200,
+      headers: {
+        'Content-Type': object.contentType,
+        ...(object.bytes ? { 'Content-Length': String(object.bytes) } : {}),
+        ...PRIVATE_HEADERS,
+      },
+    });
+  }
+
+  if (!object.absolutePath) {
+    return new Response('Not found', { status: 404 });
+  }
+
   const nodeStream = createReadStream(object.absolutePath);
   const webStream = Readable.toWeb(nodeStream) as unknown as ReadableStream;
 
@@ -65,10 +92,7 @@ export async function GET(
     headers: {
       'Content-Type': object.contentType,
       'Content-Length': String(object.bytes),
-      'Cache-Control': 'private, no-store',
-      'X-Robots-Tag': 'noindex, nofollow, noarchive',
-      'X-Content-Type-Options': 'nosniff',
-      'Content-Disposition': 'inline',
+      ...PRIVATE_HEADERS,
     },
   });
 }

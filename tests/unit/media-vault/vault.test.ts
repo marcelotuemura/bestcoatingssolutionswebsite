@@ -149,12 +149,12 @@ describe('media vault repositories', () => {
     ).toBeNull();
   });
 
-  it('future stubs throw until implemented', async () => {
+  it('supabase/postgres repositories fail closed without Supabase config', async () => {
     await expect(new SupabaseStorageRepository().getAssets()).rejects.toThrow(
-      /not implemented/,
+      /unavailable|required/i,
     );
     await expect(new PostgreSQLRepository().getCatalog()).rejects.toThrow(
-      /not implemented/,
+      /unavailable|required/i,
     );
   });
 

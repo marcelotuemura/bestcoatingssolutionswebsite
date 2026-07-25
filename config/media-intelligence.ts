@@ -58,6 +58,14 @@ export const mediaIntelligenceConfig = {
     analysisVersion: '1.0.0' as const,
     storeFilename: 'ai_analysis.json' as const,
   },
+  /**
+   * Phase 5 auth — temporary (shared secret) until Supabase cutover.
+   * MEDIA_AUTH_PROVIDER=temporary|supabase
+   */
+  auth: {
+    defaultProvider: 'temporary' as const,
+    roles: ['owner', 'administrator', 'editor', 'reviewer', 'viewer'] as const,
+  },
 } as const;
 
 export type MediaIntelligenceConfig = typeof mediaIntelligenceConfig;

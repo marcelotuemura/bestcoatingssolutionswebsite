@@ -1,0 +1,29 @@
+{
+  "kind": "local_postgres_rbac",
+  "liveSupabaseClaimed": false,
+  "database": "media_phase5_100cab",
+  "startedAt": "2026-07-25T19:51:52.558Z",
+  "finishedAt": "2026-07-25T19:51:53.105Z",
+  "migrationsApplied": [
+    "supabase/migrations/20260724190000_media_phase5_schema.sql",
+    "supabase/migrations/20260724190001_media_phase5_rls.sql",
+    "supabase/migrations/20260724190002_media_phase5_storage.sql",
+    "supabase/migrations/20260724190003_media_phase5_rbac_hardening.sql",
+    "supabase/migrations/20260725193000_media_phase5_authz_denials.sql"
+  ],
+  "passes": [
+    "anon_no_assets",
+    "viewer_read_no_mutate",
+    "editor_rpc_ok_protected_denied",
+    "reviewer_narrow_rpcs_only",
+    "admin_cannot_assign_owner",
+    "profile_display_name_only",
+    "final_owner_protection",
+    "all_local_rbac_assertions"
+  ],
+  "ok": true,
+  "notes": [
+    "Local Postgres with stub auth.uid()/storage — not a live Supabase project.",
+    "Auth session, signed URLs, and hosted Storage behavior still require pnpm test:supabase:phase5."
+  ]
+}
