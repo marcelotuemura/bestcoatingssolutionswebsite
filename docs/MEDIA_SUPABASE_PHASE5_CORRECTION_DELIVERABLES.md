@@ -160,4 +160,13 @@ Unit test: `sanitizeAuditMetadata` redacts password, service_role, signed URL qu
 
 ## 14. Quality-gate results
 
-Filled after CI/local gate run in the PR body for this revision.
+| Gate | Result |
+|------|--------|
+| `pnpm typecheck` | PASS |
+| `pnpm lint` | PASS |
+| Vitest | **172** passed |
+| Playwright media + phase5 auth | **18** passed |
+| `pnpm test:supabase:phase5:local` | PASS (8 assertions) |
+| `pnpm test:supabase:phase5` (live) | **SKIPPED** — no non-prod project credentials; `liveIntegrationClaimed: false` |
+| Final-owner concurrency (live two-client) | Not run (needs live project); locking design + sequential local proof present |
+| SECURITY DEFINER privilege audit | Documented in §6; SQL revoke/grant present |
