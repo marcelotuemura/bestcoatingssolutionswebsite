@@ -67,13 +67,14 @@ export function PublicationDraftForm({
             setError(result.error ?? 'Failed to create draft');
             return;
           }
-          if (result.jobId) {
+          const jobId = result.jobId;
+          if (jobId) {
             // Absolute /media path — never locale-prefixed.
-            const href = `/media/publications/${result.jobId}`;
+            const href = `/media/publications/${jobId}`;
             router.push(href);
             // Hard fallback if client router stalls (e.g. first paint after create).
             window.setTimeout(() => {
-              if (!window.location.pathname.endsWith(result.jobId)) {
+              if (!window.location.pathname.endsWith(jobId)) {
                 window.location.assign(href);
               }
             }, 750);
