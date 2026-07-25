@@ -188,23 +188,39 @@ alter table public.media_ingestion_runs force row level security;
 alter table public.media_analysis_runs force row level security;
 alter table public.media_audit_events force row level security;
 alter table public.media_ai_suggestion_reviews force row level security;
+alter table public.media_publication_jobs force row level security;
+alter table public.media_publication_drafts force row level security;
+alter table public.media_publication_events force row level security;
+
+-- Match Phase 6 privilege posture for publication tables
+revoke insert, update, delete on public.media_publication_jobs from anon;
+revoke insert, update, delete on public.media_publication_drafts from anon;
+revoke insert, update, delete on public.media_publication_events from anon;
 `);
 
-  const testFile = path.join(ROOT, 'supabase/tests/phase5_rbac_local.sql');
-  const out = run('sudo', [
-    '-u',
-    'postgres',
-    'psql',
-    '-v',
-    'ON_ERROR_STOP=1',
-    '-d',
-    DB,
-    '-f',
-    testFile,
-  ]);
-
-  const passes = [...out.matchAll(/NOTICE:\s+PASS:\s+(\S+)/g)].map((m) => m[1]);
-  notices.push(...passes.map((p) => `PASS:${p}`));
+  const testFiles = [
+    path.join(ROOT, 'supabase/tests/phase5_rbac_local.sql'),
+    path.join(ROOT, 'supabase/tests/phase6_publications_rls_local.sql'),
+  ];
+  const passes: string[] = [];
+  for (const testFile of testFiles) {
+    const out = run('sudo', [
+      '-u',
+      'postgres',
+      'psql',
+      '-v',
+      'ON_ERROR_STOP=1',
+      '-d',
+      DB,
+      '-f',
+      testFile,
+    ]);
+    const found = [...out.matchAll(/NOTICE:\s+PASS:\s+(\S+)/g)].map(
+      (m) => m[1]!,
+    );
+    passes.push(...found);
+    notices.push(...found.map((p) => `PASS:${p}`));
+  }
 
   const report = {
     kind: 'local_postgres_rbac',
@@ -214,10 +230,13 @@ alter table public.media_ai_suggestion_reviews force row level security;
     finishedAt: new Date().toISOString(),
     migrationsApplied: migrations,
     passes,
-    ok: passes.includes('all_local_rbac_assertions'),
+    ok:
+      passes.includes('all_local_rbac_assertions') &&
+      passes.includes('all_phase6_publication_rls_assertions'),
     notes: [
       'Local Postgres with stub auth.uid()/storage — not a live Supabase project.',
       'Auth session, signed URLs, and hosted Storage behavior still require pnpm test:supabase:phase5.',
+      'Phase 6 publication RLS assertions included; live provider delivery not claimed.',
     ],
   };
 

@@ -61,8 +61,16 @@ Also: `draft` → `approved` (owner shortcut), `*` → `cancelled` where allowed
 
 Disable UI route usage; leave tables in place. Do not edit Phase 5 migrations.
 
+## Local / hosted testing
+
+- Unit: `pnpm test` (includes `phase6-publishers.test.ts`)
+- Local Postgres RLS: `pnpm test:supabase:phase5:local` (Phase 5 + Phase 6 SQL)
+- Playwright: `tests/e2e/media-phase6-publishers.spec.ts` with existing media suites
+- Hosted provider delivery: not applicable until credentials + real adapters exist
+
 ## Known limitations
 
 - No live Instagram/Facebook/GBP API credentials in this phase
-- In-memory job store for temporary auth; Postgres tables ready for cutover
+- Temporary-auth job store uses process-wide + tmp persistence; Postgres tables ready for cutover
 - Website bridge does not mutate marketing pages automatically
+- Database RLS allows editor/admin draft row writes; **live publish authority remains owner-only in the app service layer** (`publish` permission)
