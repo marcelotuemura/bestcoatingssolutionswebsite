@@ -1,0 +1,1579 @@
+{
+  "generatedAt": "2026-07-24T12:00:00.000Z",
+  "version": "1.0",
+  "isFixture": true,
+  "entries": [
+    {
+      "id": "asset_0001",
+      "text": "proj_001_detail_1.jpg Yamaha fiberglass #1 Yamaha Yamaha 28 fiberglass detail Yamaha fiberglass detail marine south-florida",
+      "tokens": ["yamaha", "fiberglass", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0002",
+      "text": "proj_002_context_2.jpg Chris-Craft gelcoat #2 Chris-Craft Chris-Craft 34 gelcoat context Chris-Craft gelcoat context marine south-florida",
+      "tokens": ["chris-craft", "gelcoat", "context", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0003",
+      "text": "proj_003_detail_3.jpg Scout color matching #3 Scout Scout 23 color_matching detail Scout color_matching detail marine south-florida",
+      "tokens": ["scout", "color_matching", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0004",
+      "text": "proj_004_context_4.jpg Boston Whaler color matching #4 Boston Whaler Boston Whaler 49 color_matching context Boston Whaler color_matching context marine south-florida",
+      "tokens": [
+        "boston whaler",
+        "color_matching",
+        "context",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0005",
+      "text": "proj_005_context_5.jpg Sea Ray fiberglass #5 Sea Ray Sea Ray 24 fiberglass context Sea Ray fiberglass context marine south-florida",
+      "tokens": ["sea ray", "fiberglass", "context", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0006",
+      "text": "proj_006_after_6.jpg Regulator buffing #6 Regulator Regulator 42 buffing after Regulator buffing after marine south-florida",
+      "tokens": ["regulator", "buffing", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0007",
+      "text": "proj_007_detail_7.jpg Scout gelcoat #7 Scout Scout 33 gelcoat detail Scout gelcoat detail marine south-florida",
+      "tokens": ["scout", "gelcoat", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0008",
+      "text": "proj_008_after_8.jpg Grady-White fairing #8 Grady-White Grady-White 37 fairing after Grady-White fairing after marine south-florida",
+      "tokens": ["grady-white", "fairing", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0009",
+      "text": "proj_009_detail_9.jpg Regulator fiberglass #9 Regulator Regulator 28 fiberglass detail Regulator fiberglass detail marine south-florida",
+      "tokens": ["regulator", "fiberglass", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0010",
+      "text": "proj_010_detail_10.jpg Sea Ray fairing #10 Sea Ray Sea Ray 28 fairing detail Sea Ray fairing detail marine south-florida",
+      "tokens": ["sea ray", "fairing", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0011",
+      "text": "proj_011_context_11.jpg Pursuit structural #11 Pursuit Pursuit 49 structural context Pursuit structural context marine south-florida",
+      "tokens": ["pursuit", "structural", "context", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0012",
+      "text": "proj_012_context_12.jpg Grady-White structural #12 Grady-White Grady-White 39 structural context Grady-White structural context marine south-florida",
+      "tokens": [
+        "grady-white",
+        "structural",
+        "context",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0013",
+      "text": "proj_013_detail_13.jpg Chris-Craft bottom paint #13 Chris-Craft Chris-Craft 48 bottom_paint detail Chris-Craft bottom_paint detail marine south-florida",
+      "tokens": [
+        "chris-craft",
+        "bottom_paint",
+        "detail",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0014",
+      "text": "proj_001_before_14.mp4 Yamaha fiberglass #1 Yamaha Yamaha 28 fiberglass before Yamaha fiberglass before marine south-florida",
+      "tokens": ["yamaha", "fiberglass", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0015",
+      "text": "proj_002_context_15.jpg Chris-Craft gelcoat #2 Chris-Craft Chris-Craft 34 gelcoat context Chris-Craft gelcoat context marine south-florida",
+      "tokens": ["chris-craft", "gelcoat", "context", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0016",
+      "text": "proj_003_after_16.jpg Scout color matching #3 Scout Scout 23 color_matching after Scout color_matching after marine south-florida",
+      "tokens": ["scout", "color_matching", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0017",
+      "text": "proj_004_detail_17.jpg Boston Whaler color matching #4 Boston Whaler Boston Whaler 49 color_matching detail Boston Whaler color_matching detail marine south-florida",
+      "tokens": [
+        "boston whaler",
+        "color_matching",
+        "detail",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0018",
+      "text": "proj_005_context_18.jpg Sea Ray fiberglass #5 Sea Ray Sea Ray 24 fiberglass context Sea Ray fiberglass context marine south-florida",
+      "tokens": ["sea ray", "fiberglass", "context", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0019",
+      "text": "proj_006_detail_19.jpg Regulator buffing #6 Regulator Regulator 42 buffing detail Regulator buffing detail marine south-florida",
+      "tokens": ["regulator", "buffing", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0020",
+      "text": "proj_007_after_20.mp4 Scout gelcoat #7 Scout Scout 33 gelcoat after Scout gelcoat after marine south-florida",
+      "tokens": ["scout", "gelcoat", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0021",
+      "text": "proj_008_during_21.jpg Grady-White fairing #8 Grady-White Grady-White 37 fairing during Grady-White fairing during marine south-florida",
+      "tokens": ["grady-white", "fairing", "during", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0022",
+      "text": "proj_009_context_22.jpg Regulator fiberglass #9 Regulator Regulator 28 fiberglass context Regulator fiberglass context marine south-florida",
+      "tokens": [
+        "regulator",
+        "fiberglass",
+        "context",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0023",
+      "text": "proj_010_context_23.jpg Sea Ray fairing #10 Sea Ray Sea Ray 28 fairing context Sea Ray fairing context marine south-florida",
+      "tokens": ["sea ray", "fairing", "context", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0024",
+      "text": "proj_011_after_24.jpg Pursuit structural #11 Pursuit Pursuit 49 structural after Pursuit structural after marine south-florida",
+      "tokens": ["pursuit", "structural", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0025",
+      "text": "proj_012_during_25.jpg Grady-White structural #12 Grady-White Grady-White 39 structural during Grady-White structural during marine south-florida",
+      "tokens": [
+        "grady-white",
+        "structural",
+        "during",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0026",
+      "text": "proj_013_during_26.jpg Chris-Craft bottom paint #13 Chris-Craft Chris-Craft 48 bottom_paint during Chris-Craft bottom_paint during marine south-florida",
+      "tokens": [
+        "chris-craft",
+        "bottom_paint",
+        "during",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0027",
+      "text": "proj_001_detail_27.jpg Yamaha fiberglass #1 Yamaha Yamaha 28 fiberglass detail Yamaha fiberglass detail marine south-florida",
+      "tokens": ["yamaha", "fiberglass", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0028",
+      "text": "proj_002_detail_28.jpg Chris-Craft gelcoat #2 Chris-Craft Chris-Craft 34 gelcoat detail Chris-Craft gelcoat detail marine south-florida",
+      "tokens": ["chris-craft", "gelcoat", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0029",
+      "text": "proj_003_after_29.jpg Scout color matching #3 Scout Scout 23 color_matching after Scout color_matching after marine south-florida",
+      "tokens": ["scout", "color_matching", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0030",
+      "text": "proj_004_detail_30.mp4 Boston Whaler color matching #4 Boston Whaler Boston Whaler 49 color_matching detail Boston Whaler color_matching detail marine south-florida",
+      "tokens": [
+        "boston whaler",
+        "color_matching",
+        "detail",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0031",
+      "text": "proj_005_after_31.jpg Sea Ray fiberglass #5 Sea Ray Sea Ray 24 fiberglass after Sea Ray fiberglass after marine south-florida",
+      "tokens": ["sea ray", "fiberglass", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0032",
+      "text": "proj_006_after_32.jpg Regulator buffing #6 Regulator Regulator 42 buffing after Regulator buffing after marine south-florida",
+      "tokens": ["regulator", "buffing", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0033",
+      "text": "proj_007_detail_33.jpg Scout gelcoat #7 Scout Scout 33 gelcoat detail Scout gelcoat detail marine south-florida",
+      "tokens": ["scout", "gelcoat", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0034",
+      "text": "proj_008_context_34.jpg Grady-White fairing #8 Grady-White Grady-White 37 fairing context Grady-White fairing context marine south-florida",
+      "tokens": ["grady-white", "fairing", "context", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0035",
+      "text": "proj_009_detail_35.jpg Regulator fiberglass #9 Regulator Regulator 28 fiberglass detail Regulator fiberglass detail marine south-florida",
+      "tokens": ["regulator", "fiberglass", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0036",
+      "text": "proj_010_context_36.jpg Sea Ray fairing #10 Sea Ray Sea Ray 28 fairing context Sea Ray fairing context marine south-florida",
+      "tokens": ["sea ray", "fairing", "context", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0037",
+      "text": "proj_011_detail_37.mp4 Pursuit structural #11 Pursuit Pursuit 49 structural detail Pursuit structural detail marine south-florida",
+      "tokens": ["pursuit", "structural", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0038",
+      "text": "proj_012_context_38.jpg Grady-White structural #12 Grady-White Grady-White 39 structural context Grady-White structural context marine south-florida",
+      "tokens": [
+        "grady-white",
+        "structural",
+        "context",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0039",
+      "text": "proj_013_before_39.jpg Chris-Craft bottom paint #13 Chris-Craft Chris-Craft 48 bottom_paint before Chris-Craft bottom_paint before marine south-florida",
+      "tokens": [
+        "chris-craft",
+        "bottom_paint",
+        "before",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0040",
+      "text": "proj_001_during_40.mp4 Yamaha fiberglass #1 Yamaha Yamaha 28 fiberglass during Yamaha fiberglass during marine south-florida",
+      "tokens": ["yamaha", "fiberglass", "during", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0041",
+      "text": "proj_002_after_41.jpg Chris-Craft gelcoat #2 Chris-Craft Chris-Craft 34 gelcoat after Chris-Craft gelcoat after marine south-florida",
+      "tokens": ["chris-craft", "gelcoat", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0042",
+      "text": "proj_003_before_42.jpg Scout color matching #3 Scout Scout 23 color_matching before Scout color_matching before marine south-florida",
+      "tokens": ["scout", "color_matching", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0043",
+      "text": "proj_004_after_43.jpg Boston Whaler color matching #4 Boston Whaler Boston Whaler 49 color_matching after Boston Whaler color_matching after marine south-florida",
+      "tokens": [
+        "boston whaler",
+        "color_matching",
+        "after",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0044",
+      "text": "proj_005_after_44.jpg Sea Ray fiberglass #5 Sea Ray Sea Ray 24 fiberglass after Sea Ray fiberglass after marine south-florida",
+      "tokens": ["sea ray", "fiberglass", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0045",
+      "text": "proj_006_before_45.jpg Regulator buffing #6 Regulator Regulator 42 buffing before Regulator buffing before marine south-florida",
+      "tokens": ["regulator", "buffing", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0046",
+      "text": "proj_007_context_46.jpg Scout gelcoat #7 Scout Scout 33 gelcoat context Scout gelcoat context marine south-florida",
+      "tokens": ["scout", "gelcoat", "context", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0047",
+      "text": "proj_008_before_47.jpg Grady-White fairing #8 Grady-White Grady-White 37 fairing before Grady-White fairing before marine south-florida",
+      "tokens": ["grady-white", "fairing", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0048",
+      "text": "proj_009_before_48.jpg Regulator fiberglass #9 Regulator Regulator 28 fiberglass before Regulator fiberglass before marine south-florida",
+      "tokens": ["regulator", "fiberglass", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0049",
+      "text": "proj_010_context_49.jpg Sea Ray fairing #10 Sea Ray Sea Ray 28 fairing context Sea Ray fairing context marine south-florida",
+      "tokens": ["sea ray", "fairing", "context", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0050",
+      "text": "proj_011_detail_50.jpg Pursuit structural #11 Pursuit Pursuit 49 structural detail Pursuit structural detail marine south-florida",
+      "tokens": ["pursuit", "structural", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0051",
+      "text": "proj_012_before_51.jpg Grady-White structural #12 Grady-White Grady-White 39 structural before Grady-White structural before marine south-florida",
+      "tokens": [
+        "grady-white",
+        "structural",
+        "before",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0052",
+      "text": "proj_013_after_52.jpg Chris-Craft bottom paint #13 Chris-Craft Chris-Craft 48 bottom_paint after Chris-Craft bottom_paint after marine south-florida",
+      "tokens": [
+        "chris-craft",
+        "bottom_paint",
+        "after",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0053",
+      "text": "proj_001_after_53.jpg Yamaha fiberglass #1 Yamaha Yamaha 28 fiberglass after Yamaha fiberglass after marine south-florida",
+      "tokens": ["yamaha", "fiberglass", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0054",
+      "text": "proj_002_after_54.jpg Chris-Craft gelcoat #2 Chris-Craft Chris-Craft 34 gelcoat after Chris-Craft gelcoat after marine south-florida",
+      "tokens": ["chris-craft", "gelcoat", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0055",
+      "text": "proj_003_during_55.jpg Scout color matching #3 Scout Scout 23 color_matching during Scout color_matching during marine south-florida",
+      "tokens": ["scout", "color_matching", "during", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0056",
+      "text": "proj_004_before_56.jpg Boston Whaler color matching #4 Boston Whaler Boston Whaler 49 color_matching before Boston Whaler color_matching before marine south-florida",
+      "tokens": [
+        "boston whaler",
+        "color_matching",
+        "before",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0057",
+      "text": "proj_005_detail_57.jpg Sea Ray fiberglass #5 Sea Ray Sea Ray 24 fiberglass detail Sea Ray fiberglass detail marine south-florida",
+      "tokens": ["sea ray", "fiberglass", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0058",
+      "text": "proj_006_after_58.jpg Regulator buffing #6 Regulator Regulator 42 buffing after Regulator buffing after marine south-florida",
+      "tokens": ["regulator", "buffing", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0059",
+      "text": "proj_007_during_59.jpg Scout gelcoat #7 Scout Scout 33 gelcoat during Scout gelcoat during marine south-florida",
+      "tokens": ["scout", "gelcoat", "during", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0060",
+      "text": "proj_008_context_60.mp4 Grady-White fairing #8 Grady-White Grady-White 37 fairing context Grady-White fairing context marine south-florida",
+      "tokens": ["grady-white", "fairing", "context", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0061",
+      "text": "proj_009_before_61.jpg Regulator fiberglass #9 Regulator Regulator 28 fiberglass before Regulator fiberglass before marine south-florida",
+      "tokens": ["regulator", "fiberglass", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0062",
+      "text": "proj_010_before_62.jpg Sea Ray fairing #10 Sea Ray Sea Ray 28 fairing before Sea Ray fairing before marine south-florida",
+      "tokens": ["sea ray", "fairing", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0063",
+      "text": "proj_011_during_63.jpg Pursuit structural #11 Pursuit Pursuit 49 structural during Pursuit structural during marine south-florida",
+      "tokens": ["pursuit", "structural", "during", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0064",
+      "text": "proj_012_before_64.jpg Grady-White structural #12 Grady-White Grady-White 39 structural before Grady-White structural before marine south-florida",
+      "tokens": [
+        "grady-white",
+        "structural",
+        "before",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0065",
+      "text": "proj_013_context_65.jpg Chris-Craft bottom paint #13 Chris-Craft Chris-Craft 48 bottom_paint context Chris-Craft bottom_paint context marine south-florida",
+      "tokens": [
+        "chris-craft",
+        "bottom_paint",
+        "context",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0066",
+      "text": "proj_001_context_66.jpg Yamaha fiberglass #1 Yamaha Yamaha 28 fiberglass context Yamaha fiberglass context marine south-florida",
+      "tokens": ["yamaha", "fiberglass", "context", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0067",
+      "text": "proj_002_detail_67.jpg Chris-Craft gelcoat #2 Chris-Craft Chris-Craft 34 gelcoat detail Chris-Craft gelcoat detail marine south-florida",
+      "tokens": ["chris-craft", "gelcoat", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0068",
+      "text": "proj_003_detail_68.jpg Scout color matching #3 Scout Scout 23 color_matching detail Scout color_matching detail marine south-florida",
+      "tokens": ["scout", "color_matching", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0069",
+      "text": "proj_004_before_69.jpg Boston Whaler color matching #4 Boston Whaler Boston Whaler 49 color_matching before Boston Whaler color_matching before marine south-florida",
+      "tokens": [
+        "boston whaler",
+        "color_matching",
+        "before",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0070",
+      "text": "proj_005_after_70.jpg Sea Ray fiberglass #5 Sea Ray Sea Ray 24 fiberglass after Sea Ray fiberglass after marine south-florida",
+      "tokens": ["sea ray", "fiberglass", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0071",
+      "text": "proj_006_detail_71.jpg Regulator buffing #6 Regulator Regulator 42 buffing detail Regulator buffing detail marine south-florida",
+      "tokens": ["regulator", "buffing", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0072",
+      "text": "proj_007_detail_72.jpg Scout gelcoat #7 Scout Scout 33 gelcoat detail Scout gelcoat detail marine south-florida",
+      "tokens": ["scout", "gelcoat", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0073",
+      "text": "proj_008_before_73.jpg Grady-White fairing #8 Grady-White Grady-White 37 fairing before Grady-White fairing before marine south-florida",
+      "tokens": ["grady-white", "fairing", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0074",
+      "text": "proj_009_context_74.jpg Regulator fiberglass #9 Regulator Regulator 28 fiberglass context Regulator fiberglass context marine south-florida",
+      "tokens": [
+        "regulator",
+        "fiberglass",
+        "context",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0075",
+      "text": "proj_010_during_75.mp4 Sea Ray fairing #10 Sea Ray Sea Ray 28 fairing during Sea Ray fairing during marine south-florida",
+      "tokens": ["sea ray", "fairing", "during", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0076",
+      "text": "proj_011_detail_76.jpg Pursuit structural #11 Pursuit Pursuit 49 structural detail Pursuit structural detail marine south-florida",
+      "tokens": ["pursuit", "structural", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0077",
+      "text": "proj_012_detail_77.jpg Grady-White structural #12 Grady-White Grady-White 39 structural detail Grady-White structural detail marine south-florida",
+      "tokens": [
+        "grady-white",
+        "structural",
+        "detail",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0078",
+      "text": "proj_013_during_78.jpg Chris-Craft bottom paint #13 Chris-Craft Chris-Craft 48 bottom_paint during Chris-Craft bottom_paint during marine south-florida",
+      "tokens": [
+        "chris-craft",
+        "bottom_paint",
+        "during",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0079",
+      "text": "proj_001_after_79.jpg Yamaha fiberglass #1 Yamaha Yamaha 28 fiberglass after Yamaha fiberglass after marine south-florida",
+      "tokens": ["yamaha", "fiberglass", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0080",
+      "text": "proj_002_detail_80.mp4 Chris-Craft gelcoat #2 Chris-Craft Chris-Craft 34 gelcoat detail Chris-Craft gelcoat detail marine south-florida",
+      "tokens": ["chris-craft", "gelcoat", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0081",
+      "text": "proj_003_detail_81.jpg Scout color matching #3 Scout Scout 23 color_matching detail Scout color_matching detail marine south-florida",
+      "tokens": ["scout", "color_matching", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0082",
+      "text": "proj_004_after_82.jpg Boston Whaler color matching #4 Boston Whaler Boston Whaler 49 color_matching after Boston Whaler color_matching after marine south-florida",
+      "tokens": [
+        "boston whaler",
+        "color_matching",
+        "after",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0083",
+      "text": "proj_005_context_83.jpg Sea Ray fiberglass #5 Sea Ray Sea Ray 24 fiberglass context Sea Ray fiberglass context marine south-florida",
+      "tokens": ["sea ray", "fiberglass", "context", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0084",
+      "text": "proj_006_detail_84.jpg Regulator buffing #6 Regulator Regulator 42 buffing detail Regulator buffing detail marine south-florida",
+      "tokens": ["regulator", "buffing", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0085",
+      "text": "proj_007_before_85.jpg Scout gelcoat #7 Scout Scout 33 gelcoat before Scout gelcoat before marine south-florida",
+      "tokens": ["scout", "gelcoat", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0086",
+      "text": "proj_008_during_86.jpg Grady-White fairing #8 Grady-White Grady-White 37 fairing during Grady-White fairing during marine south-florida",
+      "tokens": ["grady-white", "fairing", "during", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0087",
+      "text": "proj_009_before_87.jpg Regulator fiberglass #9 Regulator Regulator 28 fiberglass before Regulator fiberglass before marine south-florida",
+      "tokens": ["regulator", "fiberglass", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0088",
+      "text": "proj_010_before_88.jpg Sea Ray fairing #10 Sea Ray Sea Ray 28 fairing before Sea Ray fairing before marine south-florida",
+      "tokens": ["sea ray", "fairing", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0089",
+      "text": "proj_011_before_89.jpg Pursuit structural #11 Pursuit Pursuit 49 structural before Pursuit structural before marine south-florida",
+      "tokens": ["pursuit", "structural", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0090",
+      "text": "proj_012_during_90.jpg Grady-White structural #12 Grady-White Grady-White 39 structural during Grady-White structural during marine south-florida",
+      "tokens": [
+        "grady-white",
+        "structural",
+        "during",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0091",
+      "text": "proj_013_after_91.jpg Chris-Craft bottom paint #13 Chris-Craft Chris-Craft 48 bottom_paint after Chris-Craft bottom_paint after marine south-florida",
+      "tokens": [
+        "chris-craft",
+        "bottom_paint",
+        "after",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0092",
+      "text": "proj_001_after_92.jpg Yamaha fiberglass #1 Yamaha Yamaha 28 fiberglass after Yamaha fiberglass after marine south-florida",
+      "tokens": ["yamaha", "fiberglass", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0093",
+      "text": "proj_002_during_93.jpg Chris-Craft gelcoat #2 Chris-Craft Chris-Craft 34 gelcoat during Chris-Craft gelcoat during marine south-florida",
+      "tokens": ["chris-craft", "gelcoat", "during", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0094",
+      "text": "proj_003_before_94.jpg Scout color matching #3 Scout Scout 23 color_matching before Scout color_matching before marine south-florida",
+      "tokens": ["scout", "color_matching", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0095",
+      "text": "proj_004_context_95.jpg Boston Whaler color matching #4 Boston Whaler Boston Whaler 49 color_matching context Boston Whaler color_matching context marine south-florida",
+      "tokens": [
+        "boston whaler",
+        "color_matching",
+        "context",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0096",
+      "text": "proj_005_detail_96.jpg Sea Ray fiberglass #5 Sea Ray Sea Ray 24 fiberglass detail Sea Ray fiberglass detail marine south-florida",
+      "tokens": ["sea ray", "fiberglass", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0097",
+      "text": "proj_006_context_97.jpg Regulator buffing #6 Regulator Regulator 42 buffing context Regulator buffing context marine south-florida",
+      "tokens": ["regulator", "buffing", "context", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0098",
+      "text": "proj_007_detail_98.jpg Scout gelcoat #7 Scout Scout 33 gelcoat detail Scout gelcoat detail marine south-florida",
+      "tokens": ["scout", "gelcoat", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0099",
+      "text": "proj_008_after_99.jpg Grady-White fairing #8 Grady-White Grady-White 37 fairing after Grady-White fairing after marine south-florida",
+      "tokens": ["grady-white", "fairing", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0100",
+      "text": "proj_009_context_100.jpg Regulator fiberglass #9 Regulator Regulator 28 fiberglass context Regulator fiberglass context marine south-florida",
+      "tokens": [
+        "regulator",
+        "fiberglass",
+        "context",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0101",
+      "text": "proj_010_detail_101.mp4 Sea Ray fairing #10 Sea Ray Sea Ray 28 fairing detail Sea Ray fairing detail marine south-florida",
+      "tokens": ["sea ray", "fairing", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0102",
+      "text": "proj_011_before_102.jpg Pursuit structural #11 Pursuit Pursuit 49 structural before Pursuit structural before marine south-florida",
+      "tokens": ["pursuit", "structural", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0103",
+      "text": "proj_012_during_103.jpg Grady-White structural #12 Grady-White Grady-White 39 structural during Grady-White structural during marine south-florida",
+      "tokens": [
+        "grady-white",
+        "structural",
+        "during",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0104",
+      "text": "proj_013_before_104.jpg Chris-Craft bottom paint #13 Chris-Craft Chris-Craft 48 bottom_paint before Chris-Craft bottom_paint before marine south-florida",
+      "tokens": [
+        "chris-craft",
+        "bottom_paint",
+        "before",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0105",
+      "text": "proj_001_context_105.jpg Yamaha fiberglass #1 Yamaha Yamaha 28 fiberglass context Yamaha fiberglass context marine south-florida",
+      "tokens": ["yamaha", "fiberglass", "context", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0106",
+      "text": "proj_002_before_106.jpg Chris-Craft gelcoat #2 Chris-Craft Chris-Craft 34 gelcoat before Chris-Craft gelcoat before marine south-florida",
+      "tokens": ["chris-craft", "gelcoat", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0107",
+      "text": "proj_003_before_107.jpg Scout color matching #3 Scout Scout 23 color_matching before Scout color_matching before marine south-florida",
+      "tokens": ["scout", "color_matching", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0108",
+      "text": "proj_004_during_108.jpg Boston Whaler color matching #4 Boston Whaler Boston Whaler 49 color_matching during Boston Whaler color_matching during marine south-florida",
+      "tokens": [
+        "boston whaler",
+        "color_matching",
+        "during",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0109",
+      "text": "proj_005_after_109.jpg Sea Ray fiberglass #5 Sea Ray Sea Ray 24 fiberglass after Sea Ray fiberglass after marine south-florida",
+      "tokens": ["sea ray", "fiberglass", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0110",
+      "text": "proj_006_detail_110.jpg Regulator buffing #6 Regulator Regulator 42 buffing detail Regulator buffing detail marine south-florida",
+      "tokens": ["regulator", "buffing", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0111",
+      "text": "proj_007_after_111.jpg Scout gelcoat #7 Scout Scout 33 gelcoat after Scout gelcoat after marine south-florida",
+      "tokens": ["scout", "gelcoat", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0112",
+      "text": "proj_008_detail_112.jpg Grady-White fairing #8 Grady-White Grady-White 37 fairing detail Grady-White fairing detail marine south-florida",
+      "tokens": ["grady-white", "fairing", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0113",
+      "text": "proj_009_detail_113.mp4 Regulator fiberglass #9 Regulator Regulator 28 fiberglass detail Regulator fiberglass detail marine south-florida",
+      "tokens": ["regulator", "fiberglass", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0114",
+      "text": "proj_010_during_114.jpg Sea Ray fairing #10 Sea Ray Sea Ray 28 fairing during Sea Ray fairing during marine south-florida",
+      "tokens": ["sea ray", "fairing", "during", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0115",
+      "text": "proj_011_during_115.jpg Pursuit structural #11 Pursuit Pursuit 49 structural during Pursuit structural during marine south-florida",
+      "tokens": ["pursuit", "structural", "during", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0116",
+      "text": "proj_012_after_116.jpg Grady-White structural #12 Grady-White Grady-White 39 structural after Grady-White structural after marine south-florida",
+      "tokens": [
+        "grady-white",
+        "structural",
+        "after",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0117",
+      "text": "proj_013_before_117.jpg Chris-Craft bottom paint #13 Chris-Craft Chris-Craft 48 bottom_paint before Chris-Craft bottom_paint before marine south-florida",
+      "tokens": [
+        "chris-craft",
+        "bottom_paint",
+        "before",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0118",
+      "text": "proj_001_context_118.jpg Yamaha fiberglass #1 Yamaha Yamaha 28 fiberglass context Yamaha fiberglass context marine south-florida",
+      "tokens": ["yamaha", "fiberglass", "context", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0119",
+      "text": "proj_002_detail_119.jpg Chris-Craft gelcoat #2 Chris-Craft Chris-Craft 34 gelcoat detail Chris-Craft gelcoat detail marine south-florida",
+      "tokens": ["chris-craft", "gelcoat", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0120",
+      "text": "proj_003_context_120.jpg Scout color matching #3 Scout Scout 23 color_matching context Scout color_matching context marine south-florida",
+      "tokens": [
+        "scout",
+        "color_matching",
+        "context",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0121",
+      "text": "proj_004_context_121.mp4 Boston Whaler color matching #4 Boston Whaler Boston Whaler 49 color_matching context Boston Whaler color_matching context marine south-florida",
+      "tokens": [
+        "boston whaler",
+        "color_matching",
+        "context",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0122",
+      "text": "proj_005_detail_122.jpg Sea Ray fiberglass #5 Sea Ray Sea Ray 24 fiberglass detail Sea Ray fiberglass detail marine south-florida",
+      "tokens": ["sea ray", "fiberglass", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0123",
+      "text": "proj_006_after_123.jpg Regulator buffing #6 Regulator Regulator 42 buffing after Regulator buffing after marine south-florida",
+      "tokens": ["regulator", "buffing", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0124",
+      "text": "proj_007_during_124.jpg Scout gelcoat #7 Scout Scout 33 gelcoat during Scout gelcoat during marine south-florida",
+      "tokens": ["scout", "gelcoat", "during", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0125",
+      "text": "proj_008_after_125.jpg Grady-White fairing #8 Grady-White Grady-White 37 fairing after Grady-White fairing after marine south-florida",
+      "tokens": ["grady-white", "fairing", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0126",
+      "text": "proj_009_before_126.jpg Regulator fiberglass #9 Regulator Regulator 28 fiberglass before Regulator fiberglass before marine south-florida",
+      "tokens": ["regulator", "fiberglass", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0127",
+      "text": "proj_010_after_127.jpg Sea Ray fairing #10 Sea Ray Sea Ray 28 fairing after Sea Ray fairing after marine south-florida",
+      "tokens": ["sea ray", "fairing", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0128",
+      "text": "proj_011_before_128.jpg Pursuit structural #11 Pursuit Pursuit 49 structural before Pursuit structural before marine south-florida",
+      "tokens": ["pursuit", "structural", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0129",
+      "text": "proj_012_before_129.jpg Grady-White structural #12 Grady-White Grady-White 39 structural before Grady-White structural before marine south-florida",
+      "tokens": [
+        "grady-white",
+        "structural",
+        "before",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0130",
+      "text": "proj_013_context_130.jpg Chris-Craft bottom paint #13 Chris-Craft Chris-Craft 48 bottom_paint context Chris-Craft bottom_paint context marine south-florida",
+      "tokens": [
+        "chris-craft",
+        "bottom_paint",
+        "context",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0131",
+      "text": "proj_001_after_131.jpg Yamaha fiberglass #1 Yamaha Yamaha 28 fiberglass after Yamaha fiberglass after marine south-florida",
+      "tokens": ["yamaha", "fiberglass", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0132",
+      "text": "proj_002_context_132.jpg Chris-Craft gelcoat #2 Chris-Craft Chris-Craft 34 gelcoat context Chris-Craft gelcoat context marine south-florida",
+      "tokens": ["chris-craft", "gelcoat", "context", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0133",
+      "text": "proj_003_context_133.jpg Scout color matching #3 Scout Scout 23 color_matching context Scout color_matching context marine south-florida",
+      "tokens": [
+        "scout",
+        "color_matching",
+        "context",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0134",
+      "text": "proj_004_context_134.jpg Boston Whaler color matching #4 Boston Whaler Boston Whaler 49 color_matching context Boston Whaler color_matching context marine south-florida",
+      "tokens": [
+        "boston whaler",
+        "color_matching",
+        "context",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0135",
+      "text": "proj_005_before_135.jpg Sea Ray fiberglass #5 Sea Ray Sea Ray 24 fiberglass before Sea Ray fiberglass before marine south-florida",
+      "tokens": ["sea ray", "fiberglass", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0136",
+      "text": "proj_006_during_136.jpg Regulator buffing #6 Regulator Regulator 42 buffing during Regulator buffing during marine south-florida",
+      "tokens": ["regulator", "buffing", "during", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0137",
+      "text": "proj_007_before_137.jpg Scout gelcoat #7 Scout Scout 33 gelcoat before Scout gelcoat before marine south-florida",
+      "tokens": ["scout", "gelcoat", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0138",
+      "text": "proj_008_detail_138.jpg Grady-White fairing #8 Grady-White Grady-White 37 fairing detail Grady-White fairing detail marine south-florida",
+      "tokens": ["grady-white", "fairing", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0139",
+      "text": "proj_009_detail_139.jpg Regulator fiberglass #9 Regulator Regulator 28 fiberglass detail Regulator fiberglass detail marine south-florida",
+      "tokens": ["regulator", "fiberglass", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0140",
+      "text": "proj_010_after_140.jpg Sea Ray fairing #10 Sea Ray Sea Ray 28 fairing after Sea Ray fairing after marine south-florida",
+      "tokens": ["sea ray", "fairing", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0141",
+      "text": "proj_011_before_141.jpg Pursuit structural #11 Pursuit Pursuit 49 structural before Pursuit structural before marine south-florida",
+      "tokens": ["pursuit", "structural", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0142",
+      "text": "proj_012_context_142.jpg Grady-White structural #12 Grady-White Grady-White 39 structural context Grady-White structural context marine south-florida",
+      "tokens": [
+        "grady-white",
+        "structural",
+        "context",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0143",
+      "text": "proj_013_during_143.jpg Chris-Craft bottom paint #13 Chris-Craft Chris-Craft 48 bottom_paint during Chris-Craft bottom_paint during marine south-florida",
+      "tokens": [
+        "chris-craft",
+        "bottom_paint",
+        "during",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0144",
+      "text": "proj_001_before_144.jpg Yamaha fiberglass #1 Yamaha Yamaha 28 fiberglass before Yamaha fiberglass before marine south-florida",
+      "tokens": ["yamaha", "fiberglass", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0145",
+      "text": "proj_002_detail_145.jpg Chris-Craft gelcoat #2 Chris-Craft Chris-Craft 34 gelcoat detail Chris-Craft gelcoat detail marine south-florida",
+      "tokens": ["chris-craft", "gelcoat", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0146",
+      "text": "proj_003_during_146.jpg Scout color matching #3 Scout Scout 23 color_matching during Scout color_matching during marine south-florida",
+      "tokens": ["scout", "color_matching", "during", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0147",
+      "text": "proj_004_detail_147.mp4 Boston Whaler color matching #4 Boston Whaler Boston Whaler 49 color_matching detail Boston Whaler color_matching detail marine south-florida",
+      "tokens": [
+        "boston whaler",
+        "color_matching",
+        "detail",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0148",
+      "text": "proj_005_after_148.jpg Sea Ray fiberglass #5 Sea Ray Sea Ray 24 fiberglass after Sea Ray fiberglass after marine south-florida",
+      "tokens": ["sea ray", "fiberglass", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0149",
+      "text": "proj_006_before_149.jpg Regulator buffing #6 Regulator Regulator 42 buffing before Regulator buffing before marine south-florida",
+      "tokens": ["regulator", "buffing", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0150",
+      "text": "proj_007_detail_150.mp4 Scout gelcoat #7 Scout Scout 33 gelcoat detail Scout gelcoat detail marine south-florida",
+      "tokens": ["scout", "gelcoat", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0151",
+      "text": "proj_008_detail_151.jpg Grady-White fairing #8 Grady-White Grady-White 37 fairing detail Grady-White fairing detail marine south-florida",
+      "tokens": ["grady-white", "fairing", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0152",
+      "text": "proj_009_after_152.jpg Regulator fiberglass #9 Regulator Regulator 28 fiberglass after Regulator fiberglass after marine south-florida",
+      "tokens": ["regulator", "fiberglass", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0153",
+      "text": "proj_010_detail_153.jpg Sea Ray fairing #10 Sea Ray Sea Ray 28 fairing detail Sea Ray fairing detail marine south-florida",
+      "tokens": ["sea ray", "fairing", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0154",
+      "text": "proj_011_after_154.jpg Pursuit structural #11 Pursuit Pursuit 49 structural after Pursuit structural after marine south-florida",
+      "tokens": ["pursuit", "structural", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0155",
+      "text": "proj_012_detail_155.jpg Grady-White structural #12 Grady-White Grady-White 39 structural detail Grady-White structural detail marine south-florida",
+      "tokens": [
+        "grady-white",
+        "structural",
+        "detail",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0156",
+      "text": "proj_013_after_156.jpg Chris-Craft bottom paint #13 Chris-Craft Chris-Craft 48 bottom_paint after Chris-Craft bottom_paint after marine south-florida",
+      "tokens": [
+        "chris-craft",
+        "bottom_paint",
+        "after",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0157",
+      "text": "proj_001_detail_157.jpg Yamaha fiberglass #1 Yamaha Yamaha 28 fiberglass detail Yamaha fiberglass detail marine south-florida",
+      "tokens": ["yamaha", "fiberglass", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0158",
+      "text": "proj_002_after_158.jpg Chris-Craft gelcoat #2 Chris-Craft Chris-Craft 34 gelcoat after Chris-Craft gelcoat after marine south-florida",
+      "tokens": ["chris-craft", "gelcoat", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0159",
+      "text": "proj_003_after_159.jpg Scout color matching #3 Scout Scout 23 color_matching after Scout color_matching after marine south-florida",
+      "tokens": ["scout", "color_matching", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0160",
+      "text": "proj_004_before_160.jpg Boston Whaler color matching #4 Boston Whaler Boston Whaler 49 color_matching before Boston Whaler color_matching before marine south-florida",
+      "tokens": [
+        "boston whaler",
+        "color_matching",
+        "before",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0161",
+      "text": "proj_005_before_161.jpg Sea Ray fiberglass #5 Sea Ray Sea Ray 24 fiberglass before Sea Ray fiberglass before marine south-florida",
+      "tokens": ["sea ray", "fiberglass", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0162",
+      "text": "proj_006_after_162.jpg Regulator buffing #6 Regulator Regulator 42 buffing after Regulator buffing after marine south-florida",
+      "tokens": ["regulator", "buffing", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0163",
+      "text": "proj_007_after_163.jpg Scout gelcoat #7 Scout Scout 33 gelcoat after Scout gelcoat after marine south-florida",
+      "tokens": ["scout", "gelcoat", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0164",
+      "text": "proj_008_context_164.jpg Grady-White fairing #8 Grady-White Grady-White 37 fairing context Grady-White fairing context marine south-florida",
+      "tokens": ["grady-white", "fairing", "context", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0165",
+      "text": "proj_009_after_165.jpg Regulator fiberglass #9 Regulator Regulator 28 fiberglass after Regulator fiberglass after marine south-florida",
+      "tokens": ["regulator", "fiberglass", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0166",
+      "text": "proj_010_detail_166.jpg Sea Ray fairing #10 Sea Ray Sea Ray 28 fairing detail Sea Ray fairing detail marine south-florida",
+      "tokens": ["sea ray", "fairing", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0167",
+      "text": "proj_011_after_167.jpg Pursuit structural #11 Pursuit Pursuit 49 structural after Pursuit structural after marine south-florida",
+      "tokens": ["pursuit", "structural", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0168",
+      "text": "proj_012_context_168.jpg Grady-White structural #12 Grady-White Grady-White 39 structural context Grady-White structural context marine south-florida",
+      "tokens": [
+        "grady-white",
+        "structural",
+        "context",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0169",
+      "text": "proj_013_after_169.jpg Chris-Craft bottom paint #13 Chris-Craft Chris-Craft 48 bottom_paint after Chris-Craft bottom_paint after marine south-florida",
+      "tokens": [
+        "chris-craft",
+        "bottom_paint",
+        "after",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0170",
+      "text": "proj_001_before_170.jpg Yamaha fiberglass #1 Yamaha Yamaha 28 fiberglass before Yamaha fiberglass before marine south-florida",
+      "tokens": ["yamaha", "fiberglass", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0171",
+      "text": "proj_002_context_171.jpg Chris-Craft gelcoat #2 Chris-Craft Chris-Craft 34 gelcoat context Chris-Craft gelcoat context marine south-florida",
+      "tokens": ["chris-craft", "gelcoat", "context", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0172",
+      "text": "proj_003_detail_172.jpg Scout color matching #3 Scout Scout 23 color_matching detail Scout color_matching detail marine south-florida",
+      "tokens": ["scout", "color_matching", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0173",
+      "text": "proj_004_after_173.jpg Boston Whaler color matching #4 Boston Whaler Boston Whaler 49 color_matching after Boston Whaler color_matching after marine south-florida",
+      "tokens": [
+        "boston whaler",
+        "color_matching",
+        "after",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0174",
+      "text": "proj_005_during_174.mp4 Sea Ray fiberglass #5 Sea Ray Sea Ray 24 fiberglass during Sea Ray fiberglass during marine south-florida",
+      "tokens": ["sea ray", "fiberglass", "during", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0175",
+      "text": "proj_006_after_175.jpg Regulator buffing #6 Regulator Regulator 42 buffing after Regulator buffing after marine south-florida",
+      "tokens": ["regulator", "buffing", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0176",
+      "text": "proj_007_before_176.jpg Scout gelcoat #7 Scout Scout 33 gelcoat before Scout gelcoat before marine south-florida",
+      "tokens": ["scout", "gelcoat", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0177",
+      "text": "proj_008_before_177.jpg Grady-White fairing #8 Grady-White Grady-White 37 fairing before Grady-White fairing before marine south-florida",
+      "tokens": ["grady-white", "fairing", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0178",
+      "text": "proj_009_before_178.jpg Regulator fiberglass #9 Regulator Regulator 28 fiberglass before Regulator fiberglass before marine south-florida",
+      "tokens": ["regulator", "fiberglass", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0179",
+      "text": "proj_010_detail_179.jpg Sea Ray fairing #10 Sea Ray Sea Ray 28 fairing detail Sea Ray fairing detail marine south-florida",
+      "tokens": ["sea ray", "fairing", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0180",
+      "text": "proj_011_during_180.jpg Pursuit structural #11 Pursuit Pursuit 49 structural during Pursuit structural during marine south-florida",
+      "tokens": ["pursuit", "structural", "during", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0181",
+      "text": "proj_012_before_181.jpg Grady-White structural #12 Grady-White Grady-White 39 structural before Grady-White structural before marine south-florida",
+      "tokens": [
+        "grady-white",
+        "structural",
+        "before",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0182",
+      "text": "proj_013_context_182.jpg Chris-Craft bottom paint #13 Chris-Craft Chris-Craft 48 bottom_paint context Chris-Craft bottom_paint context marine south-florida",
+      "tokens": [
+        "chris-craft",
+        "bottom_paint",
+        "context",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0183",
+      "text": "proj_001_after_183.jpg Yamaha fiberglass #1 Yamaha Yamaha 28 fiberglass after Yamaha fiberglass after marine south-florida",
+      "tokens": ["yamaha", "fiberglass", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0184",
+      "text": "proj_002_after_184.jpg Chris-Craft gelcoat #2 Chris-Craft Chris-Craft 34 gelcoat after Chris-Craft gelcoat after marine south-florida",
+      "tokens": ["chris-craft", "gelcoat", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0185",
+      "text": "proj_003_context_185.jpg Scout color matching #3 Scout Scout 23 color_matching context Scout color_matching context marine south-florida",
+      "tokens": [
+        "scout",
+        "color_matching",
+        "context",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0186",
+      "text": "proj_004_context_186.jpg Boston Whaler color matching #4 Boston Whaler Boston Whaler 49 color_matching context Boston Whaler color_matching context marine south-florida",
+      "tokens": [
+        "boston whaler",
+        "color_matching",
+        "context",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0187",
+      "text": "proj_005_detail_187.jpg Sea Ray fiberglass #5 Sea Ray Sea Ray 24 fiberglass detail Sea Ray fiberglass detail marine south-florida",
+      "tokens": ["sea ray", "fiberglass", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0188",
+      "text": "proj_006_during_188.jpg Regulator buffing #6 Regulator Regulator 42 buffing during Regulator buffing during marine south-florida",
+      "tokens": ["regulator", "buffing", "during", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0189",
+      "text": "proj_007_after_189.jpg Scout gelcoat #7 Scout Scout 33 gelcoat after Scout gelcoat after marine south-florida",
+      "tokens": ["scout", "gelcoat", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0190",
+      "text": "proj_008_after_190.jpg Grady-White fairing #8 Grady-White Grady-White 37 fairing after Grady-White fairing after marine south-florida",
+      "tokens": ["grady-white", "fairing", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0191",
+      "text": "proj_009_before_191.jpg Regulator fiberglass #9 Regulator Regulator 28 fiberglass before Regulator fiberglass before marine south-florida",
+      "tokens": ["regulator", "fiberglass", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0192",
+      "text": "proj_010_context_192.jpg Sea Ray fairing #10 Sea Ray Sea Ray 28 fairing context Sea Ray fairing context marine south-florida",
+      "tokens": ["sea ray", "fairing", "context", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0193",
+      "text": "proj_011_detail_193.jpg Pursuit structural #11 Pursuit Pursuit 49 structural detail Pursuit structural detail marine south-florida",
+      "tokens": ["pursuit", "structural", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0194",
+      "text": "proj_012_context_194.jpg Grady-White structural #12 Grady-White Grady-White 39 structural context Grady-White structural context marine south-florida",
+      "tokens": [
+        "grady-white",
+        "structural",
+        "context",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0195",
+      "text": "proj_013_before_195.jpg Chris-Craft bottom paint #13 Chris-Craft Chris-Craft 48 bottom_paint before Chris-Craft bottom_paint before marine south-florida",
+      "tokens": [
+        "chris-craft",
+        "bottom_paint",
+        "before",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0196",
+      "text": "proj_001_after_196.jpg Yamaha fiberglass #1 Yamaha Yamaha 28 fiberglass after Yamaha fiberglass after marine south-florida",
+      "tokens": ["yamaha", "fiberglass", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0197",
+      "text": "proj_002_context_197.jpg Chris-Craft gelcoat #2 Chris-Craft Chris-Craft 34 gelcoat context Chris-Craft gelcoat context marine south-florida",
+      "tokens": ["chris-craft", "gelcoat", "context", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0198",
+      "text": "proj_003_context_198.jpg Scout color matching #3 Scout Scout 23 color_matching context Scout color_matching context marine south-florida",
+      "tokens": [
+        "scout",
+        "color_matching",
+        "context",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0199",
+      "text": "proj_004_before_199.jpg Boston Whaler color matching #4 Boston Whaler Boston Whaler 49 color_matching before Boston Whaler color_matching before marine south-florida",
+      "tokens": [
+        "boston whaler",
+        "color_matching",
+        "before",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0200",
+      "text": "proj_005_during_200.jpg Sea Ray fiberglass #5 Sea Ray Sea Ray 24 fiberglass during Sea Ray fiberglass during marine south-florida",
+      "tokens": ["sea ray", "fiberglass", "during", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0201",
+      "text": "proj_006_during_201.jpg Regulator buffing #6 Regulator Regulator 42 buffing during Regulator buffing during marine south-florida",
+      "tokens": ["regulator", "buffing", "during", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0202",
+      "text": "proj_007_before_202.jpg Scout gelcoat #7 Scout Scout 33 gelcoat before Scout gelcoat before marine south-florida",
+      "tokens": ["scout", "gelcoat", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0203",
+      "text": "proj_008_during_203.jpg Grady-White fairing #8 Grady-White Grady-White 37 fairing during Grady-White fairing during marine south-florida",
+      "tokens": ["grady-white", "fairing", "during", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0204",
+      "text": "proj_009_before_204.jpg Regulator fiberglass #9 Regulator Regulator 28 fiberglass before Regulator fiberglass before marine south-florida",
+      "tokens": ["regulator", "fiberglass", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0205",
+      "text": "proj_010_context_205.jpg Sea Ray fairing #10 Sea Ray Sea Ray 28 fairing context Sea Ray fairing context marine south-florida",
+      "tokens": ["sea ray", "fairing", "context", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0206",
+      "text": "proj_011_during_206.jpg Pursuit structural #11 Pursuit Pursuit 49 structural during Pursuit structural during marine south-florida",
+      "tokens": ["pursuit", "structural", "during", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0207",
+      "text": "proj_012_after_207.jpg Grady-White structural #12 Grady-White Grady-White 39 structural after Grady-White structural after marine south-florida",
+      "tokens": [
+        "grady-white",
+        "structural",
+        "after",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0208",
+      "text": "proj_013_during_208.jpg Chris-Craft bottom paint #13 Chris-Craft Chris-Craft 48 bottom_paint during Chris-Craft bottom_paint during marine south-florida",
+      "tokens": [
+        "chris-craft",
+        "bottom_paint",
+        "during",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0209",
+      "text": "proj_001_context_209.jpg Yamaha fiberglass #1 Yamaha Yamaha 28 fiberglass context Yamaha fiberglass context marine south-florida",
+      "tokens": ["yamaha", "fiberglass", "context", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0210",
+      "text": "proj_002_during_210.jpg Chris-Craft gelcoat #2 Chris-Craft Chris-Craft 34 gelcoat during Chris-Craft gelcoat during marine south-florida",
+      "tokens": ["chris-craft", "gelcoat", "during", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0211",
+      "text": "proj_003_during_211.jpg Scout color matching #3 Scout Scout 23 color_matching during Scout color_matching during marine south-florida",
+      "tokens": ["scout", "color_matching", "during", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0212",
+      "text": "proj_004_before_212.jpg Boston Whaler color matching #4 Boston Whaler Boston Whaler 49 color_matching before Boston Whaler color_matching before marine south-florida",
+      "tokens": [
+        "boston whaler",
+        "color_matching",
+        "before",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0213",
+      "text": "proj_005_before_213.jpg Sea Ray fiberglass #5 Sea Ray Sea Ray 24 fiberglass before Sea Ray fiberglass before marine south-florida",
+      "tokens": ["sea ray", "fiberglass", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0214",
+      "text": "proj_006_during_214.jpg Regulator buffing #6 Regulator Regulator 42 buffing during Regulator buffing during marine south-florida",
+      "tokens": ["regulator", "buffing", "during", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0215",
+      "text": "proj_007_after_215.jpg Scout gelcoat #7 Scout Scout 33 gelcoat after Scout gelcoat after marine south-florida",
+      "tokens": ["scout", "gelcoat", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0216",
+      "text": "proj_008_detail_216.jpg Grady-White fairing #8 Grady-White Grady-White 37 fairing detail Grady-White fairing detail marine south-florida",
+      "tokens": ["grady-white", "fairing", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0217",
+      "text": "proj_009_detail_217.jpg Regulator fiberglass #9 Regulator Regulator 28 fiberglass detail Regulator fiberglass detail marine south-florida",
+      "tokens": ["regulator", "fiberglass", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0218",
+      "text": "proj_010_during_218.jpg Sea Ray fairing #10 Sea Ray Sea Ray 28 fairing during Sea Ray fairing during marine south-florida",
+      "tokens": ["sea ray", "fairing", "during", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0219",
+      "text": "proj_011_detail_219.jpg Pursuit structural #11 Pursuit Pursuit 49 structural detail Pursuit structural detail marine south-florida",
+      "tokens": ["pursuit", "structural", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0220",
+      "text": "proj_012_after_220.jpg Grady-White structural #12 Grady-White Grady-White 39 structural after Grady-White structural after marine south-florida",
+      "tokens": [
+        "grady-white",
+        "structural",
+        "after",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0221",
+      "text": "proj_013_during_221.jpg Chris-Craft bottom paint #13 Chris-Craft Chris-Craft 48 bottom_paint during Chris-Craft bottom_paint during marine south-florida",
+      "tokens": [
+        "chris-craft",
+        "bottom_paint",
+        "during",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0222",
+      "text": "proj_001_context_222.jpg Yamaha fiberglass #1 Yamaha Yamaha 28 fiberglass context Yamaha fiberglass context marine south-florida",
+      "tokens": ["yamaha", "fiberglass", "context", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0223",
+      "text": "proj_002_detail_223.jpg Chris-Craft gelcoat #2 Chris-Craft Chris-Craft 34 gelcoat detail Chris-Craft gelcoat detail marine south-florida",
+      "tokens": ["chris-craft", "gelcoat", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0224",
+      "text": "proj_003_during_224.jpg Scout color matching #3 Scout Scout 23 color_matching during Scout color_matching during marine south-florida",
+      "tokens": ["scout", "color_matching", "during", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0225",
+      "text": "proj_004_after_225.jpg Boston Whaler color matching #4 Boston Whaler Boston Whaler 49 color_matching after Boston Whaler color_matching after marine south-florida",
+      "tokens": [
+        "boston whaler",
+        "color_matching",
+        "after",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0226",
+      "text": "proj_005_context_226.jpg Sea Ray fiberglass #5 Sea Ray Sea Ray 24 fiberglass context Sea Ray fiberglass context marine south-florida",
+      "tokens": ["sea ray", "fiberglass", "context", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0227",
+      "text": "proj_006_before_227.jpg Regulator buffing #6 Regulator Regulator 42 buffing before Regulator buffing before marine south-florida",
+      "tokens": ["regulator", "buffing", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0228",
+      "text": "proj_007_context_228.jpg Scout gelcoat #7 Scout Scout 33 gelcoat context Scout gelcoat context marine south-florida",
+      "tokens": ["scout", "gelcoat", "context", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0229",
+      "text": "proj_008_detail_229.jpg Grady-White fairing #8 Grady-White Grady-White 37 fairing detail Grady-White fairing detail marine south-florida",
+      "tokens": ["grady-white", "fairing", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0230",
+      "text": "proj_009_detail_230.jpg Regulator fiberglass #9 Regulator Regulator 28 fiberglass detail Regulator fiberglass detail marine south-florida",
+      "tokens": ["regulator", "fiberglass", "detail", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0231",
+      "text": "proj_010_during_231.jpg Sea Ray fairing #10 Sea Ray Sea Ray 28 fairing during Sea Ray fairing during marine south-florida",
+      "tokens": ["sea ray", "fairing", "during", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0232",
+      "text": "proj_011_during_232.jpg Pursuit structural #11 Pursuit Pursuit 49 structural during Pursuit structural during marine south-florida",
+      "tokens": ["pursuit", "structural", "during", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0233",
+      "text": "proj_012_context_233.jpg Grady-White structural #12 Grady-White Grady-White 39 structural context Grady-White structural context marine south-florida",
+      "tokens": [
+        "grady-white",
+        "structural",
+        "context",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0234",
+      "text": "proj_013_before_234.jpg Chris-Craft bottom paint #13 Chris-Craft Chris-Craft 48 bottom_paint before Chris-Craft bottom_paint before marine south-florida",
+      "tokens": [
+        "chris-craft",
+        "bottom_paint",
+        "before",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0235",
+      "text": "proj_001_context_235.jpg Yamaha fiberglass #1 Yamaha Yamaha 28 fiberglass context Yamaha fiberglass context marine south-florida",
+      "tokens": ["yamaha", "fiberglass", "context", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0236",
+      "text": "proj_002_context_236.jpg Chris-Craft gelcoat #2 Chris-Craft Chris-Craft 34 gelcoat context Chris-Craft gelcoat context marine south-florida",
+      "tokens": ["chris-craft", "gelcoat", "context", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0237",
+      "text": "proj_003_before_237.jpg Scout color matching #3 Scout Scout 23 color_matching before Scout color_matching before marine south-florida",
+      "tokens": ["scout", "color_matching", "before", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0238",
+      "text": "proj_004_after_238.jpg Boston Whaler color matching #4 Boston Whaler Boston Whaler 49 color_matching after Boston Whaler color_matching after marine south-florida",
+      "tokens": [
+        "boston whaler",
+        "color_matching",
+        "after",
+        "marine",
+        "south-florida"
+      ]
+    },
+    {
+      "id": "asset_0239",
+      "text": "proj_005_after_239.jpg Sea Ray fiberglass #5 Sea Ray Sea Ray 24 fiberglass after Sea Ray fiberglass after marine south-florida",
+      "tokens": ["sea ray", "fiberglass", "after", "marine", "south-florida"]
+    },
+    {
+      "id": "asset_0240",
+      "text": "proj_006_detail_240.jpg Regulator buffing #6 Regulator Regulator 42 buffing detail Regulator buffing detail marine south-florida",
+      "tokens": ["regulator", "buffing", "detail", "marine", "south-florida"]
+    }
+  ]
+}

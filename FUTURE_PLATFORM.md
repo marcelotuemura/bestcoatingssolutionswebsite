@@ -12,14 +12,16 @@ Related: [`PROJECT_OVERVIEW.md`](./PROJECT_OVERVIEW.md),
 
 ## Immediate priority
 
-Ship the public marketing website before platform consolidation. Customers need
-discover → understand → trust → proof → estimate / schedule / contact / social.
+1. Ship / go-live the public marketing website.  
+2. Grow the **Media Intelligence Platform (DAMS)** —
+   [`docs/MEDIA_INTELLIGENCE_PLATFORM.md`](./docs/MEDIA_INTELLIGENCE_PLATFORM.md).  
+3. Later: Operations Platform as a **separate** product ([`FUTURE.md`](./FUTURE.md)).
 
 ## Explicit non-goals (now)
 
-Do not: create a monorepo, merge the operations app, build the customer portal,
-rebuild the foundation, connect production Supabase/Stripe without approval, or
-duplicate CRM logic. Full deferred list: [`FUTURE.md`](./FUTURE.md).
+Do not: create a monorepo prematurely, merge the operations app, build the
+customer portal into marketing pages, connect production Supabase/Stripe without
+approval, or duplicate CRM logic. Full deferred list: [`FUTURE.md`](./FUTURE.md).
 
 Homepage may show one approved **Coming Soon — Customer Portal** mock
 ([`HOME_EXPERIENCE.md`](./HOME_EXPERIENCE.md)) — that is not portal delivery.
@@ -33,21 +35,16 @@ Homepage may show one approved **Coming Soon — Customer Portal** mock
 | Domain types | `types/` |
 | Validation | Zod modules (`z.infer` types) |
 | Business config | `config/*` |
+| Media Intelligence | `lib/media-intelligence/*`, `app/media/*` |
 | Integrations | `services/*` adapters only |
 | Auth / DB / Stripe | Seams only until approved |
-
-Presentation → domain/config → `services` interfaces. Only adapters know vendors.
-
-## Lead capture today vs later
-
-**v1:** Form → Server Action → spam checks → `services/leads` → email notifications.  
-**Later:** Same UI; swap adapter to operations/CRM API ([`FUTURE.md`](./FUTURE.md)).
 
 ## Target monorepo shape (later)
 
 ```
-apps/web | apps/ops | apps/portal
+apps/web | apps/media | apps/ops | apps/portal
 packages/ui | types | validation | auth | db | config
 ```
 
-Until approval: this repo remains a **standalone** Next.js app with clean seams.
+Until approval: this repo remains a **standalone** Next.js app with clean seams
+(marketing + internal `/media` DAMS foundation).
