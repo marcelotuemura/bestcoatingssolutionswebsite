@@ -336,6 +336,13 @@ as $$
   );
 $$;
 
+revoke all on function public.media_current_roles() from public;
+revoke all on function public.media_has_role(media_role) from public;
+revoke all on function public.media_is_staff() from public;
+grant execute on function public.media_current_roles() to authenticated;
+grant execute on function public.media_has_role(media_role) to authenticated;
+grant execute on function public.media_is_staff() to authenticated;
+
 comment on table public.media_assets is
   'Deterministic catalog metadata only. AI fields live in media_ai_analyses.';
 comment on table public.media_ai_analyses is

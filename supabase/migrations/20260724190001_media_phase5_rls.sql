@@ -29,10 +29,8 @@ create policy media_users_select on public.media_users
   );
 
 drop policy if exists media_users_update_self on public.media_users;
-create policy media_users_update_self on public.media_users
-  for update to authenticated
-  using (id = auth.uid() or public.media_has_role('owner'))
-  with check (id = auth.uid() or public.media_has_role('owner'));
+-- Direct self-update removed — use media_update_own_display_name RPC (003).
+-- Owners may still update profiles via controlled admin path after 003.
 
 drop policy if exists media_users_insert_owner on public.media_users;
 create policy media_users_insert_owner on public.media_users
@@ -49,11 +47,8 @@ create policy media_user_roles_select on public.media_user_roles
     or public.media_has_role('administrator')
   );
 
+-- Role mutations are RPC-only (media_assign_role / media_revoke_role in 003).
 drop policy if exists media_user_roles_mutate_owner on public.media_user_roles;
-create policy media_user_roles_mutate_owner on public.media_user_roles
-  for all to authenticated
-  using (public.media_has_role('owner'))
-  with check (public.media_has_role('owner'));
 
 -- ── Read policies for staff ────────────────────────────────────────────────
 drop policy if exists media_assets_select on public.media_assets;
@@ -124,7 +119,7 @@ create policy media_project_assets_write on public.media_project_assets
     or public.media_has_role('administrator')
   );
 
--- AI: viewers read; reviewers/admins write analysis resolution
+-- AI: staff read; only owner/admin may write analysis records (reviewers use RPCs).
 drop policy if exists media_ai_select on public.media_ai_analyses;
 create policy media_ai_select on public.media_ai_analyses
   for select to authenticated
@@ -136,12 +131,10 @@ create policy media_ai_write on public.media_ai_analyses
   using (
     public.media_has_role('owner')
     or public.media_has_role('administrator')
-    or public.media_has_role('reviewer')
   )
   with check (
     public.media_has_role('owner')
     or public.media_has_role('administrator')
-    or public.media_has_role('reviewer')
   );
 
 drop policy if exists media_ai_det_select on public.media_ai_detections;
@@ -155,12 +148,10 @@ create policy media_ai_det_write on public.media_ai_detections
   using (
     public.media_has_role('owner')
     or public.media_has_role('administrator')
-    or public.media_has_role('reviewer')
   )
   with check (
     public.media_has_role('owner')
     or public.media_has_role('administrator')
-    or public.media_has_role('reviewer')
   );
 
 drop policy if exists media_privacy_select on public.media_privacy_flags;
@@ -168,30 +159,21 @@ create policy media_privacy_select on public.media_privacy_flags
   for select to authenticated
   using (public.media_is_staff());
 
+-- Privacy mutations are admin write + reviewer resolve RPC (003).
 drop policy if exists media_privacy_review on public.media_privacy_flags;
-create policy media_privacy_review on public.media_privacy_flags
-  for update to authenticated
+drop policy if exists media_privacy_insert on public.media_privacy_flags;
+create policy media_privacy_write on public.media_privacy_flags
+  for all to authenticated
   using (
     public.media_has_role('owner')
     or public.media_has_role('administrator')
-    or public.media_has_role('reviewer')
   )
   with check (
     public.media_has_role('owner')
     or public.media_has_role('administrator')
-    or public.media_has_role('reviewer')
   );
 
-drop policy if exists media_privacy_insert on public.media_privacy_flags;
-create policy media_privacy_insert on public.media_privacy_flags
-  for insert to authenticated
-  with check (
-    public.media_has_role('owner')
-    or public.media_has_role('administrator')
-    or public.media_has_role('reviewer')
-  );
-
--- Duplicates: viewers read; reviewers can decide
+-- Duplicates: staff read; create/delete admin-only; decisions via RPC (003).
 drop policy if exists media_dup_select on public.media_duplicate_groups;
 create policy media_dup_select on public.media_duplicate_groups
   for select to authenticated
@@ -203,12 +185,10 @@ create policy media_dup_write on public.media_duplicate_groups
   using (
     public.media_has_role('owner')
     or public.media_has_role('administrator')
-    or public.media_has_role('reviewer')
   )
   with check (
     public.media_has_role('owner')
     or public.media_has_role('administrator')
-    or public.media_has_role('reviewer')
   );
 
 drop policy if exists media_dup_mem_select on public.media_duplicate_members;
@@ -284,9 +264,6 @@ create policy media_audit_insert on public.media_audit_events
   for insert to authenticated
   with check (public.media_is_staff());
 
--- Editors: metadata draft updates only on assets (limited columns via app)
+-- Editors MUST NOT have direct UPDATE on media_assets.
+-- Use media_editor_update_asset_metadata (003) for column-limited edits.
 drop policy if exists media_assets_editor_update on public.media_assets;
-create policy media_assets_editor_update on public.media_assets
-  for update to authenticated
-  using (public.media_has_role('editor'))
-  with check (public.media_has_role('editor'));

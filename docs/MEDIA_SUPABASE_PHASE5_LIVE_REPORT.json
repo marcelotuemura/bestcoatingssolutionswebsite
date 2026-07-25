@@ -1,0 +1,6 @@
+{
+  "status": "skipped",
+  "reason": "SKIP: Set MEDIA_SUPABASE_PHASE5_LIVE=1 to run live Supabase tests.",
+  "liveIntegrationClaimed": false,
+  "generatedAt": "2026-07-25T00:10:30.777Z"
+}

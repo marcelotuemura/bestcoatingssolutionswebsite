@@ -55,6 +55,7 @@ Migrations in `supabase/migrations/`:
 1. `20260724190000_media_phase5_schema.sql` — tables + helpers  
 2. `20260724190001_media_phase5_rls.sql` — RLS policies  
 3. `20260724190002_media_phase5_storage.sql` — private buckets  
+4. `20260724190003_media_phase5_rbac_hardening.sql` — column-limited RPCs, final-owner protection
 
 AI history: `media_ai_analyses` with `is_current` (history retained).
 
@@ -90,7 +91,18 @@ pnpm media:migrate:supabase --execute --allow-fixtures --confirm-destination <re
 # production additionally requires --confirm-production
 ```
 
+## Phase 5 correction (RBAC hardening)
+
+See [`MEDIA_SUPABASE_PHASE5_CORRECTION.md`](./MEDIA_SUPABASE_PHASE5_CORRECTION.md).
+
+- Editors: **no** direct `UPDATE` on `media_assets` — RPC only  
+- Reviewers: **no** `FOR ALL` on AI/duplicates — review RPCs only  
+- Final owner preserved via RPCs + deferred triggers  
+- Profile self-update: `display_name` only  
+- Live suite: `pnpm test:supabase:phase5` (non-production only)
+
 ## Environment
+
 
 See `.env.example`. Critical:
 

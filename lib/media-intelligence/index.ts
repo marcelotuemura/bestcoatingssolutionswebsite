@@ -39,6 +39,19 @@ export {
   type MediaPermission as MediaAccessPermission,
 } from '@/lib/media-intelligence/auth/roles';
 export * from '@/lib/media-intelligence/supabase/config';
+export {
+  EDITOR_METADATA_FIELDS,
+  EDITOR_PROTECTED_FIELDS,
+  PHASE5_RPC_CATALOG,
+  rpcEditorUpdateAssetMetadata,
+  rpcReviewResolvePrivacyFlag,
+  rpcReviewAiSuggestion,
+  rpcReviewDuplicateDecision,
+  rpcUpdateOwnDisplayName,
+  rpcAssignRole,
+  rpcRevokeRole,
+  rpcSetUserActiveState,
+} from '@/lib/media-intelligence/supabase/rpcs';
 export * from '@/lib/media-intelligence/audit/audit';
 export * from '@/lib/media-intelligence/storage/object-keys';
 export * from '@/lib/media-intelligence/migration/mapping';

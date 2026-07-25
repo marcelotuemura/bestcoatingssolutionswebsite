@@ -28,6 +28,8 @@
     "media:ingest": "node --import ./scripts/register-ts-alias.mjs --experimental-strip-types scripts/ingest-media-vault.ts",
     "media:analyze": "node --import ./scripts/register-ts-alias.mjs --experimental-strip-types scripts/analyze-media-vision.ts",
     "media:migrate:supabase": "node --import ./scripts/register-ts-alias.mjs --experimental-strip-types scripts/migrate-media-supabase.ts",
+    "test:supabase:phase5": "node --import ./scripts/register-ts-alias.mjs --experimental-strip-types scripts/test-supabase-phase5.ts",
+    "test:supabase:phase5:local": "node --import ./scripts/register-ts-alias.mjs --experimental-strip-types scripts/test-supabase-phase5-local-pg.ts",
     "prepare": "husky"
   },
   "dependencies": {
