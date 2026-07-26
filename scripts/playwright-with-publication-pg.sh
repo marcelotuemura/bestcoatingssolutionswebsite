@@ -11,6 +11,9 @@ URL="$(
 export MEDIA_PUBLICATION_DATABASE_URL="$URL"
 export DATABASE_URL="$URL"
 export MEDIA_PUBLICATION_REPOSITORY=postgres
+# Local Playwright only — durable production/staging must use supabase mode.
+export MEDIA_GALLERY_STORAGE_MODE="${MEDIA_GALLERY_STORAGE_MODE:-local}"
+export MEDIA_SUPABASE_ENV="${MEDIA_SUPABASE_ENV:-development}"
 
 echo "Using publication DB for e2e webServer" >&2
 pnpm build

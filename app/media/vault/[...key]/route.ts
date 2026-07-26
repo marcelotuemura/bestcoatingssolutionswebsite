@@ -1,6 +1,8 @@
 import { createReadStream } from 'node:fs';
 import { Readable } from 'node:stream';
 import { requireMediaVaultAccess } from '@/lib/media-intelligence/auth/vault-guard';
+import { resolveMediaTrustedActor } from '@/lib/media-intelligence/auth/session';
+import { resolveGalleryPrivateObject } from '@/lib/media-intelligence/gallery/private-delivery';
 import { getMediaRepository } from '@/lib/media-vault/factory';
 import type { ThumbnailSize, VaultObjectKind } from '@/lib/media-vault/types';
 import { THUMBNAIL_SIZES } from '@/lib/media-vault/types';
@@ -27,6 +29,7 @@ const PRIVATE_HEADERS = {
 /**
  * Authenticated private vault object stream.
  * Supports local absolutePath or ephemeral signedUrl (never persisted).
+ * Catalog vault first, then Phase 7 gallery workspace assets.
  */
 export async function GET(
   request: Request,
@@ -37,7 +40,7 @@ export async function GET(
 
   const url = new URL(request.url);
   const { key } = await context.params;
-  const assetId = key[0];
+  const assetId = decodeURIComponent(key[0] ?? '');
   const kind = key[1] as VaultObjectKind | undefined;
   const sizeRaw = key[2];
 
@@ -54,11 +57,28 @@ export async function GET(
     size = parsed as ThumbnailSize;
   }
 
-  const object = await getMediaRepository().resolvePrivateObject(
+  let object = await getMediaRepository().resolvePrivateObject(
     assetId,
     kind,
     size,
   );
+
+  if (!object) {
+    const session = await resolveMediaTrustedActor();
+    if (session.ok) {
+      try {
+        object = await resolveGalleryPrivateObject(
+          session.actor,
+          assetId,
+          kind,
+          size,
+        );
+      } catch {
+        object = null;
+      }
+    }
+  }
+
   if (!object) {
     return new Response('Not found', { status: 404 });
   }

@@ -54,3 +54,5 @@ Thumbs.db
 !/data/media-vault/manifests/.gitkeep
 /data/media-vault/reports/**
 !/data/media-vault/reports/.gitkeep
+/data/media-vault/gallery/**
+!/data/media-vault/gallery/**/.gitkeep
