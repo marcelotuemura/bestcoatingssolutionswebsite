@@ -23,7 +23,7 @@ test.describe('Phase 3 — Marine, Aviation, Services, Projects', () => {
       page.getByRole('link', { name: /Gelcoat Repair/i }).first(),
     ).toBeVisible();
     await expect(
-      page.getByRole('link', { name: 'Request Free Estimate' }).first(),
+      page.getByRole('link', { name: 'Request an Estimate' }).first(),
     ).toBeVisible();
     await expect(page.getByText(/Placeholder Image/i).first()).toBeVisible();
   });

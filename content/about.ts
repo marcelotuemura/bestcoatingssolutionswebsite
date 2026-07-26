@@ -43,7 +43,7 @@ export const aboutContentEn: AboutPageContent = {
     'Learn how Best Coatings Solutions approaches marine cosmetic repair, gelcoat, fiberglass, and refinishing across South Florida.',
   eyebrow: 'Company',
   title: 'About Best Coatings Solutions',
-  lead: 'A marine-focused coatings and cosmetic repair specialist serving South Florida — from Jupiter southward — with careful inspection, clear communication, and disciplined finish work.',
+  lead: 'A marine-focused coatings and cosmetic repair specialist serving South Florida with careful inspection, clear communication, and disciplined finish work.',
   introductionTitle: 'Company introduction',
   introduction: [
     'Best Coatings Solutions provides marine cosmetic repair, fiberglass and composite repair, gelcoat repair, paint and refinishing, and color and finish attention for vessels where conditions allow.',
@@ -77,7 +77,7 @@ export const aboutContentEn: AboutPageContent = {
     'These themes guide how we work. They are commitments to process — not absolute ranking claims.',
   serviceAreaTitle: 'Service area summary',
   serviceArea: [
-    'Primary focus: South Florida, from Jupiter southward.',
+    'Primary focus: South Florida.',
     'Free estimates are available only in the Fort Lauderdale area. Other locations may require review or travel arrangements.',
     'Listing a region does not mean BCS serves every marina or every city in South Florida.',
   ],
@@ -143,7 +143,7 @@ export const aboutContentEs: AboutPageContent = {
     'Conozca cómo Best Coatings Solutions aborda la reparación cosmética marina, gelcoat, fibra de vidrio y refinación en el Sur de la Florida.',
   eyebrow: 'Empresa',
   title: 'Acerca de Best Coatings Solutions',
-  lead: 'Especialista en recubrimientos y reparación cosmética marina que sirve al Sur de la Florida — desde Jupiter hacia el sur — con inspección cuidadosa, comunicación clara y trabajo de acabado disciplinado.',
+  lead: 'Especialista en recubrimientos y reparación cosmética marina que sirve al Sur de Florida con inspección cuidadosa, comunicación clara y trabajo de acabado disciplinado.',
   introductionTitle: 'Presentación de la empresa',
   introduction: [
     'Best Coatings Solutions ofrece reparación cosmética marina, reparación de fibra de vidrio y compuestos, reparación de gelcoat, pintura y refinación, y atención al color y al acabado en embarcaciones cuando las condiciones lo permiten.',
@@ -177,7 +177,7 @@ export const aboutContentEs: AboutPageContent = {
     'Estos temas guían cómo trabajamos. Son compromisos de proceso — no afirmaciones absolutas de ranking.',
   serviceAreaTitle: 'Resumen del área de servicio',
   serviceArea: [
-    'Enfoque principal: Sur de la Florida, desde Jupiter hacia el sur.',
+    'Enfoque principal: Sur de Florida.',
     'Los estimados gratuitos están disponibles solo en el área de Fort Lauderdale. Otras ubicaciones pueden requerir revisión o arreglos de viaje.',
     'Mencionar una región no significa que BCS atienda cada marina o cada ciudad del Sur de la Florida.',
   ],
