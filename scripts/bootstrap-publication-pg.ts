@@ -88,6 +88,11 @@ const migrations = [
   'supabase/migrations/20260725210001_media_phase6_publications_rls.sql',
   'supabase/migrations/20260725220000_media_phase6_publication_authority.sql',
   'supabase/migrations/20260725220001_media_phase6_publication_rpcs.sql',
+  'supabase/migrations/20260726020000_media_phase7_gallery_schema.sql',
+  'supabase/migrations/20260726020001_media_phase7_gallery_rls.sql',
+  'supabase/migrations/20260726020002_media_phase7_gallery_authority.sql',
+  'supabase/migrations/20260726020003_media_phase7_gallery_rpcs.sql',
+  'supabase/migrations/20260726020004_media_phase7_gallery_corrections.sql',
 ];
 
 run('sudo', ['-u', 'postgres', 'psql', '-c', `drop database if exists ${DB}`]);
@@ -115,6 +120,17 @@ grant select on public.media_publication_jobs to authenticated;
 grant select on public.media_publication_drafts to authenticated;
 grant select on public.media_publication_events to authenticated;
 grant select on public.media_publication_approvals to authenticated;
+-- Phase 7 gallery tables
+revoke insert, update, delete on public.media_workspace_members from anon, authenticated;
+revoke insert, update, delete on public.media_collections from anon, authenticated;
+revoke insert, update, delete on public.media_collection_assets from anon, authenticated;
+revoke insert, update, delete on public.media_favorites from anon, authenticated;
+revoke insert, update, delete on public.media_gallery_events from anon, authenticated;
+grant select on public.media_workspace_members to authenticated;
+grant select on public.media_collections to authenticated;
+grant select on public.media_collection_assets to authenticated;
+grant select on public.media_favorites to authenticated;
+grant select on public.media_gallery_events to authenticated;
 `);
 
 psql(`

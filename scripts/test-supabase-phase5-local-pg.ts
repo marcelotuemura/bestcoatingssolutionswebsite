@@ -150,6 +150,11 @@ alter table storage.objects enable row level security;
     'supabase/migrations/20260725210001_media_phase6_publications_rls.sql',
     'supabase/migrations/20260725220000_media_phase6_publication_authority.sql',
     'supabase/migrations/20260725220001_media_phase6_publication_rpcs.sql',
+    'supabase/migrations/20260726020000_media_phase7_gallery_schema.sql',
+    'supabase/migrations/20260726020001_media_phase7_gallery_rls.sql',
+    'supabase/migrations/20260726020002_media_phase7_gallery_authority.sql',
+    'supabase/migrations/20260726020003_media_phase7_gallery_rpcs.sql',
+    'supabase/migrations/20260726020004_media_phase7_gallery_corrections.sql',
   ];
 
   for (const rel of migrations) {
@@ -203,11 +208,28 @@ alter table public.media_publication_jobs force row level security;
 alter table public.media_publication_drafts force row level security;
 alter table public.media_publication_events force row level security;
 alter table public.media_publication_approvals force row level security;
+-- Re-assert Phase 7 gallery privilege posture.
+revoke insert, update, delete on public.media_workspace_members from public, anon, authenticated;
+revoke insert, update, delete on public.media_collections from public, anon, authenticated;
+revoke insert, update, delete on public.media_collection_assets from public, anon, authenticated;
+revoke insert, update, delete on public.media_favorites from public, anon, authenticated;
+revoke insert, update, delete on public.media_gallery_events from public, anon, authenticated;
+grant select on public.media_workspace_members to authenticated;
+grant select on public.media_collections to authenticated;
+grant select on public.media_collection_assets to authenticated;
+grant select on public.media_favorites to authenticated;
+grant select on public.media_gallery_events to authenticated;
+alter table public.media_workspace_members force row level security;
+alter table public.media_collections force row level security;
+alter table public.media_collection_assets force row level security;
+alter table public.media_favorites force row level security;
+alter table public.media_gallery_events force row level security;
 `);
 
   const testFiles = [
     path.join(ROOT, 'supabase/tests/phase5_rbac_local.sql'),
     path.join(ROOT, 'supabase/tests/phase6_publications_rls_local.sql'),
+    path.join(ROOT, 'supabase/tests/phase7_gallery_rls_local.sql'),
   ];
   const passes: string[] = [];
   for (const testFile of testFiles) {
@@ -239,11 +261,13 @@ alter table public.media_publication_approvals force row level security;
     passes,
     ok:
       passes.includes('all_local_rbac_assertions') &&
-      passes.includes('all_phase6_publication_rls_assertions'),
+      passes.includes('all_phase6_publication_rls_assertions') &&
+      passes.includes('all_phase7_gallery_rls_assertions'),
     notes: [
       'Local Postgres with stub auth.uid()/storage — not a live Supabase project.',
       'Auth session, signed URLs, and hosted Storage behavior still require pnpm test:supabase:phase5.',
       'Phase 6 publication RLS assertions included; live provider delivery not claimed.',
+      'Phase 7 gallery RLS assertions included; hosted Storage behavior not claimed.',
     ],
   };
 
