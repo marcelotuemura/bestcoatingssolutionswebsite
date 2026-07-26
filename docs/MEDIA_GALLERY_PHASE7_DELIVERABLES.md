@@ -82,7 +82,7 @@ Training Corpus remains postponed to Phase 8. PR #27 was not merged; corpus migr
 | `pnpm typecheck` | PASS |
 | `pnpm lint` | PASS (0 errors) |
 | `pnpm test` | PASS — 240 |
-| `pnpm test:e2e` | pending re-run after durable-storage correction |
+| `pnpm test:e2e` | PASS — 118 |
 | `pnpm test:supabase:phase7:local` | PASS — failed: 0 (includes durable-storage migration + new assertions) |
 | `pnpm test:supabase:phase5` (hosted) | BLOCKED — staging credentials / Supabase MCP auth unavailable |
 | `pnpm test:supabase:phase6` (hosted) | BLOCKED — staging credentials / Supabase MCP auth unavailable |
