@@ -8,6 +8,7 @@ import {
   useState,
   type KeyboardEvent as ReactKeyboardEvent,
 } from 'react';
+import { createPortal } from 'react-dom';
 import { ButtonLink } from '@/components/ui/ButtonLink';
 import { NavLink } from '@/components/layout/NavLink';
 import { primaryNav, routes, type RouteKey } from '@/config/routes';
@@ -41,12 +42,17 @@ function getFocusableElements(container: HTMLElement): HTMLElement[] {
 
 export function MobileNav({ locale, dictionary }: MobileNavProps) {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const panelId = useId();
   const triggerRef = useRef<HTMLButtonElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const wasOpenRef = useRef(false);
   useLockedBody(open);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const closeMenu = useCallback(() => {
     setOpen(false);
@@ -142,84 +148,87 @@ export function MobileNav({ locale, dictionary }: MobileNavProps) {
         </span>
       </button>
 
-      {open ? (
-        <div
-          className="fixed inset-0 z-50 lg:hidden"
-          data-testid="mobile-nav-panel"
-        >
-          <button
-            type="button"
-            className="bg-bg-primary/80 absolute inset-0"
-            aria-label={dictionary.a11y.closeMenu}
-            tabIndex={-1}
-            onClick={closeMenu}
-          />
-
-          <div
-            ref={panelRef}
-            id={panelId}
-            role="dialog"
-            aria-modal="true"
-            aria-label={dictionary.a11y.mobileNav}
-            className="border-border bg-bg-primary absolute top-0 right-0 flex h-full w-[min(100%,20rem)] flex-col border-l shadow-2xl"
-            onKeyDown={onPanelKeyDown}
-          >
-            <div className="border-border flex items-center justify-between border-b px-4 py-3">
-              <p className="text-text-primary text-sm font-medium">
-                Best Coatings Solutions
-              </p>
+      {mounted && open
+        ? createPortal(
+            <div
+              className="fixed inset-0 z-50 lg:hidden"
+              data-testid="mobile-nav-panel"
+            >
               <button
-                ref={closeRef}
                 type="button"
-                className="text-text-primary hover:bg-surface focus-visible:ring-focus-ring inline-flex min-h-11 min-w-11 items-center justify-center rounded-[var(--radius-control)] focus-visible:ring-2 focus-visible:outline-none"
-                data-testid="mobile-nav-close"
+                className="bg-bg-primary/80 absolute inset-0"
+                aria-label={dictionary.a11y.closeMenu}
+                tabIndex={-1}
                 onClick={closeMenu}
-              >
-                <span className="sr-only">{dictionary.a11y.closeMenu}</span>
-                <span aria-hidden className="text-2xl leading-none">
-                  ×
-                </span>
-              </button>
-            </div>
+              />
 
-            <nav className="flex-1 overflow-y-auto px-3 py-4">
-              <ul className="flex flex-col gap-1">
-                {primaryNav.map((key) => {
-                  const href = localePath(locale, routes[key].path);
-                  return (
-                    <li key={key}>
-                      <NavLink
-                        href={href}
-                        exact={key === 'home'}
-                        onClick={closeMenu}
-                        className="w-full justify-start text-base"
-                      >
-                        {navLabel(dictionary, key)}
-                      </NavLink>
-                    </li>
-                  );
-                })}
-              </ul>
-            </nav>
+              <div
+                ref={panelRef}
+                id={panelId}
+                role="dialog"
+                aria-modal="true"
+                aria-label={dictionary.a11y.mobileNav}
+                className="border-border bg-bg-primary absolute top-0 right-0 flex h-full w-[min(100%,20rem)] flex-col border-l shadow-2xl"
+                onKeyDown={onPanelKeyDown}
+              >
+                <div className="border-border flex items-center justify-between border-b px-4 py-3">
+                  <p className="text-text-primary text-sm font-medium">
+                    Best Coatings Solutions
+                  </p>
+                  <button
+                    ref={closeRef}
+                    type="button"
+                    className="text-text-primary hover:bg-surface focus-visible:ring-focus-ring inline-flex min-h-11 min-w-11 items-center justify-center rounded-[var(--radius-control)] focus-visible:ring-2 focus-visible:outline-none"
+                    data-testid="mobile-nav-close"
+                    onClick={closeMenu}
+                  >
+                    <span className="sr-only">{dictionary.a11y.closeMenu}</span>
+                    <span aria-hidden className="text-2xl leading-none">
+                      ×
+                    </span>
+                  </button>
+                </div>
 
-            <div className="border-border flex flex-col gap-2 border-t p-4">
-              <ButtonLink
-                href={localePath(locale, routes.estimateRequest.path)}
-                onClick={closeMenu}
-              >
-                {dictionary.cta.estimate}
-              </ButtonLink>
-              <ButtonLink
-                href={localePath(locale, routes.contact.path)}
-                variant="secondary"
-                onClick={closeMenu}
-              >
-                {dictionary.cta.contactUs}
-              </ButtonLink>
-            </div>
-          </div>
-        </div>
-      ) : null}
+                <nav className="flex-1 overflow-y-auto px-3 py-4">
+                  <ul className="flex flex-col gap-1">
+                    {primaryNav.map((key) => {
+                      const href = localePath(locale, routes[key].path);
+                      return (
+                        <li key={key}>
+                          <NavLink
+                            href={href}
+                            exact={key === 'home'}
+                            onClick={closeMenu}
+                            className="w-full justify-start text-base"
+                          >
+                            {navLabel(dictionary, key)}
+                          </NavLink>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </nav>
+
+                <div className="border-border flex flex-col gap-2 border-t p-4">
+                  <ButtonLink
+                    href={localePath(locale, routes.estimateRequest.path)}
+                    onClick={closeMenu}
+                  >
+                    {dictionary.cta.estimate}
+                  </ButtonLink>
+                  <ButtonLink
+                    href={localePath(locale, routes.contact.path)}
+                    variant="secondary"
+                    onClick={closeMenu}
+                  >
+                    {dictionary.cta.contactUs}
+                  </ButtonLink>
+                </div>
+              </div>
+            </div>,
+            document.body,
+          )
+        : null}
     </div>
   );
 }

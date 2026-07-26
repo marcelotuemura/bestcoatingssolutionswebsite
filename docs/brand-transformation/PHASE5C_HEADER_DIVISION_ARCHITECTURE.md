@@ -12,7 +12,7 @@
 
 1. Merged Phase 5B into `main`.  
 2. Primary nav → **Home · About · Marine · Aviation · Projects · Contact**.  
-3. Quiet sticky header, no tagline, language + Estimate CTA, accessible mobile nav with focus trap.  
+3. Quiet sticky header, no tagline, language + Estimate CTA, accessible mobile nav with focus trap (panel portaled to `document.body` so sticky `backdrop-blur` does not clip the overlay).  
 4. Active nav states (`aria-current`, `data-active`).  
 5. Aviation **visible and active** — Coming Soon removed; carefully scoped cosmetic refinishing copy; Contact CTA (not marine estimate booking).  
 6. Footer slimmed: brand blurb, contact, explore links (Marine/Aviation/Projects/About/Contact/Estimate/legal), languages.  

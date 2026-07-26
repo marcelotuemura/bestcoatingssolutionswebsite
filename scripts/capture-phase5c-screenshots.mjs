@@ -123,7 +123,8 @@ for (const width of [1280, 1024, 768, 390]) {
     state: 'visible',
   });
   await shot(page, 'mobile-header-open-390');
-  await shot(page, 'mobile-nav-drawer-390', dialog);
+  // Panel is fixed inset-0; dialog content box can collapse in some engines.
+  await shot(page, 'mobile-nav-drawer-390', panel);
   await page.getByTestId('mobile-nav-close').click();
   await page.goto(`${base}/en/aviation`, { waitUntil: 'networkidle' });
   await page.getByTestId('site-footer').scrollIntoViewIfNeeded();
