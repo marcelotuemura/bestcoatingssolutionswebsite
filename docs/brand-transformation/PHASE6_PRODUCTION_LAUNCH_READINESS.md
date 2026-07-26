@@ -92,4 +92,4 @@ An earlier engineering branch `cursor/phase-6-production-launch-readiness-5ec4` 
 ## Owner decision
 
 **Phase 6 approved (conditional Go/No-Go).**  
-`v1.0.0` remains Release Candidate until logo, photography, Privacy, Terms, live form delivery, and manufacturer spelling are cleared — then Launch Acceptance Review → tag.
+`v1.0.0` remains Release Candidate until logo, photography, Privacy, Terms, and live form delivery are cleared — then Launch Acceptance Review → tag. Manufacturer spelling resolved: **Shaefer**.
