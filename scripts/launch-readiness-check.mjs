@@ -1,6 +1,6 @@
 /**
  * Phase 6 — Launch readiness scanner (non-blocking inventory).
- * Prints blocker status for logo, placeholders, legal provisional markers.
+ * Prints blocker status for logo, legal, form delivery wiring, photography deferral.
  *
  *   node scripts/launch-readiness-check.mjs
  */
@@ -12,14 +12,19 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const brandDir = path.join(root, 'public', 'brand');
 
 const officialCandidates = [
-  'bcs-logo-official.svg',
   'bcs-logo-official.webp',
+  'bcs-logo-official.svg',
   'bcs-logo-official.png',
 ];
 
+const preferredOfficial = 'bcs-logo-official.webp';
 const officialPresent = officialCandidates.some((f) =>
   existsSync(path.join(brandDir, f)),
 );
+const preferredOfficialPresent = existsSync(
+  path.join(brandDir, preferredOfficial),
+);
+const headerPresent = existsSync(path.join(brandDir, 'bcs-logo-header.webp'));
 
 const privacyEn = readFileSync(
   path.join(root, 'i18n/dictionaries/conversion-en.ts'),
@@ -27,7 +32,30 @@ const privacyEn = readFileSync(
 );
 const privacyProvisional =
   /Requires owner \/ legal review before production/.test(privacyEn);
-const demoThankYou = /demonstration mode/.test(privacyEn);
+const demoThankYou = /demonstration mode/i.test(privacyEn);
+const hasFormConsent = /formConsent/.test(privacyEn);
+const hasLastUpdated = /lastUpdatedLabel/.test(privacyEn);
+
+const processSubmission = readFileSync(
+  path.join(root, 'lib/submissions/process-submission.ts'),
+  'utf8',
+);
+const mailer = readFileSync(
+  path.join(root, 'lib/submissions/mailer.ts'),
+  'utf8',
+);
+const deliveryWired =
+  processSubmission.includes('sendInternalNotification') &&
+  mailer.includes('Resend') &&
+  existsSync(path.join(root, 'app/actions/submit-contact.ts')) &&
+  existsSync(path.join(root, 'app/actions/submit-estimate.ts'));
+
+const matrix = readFileSync(
+  path.join(root, 'docs/brand-transformation/LAUNCH_READINESS_MATRIX.md'),
+  'utf8',
+);
+const photographyDeferred =
+  /Deferred by owner approval — pending approved assets/i.test(matrix);
 
 const about = readFileSync(path.join(root, 'content/about.ts'), 'utf8');
 const hasConfirmedShaefer = /\bShaefer\b/.test(about);
@@ -42,24 +70,45 @@ const rows = [
     ok: officialPresent,
     blocker: true,
     note: officialPresent
-      ? 'Official logo file present'
-      : 'Missing public/brand/bcs-logo-official.{svg|webp|png}',
+      ? preferredOfficialPresent
+        ? headerPresent
+          ? 'Preferred bcs-logo-official.webp + header.webp present'
+          : 'Preferred bcs-logo-official.webp present'
+        : 'Official logo file present (prefer bcs-logo-official.webp)'
+      : 'Missing public/brand/bcs-logo-official.{webp|svg|png}',
   },
   {
-    id: 'privacy-terms-provisional',
-    ok: !privacyProvisional,
+    id: 'privacy-terms-production',
+    ok: !privacyProvisional && hasFormConsent && hasLastUpdated,
     blocker: true,
-    note: privacyProvisional
-      ? 'Privacy/Terms still marked for owner/legal review'
-      : 'Provisional review badge text cleared',
+    note:
+      !privacyProvisional && hasFormConsent && hasLastUpdated
+        ? 'Privacy/Terms production copy present (no provisional review badge)'
+        : 'Privacy/Terms still provisional or missing consent/last-updated keys',
   },
   {
     id: 'form-delivery-demo-copy',
     ok: !demoThankYou,
     blocker: true,
     note: demoThankYou
-      ? 'Thank-you copy still mentions demonstration mode'
-      : 'Thank-you copy no longer demonstration-only',
+      ? 'Thank-you/form copy still mentions demonstration mode'
+      : 'Demonstration-mode thank-you copy cleared',
+  },
+  {
+    id: 'form-delivery-wiring',
+    ok: deliveryWired,
+    blocker: true,
+    note: deliveryWired
+      ? 'Server Actions + Resend mailer wired (confirm Production env + domain separately)'
+      : 'Missing Resend/Server Action delivery wiring',
+  },
+  {
+    id: 'photography-deferred',
+    ok: photographyDeferred,
+    blocker: false,
+    note: photographyDeferred
+      ? 'Authentic photography recorded as owner-approved deferral (not a technical blocker)'
+      : 'Matrix missing photography deferral decision language',
   },
   {
     id: 'manufacturer-shaefer-spelling',
@@ -81,6 +130,6 @@ for (const row of rows) {
 }
 
 out(
-  `\nBlockers open: ${blockers}. See docs/brand-transformation/LAUNCH_READINESS_MATRIX.md`,
+  `\nBlockers open: ${blockers}. Production Resend domain/env verification is an ops gate — see docs/FORM_DELIVERY.md and LAUNCH_READINESS_MATRIX.md`,
 );
 process.exitCode = 0; // inventory only — never fail CI until owner flips gate

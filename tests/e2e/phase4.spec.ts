@@ -197,11 +197,31 @@ test.describe('Phase 4 — Schedule, legal, thank you, 404', () => {
     ]) {
       await page.goto(path);
       await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1);
+      await expect(page.getByTestId('legal-last-updated')).toBeVisible();
+      await expect(
+        page.getByText(/Requires owner \/ legal review/i),
+      ).toHaveCount(0);
       const res = await request.get(path);
       const html = await res.text();
       expect(html).toMatch(/rel=["']canonical["']/i);
       expect(html).toMatch(/og:title/i);
     }
+  });
+
+  test('footer legal links and form consent links', async ({ page }) => {
+    await page.goto('/en/contact');
+    await expect(page.getByTestId('footer-legal-links')).toBeVisible();
+    await expect(page.getByTestId('footer-privacy-link')).toBeVisible();
+    await expect(page.getByTestId('footer-terms-link')).toBeVisible();
+    await expect(page.getByTestId('form-legal-consent')).toBeVisible();
+    await expect(page.getByTestId('form-consent-privacy')).toHaveAttribute(
+      'href',
+      '/en/privacy',
+    );
+    await expect(page.getByTestId('form-consent-terms')).toHaveAttribute(
+      'href',
+      '/en/terms',
+    );
   });
 
   test('thank you fallback is safe without type', async ({ page }) => {

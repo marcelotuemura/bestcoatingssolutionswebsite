@@ -30,6 +30,8 @@ export function createContactSchema(messages: {
     consent: z.boolean().refine((value) => value === true, {
       message: messages.consent,
     }),
+    /** Honeypot — must stay empty; enforced in server submission processor. */
+    companyUrl: z.string().max(500).optional().or(z.literal('')),
   });
 }
 

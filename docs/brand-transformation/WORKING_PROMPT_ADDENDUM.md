@@ -45,14 +45,11 @@ Final human gate: **`LAUNCH_ACCEPTANCE_REVIEW.md`**.
 
 ## v1.0.0 blockers (must clear)
 
-1. Official production logo installed  
-2. Authentic Marine photography  
-3. Authentic Aviation photography  
-4. Approved Marcelo portrait  
-5. Privacy Policy finalized (legal)  
-6. Terms of Service finalized (legal)  
-7. Live contact/estimate delivery verified  
-8. ~~Manufacturer spelling confirmed~~ → **Shaefer** (owner-confirmed)  
+1. ~~Official production logo installed~~ → `bcs-logo-official.webp` + header assets  
+2. ~~Authentic Marine / Aviation / Marcelo photography~~ → **Deferred by owner approval — pending approved assets** (post-content; not a technical RC blocker)  
+3. ~~Privacy Policy + Terms of Use production pages~~ → `/privacy` · `/terms` (mailing-address placeholder remains)  
+4. Live contact/estimate delivery **verified in Production** (Resend domain + env vars + smoke) — code wired; ops confirmation pending  
+5. ~~Manufacturer spelling confirmed~~ → **Shaefer** (owner-confirmed)  
 
 ---
 

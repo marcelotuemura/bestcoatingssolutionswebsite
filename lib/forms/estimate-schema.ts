@@ -118,7 +118,13 @@ export function createFullEstimateSchema(messages: {
     .merge(createEstimateVesselSchema(messages))
     .merge(createEstimateServiceSchema(messages))
     .merge(createEstimateDamageSchema(messages))
-    .merge(createEstimateConsentSchema(messages));
+    .merge(createEstimateConsentSchema(messages))
+    .merge(
+      z.object({
+        /** Honeypot — must stay empty; enforced in server submission processor. */
+        companyUrl: z.string().max(500).optional().or(z.literal('')),
+      }),
+    );
 }
 
 export type EstimateFormValues = z.infer<

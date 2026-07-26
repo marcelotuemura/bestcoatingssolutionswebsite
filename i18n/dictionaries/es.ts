@@ -40,8 +40,8 @@ export const es = {
     estimateRequest: 'Solicitar estimado',
     thankYou: 'Gracias',
     contact: 'Contacto',
-    privacy: 'Privacidad',
-    terms: 'Términos',
+    privacy: 'Política de privacidad',
+    terms: 'Términos de uso',
     accessibility: 'Accesibilidad',
     process: 'Proceso',
     gallery: 'Galería',
@@ -79,6 +79,7 @@ export const es = {
     serviceArea: 'Área de servicio',
     contact: 'Contacto',
     explore: 'Explorar',
+    legal: 'Legal',
     brandBlurb:
       'Best Coatings Solutions es una empresa de refinación premium con divisiones especializadas de Marina y Aviación — preparación cuidadosa, alcance honesto y acabados que se notan en el Sur de Florida.',
     estimateNotice:

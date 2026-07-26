@@ -9,7 +9,7 @@
 ## Agenda
 
 1. Review the Launch Readiness Matrix — confirm every row is ✅ or explicitly accepted.  
-2. Confirm all Phase 6 blockers are cleared (logo, photography, Privacy, Terms, form delivery, manufacturer spelling).  
+2. Confirm all Phase 6 blockers are cleared (logo, Privacy, Terms, form delivery ops verification, manufacturer spelling). Photography is **deferred by owner approval — pending approved assets** (not a technical blocker).  
 3. Review the live production URL (or production preview identical to release).  
 4. Test the contact flow end-to-end (submit → confirmation → notification → failure path).  
 5. Test the estimate flow end-to-end (marine only; aviation routes to Contact).  

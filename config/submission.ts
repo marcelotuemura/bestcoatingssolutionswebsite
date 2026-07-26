@@ -1,15 +1,10 @@
 /**
- * Temporary submission messaging until a production delivery provider is wired.
- * Replace these strings (and adapters) before public launch.
+ * Public form submission messaging flags.
+ * Delivery is handled by Server Actions + Resend (see docs/FORM_DELIVERY.md).
  */
 export const submissionMessaging = {
-  /**
-   * PRODUCTION BLOCKER: Real email/CRM delivery is not configured.
-   * Mock adapters only simulate success — never claim BCS received a message.
-   */
-  demoSuccessNotice:
-    'Your request has been prepared successfully. Direct delivery will be enabled before production launch.',
-  demoModeFlag: true,
+  /** True only when FORM_DELIVERY_MODE=mock (test harness). */
+  demoModeFlag: false,
   simulateFailureHeader: 'x-bcs-simulate-failure',
 } as const;
 

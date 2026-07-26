@@ -9,15 +9,25 @@ export const conversionEs: DictionaryShape<ConversionCopy> = {
     next: 'Continuar',
     back: 'Atrás',
     submit: 'Enviar solicitud',
-    submitting: 'Preparando solicitud…',
+    submitting: 'Enviando solicitud…',
     errorSummary: 'Corrija lo siguiente:',
-    demoBanner:
-      'Modo demostración: las solicitudes se preparan localmente hasta configurar la entrega en producción.',
-    demoSuccess:
-      'Su solicitud se preparó correctamente. La entrega directa se habilitará antes del lanzamiento.',
-    demoFailure:
-      'No pudimos preparar su solicitud. Su información sigue aquí — intente de nuevo.',
+    submitSuccess:
+      'Su solicitud se envió correctamente. Best Coatings Solutions dará seguimiento con su método de contacto preferido cuando esté disponible.',
+    submitFailure:
+      'No pudimos enviar su solicitud en este momento. Su información sigue aquí — intente de nuevo o llámenos.',
+    configError:
+      'No pudimos enviar su solicitud porque la entrega no está disponible temporalmente. Llame a Best Coatings Solutions o intente más tarde.',
+    rateLimited:
+      'Se enviaron demasiadas solicitudes recientemente. Espere unos minutos e intente de nuevo, o llámenos.',
     retry: 'Reintentar',
+  },
+  formConsent: {
+    before:
+      'Al enviar este formulario, usted acepta que Best Coatings Solutions pueda contactarlo sobre su solicitud. Consulte nuestra',
+    privacy: 'Política de privacidad',
+    and: ' y los ',
+    terms: 'Términos de uso',
+    after: '.',
   },
   validation: {
     required: 'Este campo es obligatorio.',
@@ -168,7 +178,7 @@ export const conversionEs: DictionaryShape<ConversionCopy> = {
     urgencyHint:
       'Las preferencias de tiempo ayudan a planificar. No prometemos tiempos de respuesta de emergencia en este sitio.',
     photosHint:
-      'Seleccione hasta {max} fotos (JPEG, PNG, WebP, HEIC). Máx. {size} MB cada una. En esta demostración las fotos no se suben ni se almacenan.',
+      'Seleccione hasta {max} fotos (JPEG, PNG, WebP, HEIC). Máx. {size} MB cada una. En esta versión las fotos permanecen en su dispositivo — el sitio no las sube ni las almacena.',
     photosSelected: '{count} foto(s) seleccionada(s)',
     photosRemove: 'Eliminar {name}',
     reviewTitle: 'Revise su solicitud',
@@ -213,134 +223,156 @@ export const conversionEs: DictionaryShape<ConversionCopy> = {
     metaTitle: 'Gracias | Best Coatings Solutions',
     metaDescription:
       'Gracias por contactar a Best Coatings Solutions. Revise los siguientes pasos para solicitudes marinas.',
-    contactTitle: 'Mensaje preparado',
-    estimateTitle: 'Solicitud de estimado preparada',
+    contactTitle: 'Mensaje recibido',
+    estimateTitle: 'Solicitud de estimado recibida',
     fallbackTitle: 'Gracias',
     contactBody:
-      'Su mensaje de contacto se preparó en modo demostración. La entrega directa se habilitará antes del lanzamiento.',
+      'Gracias. Su mensaje de contacto se envió a Best Coatings Solutions. Daremos seguimiento con su método de contacto preferido cuando esté disponible.',
     estimateBody:
-      'Su solicitud de estimado marino se preparó en modo demostración. La entrega directa se habilitará antes del lanzamiento.',
+      'Gracias. Su solicitud de estimado marino se envió a Best Coatings Solutions. Revisaremos los detalles y daremos seguimiento cuando esté disponible.',
     fallbackBody:
-      'Si acaba de enviar un formulario, su solicitud se preparó para entrega futura. Para ayuda ahora, llame a Best Coatings Solutions o vuelva a Contacto.',
+      'Si acaba de enviar un formulario, su solicitud se envió para revisión. Para ayuda ahora, llame a Best Coatings Solutions o vuelva a Contacto.',
     nextTitle: 'Qué sigue',
     nextSteps: [
-      'Cuando la entrega en producción esté activa, BCS revisará las solicitudes entrantes.',
+      'Best Coatings Solutions revisa las solicitudes entrantes.',
       'El seguimiento usa su método de contacto preferido cuando esté disponible.',
-      'Una inspección se discute solo cuando corresponde — el formulario solo no confirma nada.',
+      'Una inspección o discusión de estimado ocurre solo cuando corresponde — el formulario solo no confirma nada.',
     ],
     noFixedTime: 'No prometemos un tiempo de respuesta fijo en este sitio.',
   },
   privacy: {
     metaTitle: 'Política de privacidad | Best Coatings Solutions',
     metaDescription:
-      'Información de privacidad del sitio de Best Coatings Solutions, formularios de contacto y solicitudes de estimado marino.',
+      'Política de privacidad del sitio de Best Coatings Solutions, formularios de contacto y solicitudes de estimado marino.',
     title: 'Política de privacidad',
-    lead: 'Cómo describimos la información que puede compartir en este sitio. Se requiere revisión del propietario y legal antes del lanzamiento.',
-    reviewBadge:
-      'Requiere revisión del propietario / legal antes de producción',
+    lead: 'Esta Política de privacidad explica cómo Best Coatings Solutions trata la información enviada a través de este sitio web.',
+    lastUpdatedLabel: 'Última actualización',
     sections: [
       {
-        title: 'Información que puede proporcionar',
-        body: 'Datos de contacto, información de la embarcación, descripciones de daño, preferencias y fotos opcionales seleccionadas en formularios.',
+        title: 'Operador del sitio',
+        body: 'Best Coatings Solutions opera este sitio web. La entidad legal referida en avisos del sitio es Best Coatings Solutions LLC. Operamos en Florida, Estados Unidos. No se publica una dirección física en este sitio. [Owner to provide mailing address if a postal address is required.]',
       },
       {
-        title: 'Contacto y solicitudes de estimado',
-        body: 'Se usan para responder consultas y evaluar proyectos marinos. Los formularios no crean contratos ni citas.',
+        title: 'Información que puede enviar',
+        body: 'Mediante los formularios de contacto y estimado puede proporcionar nombre, correo, teléfono, método de contacto preferido, tipo de consulta, contenido del mensaje, detalles de embarcación o aeronave cuando se incluyan, descripciones del proyecto o daño, preferencias de servicio y reconocimientos relacionados. El formulario de estimado también permite seleccionar fotos localmente para su propia revisión; en esta versión los archivos de fotos no se cargan ni se almacenan en el sitio. Los nombres de archivo o cantidades pueden mencionarse en notificaciones internas si selecciona fotos.',
       },
       {
-        title: 'Fotos e información de la embarcación',
-        body: 'La selección de fotos en el estimado es solo del lado del cliente en esta demostración. Aún no hay almacenamiento en la nube.',
+        title: 'Información técnica',
+        body: 'Como la mayoría de los sitios, la infraestructura de hosting puede procesar registros técnicos básicos como dirección IP, tipo de navegador, ruta de solicitud y marcas de tiempo para operar y proteger el sitio. No operamos un banner separado de cookies de marketing. Este sitio usa Vercel Analytics para información agregada de tráfico; no se usa para crear perfiles publicitarios en este sitio, y no instalamos píxeles de marketing de terceros ni rastreadores publicitarios en la experiencia pública.',
       },
       {
-        title: 'Uso previsto',
-        body: 'Para comunicarnos sobre servicios marinos y seguimiento relacionado. No vendemos información personal.',
+        title: 'Finalidad de la recopilación',
+        body: 'Usamos la información enviada para responder consultas, preparar evaluaciones de estimado, programar o discutir comunicaciones de servicio cuando corresponda, mejorar la confiabilidad y seguridad del sitio, y operar la comunicación cotidiana relacionada con su solicitud.',
+      },
+      {
+        title: 'Proveedores de servicios',
+        body: 'Usamos proveedores para alojar el sitio y entregar correo transaccional, incluidos Vercel (hosting / despliegue) y Resend (entrega de correo para notificaciones de formularios). Estos proveedores procesan información solo según sea necesario para prestar sus servicios. No vendemos su información personal.',
       },
       {
         title: 'Retención de datos',
-        body: 'Los períodos de retención se definirán con el propietario y asesoría legal antes de producción. Provisional — no finalizado.',
+        body: 'Conservamos información de consultas y solicitudes de estimado durante el tiempo razonablemente necesario para responder, evaluar proyectos, mantener registros comerciales y cumplir obligaciones legales o de seguridad. Los períodos pueden variar según el tipo de solicitud. Puede contactarnos para preguntar sobre información que envió.',
       },
       {
-        title: 'Servicios de terceros',
-        body: 'Futuros proveedores de correo, hosting, analítica o CRM pueden procesar datos. No están activados para entrega de formularios en esta fase.',
+        title: 'Seguridad de los datos',
+        body: 'Usamos medidas administrativas y técnicas razonables según la naturaleza de la información, incluido HTTPS, validación en el servidor y herramientas de entrega con acceso limitado. Ningún método de transmisión o almacenamiento es completamente seguro, y no podemos garantizar seguridad absoluta.',
       },
       {
-        title: 'Limitaciones de seguridad',
-        body: 'Ningún sitio garantiza seguridad absoluta. La producción añadirá validación en servidor, límites de tasa y manejo seguro.',
-      },
-      {
-        title: 'Sus opciones',
-        body: 'Puede contactarnos para actualizar o discutir información que proporcionó. Teléfono y correo están en Contacto.',
+        title: 'Solicitudes de privacidad',
+        body: 'Para preguntas de privacidad, solicitar una actualización o discutir información enviada, contacte a Best Coatings Solutions con el teléfono o correo publicados en Contacto (info@bestcoatingssolutions.com / 305-747-8352).',
       },
       {
         title: 'Privacidad de menores',
-        body: 'Este sitio no está dirigido a menores de 13 años. No recopilamos conscientemente su información.',
+        body: 'Este sitio no está dirigido a menores de 13 años y no recopilamos conscientemente su información personal. Si cree que un menor envió información, contáctenos para eliminarla.',
       },
       {
-        title: 'Actualizaciones de la política',
-        body: 'Podemos actualizar esta página. La versión publicada en este sitio es la declaración vigente.',
+        title: 'Enlaces de terceros',
+        body: 'Este sitio puede enlazar a sitios de terceros. No somos responsables de sus prácticas de privacidad ni de su contenido. Revise sus políticas antes de proporcionar información.',
+      },
+      {
+        title: 'Cambios a la política',
+        body: 'Podemos actualizar esta Política de privacidad. La fecha de “Última actualización” refleja la versión vigente. El uso continuo del sitio después de cambios implica revisar la política publicada.',
       },
       {
         title: 'Contacto',
-        body: 'Preguntas de privacidad pueden enviarse por Contacto o por el teléfono publicado en este sitio.',
+        body: 'Preguntas de privacidad: Best Coatings Solutions — correo info@bestcoatingssolutions.com, teléfono 305-747-8352, o use Contacto. Contexto de ubicación: Florida, Estados Unidos. [Owner to provide mailing address if a postal address is required.]',
       },
     ],
   },
   terms: {
-    metaTitle: 'Términos y condiciones | Best Coatings Solutions',
+    metaTitle: 'Términos de uso | Best Coatings Solutions',
     metaDescription:
-      'Términos del sitio de Best Coatings Solutions, incluidas limitaciones de solicitudes de estimado y uso aceptable.',
-    title: 'Términos y condiciones',
-    lead: 'Términos para usar este sitio. Se requiere revisión del propietario y legal antes del lanzamiento.',
-    reviewBadge:
-      'Requiere revisión del propietario / legal antes de producción',
+      'Términos de uso del sitio de Best Coatings Solutions, incluidas limitaciones de solicitudes de estimado y uso aceptable.',
+    title: 'Términos de uso',
+    lead: 'Estos Términos de uso rigen el acceso y uso del sitio web de Best Coatings Solutions.',
+    lastUpdatedLabel: 'Última actualización',
     sections: [
       {
-        title: 'Sitio informativo',
-        body: 'El contenido es información general sobre servicios marinos de Best Coatings Solutions y temas relacionados.',
+        title: 'Aceptación de los términos',
+        body: 'Al acceder o usar este sitio, usted acepta estos Términos de uso. Si no está de acuerdo, no use el sitio.',
       },
       {
-        title: 'Limitaciones de solicitud de estimado',
-        body: 'Enviar un formulario solo solicita revisión y seguimiento. No es cotización, factura ni compromiso de precio.',
+        title: 'Uso permitido del sitio',
+        body: 'Puede usar este sitio para consultas lícitas personales o comerciales relacionadas con los servicios de Best Coatings Solutions. No debe hacer mal uso del sitio, interferir con su operación ni intentar acceso no autorizado.',
       },
       {
-        title: 'Sin cotización vinculante por formularios',
-        body: 'Cualquier discusión de precio ocurre después de la revisión y se confirma por separado — nunca como precios públicos del sitio.',
+        title: 'Naturaleza informativa del contenido',
+        body: 'El contenido del sitio se ofrece como información general sobre Best Coatings Solutions y sus servicios de refinación marina y de aviación. El contenido puede cambiar y puede no cubrir cada situación.',
       },
       {
-        title: 'Sin cita confirmada por formularios',
-        body: 'El envío del formulario no programa ni confirma visita, inspección ni fecha de trabajo.',
+        title: 'Descargo de solicitud de estimado',
+        body: 'Una consulta o solicitud de estimado en el sitio web es solo una petición de evaluación. No es un estimado vinculante, contrato, autorización de reparación, garantía ni compromiso de realizar trabajo. El precio final, si corresponde, puede depender de inspección, materiales, condición, alcance, acceso, programación y otros factores. Best Coatings Solutions no garantiza que se acepte cada proyecto solicitado.',
+      },
+      {
+        title: 'Inspección y autorización escrita',
+        body: 'Cualquier trabajo requiere revisión aparte y autorización escrita según se acuerde con Best Coatings Solutions. El envío del formulario por sí solo no programa una visita, confirma una cita, autoriza reparaciones ni crea un contrato de servicio.',
       },
       {
         title: 'Propiedad intelectual',
-        body: 'El contenido, marca y materiales del sitio pertenecen a Best Coatings Solutions o licenciantes salvo indicación contraria.',
+        body: 'El contenido, marca, logotipos, textos y materiales del sitio pertenecen a Best Coatings Solutions o a sus licenciantes salvo indicación contraria. No puede copiar, modificar ni redistribuir materiales del sitio con fines comerciales sin permiso.',
       },
       {
-        title: 'Uso aceptable',
-        body: 'No use mal los formularios, no intente acceso no autorizado ni envíe contenido ilícito, abusivo o dañino.',
+        title: 'Conducta prohibida',
+        body: 'No puede enviar contenido ilícito, abusivo, engañoso o dañino; intentar saturar o interrumpir el sitio; recolectar datos; ni usar medios automatizados para enviar formularios salvo permiso expreso.',
       },
       {
         title: 'Enlaces de terceros',
-        body: 'Los enlaces externos, si existen, no son controlados por BCS. No somos responsables del contenido de terceros.',
+        body: 'Los enlaces a sitios de terceros, si existen, se ofrecen por conveniencia. Best Coatings Solutions no controla ni es responsable del contenido o prácticas de terceros.',
       },
       {
-        title: 'Exención de garantía',
-        body: 'El contenido del sitio se ofrece tal cual, sin garantías de exhaustividad para cada situación. Provisional pendiente de revisión legal.',
+        title: 'Descargo de fabricantes y marcas',
+        body: 'Las referencias a fabricantes, embarcaciones, aeronaves, marcas, empleadores anteriores o experiencia profesional son solo descriptivas y no implican patrocinio, afiliación, autorización ni respaldo.',
+      },
+      {
+        title: 'Disponibilidad del sitio',
+        body: 'Procuramos mantener el sitio disponible, pero no garantizamos operación ininterrumpida ni libre de errores. El acceso puede suspenderse por mantenimiento, seguridad u operación.',
+      },
+      {
+        title: 'Exención de garantías',
+        body: 'EL SITIO Y SU CONTENIDO SE OFRECEN “TAL CUAL” Y “SEGÚN DISPONIBILIDAD”, SIN GARANTÍAS DE NINGÚN TIPO, EXPRESAS O IMPLÍCITAS, INCLUIDAS COMERCIABILIDAD, IDONEIDAD PARA UN FIN PARTICULAR O NO INFRACCIÓN, EN LA MÁXIMA MEDIDA PERMITIDA POR LA LEY.',
       },
       {
         title: 'Limitación de responsabilidad',
-        body: 'El lenguaje de limitación se finalizará con asesoría legal. Provisional — no es un término legal final.',
+        body: 'EN LA MÁXIMA MEDIDA PERMITIDA POR LA LEY, BEST COATINGS SOLUTIONS Y SUS PROPIETARIOS, EMPLEADOS Y AGENTES NO SON RESPONSABLES DE DAÑOS INDIRECTOS, INCIDENTALES, ESPECIALES, CONSECUENTES O PUNITIVOS DERIVADOS DEL USO DEL SITIO O DE LA CONFIANZA EN SU CONTENIDO. NUESTRA RESPONSABILIDAD TOTAL POR RECLAMOS RELACIONADOS CON EL SITIO SE LIMITA AL MAYOR ENTRE CINCUENTA DÓLARES ESTADOUNIDENSES (US $50) O LO QUE NOS HAYA PAGADO, SI CORRESPONDE, POR ACCESO AL SITIO EN LOS DOCE MESES ANTERIORES AL RECLAMO.',
+      },
+      {
+        title: 'Indemnización',
+        body: 'Usted acepta indemnizar y eximir de responsabilidad a Best Coatings Solutions frente a reclamos, pérdidas y gastos (incluidos honorarios razonables de abogados) derivados del mal uso del sitio, del envío de contenido ilícito o de la violación de estos Términos.',
       },
       {
         title: 'Ley aplicable',
-        body: 'La ley y el foro aplicables se confirmarán con el propietario y el abogado. No se inventan en este borrador.',
+        body: 'Estos Términos se rigen por las leyes del Estado de Florida, Estados Unidos, sin perjuicio de principios de conflicto de leyes. Los tribunales ubicados en Florida tienen jurisdicción exclusiva sobre controversias derivadas de estos Términos o del sitio, en la medida permitida por la ley.',
       },
       {
-        title: 'Cambios',
-        body: 'Podemos actualizar estos términos. El uso continuo implica revisar la versión publicada más reciente.',
+        title: 'Cambios a los términos',
+        body: 'Podemos actualizar estos Términos de uso. La fecha de “Última actualización” refleja la versión vigente. El uso continuo del sitio después de cambios constituye aceptación de los Términos actualizados.',
+      },
+      {
+        title: 'Divisibilidad',
+        body: 'Si alguna disposición de estos Términos se considera inaplicable, las demás disposiciones permanecen vigentes.',
       },
       {
         title: 'Contacto',
-        body: 'Preguntas sobre estos términos pueden enviarse por Contacto o llamando al teléfono comercial publicado.',
+        body: 'Preguntas sobre estos Términos: Best Coatings Solutions — correo info@bestcoatingssolutions.com, teléfono 305-747-8352, o use Contacto. Florida, Estados Unidos. [Owner to provide mailing address if a postal address is required.]',
       },
     ],
   },

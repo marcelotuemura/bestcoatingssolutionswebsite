@@ -1,6 +1,9 @@
 /**
- * Active contact submission adapter.
- * PRODUCTION BLOCKER: swap mock for real email/CRM delivery before launch.
+ * Active contact submission adapter — delegates to the Server Action.
  */
-export { mockContactAdapter as contactSubmissionAdapter } from '@/lib/submissions/mock-adapters';
-export type { ContactSubmissionAdapter } from '@/lib/submissions/types';
+import { submitContactAction } from '@/app/actions/submit-contact';
+import type { ContactSubmissionAdapter } from '@/lib/submissions/types';
+
+export const contactSubmissionAdapter: ContactSubmissionAdapter = {
+  submit: (input) => submitContactAction(input),
+};
