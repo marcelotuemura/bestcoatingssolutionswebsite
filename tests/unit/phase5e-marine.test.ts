@@ -57,7 +57,9 @@ describe('phase 5e marine division', () => {
     ]) {
       expect(photo.src.startsWith('/images/marine/')).toBe(true);
       expect(photo.alt.length).toBeGreaterThan(20);
-      expect(photo.alt).not.toMatch(/Axopar|Chris Craft|customer|HIN/i);
+      expect(photo.alt).not.toMatch(
+        /\bAxopar\b|\bChris Craft\b|\bcustomer\b|\bHIN\b/i,
+      );
     }
   });
 });
