@@ -110,6 +110,16 @@ Formal quality gate after Phases 5B–5G. Verify one design system, one claim di
 
 `tests/unit/phase5g5-brand-audit.test.ts` — CTA hierarchy, terminology, disclaimer, banned claims.
 
+## Verification
+
+| Command | Result |
+|---------|--------|
+| `pnpm test` | Pass (266) |
+| `pnpm build` | Pass |
+| Marketing e2e (phase3 / phase5 About+Projects / home CTAs) | Pass (26) |
+
+Evidence: `/opt/cursor/artifacts/phase5g5-screenshots/`
+
 ---
 
 ## Suggested next
