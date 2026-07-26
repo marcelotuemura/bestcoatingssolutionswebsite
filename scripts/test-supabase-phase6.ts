@@ -11,6 +11,9 @@
  *   SUPABASE_SERVICE_ROLE_KEY
  *
  * Refuses production. Draft adapters remain non-delivered (no provider credentials required).
+ *
+ * RPC existence is proven only by parameterized calls. Zero-argument probes are
+ * invalid for PostgREST (PGRST202 on missing no-arg overloads) and are not used.
  */
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { createHash, randomBytes } from 'node:crypto';
@@ -20,19 +23,70 @@ import {
   isSupabaseProductionTarget,
   validateSupabaseConfig,
 } from '@/lib/media-intelligence/supabase/config';
-import { PHASE6_PUBLICATION_RPC_CATALOG } from '@/lib/media-intelligence/publishers/rpc-catalog';
+import {
+  PHASE6_PUBLICATION_RPC_CATALOG,
+  type Phase6PublicationRpc,
+} from '@/lib/media-intelligence/publishers/rpc-catalog';
 
 type ReportRow = {
   readonly name: string;
   readonly ok: boolean;
   readonly detail?: string;
 };
+
+type RpcError = { readonly message?: string; readonly code?: string } | null;
+
 const results: ReportRow[] = [];
+const resolvedRpcs = new Set<Phase6PublicationRpc>();
 
 function record(name: string, ok: boolean, detail?: string) {
   results.push({ name, ok, detail });
   console.warn(
     `[${ok ? 'PASS' : 'FAIL'}] ${name}${detail ? ` — ${detail}` : ''}`,
+  );
+}
+
+/** PostgREST could not resolve the function signature (true missing RPC). */
+function isFunctionResolutionFailure(error: RpcError): boolean {
+  if (!error?.message && !error?.code) return false;
+  const message = error.message ?? '';
+  const code = error.code ?? '';
+  return (
+    code === 'PGRST202' ||
+    /could not find the function/i.test(message) ||
+    /function .* does not exist/i.test(message) ||
+    /Could not choose the best candidate function/i.test(message)
+  );
+}
+
+/**
+ * Record a parameterized RPC outcome.
+ * - success: no error
+ * - expected_error: error present, but not a resolution failure (auth/validation/state)
+ */
+function recordRpc(
+  name: string,
+  rpc: Phase6PublicationRpc,
+  error: RpcError,
+  mode: 'success' | 'expected_error',
+) {
+  if (isFunctionResolutionFailure(error)) {
+    record(
+      name,
+      false,
+      `RPC resolution failure for ${rpc}: ${error?.message ?? error?.code}`,
+    );
+    return;
+  }
+  resolvedRpcs.add(rpc);
+  if (mode === 'success') {
+    record(name, !error, error?.message);
+    return;
+  }
+  record(
+    name,
+    Boolean(error),
+    error?.message ?? 'expected authorization/validation error missing',
   );
 }
 
@@ -136,6 +190,10 @@ async function writeReport(projectRef: string, claimed: boolean) {
     liveIntegrationClaimed: claimed && failed === 0,
     passed,
     failed,
+    rpcCoverage: [...PHASE6_PUBLICATION_RPC_CATALOG].map((rpc) => ({
+      rpc,
+      resolved: resolvedRpcs.has(rpc),
+    })),
     results,
   };
   const out = path.join(
@@ -147,7 +205,13 @@ async function writeReport(projectRef: string, claimed: boolean) {
   await fs.writeFile(out, `${JSON.stringify(report, null, 2)}\n`);
   console.warn(
     JSON.stringify(
-      { passed, failed, liveIntegrationClaimed: report.liveIntegrationClaimed },
+      {
+        passed,
+        failed,
+        liveIntegrationClaimed: report.liveIntegrationClaimed,
+        rpcResolved: resolvedRpcs.size,
+        rpcRequired: PHASE6_PUBLICATION_RPC_CATALOG.length,
+      },
       null,
       2,
     ),
@@ -189,7 +253,6 @@ async function main() {
     auth: { persistSession: false, autoRefreshToken: false },
   });
 
-  // Schema presence
   for (const table of [
     'media_publication_jobs',
     'media_publication_drafts',
@@ -198,15 +261,6 @@ async function main() {
   ]) {
     const { error } = await admin.from(table).select('*').limit(1);
     record(`schema_${table}`, !error, error?.message);
-  }
-
-  for (const rpc of PHASE6_PUBLICATION_RPC_CATALOG) {
-    // Probe via rpc with invalid args — existence vs missing function
-    const { error } = await admin.rpc(rpc, {});
-    const missing = /could not find|function .* does not exist/i.test(
-      error?.message ?? '',
-    );
-    record(`rpc_exists_${rpc}`, !missing, error?.message ?? 'ok');
   }
 
   const suffix = randomBytes(3).toString('hex');
@@ -218,13 +272,13 @@ async function main() {
     reviewer: `p6.reviewer.${suffix}@example.test`,
     viewer: `p6.viewer.${suffix}@example.test`,
   };
-  const ids: Record<string, string> = {};
+
   try {
-    ids.owner = await seedUser(admin, emails.owner, password, 'owner');
-    ids.admin = await seedUser(admin, emails.admin, password, 'administrator');
-    ids.editor = await seedUser(admin, emails.editor, password, 'editor');
-    ids.reviewer = await seedUser(admin, emails.reviewer, password, 'reviewer');
-    ids.viewer = await seedUser(admin, emails.viewer, password, 'viewer');
+    await seedUser(admin, emails.owner, password, 'owner');
+    await seedUser(admin, emails.admin, password, 'administrator');
+    await seedUser(admin, emails.editor, password, 'editor');
+    await seedUser(admin, emails.reviewer, password, 'reviewer');
+    await seedUser(admin, emails.viewer, password, 'viewer');
     record('seed_roles', true);
   } catch (error) {
     record(
@@ -260,7 +314,6 @@ async function main() {
     revision: 1,
   });
 
-  // Anon denied
   {
     const anon = createClient(cfg.url, cfg.anonKey, {
       auth: { persistSession: false },
@@ -283,7 +336,6 @@ async function main() {
     altText: 'alt',
   };
 
-  // Viewer cannot create
   {
     const viewer = await clientAs(
       cfg.url,
@@ -291,14 +343,19 @@ async function main() {
       emails.viewer,
       password,
     );
-    const { error } = await viewer.rpc('media_create_publication_draft', {
+    const created = await viewer.rpc('media_create_publication_draft', {
       p_workspace_id: 'bcs-default',
       p_asset_external_id: assetClear,
       p_target: 'website',
       p_payload: websitePayload,
       p_idempotency_key: `idem-viewer-${suffix}`,
     });
-    record('viewer_cannot_create', Boolean(error), error?.message);
+    recordRpc(
+      'viewer_cannot_create',
+      'media_create_publication_draft',
+      created.error,
+      'expected_error',
+    );
     const direct = await viewer
       .from('media_publication_jobs')
       .update({ status: 'published' })
@@ -311,7 +368,6 @@ async function main() {
     );
   }
 
-  // Reviewer cannot create/approve/execute
   {
     const reviewer = await clientAs(
       cfg.url,
@@ -331,14 +387,14 @@ async function main() {
       },
       p_idempotency_key: `idem-reviewer-${suffix}`,
     });
-    record(
+    recordRpc(
       'reviewer_cannot_create',
-      Boolean(created.error),
-      created.error?.message,
+      'media_create_publication_draft',
+      created.error,
+      'expected_error',
     );
   }
 
-  // Editor draft ok; cannot approve/execute/force
   let editorJobId: string | undefined;
   {
     const editor = await clientAs(
@@ -355,28 +411,61 @@ async function main() {
       p_idempotency_key: `idem-editor-${suffix}`,
     });
     editorJobId = created.data?.id;
-    record(
+    recordRpc(
       'editor_can_create_draft',
-      !created.error && Boolean(editorJobId),
-      created.error?.message,
+      'media_create_publication_draft',
+      created.error,
+      'success',
+    );
+    if (!editorJobId && !created.error) {
+      record('editor_can_create_draft', false, 'missing job id');
+    }
+
+    const updated = await editor.rpc('media_update_publication_draft', {
+      p_job_id: editorJobId,
+      p_payload: {
+        ...websitePayload,
+        title: 'Hosted Phase 6 updated',
+      },
+      p_derivative_id: null,
+      p_scheduled_for: null,
+      p_clear_schedule: false,
+    });
+    recordRpc(
+      'editor_can_update_draft',
+      'media_update_publication_draft',
+      updated.error,
+      'success',
+    );
+
+    const submitted = await editor.rpc('media_submit_publication', {
+      p_job_id: editorJobId,
+    });
+    recordRpc(
+      'editor_can_submit',
+      'media_submit_publication',
+      submitted.error,
+      'success',
     );
 
     const approve = await editor.rpc('media_approve_publication', {
       p_job_id: editorJobId,
     });
-    record(
+    recordRpc(
       'editor_cannot_approve',
-      Boolean(approve.error),
-      approve.error?.message,
+      'media_approve_publication',
+      approve.error,
+      'expected_error',
     );
 
     const execute = await editor.rpc('media_execute_publication', {
       p_job_id: editorJobId,
     });
-    record(
+    recordRpc(
       'editor_cannot_execute',
-      Boolean(execute.error),
-      execute.error?.message,
+      'media_execute_publication',
+      execute.error,
+      'expected_error',
     );
 
     const forced = await editor
@@ -390,7 +479,6 @@ async function main() {
       forced.error?.message,
     );
 
-    // Idempotency
     const again = await editor.rpc('media_create_publication_draft', {
       p_workspace_id: 'bcs-default',
       p_asset_external_id: assetClear,
@@ -398,14 +486,17 @@ async function main() {
       p_payload: websitePayload,
       p_idempotency_key: `idem-editor-${suffix}`,
     });
-    record(
+    recordRpc(
       'idempotency_same_job',
-      !again.error && again.data?.id === editorJobId,
-      again.error?.message ?? again.data?.id,
+      'media_create_publication_draft',
+      again.error,
+      'success',
     );
+    if (!again.error && again.data?.id !== editorJobId) {
+      record('idempotency_same_job', false, `id mismatch ${again.data?.id}`);
+    }
   }
 
-  // Privacy blocked
   {
     const editor = await clientAs(
       cfg.url,
@@ -420,81 +511,13 @@ async function main() {
       p_payload: websitePayload,
       p_idempotency_key: `idem-blocked-${suffix}`,
     });
-    record(
+    recordRpc(
       'privacy_blocked_rejected',
-      Boolean(blocked.error),
-      blocked.error?.message,
-    );
-  }
-
-  // Admin approve, cannot execute
-  {
-    const adminUser = await clientAs(
-      cfg.url,
-      cfg.anonKey,
-      emails.admin,
-      password,
-    );
-    const approved = await adminUser.rpc('media_approve_publication', {
-      p_job_id: editorJobId,
-    });
-    record('admin_can_approve', !approved.error, approved.error?.message);
-    const exec = await adminUser.rpc('media_execute_publication', {
-      p_job_id: editorJobId,
-    });
-    record('admin_cannot_execute', Boolean(exec.error), exec.error?.message);
-
-    const when = new Date(Date.now() + 3600_000).toISOString();
-    const scheduled = await adminUser.rpc('media_schedule_publication', {
-      p_job_id: editorJobId,
-      p_scheduled_for: when,
-    });
-    record('admin_can_schedule', !scheduled.error, scheduled.error?.message);
-  }
-
-  // Owner execute non-delivered
-  {
-    const owner = await clientAs(cfg.url, cfg.anonKey, emails.owner, password);
-    const started = await owner.rpc('media_execute_publication', {
-      p_job_id: editorJobId,
-    });
-    record('owner_can_execute_begin', !started.error, started.error?.message);
-    const result = await owner.rpc('media_record_publication_result', {
-      p_job_id: editorJobId,
-      p_externally_delivered: false,
-      p_provider_delivery_status: 'draft_ready',
-      p_provider_metadata: { note: 'no provider credentials' },
-      p_failure_detail: null,
-    });
-    record(
-      'owner_nondelivered_result',
-      !result.error &&
-        result.data?.status === 'approved' &&
-        result.data?.provider_delivery_status === 'draft_ready',
-      result.error?.message ??
-        `${result.data?.status}/${result.data?.provider_delivery_status}`,
+      'media_create_publication_draft',
+      blocked.error,
+      'expected_error',
     );
 
-    const { data: events } = await owner
-      .from('media_publication_events')
-      .select('action')
-      .eq('job_id', editorJobId!);
-    record(
-      'audit_events_created',
-      (events?.length ?? 0) >= 2,
-      `count=${events?.length ?? 0}`,
-    );
-  }
-
-  // Wrong-target approval rejection via fresh job + social approval mismatch is covered by schedule checks;
-  // Signed URL rejection
-  {
-    const editor = await clientAs(
-      cfg.url,
-      cfg.anonKey,
-      emails.editor,
-      password,
-    );
     const signed = await editor.rpc('media_create_publication_draft', {
       p_workspace_id: 'bcs-default',
       p_asset_external_id: assetClear,
@@ -505,10 +528,211 @@ async function main() {
       },
       p_idempotency_key: `idem-signed-${suffix}`,
     });
-    record('signed_url_rejected', Boolean(signed.error), signed.error?.message);
+    recordRpc(
+      'signed_url_rejected',
+      'media_create_publication_draft',
+      signed.error,
+      'expected_error',
+    );
+  }
+
+  {
+    const adminUser = await clientAs(
+      cfg.url,
+      cfg.anonKey,
+      emails.admin,
+      password,
+    );
+    const approved = await adminUser.rpc('media_approve_publication', {
+      p_job_id: editorJobId,
+    });
+    recordRpc(
+      'admin_can_approve',
+      'media_approve_publication',
+      approved.error,
+      'success',
+    );
+
+    const exec = await adminUser.rpc('media_execute_publication', {
+      p_job_id: editorJobId,
+    });
+    recordRpc(
+      'admin_cannot_execute',
+      'media_execute_publication',
+      exec.error,
+      'expected_error',
+    );
+
+    const when = new Date(Date.now() + 3600_000).toISOString();
+    const scheduled = await adminUser.rpc('media_schedule_publication', {
+      p_job_id: editorJobId,
+      p_scheduled_for: when,
+    });
+    recordRpc(
+      'admin_can_schedule',
+      'media_schedule_publication',
+      scheduled.error,
+      'success',
+    );
+  }
+
+  {
+    const owner = await clientAs(cfg.url, cfg.anonKey, emails.owner, password);
+    const started = await owner.rpc('media_execute_publication', {
+      p_job_id: editorJobId,
+    });
+    recordRpc(
+      'owner_can_execute_begin',
+      'media_execute_publication',
+      started.error,
+      'success',
+    );
+
+    const result = await owner.rpc('media_record_publication_result', {
+      p_job_id: editorJobId,
+      p_externally_delivered: false,
+      p_provider_delivery_status: 'draft_ready',
+      p_provider_metadata: { note: 'no provider credentials' },
+      p_failure_detail: null,
+    });
+    recordRpc(
+      'owner_nondelivered_result',
+      'media_record_publication_result',
+      result.error,
+      'success',
+    );
+    if (
+      !result.error &&
+      (result.data?.status !== 'approved' ||
+        result.data?.provider_delivery_status !== 'draft_ready')
+    ) {
+      record(
+        'owner_nondelivered_result',
+        false,
+        `${result.data?.status}/${result.data?.provider_delivery_status}`,
+      );
+    }
+
+    const { data: events } = await owner
+      .from('media_publication_events')
+      .select('action')
+      .eq('job_id', editorJobId!);
+    record(
+      'audit_events_created',
+      (events?.length ?? 0) >= 2,
+      `count=${events?.length ?? 0}`,
+    );
+
+    // Invalid-state retry proves resolution of media_retry_publication.
+    const retry = await owner.rpc('media_retry_publication', {
+      p_job_id: editorJobId,
+    });
+    recordRpc(
+      'owner_retry_invalid_state',
+      'media_retry_publication',
+      retry.error,
+      'expected_error',
+    );
+  }
+
+  // Cancel coverage (editor draft)
+  {
+    const editor = await clientAs(
+      cfg.url,
+      cfg.anonKey,
+      emails.editor,
+      password,
+    );
+    const draft = await editor.rpc('media_create_publication_draft', {
+      p_workspace_id: 'bcs-default',
+      p_asset_external_id: assetClear,
+      p_target: 'website',
+      p_payload: websitePayload,
+      p_idempotency_key: `idem-cancel-${suffix}`,
+    });
+    const cancelId = draft.data?.id as string | undefined;
+    recordRpc(
+      'editor_create_for_cancel',
+      'media_create_publication_draft',
+      draft.error,
+      'success',
+    );
+    const cancelled = await editor.rpc('media_cancel_publication', {
+      p_job_id: cancelId,
+    });
+    recordRpc(
+      'editor_can_cancel_draft',
+      'media_cancel_publication',
+      cancelled.error,
+      'success',
+    );
+  }
+
+  // Reject-approval coverage (submit → admin reject)
+  {
+    const editor = await clientAs(
+      cfg.url,
+      cfg.anonKey,
+      emails.editor,
+      password,
+    );
+    const draft = await editor.rpc('media_create_publication_draft', {
+      p_workspace_id: 'bcs-default',
+      p_asset_external_id: assetClear,
+      p_target: 'social',
+      p_payload: {
+        kind: 'social',
+        platform: 'instagram',
+        destinationAccountRef: 'bcs',
+        caption: 'reject path',
+      },
+      p_idempotency_key: `idem-reject-${suffix}`,
+    });
+    const rejectJobId = draft.data?.id as string | undefined;
+    recordRpc(
+      'editor_create_for_reject',
+      'media_create_publication_draft',
+      draft.error,
+      'success',
+    );
+    const submitted = await editor.rpc('media_submit_publication', {
+      p_job_id: rejectJobId,
+    });
+    recordRpc(
+      'editor_submit_for_reject',
+      'media_submit_publication',
+      submitted.error,
+      'success',
+    );
+
+    const adminUser = await clientAs(
+      cfg.url,
+      cfg.anonKey,
+      emails.admin,
+      password,
+    );
+    const rejected = await adminUser.rpc('media_reject_publication_approval', {
+      p_job_id: rejectJobId,
+      p_note: 'hosted coverage reject',
+    });
+    recordRpc(
+      'admin_can_reject_approval',
+      'media_reject_publication_approval',
+      rejected.error,
+      'success',
+    );
   }
 
   record('no_false_external_delivery_claimed', true, 'draft_ready path only');
+
+  const missing = PHASE6_PUBLICATION_RPC_CATALOG.filter(
+    (rpc) => !resolvedRpcs.has(rpc),
+  );
+  record(
+    'all_phase6_rpcs_resolved_via_parameters',
+    missing.length === 0,
+    missing.length ? `unresolved: ${missing.join(', ')}` : '10/10',
+  );
 
   const failed = await writeReport(cfg.projectRef, true);
   process.exit(failed === 0 ? 0 : 1);
