@@ -16,9 +16,11 @@
 | 5F | [PHASE5F_AVIATION_DIVISION.md](./PHASE5F_AVIATION_DIVISION.md) | Approved |
 | 5G | [PHASE5G_ABOUT_MEET_MARCELO.md](./PHASE5G_ABOUT_MEET_MARCELO.md) | Approved |
 | 5G.5 | [PHASE5G5_BRAND_CONSISTENCY_AUDIT.md](./PHASE5G5_BRAND_CONSISTENCY_AUDIT.md) | Approved |
-| 6 | [PHASE6_PRODUCTION_LAUNCH_READINESS.md](./PHASE6_PRODUCTION_LAUNCH_READINESS.md) | In review |
+| 6 | [PHASE6_PRODUCTION_LAUNCH_READINESS.md](./PHASE6_PRODUCTION_LAUNCH_READINESS.md) | Approved · RC |
+| 7 | [PHASE7_GROWTH_OPTIMIZATION.md](./PHASE7_GROWTH_OPTIMIZATION.md) | After `v1.0.0` |
 | — | [BRAND_STANDARDS.md](./BRAND_STANDARDS.md) | Baseline guide |
 | — | [LAUNCH_READINESS_MATRIX.md](./LAUNCH_READINESS_MATRIX.md) | Go/No-Go tracker |
+| — | [LAUNCH_ACCEPTANCE_REVIEW.md](./LAUNCH_ACCEPTANCE_REVIEW.md) | Final human gate |
 | — | [WORKING_PROMPT_ADDENDUM.md](./WORKING_PROMPT_ADDENDUM.md) | Living |
 
-**Next gate:** Clear launch blockers in the matrix, then tag **v1.0.0**.
+**Release state:** `v1.0.0` **Release Candidate**. Clear matrix blockers → Launch Acceptance Review → tag → Phase 7.

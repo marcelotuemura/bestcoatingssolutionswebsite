@@ -60,7 +60,7 @@ const rows = [
   {
     id: 'manufacturer-sheaffer-confirm',
     ok: false,
-    blocker: false,
+    blocker: true,
     note: sheaffer
       ? 'About lists Sheaffer — confirm spelling with owner before launch'
       : 'Sheaffer string not found in About content',

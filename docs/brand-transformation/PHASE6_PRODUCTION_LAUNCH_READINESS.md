@@ -1,6 +1,6 @@
 # Phase 6 — Production Launch Readiness
 
-**Status:** In review / awaiting approval  
+**Status:** Approved · merged to `main` · **Release Candidate** (no `v1.0.0` until matrix green)  
 **Branch:** `cursor/phase-6-brand-launch-readiness-5ec4`  
 **Base:** `main` (Phase 5G.5 merged)  
 **Date:** 2026-07-26  
@@ -89,6 +89,7 @@ An earlier engineering branch `cursor/phase-6-production-launch-readiness-5ec4` 
 
 ---
 
-## Approval request
+## Owner decision
 
-Approve Phase 6 documentation + readiness gate. Clearing asset/legal/delivery blockers remains owner-driven before public `v1.0.0`.
+**Phase 6 approved (conditional Go/No-Go).**  
+`v1.0.0` remains Release Candidate until logo, photography, Privacy, Terms, live form delivery, and manufacturer spelling are cleared — then Launch Acceptance Review → tag.

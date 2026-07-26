@@ -9,8 +9,9 @@ Living constraints for Codex/Cursor. Update at each phase gate.
 | Phase | Status |
 |-------|--------|
 | 1–5G.5 | **Approved · on main** |
-| 6 — Production Launch Readiness | **In review / awaiting approval** |
-| Release | Tag **`v1.0.0`** when `LAUNCH_READINESS_MATRIX.md` blockers clear |
+| 6 — Production Launch Readiness | **Approved · on main** |
+| Release | **`v1.0.0` Release Candidate** — do not tag until Launch Readiness Matrix is fully green |
+| 7 — Growth & Optimization | After public `v1.0.0` |
 
 ---
 
@@ -25,26 +26,33 @@ Living constraints for Codex/Cursor. Update at each phase gate.
 - One brand · two divisions (Marine commercially primary; Aviation visible and real).  
 - Do not invent or auto-trace the official logo.  
 - Prefer semantic design tokens on marketing UI.  
-- **Freeze feature redesigns** during Phase 6 — launch quality only.  
+- **No public `v1.0.0` until matrix blockers clear.**  
 - Evaluate every change: *Does this improve launch quality without compromising consistency, credibility, and premium positioning?*
 
 ---
 
 ## Locked decisions
 
-See **`BRAND_STANDARDS.md`** for the consolidated guide.
+See **`BRAND_STANDARDS.md`**.
 
-Highlights:
+Launch tracking: **`LAUNCH_READINESS_MATRIX.md`**.  
+Final human gate: **`LAUNCH_ACCEPTANCE_REVIEW.md`**.
 
-- Type: Newsreader + Manrope.  
-- Nav: Home · About · Marine · Aviation · Projects · Contact.  
-- CTA: Estimate default; Contact on Aviation + About.  
-- Aviation: cosmetic-only; no FAA/structural/mechanical claims.  
-- ES: refinación · igualación de color.  
-- Launch tracking: **`LAUNCH_READINESS_MATRIX.md`**.
+---
+
+## v1.0.0 blockers (must clear)
+
+1. Official production logo installed  
+2. Authentic Marine photography  
+3. Authentic Aviation photography  
+4. Approved Marcelo portrait  
+5. Privacy Policy finalized (legal)  
+6. Terms of Service finalized (legal)  
+7. Live contact/estimate delivery verified  
+8. Manufacturer spelling confirmed  
 
 ---
 
 ## Stop point
 
-Approve Phase 6 readiness docs; clear matrix blockers before public launch / `v1.0.0`.
+Do not tag `v1.0.0` until the Launch Acceptance Review is signed and the matrix is green. Do not begin Phase 7 growth work that assumes a public launch before that gate.

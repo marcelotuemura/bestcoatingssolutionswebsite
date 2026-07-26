@@ -32,10 +32,16 @@ describe('phase 6 launch readiness inventory', () => {
     expect(en.pages.aviation.title).toBe('Aviation refinishing');
   });
 
-  it('documents brand standards and launch matrix in the repo', () => {
+  it('documents brand standards, launch matrix, and acceptance review', () => {
     const docs = path.join(process.cwd(), 'docs/brand-transformation');
     expect(existsSync(path.join(docs, 'BRAND_STANDARDS.md'))).toBe(true);
     expect(existsSync(path.join(docs, 'LAUNCH_READINESS_MATRIX.md'))).toBe(
+      true,
+    );
+    expect(existsSync(path.join(docs, 'LAUNCH_ACCEPTANCE_REVIEW.md'))).toBe(
+      true,
+    );
+    expect(existsSync(path.join(docs, 'PHASE7_GROWTH_OPTIMIZATION.md'))).toBe(
       true,
     );
   });

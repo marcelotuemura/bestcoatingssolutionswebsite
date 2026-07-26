@@ -1,9 +1,11 @@
 # Launch Readiness Matrix
 
 **Single source of truth for public launch decisions.**  
-**Phase:** 6 — Production Launch Readiness  
+**Phase:** 6 — Production Launch Readiness (**Approved**)  
+**Release state:** **Release Candidate** — do not tag `v1.0.0` until this matrix is fully green  
 **Updated:** 2026-07-26  
-**Release target tag:** `v1.0.0` (Best Coatings Solutions Website)
+**Release target tag:** `v1.0.0` (Best Coatings Solutions Website)  
+**Final human gate:** [`LAUNCH_ACCEPTANCE_REVIEW.md`](./LAUNCH_ACCEPTANCE_REVIEW.md)
 
 Status legend: ✅ Ready · ⏳ Pending · 🔶 Partial · 🚫 Blocker · ➖ N/A
 
@@ -19,7 +21,7 @@ Status legend: ✅ Ready · ⏳ Pending · 🔶 Partial · 🚫 Blocker · ➖ N
 | Aviation hero photography | 🚫 Blocker | Replace `marketingPlaceholders.aviationHero` silhouette |
 | Marcelo portrait / workshop photo | 🚫 Blocker | About + homepage Meet Marcelo slots |
 | Project / process photography | ⏳ Pending | DAM intake; honest empty Projects until approved |
-| Manufacturer spelling verification | ⏳ Pending | Confirm `Sheaffer` vs Schaefer with Marcelo before launch |
+| Manufacturer spelling verification | 🚫 Blocker | Confirm `Sheaffer` vs Schaefer from Marcelo’s records; use consistently site-wide |
 
 ---
 
@@ -88,4 +90,4 @@ Minimum clear list:
 5. Production form delivery confirmed (not demonstration mode)  
 6. Lighthouse / CWV recorded on production preview meeting budget or explicitly accepted  
 
-When blockers clear → tag **`v1.0.0`**, archive Phases 1–6 docs as baseline, run post-deploy smoke.
+When blockers clear → complete [`LAUNCH_ACCEPTANCE_REVIEW.md`](./LAUNCH_ACCEPTANCE_REVIEW.md) → tag **`v1.0.0`**, archive Phases 1–6 docs as baseline, run post-deploy smoke → then Phase 7 Growth & Optimization.
