@@ -129,7 +129,7 @@ Not implemented on the homepage in Phase 5D (no interactive gallery yet). Featur
 - FCP: ~1.1 s  
 - TBT: ~40 ms  
 
-**A11y remediations in this phase:** primary button contrast + brand lockup accessible name. Re-run Lighthouse after merge for updated scores.
+**A11y remediations in this phase:** primary button contrast (`#0066cc` ≈ 5.6:1 vs white) + brand lockup accessible name includes visible BCS text. Lab Lighthouse re-run in this environment crashed the browser tab after the fix — treat the JSON above as pre-fix baseline; re-check in a stable local/CI Chrome after merge.
 
 ### Accessibility notes
 
