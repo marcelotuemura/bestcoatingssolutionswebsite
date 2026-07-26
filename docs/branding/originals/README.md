@@ -13,9 +13,11 @@ docs/branding/originals/
 Web-facing exports (do not overwrite originals):
 
 ```text
-public/brand/bcs-logo-official.svg   # preferred
-public/brand/bcs-logo-official.webp  # interim if no SVG
-public/brand/bcs-logo-official.png   # interim if no SVG
+public/brand/bcs-logo-official.webp       # preferred production full mark
+public/brand/bcs-logo-official.png        # PNG fallback
+public/brand/bcs-logo-header.webp         # compact header
+public/brand/bcs-logo-header@2x.webp      # retina header
+public/brand/bcs-logo-official.svg        # vector if supplied later
 ```
 
 `config/brand-logo.ts` auto-detects the first matching web export.

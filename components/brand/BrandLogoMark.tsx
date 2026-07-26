@@ -5,7 +5,7 @@ import { cn } from '@/utils/cn';
 
 /**
  * Large brand presentation mark for footer / design-system / hero-scale spots.
- * Uses official SVG/PNG/WebP when present. Never labels the temporary SVG as official.
+ * Uses official WebP/PNG/SVG when present. Never labels the temporary SVG as official.
  */
 export function BrandLogoMark({
   maxHeightPx,
@@ -44,7 +44,9 @@ export function BrandLogoMark({
     );
   }
 
-  const width = Math.round(maxHeightPx * (320 / 96));
+  const { width: intrinsicW, height: intrinsicH } =
+    brandLogo.intrinsic.official;
+  const width = Math.round(maxHeightPx * (intrinsicW / intrinsicH));
   return (
     <Image
       src={brandLogo.officialSrc}

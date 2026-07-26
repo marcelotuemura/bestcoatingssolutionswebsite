@@ -64,13 +64,12 @@ export function DesignSystemPage({ locale }: { readonly locale: Locale }) {
               data-testid="logo-file-pending"
             >
               Official logo file pending. Header/footer use a calm text wordmark
-              — not the temporary letterform SVG. Add{' '}
-              <code className="text-text-primary">bcs-logo-official.svg</code>{' '}
-              (preferred) or optimized{' '}
-              <code className="text-text-primary">.webp</code> /{' '}
-              <code className="text-text-primary">.png</code> under{' '}
-              <code className="text-text-primary">public/brand/</code>. Preserve
-              masters in{' '}
+              — not the temporary letterform SVG. Add preferred{' '}
+              <code className="text-text-primary">bcs-logo-official.webp</code>{' '}
+              (and optional{' '}
+              <code className="text-text-primary">bcs-logo-header.webp</code>)
+              under <code className="text-text-primary">public/brand/</code>.
+              Preserve masters in{' '}
               <code className="text-text-primary">
                 docs/branding/originals/
               </code>
@@ -119,7 +118,8 @@ export function DesignSystemPage({ locale }: { readonly locale: Locale }) {
                 maxHeightPx={brandLogo.recommendedMaxHeightPx.header}
               />
               <p className="text-text-muted ml-4 hidden text-xs sm:block">
-                Header mock · 40px max height in 64px bar
+                Header mock · {brandLogo.recommendedMaxHeightPx.header}px max
+                height in 64px bar
               </p>
             </div>
           </div>

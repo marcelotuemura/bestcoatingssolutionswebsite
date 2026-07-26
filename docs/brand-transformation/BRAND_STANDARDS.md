@@ -151,12 +151,12 @@ Aviation must never imply regulated maintenance, FAA authorization, structural, 
 
 | Role | Treatment |
 |------|-----------|
-| Header | Compact wordmark / official compact mark when file lands |
-| Footer / brand moments | Full mark |
-| Temporary SVG | Evaluation only — **never** treat as official |
+| Header | `bcs-logo-header.webp` (+ `@2x`) at ≈36px in the 64px bar |
+| Footer / brand moments | Full mark — preferred `bcs-logo-official.webp` |
+| Temporary SVG | Scaffolding only — **never** treat as official |
 | Forbidden | Auto-trace, invent simplified marks, employer/OEM logos |
 
-Drop official file at `public/brand/bcs-logo-official.svg` (or `.webp` / `.png`). Resolver: `config/brand-logo.ts`.
+Resolver: `config/brand-logo.ts` (WebP-first official + dedicated header assets).
 
 ---
 

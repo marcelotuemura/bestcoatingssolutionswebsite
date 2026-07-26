@@ -8,7 +8,7 @@ import { cn } from '@/utils/cn';
 
 /**
  * Header / compact brand lockup.
- * Uses official SVG/PNG/WebP when present; otherwise a calm text wordmark.
+ * Uses `bcs-logo-header.webp` (+ `@2x`) when present, else the official mark.
  * Never presents the temporary letterform SVG as the official logo.
  */
 export function BrandLockup({
@@ -27,6 +27,15 @@ export function BrandLockup({
       ? brandLogo.recommendedMaxHeightPx.header
       : brandLogo.recommendedMaxHeightPx.footer;
 
+  const { width: intrinsicW, height: intrinsicH } = brandLogo.intrinsic.header;
+  const displayWidth = Math.round(maxHeight * (intrinsicW / intrinsicH));
+
+  /** Prefer @2x source for sharper retina rendering at compact header size. */
+  const imageSrc =
+    surface === 'header'
+      ? (brandLogo.headerSrc2x ?? brandLogo.headerSrc)
+      : brandLogo.officialSrc;
+
   return (
     <Link
       href={localePath(locale)}
@@ -38,16 +47,17 @@ export function BrandLockup({
       data-logo-mode={brandLogo.headerMode}
       data-testid="brand-lockup"
     >
-      {brandLogo.officialSrc ? (
+      {imageSrc ? (
         <Image
-          src={brandLogo.officialSrc}
+          src={imageSrc}
           alt={brandLogo.alt}
-          width={Math.round(maxHeight * 3.2)}
+          width={displayWidth}
           height={maxHeight}
-          unoptimized={brandLogo.officialSrc.endsWith('.svg')}
+          unoptimized={imageSrc.endsWith('.svg')}
           priority={surface === 'header'}
           className="h-auto w-auto max-w-[11rem] object-contain object-left sm:max-w-[14rem]"
           style={{ maxHeight }}
+          sizes={`${displayWidth}px`}
         />
       ) : (
         <span className="flex min-w-0 flex-col leading-tight">
