@@ -65,15 +65,18 @@ export function getApprovedAboutFacts(): readonly AboutOwnerFactPlaceholder[] {
   );
 }
 
-export const companyValueIds = [
-  'careful-inspection',
-  'clear-communication',
-  'appropriate-repair-planning',
-  'surface-preparation',
-  'finish-attention',
-  'respect-for-vessel',
-  'honest-scope',
-  'professional-documentation',
+/** Phase 5G — standards that guide every project (About page). */
+export const aboutStandardIds = [
+  'diagnose',
+  'prepare',
+  'match',
+  'communicate',
+  'inspect',
 ] as const;
 
-export type CompanyValueId = (typeof companyValueIds)[number];
+export type AboutStandardId = (typeof aboutStandardIds)[number];
+
+/** @deprecated Prefer aboutStandardIds — retained for older trust fixtures. */
+export const companyValueIds = aboutStandardIds;
+
+export type CompanyValueId = AboutStandardId;

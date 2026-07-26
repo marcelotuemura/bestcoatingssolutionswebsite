@@ -1,8 +1,20 @@
 /**
- * About page — Meet Marcelo / Trust Experience.
+ * About page — Meet Marcelo / craftsman culmination (Phase 5G).
  * First name only. Story, not résumé. No invented facts.
  * Employer/OEM names are factual background only — never endorsement.
  */
+
+export interface AboutStandard {
+  readonly id: string;
+  readonly title: string;
+  readonly body: string;
+}
+
+export interface AboutBackgroundEntry {
+  readonly id: string;
+  readonly label: string;
+  readonly detail: string;
+}
 
 export interface AboutPageContent {
   readonly metaTitle: string;
@@ -10,332 +22,204 @@ export interface AboutPageContent {
   readonly eyebrow: string;
   readonly title: string;
   readonly lead: string;
-  readonly introductionTitle: string;
-  readonly introduction: readonly string[];
-  readonly careerTitle: string;
-  readonly career: readonly string[];
-  readonly philosophyTitle: string;
-  readonly philosophy: readonly string[];
-  readonly craftPrinciplesTitle: string;
-  readonly craftPrinciplesIntro: string;
-  readonly craftPrinciplesQuestions: readonly string[];
-  readonly craftPrinciplesClosing: string;
-  readonly expectTitle: string;
-  readonly expectIntro: string;
-  readonly expectSteps: readonly {
-    readonly title: string;
-    readonly body: string;
-  }[];
-  readonly specializationTitle: string;
-  readonly specialization: readonly string[];
-  readonly communicationTitle: string;
-  readonly communication: readonly string[];
-  readonly valuesTitle: string;
-  readonly valuesIntro: string;
-  readonly disclaimer: string;
-  readonly serviceAreaTitle: string;
-  readonly serviceArea: readonly string[];
-  readonly projectsCtaTitle: string;
-  readonly projectsCtaBody: string;
-  readonly estimateCtaTitle: string;
-  readonly estimateCtaBody: string;
-  readonly aviationTitle: string;
-  readonly aviationBody: string;
   readonly photoNote: string;
-  readonly values: readonly {
-    readonly id: string;
-    readonly title: string;
-    readonly body: string;
-  }[];
+  readonly beganTitle: string;
+  readonly began: readonly string[];
+  readonly industriesTitle: string;
+  readonly industries: readonly string[];
+  readonly whyExistsTitle: string;
+  readonly whyExists: readonly string[];
+  readonly standardsTitle: string;
+  readonly standardsIntro: string;
+  readonly standards: readonly AboutStandard[];
+  readonly backgroundTitle: string;
+  readonly backgroundIntro: string;
+  readonly backgroundEntries: readonly AboutBackgroundEntry[];
+  readonly disclaimer: string;
+  readonly invitationTitle: string;
+  readonly invitationBody: string;
 }
 
 export const aboutContentEn: AboutPageContent = {
   metaTitle: 'Meet Marcelo | Best Coatings Solutions',
   metaDescription:
-    'Meet Marcelo of Best Coatings Solutions — more than 25 years in refinishing, from Japan to marine and aviation work, now caring for boats in South Florida.',
+    'Meet Marcelo of Best Coatings Solutions — professional refinishing from Japan to marine and aviation, now caring for finishes in South Florida.',
   eyebrow: 'The craftsman',
   title: 'Meet Marcelo',
-  lead: "For more than 25 years, I've dedicated my career to professional refinishing. Best Coatings Solutions is how that work reaches boat owners who care about the finish as much as I do.",
-  introductionTitle: 'Where the work began',
-  introduction: [
-    'My career in professional refinishing began in Japan. There I learned that good finish work is not speed — it is preparation, consistency, and respect for the surface in front of you.',
-    'I later contributed to manufacturing refinishing work while employed by Aisin Sin Ei. That environment taught production finishing, metallic paint, surface preparation, quality control, and the habit of doing the same careful job every time.',
-  ],
-  careerTitle: 'From shops to the water',
-  career: [
-    'Marine work taught me how finishes live in sun, salt, and real use. My professional experience includes work performed while employed by MarineMax, Nautical Ventures, and HCB Yachts.',
-    'Throughout my career, I have also contributed to refinishing work involving Bombardier business jets and military helicopters. That background raised the standard I hold for masking, material control, and finish review. It does not mean Best Coatings Solutions is an authorized aviation facility, and we are not booking aircraft work on this site today.',
-    'That chapter ends at HCB Yachts. What came next was simple: take the same discipline onto boats entrusted to Best Coatings Solutions.',
-  ],
-  philosophyTitle: 'Quality Is Built Before the Paint Is Applied',
-  philosophy: [
-    'The finish people notice is the last step. The work that protects your boat happens earlier — inspection, preparation, and patience.',
-    'Why Best Coatings Solutions exists is straightforward. Owners deserve someone who will inspect carefully, prepare honestly, and finish a repair as if the boat were their own.',
-  ],
-  craftPrinciplesTitle: 'Every Repair Begins the Same Way',
-  craftPrinciplesIntro: 'Before any repair starts, I ask four questions:',
-  craftPrinciplesQuestions: [
-    'What caused the damage?',
-    'What is the correct repair method?',
-    'How can the original finish be preserved?',
-    'What would I expect if this were my own boat?',
-  ],
-  craftPrinciplesClosing:
-    "Those questions guide every project, whether it's a small gelcoat repair or a complete cosmetic restoration.",
-  expectTitle: 'What You Can Expect',
-  expectIntro:
-    'Boat owners often wonder what working with a repair shop is like. Here is the path we follow.',
-  expectSteps: [
-    {
-      title: 'Contact us',
-      body: 'Tell us about your boat and the damage.',
-    },
-    {
-      title: 'We review the damage',
-      body: 'We look at what you share before recommending next steps.',
-    },
-    {
-      title: 'Inspection when needed',
-      body: 'If the repair needs to be seen in person, we schedule an inspection.',
-    },
-    {
-      title: 'Estimate',
-      body: 'We provide an estimate based on what we can verify. Free estimates apply only in the Fort Lauderdale area.',
-    },
-    {
-      title: 'Repair options',
-      body: 'We discuss methods, limits, and realistic finish expectations — without pressure.',
-    },
-    {
-      title: 'Updates during the project',
-      body: 'We keep you informed so you are never guessing what is happening to your boat.',
-    },
-    {
-      title: 'Final inspection',
-      body: 'We inspect the finished repair before delivery and review the result with you.',
-    },
-  ],
-  specializationTitle: 'Marine work I focus on',
-  specialization: [
-    'Gelcoat repair and refinishing',
-    'Fiberglass and composite repair',
-    'Paint correction and refinishing',
-    'Color matching for repairs that must blend in',
-    'Cosmetic restoration for boats and yachts',
-  ],
-  communicationTitle: 'Every repair has my attention',
-  communication: [
-    'I look at the damaged area, repair what sits underneath when needed, and match the surrounding finish before the final polish. I will tell you what a repair can and cannot do. Invisible perfection is not a promise I make.',
-    'Sending a form asks for a reply. It does not book an emergency response or create a binding estimate by itself.',
-  ],
-  valuesTitle: 'How I work',
-  valuesIntro: 'These are working habits — not slogans.',
-  disclaimer:
-    "Manufacturer and employer names are referenced solely to describe Marcelo's professional background and experience. Their inclusion does not imply endorsement, affiliation, or partnership with Best Coatings Solutions.",
-  serviceAreaTitle: 'Where we work',
-  serviceArea: [
-    'Primary focus: South Florida.',
-    'Free estimates are available only in the Fort Lauderdale area. Other locations may require review or travel arrangements.',
-    'Naming a region does not mean we serve every marina or every city in South Florida.',
-  ],
-  projectsCtaTitle: 'Our work',
-  projectsCtaBody:
-    'Repair stories appear when owners allow publication. Until then, we keep the projects page honest rather than inventing a portfolio.',
-  estimateCtaTitle: 'Request an Estimate',
-  estimateCtaBody:
-    'Tell us about your boat and the repair. Free estimates apply only in the Fort Lauderdale area.',
-  aviationTitle: 'Aviation division',
-  aviationBody:
-    'Aviation is part of who we are — a specialized cosmetic refinishing division alongside Marine. Tell us about aircraft exterior and finish projects through Contact. We do not present aviation as regulated structural or mechanical maintenance.',
+  lead: 'Best Coatings Solutions is built on standards you can feel in the finish. Marcelo is the craftsman behind that discipline — bringing decades of refinishing care to every project entrusted to the company.',
   photoNote:
-    'Authentic photography of Marcelo and the work will replace this space when approved. We do not use stock photos to invent a shop floor.',
-  values: [
+    'Authentic photography of Marcelo in a workshop or project environment will replace this space when approved. We do not use stock photos to invent a shop floor.',
+  beganTitle: 'Where it began',
+  began: [
+    "Marcelo's career in professional refinishing began in Japan. There he developed an appreciation for precision, consistency, and respect for the surface in front of him.",
+    'Good finish work is not speed. It is preparation, patience, and the habit of doing the careful job the same way every time.',
+  ],
+  industriesTitle: 'Experience across industries',
+  industries: [
+    'Automotive manufacturing refinishing taught production discipline — metallic paint, surface preparation, and quality control under exacting standards.',
+    'Marine work taught how finishes live in sun, salt, and real use — and how owners trust someone with a vessel they care about deeply.',
+    'Aviation cosmetic refinishing raised the bar for masking, material control, and finish review. That background informs the standards Best Coatings Solutions holds today. It does not mean the company is an authorized aviation facility, and aircraft work is not booked as regulated maintenance on this site.',
+  ],
+  whyExistsTitle: 'Why Best Coatings Solutions exists',
+  whyExists: [
+    'Owners deserve careful preparation, honest recommendations, and respect for the investment they have already made.',
+    'Best Coatings Solutions exists to put craftsmanship over shortcuts — to inspect before promising, prepare before finishing, and treat every surface as if the vessel or aircraft belonged to the person doing the work.',
+  ],
+  standardsTitle: 'Standards that guide every project',
+  standardsIntro:
+    'These are working principles — the habits behind every repair and refinishing project.',
+  standards: [
     {
-      id: 'careful-inspection',
-      title: 'Inspect first',
-      body: 'Look at the damage and access before choosing a repair method.',
+      id: 'diagnose',
+      title: 'Diagnose before repairing',
+      body: 'Understand the damage and the correct method before work begins.',
     },
     {
-      id: 'clear-communication',
-      title: 'Plain language',
-      body: 'Explain scope, limits, and next steps without pressure.',
+      id: 'prepare',
+      title: 'Prepare before finishing',
+      body: 'Quality is built in the steps no one photographs — cleaning, fairing, and surface readiness.',
     },
     {
-      id: 'appropriate-repair-planning',
-      title: 'Match the method to the boat',
-      body: 'Plan the repair for the condition in front of us — not a one-size package.',
+      id: 'match',
+      title: 'Match the surrounding surface carefully',
+      body: 'Color, gloss, and texture should belong to what is already there.',
     },
     {
-      id: 'surface-preparation',
-      title: 'Preparation before paint',
-      body: 'Quality is built before the paint is applied.',
+      id: 'communicate',
+      title: 'Communicate honestly',
+      body: 'Explain scope, limits, and realistic expectations without pressure.',
     },
     {
-      id: 'finish-attention',
-      title: 'Color and gloss',
-      body: 'Match and finish so the repair belongs to the surrounding surface.',
-    },
-    {
-      id: 'respect-for-vessel',
-      title: 'Respect the vessel',
-      body: 'Protect nearby finishes and treat the boat as a valuable asset.',
-    },
-    {
-      id: 'honest-scope',
-      title: 'Honest scope',
-      body: 'Say what is included and what is not — before work begins.',
-    },
-    {
-      id: 'professional-documentation',
-      title: 'Clear records',
-      body: 'Use photos and notes when they help the owner understand the repair.',
+      id: 'inspect',
+      title: 'Inspect before completion',
+      body: 'Review the finished repair carefully before the project is considered done.',
     },
   ],
+  backgroundTitle: 'Professional background',
+  backgroundIntro:
+    'The following names describe professional background and experience only. They are listed factually and without decorative emphasis.',
+  backgroundEntries: [
+    {
+      id: 'japan-manufacturing',
+      label: 'Japan · manufacturing refinishing',
+      detail:
+        'Professional refinishing began in Japan, including manufacturing refinishing work performed while employed by Aisin Sin Ei, with associated automotive environments including Toyota, Honda, and Mitsubishi.',
+    },
+    {
+      id: 'marine-employers',
+      label: 'Marine · employers',
+      detail:
+        'Marine refinishing experience includes work performed while employed by MarineMax, Nautical Ventures, and HCB Yachts.',
+    },
+    {
+      id: 'vessel-manufacturers',
+      label: 'Marine · vessel manufacturers',
+      detail:
+        'Professional refinishing experience includes work involving vessels from manufacturers such as Azimut, Viking, Riva, Ferretti, De Antonio, Beneteau, Axopar, Sheaffer, and HCB.',
+    },
+    {
+      id: 'aviation-background',
+      label: 'Aviation · cosmetic refinishing background',
+      detail:
+        'Career contributions include refinishing work involving Bombardier business jets and military helicopters. That chapter ends at HCB Yachts — before Best Coatings Solutions.',
+    },
+  ],
+  disclaimer:
+    "Employer and manufacturer names are referenced solely to describe Marcelo's professional background and experience. Their inclusion does not imply endorsement, affiliation, authorization, or partnership with Best Coatings Solutions.",
+  invitationTitle: 'Discuss a project',
+  invitationBody:
+    'If you have a finish that needs careful attention, we are glad to talk through what you are seeing and what a responsible next step looks like — without pressure.',
 };
 
 export const aboutContentEs: AboutPageContent = {
   metaTitle: 'Conozca a Marcelo | Best Coatings Solutions',
   metaDescription:
-    'Conozca a Marcelo de Best Coatings Solutions — más de 25 años en refinación, desde Japón hasta el trabajo marino y de aviación, ahora cuidando embarcaciones en el Sur de Florida.',
+    'Conozca a Marcelo de Best Coatings Solutions — refinación profesional desde Japón hasta marina y aviación, ahora cuidando acabados en el Sur de Florida.',
   eyebrow: 'El artesano',
   title: 'Conozca a Marcelo',
-  lead: 'Durante más de 25 años he dedicado mi carrera a la refinación profesional. Best Coatings Solutions es la forma en que ese trabajo llega a dueños de embarcaciones que cuidan el acabado tanto como yo.',
-  introductionTitle: 'Dónde comenzó el trabajo',
-  introduction: [
-    'Mi carrera en refinación profesional comenzó en Japón. Allí aprendí que un buen acabado no es velocidad — es preparación, consistencia y respeto por la superficie.',
-    'Después contribuí a trabajo de refinación en manufactura mientras estuve empleado en Aisin Sin Ei. Ese entorno enseñó acabado de producción, pintura metálica, preparación de superficie, control de calidad y el hábito de hacer el mismo trabajo cuidadoso cada vez.',
-  ],
-  careerTitle: 'De los talleres al agua',
-  career: [
-    'El trabajo marino me enseñó cómo viven los acabados bajo sol, sal y uso real. Mi experiencia profesional incluye trabajo realizado mientras estuve empleado en MarineMax, Nautical Ventures y HCB Yachts.',
-    'A lo largo de mi carrera, también he contribuido a trabajo de refinación relacionado con jets de negocios Bombardier y helicópteros militares. Ese historial elevó el estándar que exijo en enmascarado, control de materiales y revisión del acabado. No significa que Best Coatings Solutions sea una instalación de aviación autorizada, y hoy no estamos reservando trabajo de aeronaves en este sitio.',
-    'Ese capítulo termina en HCB Yachts. Lo que siguió fue simple: llevar la misma disciplina a las embarcaciones confiadas a Best Coatings Solutions.',
-  ],
-  philosophyTitle: 'La calidad se construye antes de aplicar la pintura',
-  philosophy: [
-    'El acabado que la gente nota es el último paso. El trabajo que protege su embarcación ocurre antes — inspección, preparación y paciencia.',
-    'Best Coatings Solutions existe por una razón sencilla. Los dueños merecen a alguien que inspeccione con cuidado, prepare con honestidad y termine una reparación como si la embarcación fuera propia.',
-  ],
-  craftPrinciplesTitle: 'Cada reparación comienza de la misma manera',
-  craftPrinciplesIntro:
-    'Antes de que comience cualquier reparación, me hago cuatro preguntas:',
-  craftPrinciplesQuestions: [
-    '¿Qué causó el daño?',
-    '¿Cuál es el método correcto de reparación?',
-    '¿Cómo se puede preservar el acabado original?',
-    '¿Qué esperaría yo si esta fuera mi propia embarcación?',
-  ],
-  craftPrinciplesClosing:
-    'Esas preguntas guían cada proyecto, ya sea una pequeña reparación de gelcoat o una restauración cosmética completa.',
-  expectTitle: 'Qué puede esperar',
-  expectIntro:
-    'Los dueños de embarcaciones a menudo se preguntan cómo es trabajar con un taller de reparación. Este es el camino que seguimos.',
-  expectSteps: [
-    {
-      title: 'Contáctenos',
-      body: 'Cuéntenos sobre su embarcación y el daño.',
-    },
-    {
-      title: 'Revisamos el daño',
-      body: 'Miramos lo que comparte antes de recomendar los siguientes pasos.',
-    },
-    {
-      title: 'Inspección cuando hace falta',
-      body: 'Si la reparación necesita verse en persona, programamos una inspección.',
-    },
-    {
-      title: 'Estimado',
-      body: 'Ofrecemos un estimado según lo que podamos verificar. Los estimados gratuitos aplican solo en el área de Fort Lauderdale.',
-    },
-    {
-      title: 'Opciones de reparación',
-      body: 'Hablamos de métodos, límites y expectativas realistas de acabado — sin presión.',
-    },
-    {
-      title: 'Actualizaciones durante el proyecto',
-      body: 'Lo mantenemos informado para que nunca tenga que adivinar qué ocurre con su embarcación.',
-    },
-    {
-      title: 'Inspección final',
-      body: 'Inspeccionamos la reparación terminada antes de la entrega y revisamos el resultado con usted.',
-    },
-  ],
-  specializationTitle: 'Trabajo marino en el que me enfoco',
-  specialization: [
-    'Reparación y refinación de gelcoat',
-    'Reparación de fibra de vidrio y compuestos',
-    'Corrección y refinación de pintura',
-    'Igualación de color para reparaciones que deben integrarse',
-    'Restauración cosmética de embarcaciones y yates',
-  ],
-  communicationTitle: 'Cada reparación tiene mi atención',
-  communication: [
-    'Miro el área dañada, reparo lo que hay debajo cuando hace falta e igualo el acabado alrededor antes del pulido final. Le diré lo que una reparación puede y no puede hacer. La perfección invisible no es una promesa que haga.',
-    'Enviar un formulario pide una respuesta. No reserva una emergencia ni crea un estimado vinculante por sí solo.',
-  ],
-  valuesTitle: 'Cómo trabajo',
-  valuesIntro: 'Estos son hábitos de trabajo — no eslóganes.',
-  disclaimer:
-    'Los nombres de fabricantes y empleadores se mencionan únicamente para describir la trayectoria y experiencia profesional de Marcelo. Su inclusión no implica respaldo, afiliación ni asociación con Best Coatings Solutions.',
-  serviceAreaTitle: 'Dónde trabajamos',
-  serviceArea: [
-    'Enfoque principal: Sur de Florida.',
-    'Los estimados gratuitos están disponibles solo en el área de Fort Lauderdale. Otras ubicaciones pueden requerir revisión o arreglos de viaje.',
-    'Nombrar una región no significa que atendamos cada marina o cada ciudad del Sur de Florida.',
-  ],
-  projectsCtaTitle: 'Nuestro trabajo',
-  projectsCtaBody:
-    'Las historias de reparación aparecen cuando los dueños permiten publicarlos. Mientras tanto, mantenemos la página de proyectos honesta en lugar de inventar un portafolio.',
-  estimateCtaTitle: 'Solicitar un estimado',
-  estimateCtaBody:
-    'Cuéntenos sobre su embarcación y la reparación. Los estimados gratuitos aplican solo en el área de Fort Lauderdale.',
-  aviationTitle: 'División de aviación',
-  aviationBody:
-    'La aviación es parte de lo que somos — una división especializada de refinación cosmética junto a Marina. Cuéntenos sobre proyectos de acabado exterior de aeronaves a través de Contacto. No presentamos la aviación como mantenimiento estructural o mecánico regulado.',
+  lead: 'Best Coatings Solutions se construye sobre estándares que se sienten en el acabado. Marcelo es el artesano detrás de esa disciplina — aportando décadas de cuidado en refinación a cada proyecto confiado a la empresa.',
   photoNote:
-    'La fotografía auténtica de Marcelo y del trabajo reemplazará este espacio cuando se apruebe. No usamos fotos de banco para inventar un taller.',
-  values: [
+    'La fotografía auténtica de Marcelo en un taller o entorno de proyecto reemplazará este espacio cuando se apruebe. No usamos fotos de banco para inventar un taller.',
+  beganTitle: 'Dónde comenzó',
+  began: [
+    'La carrera de Marcelo en refinación profesional comenzó en Japón. Allí desarrolló aprecio por la precisión, la consistencia y el respeto por la superficie frente a él.',
+    'Un buen acabado no es velocidad. Es preparación, paciencia y el hábito de hacer el trabajo cuidadoso de la misma manera cada vez.',
+  ],
+  industriesTitle: 'Experiencia en distintas industrias',
+  industries: [
+    'La refinación en manufactura automotriz enseñó disciplina de producción — pintura metálica, preparación de superficie y control de calidad bajo estándares exigentes.',
+    'El trabajo marino enseñó cómo viven los acabados bajo sol, sal y uso real — y cómo los dueños confían a alguien una embarcación que les importa profundamente.',
+    'La refinación cosmética en aviación elevó el nivel de enmascarado, control de materiales y revisión del acabado. Ese historial informa los estándares que Best Coatings Solutions sostiene hoy. No significa que la empresa sea una instalación de aviación autorizada, y el trabajo de aeronaves no se reserva en este sitio como mantenimiento regulado.',
+  ],
+  whyExistsTitle: 'Por qué existe Best Coatings Solutions',
+  whyExists: [
+    'Los dueños merecen preparación cuidadosa, recomendaciones honestas y respeto por la inversión que ya han hecho.',
+    'Best Coatings Solutions existe para poner la artesanía por encima de los atajos — inspeccionar antes de prometer, preparar antes de terminar y tratar cada superficie como si la embarcación o la aeronave perteneciera a quien hace el trabajo.',
+  ],
+  standardsTitle: 'Estándares que guían cada proyecto',
+  standardsIntro:
+    'Estos son principios de trabajo — los hábitos detrás de cada reparación y proyecto de refinación.',
+  standards: [
     {
-      id: 'careful-inspection',
-      title: 'Inspeccionar primero',
-      body: 'Ver el daño y el acceso antes de elegir el método de reparación.',
+      id: 'diagnose',
+      title: 'Diagnosticar antes de reparar',
+      body: 'Entender el daño y el método correcto antes de comenzar.',
     },
     {
-      id: 'clear-communication',
-      title: 'Lenguaje claro',
-      body: 'Explicar alcance, límites y siguientes pasos sin presión.',
+      id: 'prepare',
+      title: 'Preparar antes de terminar',
+      body: 'La calidad se construye en los pasos que nadie fotografía — limpieza, nivelación y preparación de superficie.',
     },
     {
-      id: 'appropriate-repair-planning',
-      title: 'Método según la embarcación',
-      body: 'Planear la reparación para la condición real — no un paquete único.',
+      id: 'match',
+      title: 'Igualar con cuidado la superficie alrededor',
+      body: 'El color, el brillo y la textura deben pertenecer a lo que ya está allí.',
     },
     {
-      id: 'surface-preparation',
-      title: 'Preparación antes de pintar',
-      body: 'La calidad se construye antes de aplicar la pintura.',
+      id: 'communicate',
+      title: 'Comunicar con honestidad',
+      body: 'Explicar alcance, límites y expectativas realistas sin presión.',
     },
     {
-      id: 'finish-attention',
-      title: 'Color y brillo',
-      body: 'Igualar y terminar para que la reparación pertenezca a la superficie.',
-    },
-    {
-      id: 'respect-for-vessel',
-      title: 'Respeto por la embarcación',
-      body: 'Proteger acabados cercanos y tratar la embarcación como un activo valioso.',
-    },
-    {
-      id: 'honest-scope',
-      title: 'Alcance honesto',
-      body: 'Decir qué está incluido y qué no — antes de comenzar.',
-    },
-    {
-      id: 'professional-documentation',
-      title: 'Registros claros',
-      body: 'Usar fotos y notas cuando ayuden al dueño a entender la reparación.',
+      id: 'inspect',
+      title: 'Inspeccionar antes de concluir',
+      body: 'Revisar con cuidado la reparación terminada antes de considerar el proyecto completo.',
     },
   ],
+  backgroundTitle: 'Trayectoria profesional',
+  backgroundIntro:
+    'Los siguientes nombres describen únicamente trayectoria y experiencia profesional. Se enumeran de forma factual y sin énfasis decorativo.',
+  backgroundEntries: [
+    {
+      id: 'japan-manufacturing',
+      label: 'Japón · refinación en manufactura',
+      detail:
+        'La refinación profesional comenzó en Japón, incluyendo trabajo de refinación en manufactura realizado mientras estuvo empleado en Aisin Sin Ei, con entornos automotrices asociados que incluyen Toyota, Honda y Mitsubishi.',
+    },
+    {
+      id: 'marine-employers',
+      label: 'Marina · empleadores',
+      detail:
+        'La experiencia en refinación marina incluye trabajo realizado mientras estuvo empleado en MarineMax, Nautical Ventures y HCB Yachts.',
+    },
+    {
+      id: 'vessel-manufacturers',
+      label: 'Marina · fabricantes de embarcaciones',
+      detail:
+        'La experiencia profesional en refinación incluye trabajo con embarcaciones de fabricantes como Azimut, Viking, Riva, Ferretti, De Antonio, Beneteau, Axopar, Sheaffer y HCB.',
+    },
+    {
+      id: 'aviation-background',
+      label: 'Aviación · historial de refinación cosmética',
+      detail:
+        'Las contribuciones de carrera incluyen trabajo de refinación relacionado con jets de negocios Bombardier y helicópteros militares. Ese capítulo termina en HCB Yachts — antes de Best Coatings Solutions.',
+    },
+  ],
+  disclaimer:
+    'Los nombres de empleadores y fabricantes se mencionan únicamente para describir la trayectoria y experiencia profesional de Marcelo. Su inclusión no implica respaldo, afiliación, autorización ni asociación con Best Coatings Solutions.',
+  invitationTitle: 'Conversemos sobre un proyecto',
+  invitationBody:
+    'Si tiene un acabado que necesita atención cuidadosa, con gusto hablamos de lo que está viendo y de cuál sería un siguiente paso responsable — sin presión.',
 };
 
 export function getAboutContent(locale: 'en' | 'es'): AboutPageContent {

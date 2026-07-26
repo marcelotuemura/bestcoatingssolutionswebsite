@@ -34,11 +34,15 @@ describe('phase 4 trust experience', () => {
 
   it('keeps employer language factual and disclaimer clear', () => {
     const about = getAboutContent('en');
+    const background = about.backgroundEntries.map((e) => e.detail).join(' ');
+    const industries = about.industries.join(' ');
+    const blob = `${background} ${industries}`;
     const banned =
       /\btrusted by\b|\bpartnered with\b|\bfactory certified\b|\bauthorized by\b|\bofficial partner\b|\bis an authorized (dealer|partner|facility of)\b/i;
-    expect(banned.test(about.career.join(' '))).toBe(false);
-    expect(about.career.join(' ')).toMatch(/not mean .* authorized aviation/i);
-    expect(about.career.join(' ')).toMatch(/while employed by/i);
+    expect(banned.test(blob)).toBe(false);
+    expect(industries).toMatch(/not mean .* authorized aviation/i);
+    expect(background).toMatch(/while employed by/i);
     expect(about.disclaimer).toMatch(/does not imply endorsement/i);
+    expect(about.disclaimer).toMatch(/authorization/i);
   });
 });

@@ -51,17 +51,17 @@ describe('about content', () => {
     const es = getAboutContent('es');
     expect(en.title).toMatch(/Meet Marcelo/);
     expect(es.title).toMatch(/Marcelo/);
-    expect(en.values.length).toBe(8);
-    expect(es.values.length).toBe(en.values.length);
+    expect(en.standards.length).toBe(5);
+    expect(es.standards.length).toBe(en.standards.length);
     const banned =
       /\bfounded in\b|\bawarded\b|\baward-winning\b|\blargest\b|\bbest in florida\b|\bguaranteed invisible\b/i;
-    expect(banned.test(en.introduction.join(' '))).toBe(false);
-    expect(banned.test(es.introduction.join(' '))).toBe(false);
-    expect(en.career.join(' ')).toMatch(/work performed while employed by/i);
+    expect(banned.test(en.began.join(' '))).toBe(false);
+    expect(banned.test(es.began.join(' '))).toBe(false);
+    expect(en.backgroundEntries.map((e) => e.detail).join(' ')).toMatch(
+      /work performed while employed by/i,
+    );
     expect(en.disclaimer).toMatch(/does not imply endorsement/i);
-    expect(en.craftPrinciplesQuestions).toHaveLength(4);
-    expect(en.expectSteps.length).toBe(7);
-    expect(es.expectSteps.length).toBe(en.expectSteps.length);
+    expect(en.disclaimer).toMatch(/authorization/i);
   });
 
   it('hides unapproved owner facts', () => {

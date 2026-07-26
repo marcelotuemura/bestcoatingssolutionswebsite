@@ -1,22 +1,22 @@
-import Link from 'next/link';
 import { getApprovedAboutFacts } from '@/config/about';
-import { routes } from '@/config/routes';
 import { getAboutContent } from '@/content/about';
-import { CompanyValues } from '@/components/trust/CompanyValues';
-import { Container } from '@/components/ui/Container';
-import { Heading } from '@/components/ui/Heading';
-import { Section } from '@/components/ui/Section';
+import { Reveal, RevealItem, RevealStagger } from '@/components/home/Reveal';
 import {
   Breadcrumbs,
-  BulletList,
   ContentSection,
   EstimateCtaBand,
   PageHero,
 } from '@/components/marketing';
+import { Container } from '@/components/ui/Container';
+import { Heading } from '@/components/ui/Heading';
+import { Section } from '@/components/ui/Section';
 import type { Dictionary } from '@/i18n/get-dictionary';
 import type { Locale } from '@/i18n/config';
-import { localePath } from '@/i18n/path';
 
+/**
+ * Phase 5G — About as craftsman culmination.
+ * Deepens trust already built on the site; company stays center, Marcelo reinforces credibility.
+ */
 export function AboutPage({
   locale,
   dictionary,
@@ -28,7 +28,7 @@ export function AboutPage({
   const approvedFacts = getApprovedAboutFacts();
 
   return (
-    <main id="main-content">
+    <main id="main-content" data-testid="about-page">
       <Section className="pt-10 pb-0 sm:pt-14">
         <Container>
           <Breadcrumbs
@@ -50,61 +50,51 @@ export function AboutPage({
 
       <Section aria-labelledby="about-photo-heading" className="pt-0">
         <Container>
-          <div
-            className="relative flex min-h-[14rem] items-end overflow-hidden rounded-sm bg-[radial-gradient(ellipse_at_70%_10%,rgba(10,132,255,0.14),transparent_50%),linear-gradient(165deg,#0a1a2f_0%,#07101c_60%,#050d18_100%)] p-6 sm:min-h-[18rem]"
-            data-testid="about-photo-slot"
-          >
+          <Reveal>
             <div
-              aria-hidden
-              className="bcs-ocean-texture pointer-events-none absolute inset-0 opacity-40"
-            />
-            <div className="relative">
-              <h2 id="about-photo-heading" className="sr-only">
-                {content.title}
-              </h2>
-              <p className="text-silver-500 max-w-xl text-sm text-pretty">
-                {content.photoNote}
-              </p>
-            </div>
-          </div>
-        </Container>
-      </Section>
-
-      <ContentSection id="introduction" title={content.introductionTitle}>
-        <div className="space-y-4">
-          {content.introduction.map((paragraph) => (
-            <p
-              key={paragraph.slice(0, 24)}
-              className="text-silver-300 text-pretty"
+              className="bcs-marine-texture border-border relative flex min-h-[16rem] items-end overflow-hidden rounded-[var(--radius-media)] border p-6 sm:min-h-[22rem] sm:p-8"
+              data-testid="about-photo-slot"
             >
-              {paragraph}
-            </p>
-          ))}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#050d18]/85 via-[#050d18]/30 to-transparent"
+              />
+              <div className="relative">
+                <h2 id="about-photo-heading" className="sr-only">
+                  {content.title}
+                </h2>
+                <p className="text-text-muted max-w-xl text-sm text-pretty">
+                  {content.photoNote}
+                </p>
+              </div>
+            </div>
+          </Reveal>
           {approvedFacts.length === 0 ? (
             <p
-              className="text-silver-500 text-sm text-pretty"
+              className="text-text-muted mt-4 max-w-3xl text-sm text-pretty"
               data-testid="about-owner-facts-pending"
             >
               {dictionary.phase5.about.ownerFactsPending}
             </p>
           ) : (
-            <ul className="text-silver-300 mt-4 space-y-2 text-sm">
+            <ul className="text-text-secondary mt-4 max-w-3xl space-y-2 text-sm">
               {approvedFacts.map((fact) => (
                 <li key={fact.id}>
-                  <span className="text-white">{fact.label}:</span> {fact.value}
+                  <span className="text-text-primary">{fact.label}:</span>{' '}
+                  {fact.value}
                 </li>
               ))}
             </ul>
           )}
-        </div>
-      </ContentSection>
+        </Container>
+      </Section>
 
-      <ContentSection id="career" title={content.careerTitle}>
-        <div className="space-y-4">
-          {content.career.map((paragraph) => (
+      <ContentSection id="where-it-began" title={content.beganTitle}>
+        <div className="mt-5 space-y-4">
+          {content.began.map((paragraph) => (
             <p
-              key={paragraph.slice(0, 24)}
-              className="text-silver-300 text-pretty"
+              key={paragraph.slice(0, 32)}
+              className="text-text-secondary text-pretty"
             >
               {paragraph}
             </p>
@@ -112,12 +102,15 @@ export function AboutPage({
         </div>
       </ContentSection>
 
-      <ContentSection id="philosophy" title={content.philosophyTitle}>
-        <div className="space-y-4">
-          {content.philosophy.map((paragraph) => (
+      <ContentSection
+        id="experience-across-industries"
+        title={content.industriesTitle}
+      >
+        <div className="mt-5 space-y-4">
+          {content.industries.map((paragraph) => (
             <p
-              key={paragraph.slice(0, 24)}
-              className="text-silver-300 text-pretty"
+              key={paragraph.slice(0, 32)}
+              className="text-text-secondary text-pretty"
             >
               {paragraph}
             </p>
@@ -126,120 +119,99 @@ export function AboutPage({
       </ContentSection>
 
       <Section
-        id="craft-principles"
-        aria-labelledby="about-craft-principles-heading"
+        id="why-bcs-exists"
+        className="py-16 sm:py-24"
+        aria-labelledby="why-bcs-exists-heading"
       >
         <Container>
-          <div className="max-w-3xl">
-            <Heading as="h2" id="about-craft-principles-heading">
-              {content.craftPrinciplesTitle}
+          <Reveal className="max-w-3xl">
+            <Heading as="h2" id="why-bcs-exists-heading">
+              {content.whyExistsTitle}
             </Heading>
-            <p className="text-silver-300 mt-4 text-pretty">
-              {content.craftPrinciplesIntro}
-            </p>
-            <ol className="text-silver-100 mt-6 list-decimal space-y-3 pl-5 text-pretty">
-              {content.craftPrinciplesQuestions.map((question) => (
-                <li key={question}>{question}</li>
+            <div className="mt-6 space-y-5">
+              {content.whyExists.map((paragraph, index) => (
+                <p
+                  key={paragraph.slice(0, 32)}
+                  className={
+                    index === 0
+                      ? 'text-text-primary text-xl text-pretty sm:text-2xl'
+                      : 'text-text-secondary text-lg text-pretty'
+                  }
+                >
+                  {paragraph}
+                </p>
               ))}
-            </ol>
-            <p className="text-silver-300 mt-6 text-pretty">
-              {content.craftPrinciplesClosing}
-            </p>
-          </div>
+            </div>
+          </Reveal>
         </Container>
       </Section>
 
-      <Section id="what-to-expect" aria-labelledby="about-expect-heading">
+      <Section
+        id="standards"
+        aria-labelledby="about-standards-heading"
+        data-testid="about-standards"
+      >
         <Container>
-          <div className="max-w-3xl">
-            <Heading as="h2" id="about-expect-heading">
-              {content.expectTitle}
+          <Reveal className="max-w-3xl">
+            <Heading as="h2" id="about-standards-heading">
+              {content.standardsTitle}
             </Heading>
-            <p className="text-silver-300 mt-4 text-pretty">
-              {content.expectIntro}
+            <p className="text-text-secondary mt-4 text-pretty">
+              {content.standardsIntro}
             </p>
-            <ol className="mt-8 space-y-5">
-              {content.expectSteps.map((step, index) => (
-                <li
-                  key={step.title}
-                  className="border-navy-700/80 border-l pl-5"
-                >
-                  <p className="text-electric-400 text-xs tracking-[0.2em] uppercase">
+          </Reveal>
+          <RevealStagger className="divide-border/70 border-border/70 mt-10 max-w-3xl divide-y border-y">
+            {content.standards.map((standard, index) => (
+              <RevealItem key={standard.id}>
+                <div className="py-6 sm:py-7">
+                  <p className="text-accent text-xs tracking-[0.2em] uppercase">
                     {String(index + 1).padStart(2, '0')}
                   </p>
-                  <p className="mt-1 text-lg font-medium text-white">
-                    {step.title}
+                  <h3 className="text-text-primary mt-2 text-lg font-medium tracking-tight">
+                    {standard.title}
+                  </h3>
+                  <p className="text-text-secondary mt-2 text-sm text-pretty">
+                    {standard.body}
                   </p>
-                  <p className="text-silver-300 mt-1 text-sm text-pretty">
-                    {step.body}
+                </div>
+              </RevealItem>
+            ))}
+          </RevealStagger>
+        </Container>
+      </Section>
+
+      <Section
+        id="professional-background"
+        aria-labelledby="professional-background-heading"
+        data-testid="about-professional-background"
+      >
+        <Container>
+          <Reveal className="max-w-3xl">
+            <Heading as="h2" id="professional-background-heading">
+              {content.backgroundTitle}
+            </Heading>
+            <p className="text-text-muted mt-4 text-sm text-pretty">
+              {content.backgroundIntro}
+            </p>
+            <ol className="mt-8 space-y-6">
+              {content.backgroundEntries.map((entry) => (
+                <li
+                  key={entry.id}
+                  className="border-border/80 border-l pl-5"
+                  data-testid={`about-background-${entry.id}`}
+                >
+                  <p className="text-text-muted text-xs tracking-[0.14em] uppercase">
+                    {entry.label}
+                  </p>
+                  <p className="text-text-secondary mt-2 text-sm text-pretty">
+                    {entry.detail}
                   </p>
                 </li>
               ))}
             </ol>
-          </div>
+          </Reveal>
         </Container>
       </Section>
-
-      <ContentSection id="specialization" title={content.specializationTitle}>
-        <BulletList items={content.specialization} />
-      </ContentSection>
-
-      <ContentSection id="communication" title={content.communicationTitle}>
-        <div className="space-y-4">
-          {content.communication.map((paragraph) => (
-            <p
-              key={paragraph.slice(0, 24)}
-              className="text-silver-300 text-pretty"
-            >
-              {paragraph}
-            </p>
-          ))}
-          <Link
-            href={localePath(locale, routes.workmanship.path)}
-            className="text-electric-400 hover:text-electric-300 text-sm underline-offset-2 hover:underline"
-          >
-            {dictionary.nav.workmanship}
-          </Link>
-        </div>
-      </ContentSection>
-
-      <Section id="values" aria-labelledby="company-values-heading">
-        <Container>
-          <CompanyValues
-            title={content.valuesTitle}
-            intro={content.valuesIntro}
-            values={content.values}
-          />
-        </Container>
-      </Section>
-
-      <ContentSection
-        id="service-area-summary"
-        title={content.serviceAreaTitle}
-      >
-        <BulletList items={content.serviceArea} />
-        <p className="mt-4">
-          <Link
-            href={localePath(locale, routes.serviceArea.path)}
-            className="text-electric-400 hover:text-electric-300 text-sm underline-offset-2 hover:underline"
-          >
-            {dictionary.nav.serviceArea}
-          </Link>
-        </p>
-      </ContentSection>
-
-      <ContentSection
-        id="projects-cta"
-        title={content.projectsCtaTitle}
-        body={content.projectsCtaBody}
-      >
-        <Link
-          href={localePath(locale, routes.projects.path)}
-          className="text-electric-400 hover:text-electric-300 text-sm underline-offset-2 hover:underline"
-        >
-          {dictionary.cta.viewWork}
-        </Link>
-      </ContentSection>
 
       <Section
         id="employer-disclaimer"
@@ -251,7 +223,7 @@ export function AboutPage({
             Disclaimer
           </h2>
           <p
-            className="text-silver-500 max-w-3xl text-sm text-pretty italic"
+            className="text-text-muted max-w-3xl text-sm text-pretty italic"
             data-testid="about-employer-disclaimer"
           >
             {content.disclaimer}
@@ -259,25 +231,12 @@ export function AboutPage({
         </Container>
       </Section>
 
-      <ContentSection
-        id="aviation"
-        title={content.aviationTitle}
-        body={content.aviationBody}
-      >
-        <Link
-          href={localePath(locale, routes.aviation.path)}
-          className="text-electric-400 hover:text-electric-300 text-sm underline-offset-2 hover:underline"
-        >
-          {dictionary.nav.aviation}
-        </Link>
-      </ContentSection>
-
       <EstimateCtaBand
         locale={locale}
         dictionary={dictionary}
-        title={content.estimateCtaTitle}
-        body={content.estimateCtaBody}
-        notice={dictionary.pages.estimateShared.notice}
+        title={content.invitationTitle}
+        body={content.invitationBody}
+        mode="contact"
       />
     </main>
   );

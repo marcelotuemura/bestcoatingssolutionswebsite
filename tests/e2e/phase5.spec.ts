@@ -5,13 +5,11 @@ test.describe('Phase 5 — About', () => {
     await page.goto('/en/about');
     await expect(page.locator('h1')).toHaveCount(1);
     await expect(page.locator('h1')).toContainText('Meet Marcelo');
-    await expect(page.getByTestId('company-values')).toBeVisible();
+    await expect(page.getByTestId('about-standards')).toBeVisible();
     await expect(page.getByTestId('about-owner-facts-pending')).toBeVisible();
     await expect(page.getByText(/\bfounded in\b/i)).toHaveCount(0);
     await expect(page.getByText(/award-winning/i)).toHaveCount(0);
-    await expect(
-      page.getByRole('link', { name: /request/i }).first(),
-    ).toBeVisible();
+    await expect(page.getByTestId('cta-primary-contact')).toBeVisible();
   });
 
   test('Spanish about page', async ({ page }) => {
@@ -20,21 +18,30 @@ test.describe('Phase 5 — About', () => {
     await expect(page.locator('h1')).toContainText('Conozca a Marcelo');
   });
 
-  test('about page builds trust with principles, journey, and disclaimer', async ({
+  test('about page builds trust with standards, background, and disclaimer', async ({
     page,
   }) => {
     await page.goto('/en/about');
     await expect(
       page.getByRole('heading', {
-        name: 'Every Repair Begins the Same Way',
+        name: 'Why Best Coatings Solutions exists',
         level: 2,
       }),
     ).toBeVisible();
     await expect(
-      page.getByRole('heading', { name: 'What You Can Expect', level: 2 }),
+      page.getByRole('heading', {
+        name: 'Standards that guide every project',
+        level: 2,
+      }),
+    ).toBeVisible();
+    await expect(
+      page.getByTestId('about-professional-background'),
     ).toBeVisible();
     await expect(page.getByTestId('about-employer-disclaimer')).toContainText(
       /does not imply endorsement/i,
+    );
+    await expect(page.getByTestId('about-employer-disclaimer')).toContainText(
+      /authorization/i,
     );
     await expect(page.getByTestId('about-photo-slot')).toBeVisible();
   });

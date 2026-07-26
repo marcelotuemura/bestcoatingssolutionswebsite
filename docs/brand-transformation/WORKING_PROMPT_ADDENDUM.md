@@ -8,9 +8,10 @@ Living constraints for Codex/Cursor. Update at each phase gate.
 
 | Phase | Status |
 |-------|--------|
-| 1–5E | **Approved · on main** |
-| 5F — Aviation division | **In review / awaiting approval** |
-| 5G — About (craftsman culmination) | Wait for Phase 5F approval |
+| 1–5F | **Approved · on main** |
+| 5G — About (Meet Marcelo) | **In review / awaiting approval** |
+| 5G.5 — Brand Consistency Audit | Suggested after 5G approval |
+| 5H+ | Projects / Contact / remaining polish |
 
 ---
 
@@ -25,7 +26,8 @@ Living constraints for Codex/Cursor. Update at each phase gate.
 - One brand · two divisions (Marine commercially primary; Aviation visible and real).  
 - Do not invent or auto-trace the official logo.  
 - Homepage sections must build trust, explain capability, show proof, or encourage contact.  
-- Division pages share one design language; differentiate through photography and content.
+- Division pages share one design language; differentiate through photography and content.  
+- About is craftsman culmination — company-centered, not a résumé.
 
 ---
 
@@ -39,10 +41,12 @@ Living constraints for Codex/Cursor. Update at each phase gate.
 - Aviation process: Assessment → Surface preparation → Composite refinement → Paint restoration → Finish inspection.  
 - Aviation: cosmetic refinishing only; Contact inquiries; no FAA/structural/mechanical language.  
 - Logo roles: compact header · full mark in hero/footer/brand presentations.  
-- About (5G): company-centered craftsman story — not a résumé dump.
+- About standards: Diagnose → Prepare → Match → Communicate → Inspect.  
+- About closing CTA: calm Contact invitation (not Estimate hard-sell).  
+- Employer/manufacturer disclaimer includes **authorization**.
 
 ---
 
 ## Stop point
 
-Approve Phase 5F before Phase 5G About.
+Approve Phase 5G before Phase 5G.5 Brand Consistency Audit.
