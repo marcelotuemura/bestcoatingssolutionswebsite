@@ -1,0 +1,6 @@
+{
+  "status": "skipped",
+  "reason": "SKIP: Set MEDIA_SUPABASE_PHASE7_LIVE=1 (or PHASE5_LIVE=1) to run hosted Phase 7 tests.",
+  "liveIntegrationClaimed": false,
+  "generatedAt": "2026-07-26T02:14:01.865Z"
+}
