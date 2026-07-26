@@ -223,7 +223,7 @@ test.describe('Phase 4 — Schedule, legal, thank you, 404', () => {
     await expect(
       page
         .locator('#main-content')
-        .getByRole('link', { name: /Request Free Estimate/i }),
+        .getByRole('link', { name: /Request an Estimate/i }),
     ).toBeVisible();
 
     const service404 = await request.get('/en/services/not-a-real-service');

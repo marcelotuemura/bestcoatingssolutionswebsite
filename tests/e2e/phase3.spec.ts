@@ -14,16 +14,16 @@ test.describe('Phase 3 — Marine, Aviation, Services, Projects', () => {
       page.getByRole('navigation', { name: 'Breadcrumb' }),
     ).toBeVisible();
     await expect(
-      page.getByRole('heading', { name: 'Overview', level: 2 }),
+      page.getByRole('heading', { name: 'What this work is about', level: 2 }),
     ).toBeVisible();
     await expect(
-      page.getByRole('heading', { name: 'Marine services', level: 2 }),
+      page.getByRole('heading', { name: 'How we can help', level: 2 }),
     ).toBeVisible();
     await expect(
       page.getByRole('link', { name: /Gelcoat Repair/i }).first(),
     ).toBeVisible();
     await expect(
-      page.getByRole('link', { name: 'Request Free Estimate' }).first(),
+      page.getByRole('link', { name: 'Request an Estimate' }).first(),
     ).toBeVisible();
     await expect(page.getByText(/Placeholder Image/i).first()).toBeVisible();
   });
@@ -38,12 +38,14 @@ test.describe('Phase 3 — Marine, Aviation, Services, Projects', () => {
     await expect(page.getByTestId('aviation-coming-soon')).toContainText(
       /Coming Soon/i,
     );
-    await expect(page.getByText(/not currently active/i).first()).toBeVisible();
     await expect(
-      page.getByRole('heading', { name: 'Future capabilities', level: 2 }),
+      page.getByText(/not active|preview only/i).first(),
     ).toBeVisible();
     await expect(
-      page.getByRole('heading', { name: 'Quality philosophy', level: 2 }),
+      page.getByRole('heading', { name: 'What we are preparing', level: 2 }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'Same standards', level: 2 }),
     ).toBeVisible();
     await expect(page.getByTestId('service-link-gelcoat-repair')).toHaveCount(
       0,
@@ -55,7 +57,7 @@ test.describe('Phase 3 — Marine, Aviation, Services, Projects', () => {
   test('Services index lists all marine services', async ({ page }) => {
     await page.goto('/en/services');
     await expect(
-      page.getByRole('heading', { level: 1, name: 'Marine services' }),
+      page.getByRole('heading', { level: 1, name: 'How we can help' }),
     ).toBeVisible();
     for (const service of marineServices) {
       await expect(

@@ -4,9 +4,7 @@ test.describe('Phase 5 — About', () => {
   test('English about page', async ({ page }) => {
     await page.goto('/en/about');
     await expect(page.locator('h1')).toHaveCount(1);
-    await expect(page.locator('h1')).toContainText(
-      'About Best Coatings Solutions',
-    );
+    await expect(page.locator('h1')).toContainText('Meet Marcelo');
     await expect(page.getByTestId('company-values')).toBeVisible();
     await expect(page.getByTestId('about-owner-facts-pending')).toBeVisible();
     await expect(page.getByText(/\bfounded in\b/i)).toHaveCount(0);

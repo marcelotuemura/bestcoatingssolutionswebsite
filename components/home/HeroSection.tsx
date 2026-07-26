@@ -116,10 +116,10 @@ export function HeroSection({ locale, dictionary }: HeroSectionProps) {
               {dictionary.cta.estimate}
             </ButtonLink>
             <ButtonLink
-              href={localePath(locale, routes.scheduleVisit.path)}
+              href={localePath(locale, routes.projects.path)}
               variant="secondary"
             >
-              {dictionary.cta.schedule}
+              {dictionary.cta.viewWork}
             </ButtonLink>
           </motion.div>
         </div>

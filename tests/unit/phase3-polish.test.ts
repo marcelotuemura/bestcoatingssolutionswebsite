@@ -61,7 +61,7 @@ describe('phase 3 polish — SEO metadata lengths', () => {
           SEO_LENGTH.descriptionMax + 40,
         );
         expect(content.whyTitle.toLowerCase()).toMatch(
-          /why choose|por qué elegir/,
+          /why |por qué |what you should expect|qué debe esperar/,
         );
       }
     }
@@ -99,11 +99,9 @@ describe('phase 3 polish — placeholders and aviation guardrails', () => {
     expect(en.placeholder.mediaLabel).toMatch(/Placeholder Image/i);
     expect(en.placeholder.projectLabel).toMatch(/Future Project/i);
     expect(en.placeholder.emptyProjects).toMatch(/Coming Soon/i);
-    expect(en.cta.estimate).toBe('Request Free Estimate');
+    expect(en.cta.estimate).toBe('Request an Estimate');
     expect(en.cta.callBcs).toMatch(/Call Best Coatings Solutions/i);
-    expect(en.pages.aviation.noBookingNotice).toMatch(
-      /no current aviation booking/i,
-    );
+    expect(en.pages.aviation.noBookingNotice).toMatch(/no aviation booking/i);
   });
 });
 

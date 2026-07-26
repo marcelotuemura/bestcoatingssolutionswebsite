@@ -13,511 +13,456 @@ export const marineServiceContentEs: Record<
 > = {
   gelcoatRepair: service({
     title: 'Reparación de gelcoat',
-    metaTitle: 'Reparación de gelcoat | Marina | BCS',
+    metaTitle: 'Reparación de gelcoat | Best Coatings Solutions',
     metaDescription:
-      'Reparación y refinamiento móvil de gelcoat para yates y embarcaciones en el sur de Florida. Acabados con coincidencia de color sin precios en el sitio.',
-    heroEyebrow: 'Servicio marino',
+      'Restaure gelcoat dañado cuidando el aspecto del acabado original. Reparación marina móvil en el sur de Florida.',
+    heroEyebrow: 'Reparación marina',
     heroLead:
-      'Restituya brillo, continuidad de color e integridad de superficie donde el gelcoat se ha oxidado, craqueado o desajustado.',
+      'Restaure gelcoat dañado preservando la apariencia y la integridad del acabado original de su embarcación.',
     overview:
-      'Best Coatings Solutions ofrece reparación móvil de gelcoat en marinas, astilleros y residencias cuando las condiciones lo permiten. Nos enfocamos en preparación cuidadosa, disciplina de color y un acabado que respete la embarcación — nunca en precios publicados.',
-    problemsTitle: 'Problemas comunes',
+      'El gelcoat sufre con el sol, el atracadero y el tiempo. Inspeccionamos la zona, preparamos la superficie, reparamos lo que hay debajo cuando hace falta y coincidimos el acabado de alrededor antes del pulido final. Trabajamos en marina, astillero o residencia cuando las condiciones lo permiten. No publicamos precios en línea.',
+    problemsTitle: 'Problemas que resuelve',
     problems: [
-      'Oxidación y tiza en superficies expuestas',
+      'Oxidación y tiza',
       'Grietas por estrés y craqueo fino',
-      'Astillas y golpes por impacto',
-      'Reparaciones previas deficientes o desajuste de color',
+      'Astillas y golpes',
+      'Reparaciones viejas que ya no coinciden',
       'Acentos y franjas desvanecidos',
     ],
-    processTitle: 'Nuestro proceso',
+    processTitle: 'Cómo lo abordamos',
     processSteps: [
       {
-        title: 'Evaluar',
-        body: 'Revisamos el daño, el sustrato y el acceso en la embarcación.',
+        title: 'Inspeccionar',
+        body: 'Revisamos el daño, el acabado de alrededor y el acceso antes de elegir el método.',
       },
       {
         title: 'Preparar',
-        body: 'Protegemos acabados adyacentes, abrimos áreas dañadas y nivelamos con cuidado.',
+        body: 'Protegemos superficies cercanas, abrimos la zona dañada y nivelamos con cuidado.',
       },
       {
-        title: 'Coincidir y restaurar',
-        body: 'Aplicamos gelcoat o sistemas de relleno con coincidencia de color disciplinada.',
+        title: 'Reparar y coincidir',
+        body: 'Reconstruimos el sistema de gelcoat y coincidimos el color para que la reparación pertenezca a la embarcación.',
       },
       {
         title: 'Acabar',
-        body: 'Refinamos el brillo y mezclamos transiciones para una presentación cohesiva.',
+        body: 'Afinamos el brillo y mezclamos los bordes, luego revisamos el resultado con usted.',
       },
     ],
-    whyTitle: 'Por qué elegir BCS',
+    whyTitle: 'Por qué importa una buena reparación de gelcoat',
     whyPoints: [
-      'Servicio móvil donde está permitido',
-      'Atención al color y a la reflexión',
-      'Comunicación clara con capitanes y propietarios',
-      'Sin afirmaciones inventadas — oficio real',
+      'Un parche apresurado suele notarse en la siguiente temporada de sol',
+      'El desajuste de color atrae la mirada a la reparación',
+      'Una buena preparación ayuda a que el acabado dure más',
+      'Un alcance claro evita sorpresas a mitad del trabajo',
     ],
     faqTitle: 'Preguntas frecuentes',
     faqs: [
       {
-        question: '¿Pueden coincidir el color del gelcoat existente?',
+        question: '¿Publican precios de reparación de gelcoat?',
         answer:
-          'Sí. Coincidimos tono y brillo con las superficies adyacentes lo más cerca posible. Los resultados dependen de la edad del acabado, la exposición y los materiales disponibles.',
+          'No. El alcance se revisa por embarcación. No mostramos precios en el sitio web.',
       },
       {
-        question: '¿El daño de gelcoat es solo cosmético?',
-        answer:
-          'No siempre. Algunas grietas son superficiales; otras indican estrés o daño más profundo. Evaluamos antes de recomendar el alcance.',
-      },
-      {
-        question: '¿Ofrecen estimados gratuitos?',
+        question: '¿Los estimados son gratuitos?',
         answer:
           'Los estimados gratuitos están disponibles solo en el área de Fort Lauderdale. Otras ubicaciones pueden requerir revisión o arreglos de viaje.',
+      },
+      {
+        question: '¿Pueden trabajar en mi marina?',
+        answer:
+          'Cuando las reglas de la marina y las condiciones lo permiten, trabajamos en el sitio.',
+      },
+      {
+        question: '¿La reparación será invisible?',
+        answer:
+          'Buscamos la mejor mezcla práctica. El gelcoat envejecido y mezclas previas pueden limitar la perfección. Dejamos esa expectativa clara desde el inicio.',
       },
     ],
   }),
   fiberglassRepair: service({
     title: 'Reparación de fibra de vidrio',
-    metaTitle: 'Reparación de fibra de vidrio | Marina | BCS',
+    metaTitle: 'Reparación de fibra de vidrio | Best Coatings Solutions',
     metaDescription:
-      'Reparación móvil de fibra y compuestos marinos en el sur de Florida. Laminado, refuerzo y preparación para acabado — sin precios en el sitio.',
-    heroEyebrow: 'Servicio marino',
+      'Repare daño de fibra con preparación cuidadosa para poder refinir la zona bien. Trabajo marino móvil en el sur de Florida.',
+    heroEyebrow: 'Reparación marina',
     heroLead:
-      'Restaure laminados dañados, delaminación y zonas de impacto con reparación de compuestos disciplinada.',
+      'Repare daño estructural y cosmético de fibra con preparación cuidadosa para que la zona pueda refinirse bien.',
     overview:
-      'La reparación de fibra exige diagnóstico correcto: cosmético vs. estructural. BCS repara compuestos marinos con secuencias de laminado adecuadas y preparación lista para gelcoat o pintura.',
-    problemsTitle: 'Problemas comunes',
+      'El daño de fibra puede ser cosmético o más profundo. Primero inspeccionamos, explicamos lo que vemos en lenguaje claro y luego reconstruimos y acabamos la zona para gelcoat o pintura. Servicio móvil donde está permitido.',
+    problemsTitle: 'Problemas que resuelve',
     problems: [
-      'Delaminación tras impacto o entrada de agua',
-      'Agujeros, grietas y roturas',
-      'Laminado debilitado en zonas de estrés',
-      'Daño en cubierta, casco o superestructura',
-      'Reparaciones previas que fallaron o se ven mal',
+      'Grietas e impactos por golpe',
+      'Zonas blandas y preocupaciones de humedad',
+      'Fallos de adhesión en reparaciones previas',
+      'Marcado de fibra tras trabajos anteriores',
     ],
-    processTitle: 'Nuestro proceso',
+    processTitle: 'Cómo lo abordamos',
     processSteps: [
       {
-        title: 'Diagnosticar',
-        body: 'Identificamos la profundidad del daño y el riesgo de humedad.',
+        title: 'Inspeccionar',
+        body: 'Identificamos hasta dónde llega el daño y qué permite el acceso.',
       },
       {
-        title: 'Remover',
-        body: 'Retiramos material comprometido hasta un límite sólido.',
+        title: 'Estabilizar',
+        body: 'Retiramos material comprometido y preparamos una superficie limpia para adherir.',
       },
       {
-        title: 'Laminar',
-        body: 'Reconstruimos con refuerzo y resina adecuados.',
+        title: 'Reconstruir',
+        body: 'Laminamos o nivelamos con materiales adecuados al alcance acordado.',
       },
       {
-        title: 'Contornear y acabar',
-        body: 'Nivelamos, sellamos y preparamos para gelcoat o pintura.',
+        title: 'Acabar',
+        body: 'Devolvemos la zona hacia el estándar cosmético de alrededor.',
       },
     ],
-    whyTitle: 'Por qué elegir BCS',
+    whyTitle: 'Por qué importa una buena reparación de fibra',
     whyPoints: [
-      'Pensamiento de reparación compuesto, no solo relleno',
-      'Preparación limpia y transición de acabado',
-      'Coordinación con gelcoat, pintura o coincidencia de color',
-      'Documentación clara para propietarios y aseguradoras',
+      'Cubrir el daño sin arreglar lo de debajo suele fallar después',
+      'Una preparación limpia mejora la adhesión de la reparación',
+      'Un alcance honesto lo protege de un arreglo solo cosmético cuando hace falta más',
+      'Una reparación sólida le da una oportunidad justa al trabajo de acabado',
     ],
     faqTitle: 'Preguntas frecuentes',
     faqs: [
       {
-        question: '¿Pueden reparar daño estructural de fibra?',
+        question: '¿Todo problema de fibra es estructural?',
         answer:
-          'Sí, cuando es apropiado. Algunas reparaciones requieren evaluación adicional. Seremos claros si el alcance supera una reparación cosmético/compuesta estándar.',
+          'No. Algunas reparaciones son cosméticas; otras necesitan laminado más profundo. Lo aclaramos antes de seguir.',
       },
       {
-        question: '¿La reparación se verá igual que el original?',
-        answer:
-          'Buscamos una coincidencia cercana en contorno y acabado. El resultado final a menudo se combina con gelcoat o pintura.',
-      },
-      {
-        question: '¿Trabajan con reclamos de seguro?',
-        answer:
-          'Sí. Podemos apoyar reclamos de reparación marina con evaluación, documentación y ejecución profesional.',
+        question: '¿Listan precios en línea?',
+        answer: 'No. Nunca mostramos precios en el sitio web público.',
       },
     ],
   }),
   paintRefinishing: service({
     title: 'Pintura y refinamiento',
-    metaTitle: 'Pintura y refinamiento marino | Marina | BCS',
+    metaTitle: 'Pintura y refinamiento marino | Best Coatings Solutions',
     metaDescription:
-      'Refinamiento de pintura marina en el sur de Florida: preparación, aplicación y control de brillo — sin precios publicados.',
-    heroEyebrow: 'Servicio marino',
+      'Corrija y refinir superficies pintadas marinas con preparación controlada y alcance honesto. Servicio móvil en el sur de Florida.',
+    heroEyebrow: 'Reparación marina',
     heroLead:
-      'Sistemas de pintura marina de alto control—desde preparación hasta acabado—para cascos, cubiertas y superficies de yates.',
+      'Corrija y refinir superficies pintadas con proceso controlado y alcance honesto.',
     overview:
-      'Un refinamiento duradero depende más de la preparación que de la capa final. BCS se enfoca en control de sustrato, disciplina de enmascarado y aplicación consistente.',
-    problemsTitle: 'Problemas comunes',
+      'El trabajo de pintura va desde correcciones pequeñas hasta campañas cosméticas mayores. Planificamos la protección, preparamos con cuidado y aplicamos sistemas de acabado adecuados al área acordada. Un proceso limpio importa tanto como el brillo final. Sin precios en el sitio.',
+    problemsTitle: 'Problemas que resuelve',
     problems: [
-      'Desvanecimiento, oxidación y pérdida de brillo',
-      'Decapado, ampollas o falla de adhesión',
-      'Pintura despareja o retoques visibles',
-      'Desgaste en zonas de alto tráfico',
-      'Refinamiento parcial que no coincide con el resto',
+      'Desvanecimiento y oxidación',
+      'Overspray y contaminación',
+      'Fallos de borde y desprendimiento',
+      'Brillo desigual tras trabajos previos',
     ],
-    processTitle: 'Nuestro proceso',
+    processTitle: 'Cómo lo abordamos',
     processSteps: [
       {
-        title: 'Evaluar superficie',
-        body: 'Revisamos condición, adhesión y alcance.',
+        title: 'Planificar',
+        body: 'Definimos el área, las necesidades de protección y las condiciones de trabajo.',
       },
       {
         title: 'Preparar',
-        body: 'Lijado, relleno, imprimación y enmascarado según se requiera.',
+        body: 'Lijamos, nivelamos y enmascaramos con cuidado respecto a herrajes y acabados cercanos.',
       },
       {
         title: 'Aplicar',
-        body: 'Sistemas de pintura marina aplicados con control.',
+        body: 'Aplicamos el sistema de acabado adecuado al alcance acordado.',
       },
       {
-        title: 'Inspeccionar',
-        body: 'Revisión de brillo, cobertura y calidad de borde.',
+        title: 'Revisar',
+        body: 'Comprobamos brillo, cobertura y bordes con usted bajo buena luz.',
       },
     ],
-    whyTitle: 'Por qué elegir BCS',
+    whyTitle: 'Por qué importa un buen trabajo de pintura',
     whyPoints: [
-      'Énfasis en preparación sobre atajos cosméticos',
-      'Acabados limpios y uniformes con control de color',
-      'Adecuado para trabajo parcial o de sección completa',
-      'Presupuesto transparente sin precios publicados',
+      'La preparación decide cómo se ve el acabado meses después',
+      'Un mal enmascarado se nota en herrajes y superficies vecinas',
+      'Un alcance claro mantiene el trabajo enfocado',
+      'Expectativas honestas valen más que resultados sorpresa',
     ],
     faqTitle: 'Preguntas frecuentes',
     faqs: [
       {
-        question: '¿Pueden pintar solo una sección?',
+        question: '¿Pueden coincidir un color de pintura existente?',
         answer:
-          'Sí. El refinamiento parcial es común. Planificamos transiciones y coincidencia de color para evitar un resultado de “parche”.',
-      },
-      {
-        question: '¿Qué sistemas de pintura usan?',
-        answer:
-          'Seleccionamos sistemas adecuados a la superficie, exposición y alcance. Los materiales se confirman durante el estimado.',
-      },
-      {
-        question: '¿Cuánto dura el refinamiento?',
-        answer:
-          'La vida útil depende de exposición UV, mantenimiento y uso. Explicamos expectativas de cuidado en el proceso de estimado.',
+          'La coincidencia de color se evalúa por embarcación y sistema de acabado. Vea Coincidencia de color para más detalle.',
       },
     ],
   }),
   hullRestoration: service({
     title: 'Restauración de casco',
-    metaTitle: 'Restauración de casco | Marina | BCS',
+    metaTitle: 'Restauración de casco | Best Coatings Solutions',
     metaDescription:
-      'Restauración de casco marino: corrección de superficie, gelcoat/pintura y recuperación de brillo — sin precios en el sitio.',
-    heroEyebrow: 'Servicio marino',
+      'Restaure superficies de casco cansadas con corrección cuidadosa y trabajo de acabado. Reparación marina en el sur de Florida.',
+    heroEyebrow: 'Reparación marina',
     heroLead:
-      'Recupere la apariencia y protección de la superficie del casco con restauración disciplinada—no solo un pulido rápido.',
+      'Devuelva a las superficies de casco cansadas una apariencia limpia y reflectante mediante corrección cuidadosa y trabajo de acabado.',
     overview:
-      'La restauración de casco puede incluir corrección de oxidación, reparación de gelcoat, refinamiento de pintura y recuperación de brillo. BCS define el alcance honestamente.',
-    problemsTitle: 'Problemas comunes',
+      'La restauración de casco puede combinar corrección de oxidación, reparaciones puntuales y refinamiento de acabado. El alcance siempre es específico a la embarcación. Recorremos el casco, fijamos prioridades con usted y trabajamos con método — nunca como un paquete genérico del sitio.',
+    problemsTitle: 'Problemas que resuelve',
     problems: [
-      'Oxidación severa y tiza',
-      'Gelcoat o pintura desgastados',
-      'Arañazos, marcas de atracadero y daño cosmético',
-      'Pérdida de brillo y profundidad de color',
-      'Restauraciones previas incompletas',
+      'Oxidación fuerte',
+      'Manchas en la línea de flotación',
+      'Parcheado de reparaciones previas',
+      'Pérdida de profundidad en colores oscuros',
     ],
-    processTitle: 'Nuestro proceso',
+    processTitle: 'Cómo lo abordamos',
     processSteps: [
       {
-        title: 'Inspeccionar',
-        body: 'Evaluamos oxidación, daño y viabilidad del acabado.',
+        title: 'Evaluar',
+        body: 'Recorremos el casco y acordamos prioridades con el propietario o el capitán.',
       },
       {
         title: 'Corregir',
-        body: 'Reparamos y preparamos la superficie según el alcance.',
+        body: 'Atendemos defectos y preparamos superficies paso a paso.',
       },
       {
-        title: 'Refinar',
-        body: 'Aplicamos gelcoat, pintura o corrección según lo planeado.',
+        title: 'Restaurar',
+        body: 'Reconstruimos la integridad del acabado en las zonas acordadas.',
       },
       {
-        title: 'Proteger',
-        body: 'Acabamos con brillo controlado y orientación de cuidado.',
+        title: 'Presentar',
+        body: 'Revisión final bajo buena luz para reflexión y uniformidad.',
       },
     ],
-    whyTitle: 'Por qué elegir BCS',
+    whyTitle: 'Por qué importa una buena restauración de casco',
     whyPoints: [
-      'Alcance honesto basado en la condición real del casco',
-      'Equilibrio entre cosmética y protección',
-      'Acabado consistente en superficies grandes',
-      'Servicio en el sur de Florida con estimado claro',
+      'La oxidación sin atender sigue apagando la apariencia de la embarcación',
+      'Los parches irregulares previos cuestan ignorar bajo el sol',
+      'Un plan claro evita sobretrabajar zonas que no lo necesitan',
+      'La revisión con buena luz atrapa lo que las fotos solas pueden pasar por alto',
     ],
     faqTitle: 'Preguntas frecuentes',
     faqs: [
       {
-        question: '¿Es suficiente un pulido o necesitamos pintura?',
+        question: '¿Restauran fondos y sistemas de antifouling?',
         answer:
-          'Depende de la condición. Después de la inspección recomendamos el camino menos invasivo que cumpla sus objetivos.',
-      },
-      {
-        question: '¿Pueden restaurar solo la obra viva o muerta?',
-        answer:
-          'Sí. El alcance de sección es común. Planificamos coincidencia de color y líneas de transición con cuidado.',
-      },
-      {
-        question: '¿Incluyen antifouling?',
-        answer:
-          'Los recubrimientos bajo la línea de flotación pueden discutirse durante la evaluación. Confirmamos el alcance exacto en el estimado.',
+          'Nuestro enfoque público es trabajo cosmético y de recubrimientos en el alcance acordado por encima de la línea de flotación. Los programas de fondo se discuten caso por caso.',
       },
     ],
   }),
   yachtCosmeticRepair: service({
     title: 'Reparación cosmética de yates',
-    metaTitle: 'Reparación cosmética de yates | Marina | BCS',
+    metaTitle: 'Reparación cosmética de yates | Best Coatings Solutions',
     metaDescription:
-      'Reparación cosmética de yates en el sur de Florida: gelcoat, pintura, coincidencia de color y acabados de presentación.',
-    heroEyebrow: 'Servicio marino',
+      'Corrija daño cosmético visible para que su yate se presente limpio — sin exagerar el alcance estructural.',
+    heroEyebrow: 'Reparación marina',
     heroLead:
-      'Acabado cosmético preciso para yates donde la presentación, la coincidencia de color y la limpieza de detalle importan.',
+      'Corrija problemas cosméticos visibles que afectan la presentación sin exagerar el alcance estructural.',
     overview:
-      'El trabajo cosmético de yates exige disciplina: bordes limpios, coincidencia cercana de color y acabados que se sostengan bajo inspección cercana.',
-    problemsTitle: 'Problemas comunes',
+      'Marcas de atracadero, rozaduras y pequeños huecos pueden hacer que un yate bien cuidado parezca descuidado. Priorizamos las zonas más visibles, protegemos acabados cercanos y mezclamos las reparaciones con cuidado. El calendario se puede coordinar cuando el acceso a la marina lo permite.',
+    problemsTitle: 'Problemas que resuelve',
     problems: [
-      'Arañazos y marcas visibles en zonas de presentación',
-      'Desajuste de color por retoques previos',
-      'Gelcoat o pintura desgastados en áreas de alto tráfico',
-      'Daño cosmético en cubierta o pasamanos',
-      'Detalles que no cumplen estándares de yate',
+      'Marcas de atracadero y rozaduras en guardabarros',
+      'Rozaduras en cubierta y costados de cabina',
+      'Marcas de instalación de herrajes',
+      'Pequeños huecos y poros',
     ],
-    processTitle: 'Nuestro proceso',
+    processTitle: 'Cómo lo abordamos',
     processSteps: [
       {
-        title: 'Revisar',
-        body: 'Identificamos áreas visibles y prioridades de presentación.',
+        title: 'Priorizar',
+        body: 'Identificamos primero las reparaciones de mayor visibilidad.',
       },
       {
-        title: 'Corregir',
-        body: 'Reparamos, nivelamos y coincidimos color con control.',
+        title: 'Proteger',
+        body: 'Enmascaramos y protegemos acabados e interiores adyacentes según haga falta.',
+      },
+      {
+        title: 'Reparar',
+        body: 'Ejecutamos correcciones cosméticas precisas.',
       },
       {
         title: 'Mezclar',
-        body: 'Integramos reparaciones en superficies adyacentes.',
-      },
-      {
-        title: 'Detallar',
-        body: 'Refinamos brillo y limpieza para inspección cercana.',
+        body: 'Pulimos y mezclamos para un aspecto coherente.',
       },
     ],
-    whyTitle: 'Por qué elegir BCS',
+    whyTitle: 'Por qué importa el cuidado cosmético',
     whyPoints: [
-      'Estándares de presentación para superficies visibles',
-      'Coincidencia de color y mezcla de acabado',
-      'Atención al detalle en zonas de alto impacto visual',
-      'Estimado claro sin precios en el sitio',
+      'Las marcas pequeñas son lo primero que notan invitados y compradores',
+      'Proteger acabados cercanos evita crear un problema mayor',
+      'Un alcance cosmético honesto se mantiene aparte de afirmaciones estructurales',
+      'Un calendario claro ayuda en temporada o planes de venta',
     ],
     faqTitle: 'Preguntas frecuentes',
     faqs: [
       {
-        question: '¿Es diferente de la reparación general de gelcoat?',
+        question:
+          '¿Se puede programar el trabajo cosmético alrededor de calendarios de charter?',
         answer:
-          'El proceso es similar, pero el trabajo cosmético de yates enfatiza la calidad de presentación en superficies altamente visibles.',
-      },
-      {
-        question: '¿Pueden trabajar mientras el yate está en uso?',
-        answer:
-          'Según acceso y alcance. Confirmamos logística durante el estimado.',
-      },
-      {
-        question: '¿Cubren interiores?',
-        answer:
-          'Nuestro enfoque principal es acabados exteriores marinos. Pregunte si su necesidad es adyacente a ese alcance.',
+          'Coordinamos el tiempo cuando el acceso y las reglas de la marina lo permiten. Comparta ventanas preferidas al solicitar un estimado o contactarnos.',
       },
     ],
   }),
   structuralCompositeRepair: service({
     title: 'Reparación estructural de compuestos',
-    metaTitle: 'Reparación estructural de compuestos | Marina | BCS',
+    metaTitle: 'Reparación estructural de compuestos | Best Coatings Solutions',
     metaDescription:
-      'Reparación estructural de compuestos marinos: refuerzo de laminado e integridad del compuesto — sin precios publicados.',
-    heroEyebrow: 'Servicio marino',
+      'Evalúe y repare daño de compuestos con alcance claro — cosmético frente a estructural explicado en lenguaje llano.',
+    heroEyebrow: 'Reparación marina',
     heroLead:
-      'Reparación de laminado y compuestos cuando la integridad importa tanto como la cosmética—con alcance claro y honestidad.',
+      'Atienda daño de compuestos con una evaluación clara — nunca paquetes vagos del sitio ni afirmaciones exageradas.',
     overview:
-      'Las reparaciones estructurales requieren más que relleno superficial. BCS aborda daño de laminado y refuerzo con evaluación cuidadosa y comunicación clara.',
-    problemsTitle: 'Problemas comunes',
+      'Algunos daños necesitan más que una cubierta cosmética. Inspeccionamos, separamos lo estructural del trabajo de acabado y explicamos los hallazgos antes de reparar. Si un trabajo necesita un especialista más amplio, lo decimos con claridad.',
+    problemsTitle: 'Problemas que resuelve',
     problems: [
-      'Falla de laminado tras impacto',
-      'Delaminación o entrada de humedad',
-      'Áreas de refuerzo debilitadas',
-      'Daño compuesto alrededor de herrajes o penetraciones',
-      'Reparaciones previas que no restauraron la integridad',
+      'Grietas de laminado por impacto',
+      'Preocupaciones de núcleo en cubiertas o paneles',
+      'Fallos de adhesión secundaria',
+      'Zonas de reparación que requieren conciencia de carga',
     ],
-    processTitle: 'Nuestro proceso',
+    processTitle: 'Cómo lo abordamos',
     processSteps: [
       {
-        title: 'Evaluar',
-        body: 'Determinamos alcance, profundidad y riesgos.',
+        title: 'Diagnosticar',
+        body: 'Inspeccionamos y discutimos los hallazgos con quienes toman las decisiones.',
       },
       {
-        title: 'Estabilizar',
-        body: 'Retiramos material fallido y preparamos el límite.',
+        title: 'Definir alcance',
+        body: 'Separamos las necesidades estructurales del seguimiento cosmético.',
       },
       {
-        title: 'Reconstruir',
-        body: 'Re-laminamos y reforzamos según el plan de reparación.',
+        title: 'Ejecutar',
+        body: 'Reparamos con materiales y métodos adecuados a la estructura.',
       },
       {
         title: 'Verificar',
-        body: 'Revisamos contorno, transición y preparación de acabado.',
+        body: 'Revisamos la mano de obra y delineamos los pasos de acabado que queden.',
       },
     ],
-    whyTitle: 'Por qué elegir BCS',
+    whyTitle: 'Por qué importa una evaluación honesta de compuestos',
     whyPoints: [
-      'Prioridad en integridad del compuesto sobre atajos cosméticos',
-      'Alcance honesto y comunicación de riesgos',
-      'Coordinación con acabado y coincidencia de color',
-      'Documentación adecuada para propietarios y aseguradoras',
+      'Ocultar un problema estructural bajo pintura no es una reparación',
+      'Un diagnóstico claro protege a la embarcación y al propietario',
+      'Un alcance definido mantiene a todos alineados',
+      'No inventamos capacidades que no tenemos',
     ],
     faqTitle: 'Preguntas frecuentes',
     faqs: [
       {
-        question: '¿Todas las grietas son estructurales?',
+        question: '¿Garantizan que todo problema de compuestos sea menor?',
         answer:
-          'No. Muchas son cosméticas. Inspeccionamos antes de clasificar el trabajo como estructural.',
-      },
-      {
-        question: '¿Necesitaré ingeniería o encuesta?',
-        answer:
-          'Algunas reparaciones lo requieren. Se lo diremos temprano si el alcance lo justifica.',
-      },
-      {
-        question: '¿Puede combinarse con refinamiento cosmético?',
-        answer:
-          'Sí. La reparación estructural a menudo va seguida de gelcoat o pintura.',
+          'No. Algunos hallazgos necesitan una intervención más amplia u otro especialista. Lo diremos con claridad.',
       },
     ],
   }),
   colorMatching: service({
     title: 'Coincidencia de color',
-    metaTitle: 'Coincidencia de color marina | Marina | BCS',
+    metaTitle: 'Coincidencia de color marina | Best Coatings Solutions',
     metaDescription:
-      'Coincidencia de color marina para gelcoat y pintura: correcciones de tono, brillo y mezcla en el sur de Florida.',
-    heroEyebrow: 'Servicio marino',
+      'Coincida gelcoat o pintura de alrededor para que una reparación se mezcle con el acabado existente de la embarcación.',
+    heroEyebrow: 'Reparación marina',
     heroLead:
-      'Coincidencia precisa de color y brillo para que las reparaciones se mezclen con el acabado existente.',
+      'Coincida acabados de alrededor para que las reparaciones se asienten en el color existente de la embarcación — no queden al lado como un parche.',
     overview:
-      'La coincidencia de color es oficio y juicio: tonos desvanecidos, diferencias de brillo y variación de lote. BCS la trata como disciplina central.',
-    problemsTitle: 'Problemas comunes',
+      'La coincidencia de color suele ser la diferencia entre una reparación discreta y una visible. Muestreamos en la embarcación, ajustamos con cuidado y probamos antes de comprometer áreas grandes y visibles. Los acabados envejecidos y los efectos metálicos pueden limitar la perfección — lo decimos temprano.',
+    problemsTitle: 'Problemas que resuelve',
     problems: [
-      'Parches de reparación que no coinciden con el casco o la cubierta',
-      'Diferencias de brillo que hacen visibles las reparaciones',
-      'Colores desvanecidos difíciles de igualar',
-      'Desajustes de lote entre secciones',
-      'Retoques previos con color incorrecto',
+      'Reparaciones que se ven mal bajo el sol',
+      'Acabados envejecidos que ya no coinciden con códigos viejos',
+      'Desajuste de efectos metálicos y perlados',
+      'Discontinuidades en acentos y franjas',
     ],
-    processTitle: 'Nuestro proceso',
+    processTitle: 'Cómo lo abordamos',
     processSteps: [
       {
-        title: 'Referencia',
-        body: 'Evaluamos color adyacente bajo condiciones de luz consistentes.',
+        title: 'Muestrear',
+        body: 'Evaluamos el color bajo luz adecuada en la embarcación.',
       },
       {
         title: 'Formular',
-        body: 'Desarrollamos una coincidencia para el sistema de acabado.',
+        body: 'Ajustamos mezclas hacia el acabado de alrededor.',
       },
       {
         title: 'Probar',
-        body: 'Verificamos tono y brillo antes del acabado completo.',
+        body: 'Validamos antes de comprometer áreas grandes y visibles.',
       },
       {
-        title: 'Mezclar',
-        body: 'Integramos la reparación en las superficies circundantes.',
+        title: 'Aplicar',
+        body: 'Integramos el acabado coincidente en la zona de reparación.',
       },
     ],
-    whyTitle: 'Por qué elegir BCS',
+    whyTitle: 'Por qué importa la coincidencia de color',
     whyPoints: [
-      'La coincidencia de color se trata como un oficio',
-      'Atención a brillo y mezcla, no solo tono',
-      'Aplicable en gelcoat, pintura y cosmético',
-      'Expectativas honestas cuando los acabados envejecidos limitan la coincidencia perfecta',
+      'El ojo encuentra el desajuste antes que la técnica',
+      'El sol revela lo que la luz interior puede ocultar',
+      'La paciencia aquí protege toda la reparación',
+      'Límites honestos generan confianza antes de empezar',
     ],
     faqTitle: 'Preguntas frecuentes',
     faqs: [
       {
-        question: '¿Pueden igualar perfectamente un acabado muy desvanecido?',
+        question: '¿Se puede coincidir perfectamente todo color?',
         answer:
-          'Buscamos la coincidencia más cercana posible. Los acabados muy envejecidos a veces requieren mezcla o un alcance de sección más amplio.',
-      },
-      {
-        question: '¿Es un servicio independiente?',
-        answer:
-          'Puede serlo, y también está integrado en la mayoría de las reparaciones de gelcoat y pintura.',
-      },
-      {
-        question: '¿Igualan colores metálicos o personalizados?',
-        answer:
-          'Muchos acabados personalizados se pueden abordar. La factibilidad se confirma durante la evaluación.',
+          'El envejecimiento, los efectos metálicos y mezclas previas pueden limitar la perfección. Buscamos la mejor mezcla práctica y fijamos expectativas temprano.',
       },
     ],
   }),
   insuranceRepair: service({
     title: 'Reparación por seguro',
-    metaTitle: 'Soporte de reparación marina por seguro | BCS',
+    metaTitle:
+      'Soporte de reparación marina por seguro | Best Coatings Solutions',
     metaDescription:
-      'Reparaciones marinas cosméticas y de recubrimientos coordinadas para trabajo relacionado con seguro — sin precios en el sitio.',
-    heroEyebrow: 'Servicio marino',
+      'Reparaciones marinas cosméticas y de recubrimientos con alcance claro y hábitos de documentación. Las decisiones de cobertura quedan con usted y su aseguradora.',
+    heroEyebrow: 'Reparación marina',
     heroLead:
-      'Apoyo profesional de reparación marina para reclamos — alcance claro, hábitos de documentación cuidadosos y calidad de acabado.',
+      'Apoye reparaciones marinas relacionadas con seguro con alcance claro, hábitos de documentación cuidadosos y calidad de acabado.',
     overview:
-      'Las reparaciones por seguro necesitan claridad. Ayudamos a propietarios y gestores a entender el alcance cosmético y de recubrimientos mediante documentación, inspección cuando corresponda y un alcance escrito acordado antes de la reparación. Las decisiones de cobertura corresponden al cliente y a la aseguradora. BCS no garantiza la aprobación del reclamo, y un estimado de reparación no determina la cobertura de la póliza. No mostramos precios en línea ni inventamos resultados de reclamos.',
-    problemsTitle: 'Problemas comunes',
+      'El trabajo de seguro necesita claridad. Le ayudamos a entender el alcance cosmético y de recubrimientos mediante fotos, inspección cuando hace falta y un alcance escrito antes de reparar. Las decisiones de cobertura corresponden a usted y a su aseguradora. Best Coatings Solutions no garantiza la aprobación del reclamo, no actúa como ajustador público y no muestra precios en línea.',
+    problemsTitle: 'Problemas que resuelve',
     problems: [
       'Daño por atracadero y cosmética de colisión',
       'Daño superficial relacionado con tormentas',
-      'Múltiples reparaciones pequeñas en una embarcación',
+      'Varias reparaciones pequeñas en una embarcación',
       'Necesidad de documentación fotográfica del progreso',
       'Necesidad de comunicación clara con el propietario antes de la autorización',
     ],
-    processTitle: 'Nuestro proceso',
+    processTitle: 'Cómo lo abordamos',
     processSteps: [
       {
         title: 'Documentación inicial',
-        body: 'Revisamos la descripción del daño reportado y cualquier foto proporcionada por el cliente.',
+        body: 'Revisamos el daño reportado y cualquier foto que comparta.',
       },
       {
-        title: 'Inspección cuando corresponda',
-        body: 'Recomendamos inspección en el sitio cuando las fotos no bastan para planificar el alcance de forma responsable.',
+        title: 'Inspección cuando hace falta',
+        body: 'Recomendamos inspección en el sitio cuando las fotos no bastan para planificar con responsabilidad.',
       },
       {
         title: 'Preparación del alcance',
-        body: 'Preparamos el alcance enfocado en el trabajo cosmético o de recubrimientos acordado — sin prometer decisiones del asegurador.',
+        body: 'Preparamos el alcance de reparación para el trabajo cosmético o de recubrimientos acordado — sin prometer decisiones de la aseguradora.',
       },
       {
         title: 'Autorización y reparación',
-        body: 'Procedemos tras la autorización apropiada, luego documentamos y revisamos la finalización frente al alcance acordado.',
+        body: 'Procedemos tras la autorización apropiada, luego revisamos la finalización frente al alcance acordado.',
       },
     ],
-    whyTitle: 'Por qué elegir BCS',
+    whyTitle: 'Qué debe esperar',
     whyPoints: [
-      'Comunicación profesional con el propietario de la embarcación',
-      'Hábitos de documentación aptos para fotos cuando se necesita',
-      'Experiencia en acabados marinos',
-      'Sin testimonios fabricados ni afirmaciones de proveedor preferido',
-      'Sin afirmaciones de ajustador público o representación legal',
+      'Comunicación clara con el propietario',
+      'Hábitos de documentación fotográfica cuando son útiles',
+      'Enfoque en acabados marinos',
+      'Sin promesas de proveedor preferido ni de aprobación de reclamos',
+      'Sin rol de ajustador público ni de representación legal',
     ],
     faqTitle: 'Preguntas frecuentes',
     faqs: [
       {
         question: '¿Garantizan la aprobación del reclamo de seguro?',
         answer:
-          'No. Las decisiones de cobertura corresponden al cliente y a la aseguradora. Un estimado de reparación no determina la cobertura de la póliza, y BCS no garantiza la aprobación del reclamo.',
+          'No. Las decisiones de cobertura corresponden a usted y a su aseguradora. Un estimado de reparación no determina la cobertura de la póliza.',
       },
       {
         question: '¿Facturan directamente a las aseguradoras?',
         answer:
-          'Los arreglos de facturación varían. Discutimos opciones prácticas después de aclarar el alcance — nunca como garantía del sitio, ni como estatus de proveedor preferido para todas las aseguradoras.',
+          'Los arreglos de facturación varían. Discutimos opciones prácticas después de aclarar el alcance — nunca como garantía del sitio.',
       },
       {
-        question: '¿Los estimados gratuitos aplican a trabajo de seguro?',
+        question: '¿Los estimados son gratuitos para trabajo de seguro?',
         answer:
           'Los estimados gratuitos aplican solo en el área de Fort Lauderdale. Otras ubicaciones pueden requerir revisión o arreglos de viaje.',
       },
       {
         question: '¿Actúan como ajustadores públicos?',
         answer:
-          'No. BCS no ofrece servicios de ajustador público, representación legal ni autoridad para interpretar pólizas de seguro.',
+          'No. No ofrecemos servicios de ajustador público, representación legal ni autoridad para interpretar pólizas de seguro.',
       },
     ],
   }),

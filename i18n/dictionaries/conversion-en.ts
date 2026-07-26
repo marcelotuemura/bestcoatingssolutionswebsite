@@ -35,8 +35,8 @@ export const conversionEn = {
     metaDescription:
       'Contact Best Coatings Solutions for marine coatings questions in South Florida. Call, email, or send a message — no website pricing.',
     eyebrow: 'Contact',
-    title: 'Contact Best Coatings Solutions',
-    lead: 'Reach our team for marine refinishing questions. Aviation remains Coming Soon and is not available for estimates or booking.',
+    title: 'Tell Us About Your Project',
+    lead: 'Reach us for marine refinishing questions. Aviation remains Coming Soon and is not available for estimates or booking.',
     directTitle: 'Direct contact',
     hoursTitle: 'Business hours',
     closed: 'Closed',
@@ -45,7 +45,7 @@ export const conversionEn = {
     sunday: 'Sunday',
     areaTitle: 'Service area',
     areaBody:
-      'We serve South Florida from Jupiter southward. Free estimates are available only in the Fort Lauderdale area.',
+      'We serve South Florida. Free estimates are available only in the Fort Lauderdale area.',
     formTitle: 'Send a message',
     formLead:
       'Tell us how we can help. This form is for general and marine inquiries — not aviation estimates.',
@@ -86,8 +86,8 @@ export const conversionEn = {
     metaDescription:
       'Request a marine estimate review from Best Coatings Solutions. Free estimates apply only in Fort Lauderdale. No prices online.',
     eyebrow: 'Marine estimate request',
-    title: 'Request a marine estimate review',
-    lead: 'Share vessel and damage details so we can follow up. This is not an instant quote, binding price, or confirmed appointment.',
+    title: 'Request an Estimate',
+    lead: 'Share boat and damage details so we can follow up. This is not an instant quote, binding price, or confirmed appointment.',
     policyNote:
       'Free estimates are available only in the Fort Lauderdale area. Other locations may require review or travel arrangements.',
     noAviation:

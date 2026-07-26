@@ -1,15 +1,12 @@
 /**
- * Trust pillars for the Why BCS section — real capabilities, never fake reviews.
+ * Craftsmanship pillars for the homepage craft section — process, not slogans.
  */
 export const trustPillars = [
-  'mobile-service',
+  'attention-to-detail',
   'professional-finish',
   'marine-specialists',
-  'aircraft-specialists',
-  'modern-equipment',
+  'mobile-service',
   'fair-pricing',
-  'fast-response',
-  'attention-to-detail',
   'multilingual-team',
 ] as const;
 

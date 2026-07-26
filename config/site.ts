@@ -9,7 +9,7 @@ export const siteConfig = {
   shortName: 'BCS',
   legalName: 'Best Coatings Solutions LLC',
   description:
-    'Premium mobile marine and aviation coatings, refinishing and composite repair. Serving South Florida from Jupiter southward.',
+    'Marine gelcoat, fiberglass, paint, and cosmetic repair in South Florida. Careful preparation and finish work you can see.',
   /**
    * Canonical origin. Overridable per-environment via NEXT_PUBLIC_SITE_URL so
    * preview deployments generate correct absolute URLs for OG tags and sitemaps.
@@ -26,7 +26,7 @@ export const siteConfig = {
   },
   serviceArea: {
     primary: 'South Florida',
-    range: 'Jupiter southward',
+    range: 'South Florida',
     /** Human-readable travel note — never imply unlimited free travel. */
     travelNote:
       'Projects outside the normal service area may be considered by arrangement.',

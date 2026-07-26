@@ -49,15 +49,17 @@ describe('about content', () => {
   it('provides localized about content without unsupported stats', () => {
     const en = getAboutContent('en');
     const es = getAboutContent('es');
-    expect(en.title).toMatch(/Best Coatings Solutions/);
-    expect(es.title).toMatch(/Best Coatings Solutions/);
+    expect(en.title).toMatch(/Meet Marcelo/);
+    expect(es.title).toMatch(/Marcelo/);
     expect(en.values.length).toBe(8);
     expect(es.values.length).toBe(en.values.length);
     const banned =
       /\bfounded in\b|\bawarded\b|\baward-winning\b|\blargest\b|\bbest in florida\b|\bguaranteed invisible\b/i;
     expect(banned.test(en.introduction.join(' '))).toBe(false);
     expect(banned.test(es.introduction.join(' '))).toBe(false);
-    expect(en.introduction.join(' ')).toMatch(/do not invent/i);
+    expect(en.introduction.join(' ')).toMatch(
+      /not partners, sponsors, or endorsements/i,
+    );
   });
 
   it('hides unapproved owner facts', () => {

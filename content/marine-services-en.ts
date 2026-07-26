@@ -41,54 +41,54 @@ export const marineServiceContentEn: Record<
 > = {
   gelcoatRepair: service({
     title: 'Gelcoat Repair',
-    metaTitle: 'Gelcoat Repair | Marine | BCS',
+    metaTitle: 'Gelcoat Repair | Best Coatings Solutions',
     metaDescription:
-      'Mobile gelcoat repair and refinishing for yachts and boats in South Florida. Color-matched finishes without showing prices online.',
-    heroEyebrow: 'Marine service',
+      'Restore damaged gelcoat while protecting the look of your boat’s original finish. Mobile marine repair in South Florida.',
+    heroEyebrow: 'Marine repair',
     heroLead:
-      'Restore gloss, color continuity, and surface integrity where gelcoat has oxidized, cracked, or mismatched.',
+      'Restore damaged gelcoat while preserving the appearance and integrity of your boat’s original finish.',
     overview:
-      'Best Coatings Solutions provides mobile gelcoat repair at marinas, boatyards, and homes where conditions allow. We focus on careful preparation, color discipline, and a finish that respects the vessel — never on website pricing.',
-    problemsTitle: 'Common problems',
+      'Gelcoat takes sun, dock contact, and age hard. We inspect the area, prepare the surface, repair what sits underneath when needed, and match the surrounding finish before the final polish. Work is done at the marina, yard, or home when conditions allow. We do not publish prices online.',
+    problemsTitle: 'Problems this solves',
     problems: [
-      'Oxidation and chalking on exposed surfaces',
-      'Stress cracks and spidering',
-      'Impact chips and gouges',
-      'Poor previous repairs or color mismatch',
+      'Oxidation and chalking',
+      'Stress cracks and spider cracks',
+      'Chips and gouges',
+      'Old repairs that no longer match',
       'Faded accents and boot stripes',
     ],
-    processTitle: 'Our process',
+    processTitle: 'How we approach it',
     processSteps: [
       {
-        title: 'Assess',
-        body: 'Review damage, substrate condition, and access at the vessel.',
+        title: 'Inspect',
+        body: 'Look at the damage, the surrounding finish, and access before choosing a method.',
       },
       {
         title: 'Prepare',
-        body: 'Protect surrounding finishes, open damaged areas, and fair carefully.',
+        body: 'Protect nearby surfaces, open the damaged area, and fair carefully.',
       },
       {
-        title: 'Match & restore',
-        body: 'Build gelcoat or fairing systems with disciplined color matching.',
+        title: 'Repair & match',
+        body: 'Rebuild the gelcoat system and match color so the repair belongs to the boat.',
       },
       {
         title: 'Finish',
-        body: 'Refine gloss and blend transitions for a cohesive presentation.',
+        body: 'Refine gloss and blend edges, then review the result with you.',
       },
     ],
-    whyTitle: 'Why Choose BCS',
+    whyTitle: 'Why proper gelcoat repair matters',
     whyPoints: [
-      'Mobile service where permitted',
-      'Attention to color and reflection',
-      'Clear communication with captains and owners',
-      'No invented claims — real craftsmanship',
+      'A rushed patch often shows in the next season of sun',
+      'Color mismatch draws the eye to the repair',
+      'Good preparation helps the finish last longer',
+      'Clear scope avoids surprises mid-job',
     ],
     faqTitle: 'FAQ',
     faqs: [
       {
         question: 'Do you publish gelcoat repair prices?',
         answer:
-          'No. We do not display prices on the website. Scope is reviewed per vessel.',
+          'No. Scope is reviewed per boat. We do not display prices on the website.',
       },
       {
         question: 'Are estimates free?',
@@ -97,33 +97,37 @@ export const marineServiceContentEn: Record<
       },
       {
         question: 'Can you work at my marina?',
+        answer: 'When marina rules and conditions allow, we work on site.',
+      },
+      {
+        question: 'Will the repair be invisible?',
         answer:
-          'When marina rules and conditions allow, we provide mobile service on site.',
+          'We aim for the best practical blend. Aging gelcoat and prior mixes can limit perfection. We set that expectation early.',
       },
     ],
   }),
   fiberglassRepair: service({
     title: 'Fiberglass Repair',
-    metaTitle: 'Fiberglass Repair | Marine | BCS',
+    metaTitle: 'Fiberglass Repair | Best Coatings Solutions',
     metaDescription:
-      'Mobile fiberglass repair for boats and yachts in South Florida — cosmetic and small structural care with disciplined process.',
-    heroEyebrow: 'Marine service',
+      'Repair fiberglass damage with careful preparation so the area can be refinished properly. Mobile marine work in South Florida.',
+    heroEyebrow: 'Marine repair',
     heroLead:
-      'Repair laminate damage with controlled preparation and finish work suited to marine environments.',
+      'Repair structural and cosmetic fiberglass damage with careful preparation so the area can be refinished properly.',
     overview:
-      'Fiberglass repair addresses impact damage, delamination concerns, and surface failures. We work mobile where permitted, coordinating with owners, captains, and yards.',
-    problemsTitle: 'Common problems',
+      'Fiberglass damage can be cosmetic or deeper. We inspect first, explain what we see in plain language, then rebuild and finish the area so it is ready for gelcoat or paint. Mobile service where permitted.',
+    problemsTitle: 'Problems this solves',
     problems: [
-      'Impact fractures and punctures',
-      'Soft spots and moisture-related concerns',
-      'Tabbing and secondary bond failures',
-      'Cosmetic fiber print-through after prior work',
+      'Impact cracks and punctures',
+      'Soft spots and moisture concerns',
+      'Bond failures in prior repairs',
+      'Fiber print-through after earlier work',
     ],
-    processTitle: 'Our process',
+    processTitle: 'How we approach it',
     processSteps: [
       {
         title: 'Inspect',
-        body: 'Identify extent of damage and access constraints on the vessel.',
+        body: 'Identify how far the damage goes and what access allows.',
       },
       {
         title: 'Stabilize',
@@ -131,26 +135,26 @@ export const marineServiceContentEn: Record<
       },
       {
         title: 'Rebuild',
-        body: 'Laminate or fair with materials appropriate to the repair scope.',
+        body: 'Laminate or fair with materials suited to the agreed scope.',
       },
       {
         title: 'Finish',
         body: 'Return the area toward the surrounding cosmetic standard.',
       },
     ],
-    whyTitle: 'Why Choose BCS',
+    whyTitle: 'Why proper fiberglass repair matters',
     whyPoints: [
-      'Marine-focused repair mindset',
-      'Mobile convenience',
-      'Respect for surrounding finishes',
-      'Honest scope — no fabricated project claims',
+      'Covering damage without fixing what is underneath often fails later',
+      'Clean preparation improves the bond of the repair',
+      'Honest scope protects you from a cosmetic-only fix when more is needed',
+      'A sound repair gives the finish work a fair chance',
     ],
     faqTitle: 'FAQ',
     faqs: [
       {
         question: 'Is every fiberglass issue structural?',
         answer:
-          'No. Some repairs are cosmetic; others require deeper laminate work. We clarify scope before proceeding.',
+          'No. Some repairs are cosmetic; others need deeper laminate work. We clarify that before proceeding.',
       },
       {
         question: 'Do you list prices online?',
@@ -160,82 +164,82 @@ export const marineServiceContentEn: Record<
   }),
   paintRefinishing: service({
     title: 'Paint & Refinishing',
-    metaTitle: 'Marine Paint & Refinishing | BCS',
+    metaTitle: 'Marine Paint & Refinishing | Best Coatings Solutions',
     metaDescription:
-      'Marine paint and refinishing for South Florida vessels — mobile where permitted, focused on finish quality.',
-    heroEyebrow: 'Marine service',
+      'Correct and refinish painted marine surfaces with controlled preparation and honest scope. South Florida mobile service.',
+    heroEyebrow: 'Marine repair',
     heroLead:
-      'Refine marine paint systems with careful masking, surface prep, and finish discipline.',
+      'Correct and refinish painted surfaces with controlled process and honest scope.',
     overview:
-      'Paint and refinishing work ranges from localized corrections to broader cosmetic campaigns. We emphasize control, cleanliness, and a premium result without publishing prices.',
-    problemsTitle: 'Common problems',
+      'Paint work ranges from small corrections to larger cosmetic campaigns. We plan protection, prepare carefully, and apply finish systems suited to the agreed area. Clean process matters as much as the final gloss. No website prices.',
+    problemsTitle: 'Problems this solves',
     problems: [
       'Fading and oxidation',
       'Overspray and contamination',
       'Edge failures and peeling',
-      'Uneven gloss after prior refinishing',
+      'Uneven gloss after prior work',
     ],
-    processTitle: 'Our process',
+    processTitle: 'How we approach it',
     processSteps: [
       {
         title: 'Plan',
-        body: 'Define areas, protection needs, and environmental constraints.',
+        body: 'Define the area, protection needs, and working conditions.',
       },
       {
-        title: 'Prep',
-        body: 'Sand, fair, and mask with attention to adjacent hardware and teak.',
+        title: 'Prepare',
+        body: 'Sand, fair, and mask with care for nearby hardware and finishes.',
       },
       {
         title: 'Apply',
-        body: 'Apply finish systems suited to the agreed scope.',
+        body: 'Apply the finish system suited to the agreed scope.',
       },
       {
-        title: 'Inspect',
-        body: 'Review gloss, coverage, and edges with the client.',
+        title: 'Review',
+        body: 'Check gloss, coverage, and edges with you in good light.',
       },
     ],
-    whyTitle: 'Why Choose BCS',
+    whyTitle: 'Why proper paint work matters',
     whyPoints: [
-      'Premium finish standards',
-      'Mobile or yard-friendly workflow',
-      'Clear communication',
-      'No fake reviews or invented statistics',
+      'Preparation decides how the finish looks months later',
+      'Poor masking shows on hardware and neighboring surfaces',
+      'Clear scope keeps the job focused',
+      'Honest expectations beat surprise results',
     ],
     faqTitle: 'FAQ',
     faqs: [
       {
         question: 'Can you match an existing paint color?',
         answer:
-          'Color matching is evaluated per vessel and finish system. See our Color Matching service for dedicated detail.',
+          'Color matching is evaluated per boat and finish system. See Color Matching for more detail.',
       },
     ],
   }),
   hullRestoration: service({
     title: 'Hull Restoration',
-    metaTitle: 'Hull Restoration | Marine | BCS',
+    metaTitle: 'Hull Restoration | Best Coatings Solutions',
     metaDescription:
-      'Hull restoration and cosmetic recovery for yachts and boats served from Jupiter southward.',
-    heroEyebrow: 'Marine service',
+      'Restore tired hull surfaces with careful correction and finish work. Marine repair in South Florida.',
+    heroEyebrow: 'Marine repair',
     heroLead:
-      'Bring tired hull surfaces back toward a clean, reflective, presentation-ready state.',
+      'Bring tired hull surfaces back toward a clean, reflective appearance through careful correction and finish work.',
     overview:
-      'Hull restoration may combine oxidation correction, spot repairs, and finish refinement. Scope is always vessel-specific — never a one-size website package price.',
-    problemsTitle: 'Common problems',
+      'Hull restoration may combine oxidation correction, spot repairs, and finish refinement. Scope is always boat-specific. We walk the hull, set priorities with you, and work methodically — never as a one-size website package.',
+    problemsTitle: 'Problems this solves',
     problems: [
       'Heavy oxidation',
-      'Waterline staining and growth marks',
+      'Waterline staining',
       'Patchwork from prior repairs',
       'Loss of depth in dark colors',
     ],
-    processTitle: 'Our process',
+    processTitle: 'How we approach it',
     processSteps: [
       {
         title: 'Evaluate',
-        body: 'Walk the hull and document priorities with the owner or captain.',
+        body: 'Walk the hull and agree on priorities with the owner or captain.',
       },
       {
         title: 'Correct',
-        body: 'Address defects and prepare surfaces methodically.',
+        body: 'Address defects and prepare surfaces step by step.',
       },
       {
         title: 'Restore',
@@ -246,40 +250,40 @@ export const marineServiceContentEn: Record<
         body: 'Final review in good light for reflection and uniformity.',
       },
     ],
-    whyTitle: 'Why Choose BCS',
+    whyTitle: 'Why proper hull restoration matters',
     whyPoints: [
-      'Marine specialist focus',
-      'Mobile service advantage',
-      'Detail-oriented finishing',
-      'Transparent estimate policy',
+      'Oxidation left alone keeps dulling the boat’s appearance',
+      'Uneven prior patches are hard to ignore in sunlight',
+      'A clear plan prevents over-working areas that do not need it',
+      'Good light review catches what photos alone can miss',
     ],
     faqTitle: 'FAQ',
     faqs: [
       {
         question: 'Do you restore bottoms and antifouling systems?',
         answer:
-          'Primary public focus is cosmetic and coatings work above the agreed waterline scope. Specific bottom programs are discussed case by case.',
+          'Our public focus is cosmetic and coatings work in the agreed above-waterline scope. Bottom programs are discussed case by case.',
       },
     ],
   }),
   yachtCosmeticRepair: service({
     title: 'Yacht Cosmetic Repair',
-    metaTitle: 'Yacht Cosmetic Repair | BCS',
+    metaTitle: 'Yacht Cosmetic Repair | Best Coatings Solutions',
     metaDescription:
-      'Cosmetic repairs for yachts — gelcoat, paint, and finish corrections with mobile service in South Florida.',
-    heroEyebrow: 'Marine service',
+      'Correct visible cosmetic damage so your yacht presents cleanly — without overstating structural scope.',
+    heroEyebrow: 'Marine repair',
     heroLead:
       'Correct visible cosmetic issues that affect presentation without overstating structural scope.',
     overview:
-      'Yacht cosmetic repair covers chips, scrapes, localized refinishing, and blend work. Ideal for owners and captains preparing for season, sale, or charter presentation.',
-    problemsTitle: 'Common problems',
+      'Dock rash, scuffs, and small voids can make a well-kept yacht look neglected. We prioritize the most visible areas, protect nearby finishes, and blend repairs carefully. Timing can be coordinated when marina access allows.',
+    problemsTitle: 'Problems this solves',
     problems: [
       'Dock rash and rub rail marks',
       'Deck and cabin-side scuffs',
       'Hardware installation scars',
       'Small voids and pinholes',
     ],
-    processTitle: 'Our process',
+    processTitle: 'How we approach it',
     processSteps: [
       {
         title: 'Prioritize',
@@ -298,44 +302,44 @@ export const marineServiceContentEn: Record<
         body: 'Polish and blend for a coherent look.',
       },
     ],
-    whyTitle: 'Why Choose BCS',
+    whyTitle: 'Why cosmetic care matters',
     whyPoints: [
-      'Presentation-minded craftsmanship',
-      'Mobile convenience',
-      'Respect for yacht interiors and hardware',
-      'Honest placeholder policy for portfolio media',
+      'Small marks are what guests and buyers notice first',
+      'Protecting nearby finishes avoids creating a bigger problem',
+      'Honest cosmetic scope stays separate from structural claims',
+      'Clear timing helps around season or sale plans',
     ],
     faqTitle: 'FAQ',
     faqs: [
       {
         question: 'Can cosmetic work be scheduled around charter calendars?',
         answer:
-          'We coordinate timing when access and marina rules allow. Use Schedule Visit to share preferred windows.',
+          'We coordinate timing when access and marina rules allow. Share preferred windows when you request an estimate or contact us.',
       },
     ],
   }),
   structuralCompositeRepair: service({
     title: 'Structural Composite Repair',
-    metaTitle: 'Structural Composite Repair | Marine | BCS',
+    metaTitle: 'Structural Composite Repair | Best Coatings Solutions',
     metaDescription:
-      'Composite and small structural marine repairs — assessed carefully, executed with process discipline.',
-    heroEyebrow: 'Marine service',
+      'Assess and repair composite damage with clear scope — cosmetic versus structural explained plainly.',
+    heroEyebrow: 'Marine repair',
     heroLead:
-      'Address composite damage with a clear assessment — never exaggerated claims or vague website packages.',
+      'Address composite damage with a clear assessment — never vague website packages or exaggerated claims.',
     overview:
-      'Structural composite repairs require sober evaluation. We clarify what is cosmetic versus structural, then proceed with a defined plan. No fabricated case studies are shown.',
-    problemsTitle: 'Common problems',
+      'Some damage needs more than a cosmetic cover. We inspect, separate structural needs from finish work, and explain findings before repair. If a job needs a broader specialist, we say so plainly.',
+    problemsTitle: 'Problems this solves',
     problems: [
       'Laminate cracks from impact',
       'Core concerns in decks or panels',
       'Secondary bond failures',
-      'Repair zones needing load-path awareness',
+      'Repair zones that need load-path awareness',
     ],
-    processTitle: 'Our process',
+    processTitle: 'How we approach it',
     processSteps: [
       {
         title: 'Diagnose',
-        body: 'Inspect and discuss findings with decision-makers.',
+        body: 'Inspect and discuss findings with the decision-makers.',
       },
       {
         title: 'Define scope',
@@ -347,47 +351,47 @@ export const marineServiceContentEn: Record<
       },
       {
         title: 'Verify',
-        body: 'Review workmanship and outline any remaining cosmetic steps.',
+        body: 'Review the workmanship and outline any remaining finish steps.',
       },
     ],
-    whyTitle: 'Why Choose BCS',
+    whyTitle: 'Why honest composite assessment matters',
     whyPoints: [
-      'Technical credibility over hype',
-      'Clear communication',
-      'Mobile or facility-friendly when required',
-      'No fake certifications or invented history',
+      'Hiding a structural issue under paint is not a repair',
+      'Clear diagnosis protects the boat and the owner',
+      'Defined scope keeps everyone aligned',
+      'We will not invent capabilities we do not have',
     ],
     faqTitle: 'FAQ',
     faqs: [
       {
         question: 'Do you guarantee every composite issue is minor?',
         answer:
-          'No. Some findings require broader intervention or partner specialists. We will say so plainly.',
+          'No. Some findings need broader intervention or another specialist. We will say so plainly.',
       },
     ],
   }),
   colorMatching: service({
     title: 'Color Matching',
-    metaTitle: 'Marine Color Matching | BCS',
+    metaTitle: 'Marine Color Matching | Best Coatings Solutions',
     metaDescription:
-      'Marine color matching for gelcoat and paint repairs — disciplined matching for cohesive vessel appearance.',
-    heroEyebrow: 'Marine service',
+      'Match surrounding gelcoat or paint so a repair blends into the boat’s existing finish.',
+    heroEyebrow: 'Marine repair',
     heroLead:
-      'Match surrounding finishes so repairs disappear into the vessel’s existing color story.',
+      'Match surrounding finishes so repairs settle into the boat’s existing color — not sit beside it as a patch.',
     overview:
-      'Color matching is often the difference between a visible patch and a discreet repair. We treat matching as a core craft step, not an afterthought.',
-    problemsTitle: 'Common problems',
+      'Color matching is often the difference between a quiet repair and a visible one. We sample on the boat, adjust carefully, and test before committing large visible areas. Aging finishes and metallic effects can limit perfection — we say that early.',
+    problemsTitle: 'Problems this solves',
     problems: [
-      'Repairs that read as different hues in sunlight',
-      'Aging finishes that no longer match OEM codes',
+      'Repairs that look wrong in sunlight',
+      'Aging finishes that no longer match old codes',
       'Metallic and pearl effect mismatch',
       'Accent and stripe discontinuities',
     ],
-    processTitle: 'Our process',
+    processTitle: 'How we approach it',
     processSteps: [
       {
         title: 'Sample',
-        body: 'Evaluate color under appropriate light on the vessel.',
+        body: 'Evaluate color under appropriate light on the boat.',
       },
       {
         title: 'Formulate',
@@ -402,12 +406,12 @@ export const marineServiceContentEn: Record<
         body: 'Integrate the matched finish into the repair zone.',
       },
     ],
-    whyTitle: 'Why Choose BCS',
+    whyTitle: 'Why color matching matters',
     whyPoints: [
-      'Finish-sensitive eye',
-      'Patience with matching',
-      'Marine lighting awareness',
-      'Transparent process',
+      'The eye finds mismatch before it finds technique',
+      'Sunlight reveals what indoor light can hide',
+      'Patience here protects the whole repair',
+      'Honest limits build trust before work starts',
     ],
     faqTitle: 'FAQ',
     faqs: [
@@ -420,60 +424,60 @@ export const marineServiceContentEn: Record<
   }),
   insuranceRepair: service({
     title: 'Insurance Repair',
-    metaTitle: 'Marine Insurance Repair Support | BCS',
+    metaTitle: 'Marine Insurance Repair Support | Best Coatings Solutions',
     metaDescription:
-      'Marine cosmetic and coatings repairs coordinated for insurance-related work — clear documentation mindset, no website prices.',
-    heroEyebrow: 'Marine service',
+      'Marine cosmetic and coatings repairs with clear scope and documentation habits. Coverage decisions stay with you and your insurer.',
+    heroEyebrow: 'Marine repair',
     heroLead:
       'Support insurance-related marine repairs with clear scope, careful documentation habits, and finish quality.',
     overview:
-      'Insurance repair work requires clarity. We help owners and managers understand cosmetic and coatings scope through documentation, inspection when appropriate, and an agreed written scope before repair. Coverage decisions belong to the customer and the insurer. BCS does not guarantee claim approval, and a repair estimate does not determine policy coverage. We do not display prices online or invent claim outcomes.',
-    problemsTitle: 'Common problems',
+      'Insurance work needs clarity. We help you understand cosmetic and coatings scope through photos, inspection when needed, and a written scope before repair. Coverage decisions belong to you and your insurer. Best Coatings Solutions does not guarantee claim approval, does not act as a public adjuster, and does not display prices online.',
+    problemsTitle: 'Problems this solves',
     problems: [
       'Dock damage and collision cosmetics',
       'Storm-related surface damage',
-      'Multiple small repairs across a vessel',
+      'Several small repairs across a boat',
       'Need for photo documentation of progress',
       'Need for clear owner communication before authorization',
     ],
-    processTitle: 'Our process',
+    processTitle: 'How we approach it',
     processSteps: [
       {
         title: 'Initial documentation',
-        body: 'Review the reported damage description and any customer-provided photos.',
+        body: 'Review the reported damage and any photos you share.',
       },
       {
-        title: 'Inspection where appropriate',
-        body: 'Recommend on-site inspection when photos are insufficient for responsible scope planning.',
+        title: 'Inspection when needed',
+        body: 'Recommend on-site inspection when photos are not enough for responsible planning.',
       },
       {
         title: 'Scope preparation',
-        body: 'Prepare repair scope focused on agreed cosmetic or coatings work — without promising insurer decisions.',
+        body: 'Prepare repair scope for agreed cosmetic or coatings work — without promising insurer decisions.',
       },
       {
         title: 'Authorization & repair',
-        body: 'Proceed after appropriate authorization, then document and review completion against the agreed scope.',
+        body: 'Proceed after appropriate authorization, then review completion against the agreed scope.',
       },
     ],
-    whyTitle: 'Why Choose BCS',
+    whyTitle: 'What you should expect',
     whyPoints: [
-      'Professional communication with the vessel owner',
-      'Photo-friendly documentation habits when needed',
-      'Marine finish expertise',
-      'No fabricated testimonials or preferred-vendor claims',
-      'No public-adjuster or legal-representation claims',
+      'Clear communication with the owner',
+      'Photo documentation habits when useful',
+      'Marine finish focus',
+      'No preferred-vendor or claim-approval promises',
+      'No public-adjuster or legal-representation role',
     ],
     faqTitle: 'FAQ',
     faqs: [
       {
         question: 'Do you guarantee insurance claim approval?',
         answer:
-          'No. Coverage decisions belong to the customer and the insurer. A repair estimate does not determine policy coverage, and BCS does not guarantee claim approval.',
+          'No. Coverage decisions belong to you and your insurer. A repair estimate does not determine policy coverage.',
       },
       {
         question: 'Do you bill insurance companies directly?',
         answer:
-          'Billing arrangements vary. We discuss practical options after scope is clear — never as a website guarantee, and never as preferred-vendor status for every insurer.',
+          'Billing arrangements vary. We discuss practical options after scope is clear — never as a website guarantee.',
       },
       {
         question: 'Are estimates free for insurance work?',
@@ -483,7 +487,7 @@ export const marineServiceContentEn: Record<
       {
         question: 'Do you act as a public adjuster?',
         answer:
-          'No. BCS does not provide public-adjuster services, legal representation, or authority to interpret insurance policies.',
+          'No. We do not provide public-adjuster services, legal representation, or authority to interpret insurance policies.',
       },
     ],
   }),

@@ -28,7 +28,7 @@ test.describe('Phase 3 polish — consistency audits', () => {
       const band = page.getByTestId('page-cta-band');
       await expect(band).toHaveAttribute('data-cta-mode', 'estimate');
       await expect(page.getByTestId('cta-primary-estimate')).toHaveText(
-        'Request Free Estimate',
+        'Request an Estimate',
       );
       await expect(page.getByTestId('cta-secondary-call')).toHaveText(
         'Call Best Coatings Solutions',
@@ -38,13 +38,13 @@ test.describe('Phase 3 polish — consistency audits', () => {
         'tel:+13057478352',
       );
 
-      await expect(
-        page.getByRole('heading', { name: 'Why Choose BCS', level: 2 }),
-      ).toBeVisible();
       await expect(page.locator('#overview')).toBeVisible();
       await expect(page.locator('#common-problems')).toBeVisible();
       await expect(page.locator('#our-process')).toBeVisible();
       await expect(page.locator('#why-choose-bcs')).toBeVisible();
+      await expect(
+        page.locator('#why-choose-bcs').getByRole('heading', { level: 2 }),
+      ).toBeVisible();
       await expect(page.locator('#faq')).toBeVisible();
       await expect(page.locator('#related-services')).toBeVisible();
       await expect(page.locator('#estimate-cta')).toBeVisible();

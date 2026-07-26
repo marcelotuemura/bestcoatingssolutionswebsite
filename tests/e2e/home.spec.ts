@@ -33,18 +33,18 @@ test.describe('Phase 2 homepage', () => {
     await expect(
       page.getByRole('heading', {
         level: 1,
-        name: /Precision coatings for vessels/i,
+        name: /Craftsmanship That Shows/i,
       }),
     ).toBeVisible();
 
     for (const name of [
-      'Who We Are',
-      'Marine',
+      'Meet Marcelo',
+      'How We Can Help',
       'Aviation',
-      'Why BCS',
-      'Featured Project',
+      'Built on Experience. Driven by Detail.',
+      'Featured Work',
       'Before & After',
-      'Our Process',
+      'Quality Is Built Before the Paint Is Applied',
       'Service Area',
       'Request an Estimate',
     ]) {
@@ -57,14 +57,14 @@ test.describe('Phase 2 homepage', () => {
     await expect(
       page.getByRole('heading', {
         level: 1,
-        name: /Recubrimientos de precisión/i,
+        name: /Oficio que se nota/i,
       }),
     ).toBeVisible();
     await expect(
-      page.getByRole('heading', { name: 'Quiénes somos', level: 2 }),
+      page.getByRole('heading', { name: 'Conozca a Marcelo', level: 2 }),
     ).toBeVisible();
     await expect(
-      page.getByRole('heading', { name: 'Marina', level: 2 }),
+      page.getByRole('heading', { name: 'Cómo podemos ayudar', level: 2 }),
     ).toBeVisible();
   });
 
@@ -75,27 +75,27 @@ test.describe('Phase 2 homepage', () => {
     const aviation = page.locator('#aviation');
     await expect(aviation.getByText(/Coming soon/i).first()).toBeVisible();
     await expect(
-      aviation.getByText(/Aviation operations are not currently active/i),
+      aviation.getByText(/aviation operations are not available/i),
     ).toBeVisible();
   });
 
-  test('primary CTAs navigate to estimate and schedule routes', async ({
+  test('primary CTAs navigate to estimate and projects routes', async ({
     page,
   }) => {
     await page.goto('/en');
     await page
       .getByRole('banner')
-      .getByRole('link', { name: 'Request Free Estimate' })
+      .getByRole('link', { name: 'Request an Estimate' })
       .click();
     await expect(page).toHaveURL(/\/en\/estimate-request/);
 
     await page.goto('/en');
     await page
       .locator('#main-content')
-      .getByRole('link', { name: 'Schedule Visit' })
+      .getByRole('link', { name: 'View Our Work' })
       .first()
       .click();
-    await expect(page).toHaveURL(/\/en\/schedule-visit/);
+    await expect(page).toHaveURL(/\/en\/projects/);
   });
 
   test('mobile homepage remains usable', async ({ page }) => {
@@ -103,7 +103,7 @@ test.describe('Phase 2 homepage', () => {
     await page.goto('/en');
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
     await expect(
-      page.getByRole('link', { name: 'Request Free Estimate' }).first(),
+      page.getByRole('link', { name: 'Request an Estimate' }).first(),
     ).toBeVisible();
     await expect(page.locator('#marine')).toBeVisible();
   });
@@ -115,10 +115,10 @@ test.describe('Phase 2 homepage', () => {
     await page.goto('/en');
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
     await expect(
-      page.getByRole('heading', { name: 'Who We Are', level: 2 }),
+      page.getByRole('heading', { name: 'Meet Marcelo', level: 2 }),
     ).toBeVisible();
     await expect(
-      page.getByRole('link', { name: 'Request Free Estimate' }).first(),
+      page.getByRole('link', { name: 'Request an Estimate' }).first(),
     ).toBeVisible();
   });
 
@@ -127,10 +127,8 @@ test.describe('Phase 2 homepage', () => {
   }) => {
     const response = await request.get('/en');
     const html = await response.text();
-    expect(html).toContain(
-      'Precision coatings for vessels that demand excellence.',
-    );
-    expect(html).toContain('Who We Are');
+    expect(html).toContain('Craftsmanship That Shows in Every Finish');
+    expect(html).toContain('Meet Marcelo');
     expect(html).toContain('Coming soon');
     expect(html).toMatch(/<h1[\s>]/i);
   });
