@@ -74,8 +74,12 @@ test.describe('Phase 3 — Marine, Aviation, Services, Projects', () => {
       await expect(
         page.getByRole('navigation', { name: 'Breadcrumb' }),
       ).toBeVisible();
+      await expect(page.locator('#overview')).toBeVisible();
       await expect(
-        page.getByRole('heading', { name: 'Overview', level: 2 }),
+        page.getByRole('heading', {
+          name: /What this work is about|Overview/i,
+          level: 2,
+        }),
       ).toBeVisible();
       await expect(page.locator('#common-problems')).toBeVisible();
       await expect(page.locator('#our-process')).toBeVisible();
