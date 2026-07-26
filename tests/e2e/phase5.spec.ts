@@ -17,9 +17,26 @@ test.describe('Phase 5 — About', () => {
   test('Spanish about page', async ({ page }) => {
     await page.goto('/es/about');
     await expect(page.locator('h1')).toHaveCount(1);
-    await expect(page.locator('h1')).toContainText(
-      'Acerca de Best Coatings Solutions',
+    await expect(page.locator('h1')).toContainText('Conozca a Marcelo');
+  });
+
+  test('about page builds trust with principles, journey, and disclaimer', async ({
+    page,
+  }) => {
+    await page.goto('/en/about');
+    await expect(
+      page.getByRole('heading', {
+        name: 'Every Repair Begins the Same Way',
+        level: 2,
+      }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'What You Can Expect', level: 2 }),
+    ).toBeVisible();
+    await expect(page.getByTestId('about-employer-disclaimer')).toContainText(
+      /does not imply endorsement/i,
     );
+    await expect(page.getByTestId('about-photo-slot')).toBeVisible();
   });
 });
 

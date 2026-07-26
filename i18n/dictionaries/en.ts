@@ -32,7 +32,7 @@ export const en = {
     services: 'Services',
     projects: 'Projects',
     beforeAfter: 'Before & After',
-    about: 'Meet Marcelo',
+    about: 'About',
     serviceArea: 'Service Area',
     scheduleVisit: 'Schedule Visit',
     estimateRequest: 'Request Estimate',
@@ -67,7 +67,8 @@ export const en = {
     'coming-soon': 'Coming soon',
   },
   header: {
-    tagline: 'Marine refinishing',
+    /** Empty by design — clean header; brand carried by logo + hero. */
+    tagline: '',
   },
   footer: {
     rights: 'All rights reserved.',
@@ -207,14 +208,21 @@ export const en = {
     hero: {
       headline: 'Craftsmanship That Shows in Every Finish',
       support:
-        'For more than 25 years, I have dedicated my career to professional refinishing across the automotive, aviation, and marine industries. Today, I bring that same attention to detail to every boat entrusted to Best Coatings Solutions, helping owners restore and protect the appearance of their vessels with craftsmanship they can see.',
+        "For more than 25 years, I've worked in professional refinishing across the automotive, aviation, and marine industries. Today, I bring that same attention to detail to every boat entrusted to Best Coatings Solutions.",
       logoAlt: 'Best Coatings Solutions logo',
     },
     whoWeAre: {
       title: 'Meet Marcelo',
-      body: 'I repair boats because that is what I have dedicated my career to. Best Coatings Solutions is the company behind that work — careful preparation, honest scope, and finish quality you can see.',
+      body: "I repair boats because that is what I've dedicated my career to. Best Coatings Solutions is how that work reaches owners who care about the finish as much as I do.",
       languages:
         'We work with clients in English, Spanish, Portuguese, and Japanese.',
+      cta: 'Meet Marcelo',
+      photoNote:
+        'Portrait and shop photography will appear here when approved — not stock imagery.',
+    },
+    philosophy: {
+      title: 'Quality Is Built Before the Paint Is Applied',
+      body: 'The finish people notice is the last step. The work that protects your boat happens earlier — inspection, preparation, and patience. I do not rush those steps to make a repair look finished sooner.',
     },
     marine: {
       title: 'How We Can Help',
@@ -235,7 +243,19 @@ export const en = {
     },
     whyBcs: {
       title: 'Built on Experience. Driven by Detail.',
-      body: 'We take time to inspect the damaged area, repair what sits underneath when needed, match the surrounding finish, and polish with patience. That is what detail means here — not a slogan.',
+      body: 'I take time to inspect the damaged area, repair what sits underneath when needed, match the surrounding finish, and polish with patience. That is what detail means here — not a slogan.',
+    },
+    craftPrinciples: {
+      title: 'Every Repair Begins the Same Way',
+      intro: 'Before any repair starts, I ask four questions:',
+      questions: [
+        'What caused the damage?',
+        'What is the correct repair method?',
+        'How can the original finish be preserved?',
+        'What would I expect if this were my own boat?',
+      ],
+      closing:
+        "Those questions guide every project, whether it's a small gelcoat repair or a complete cosmetic restoration.",
     },
     featured: {
       title: 'Featured Work',
@@ -260,24 +280,36 @@ export const en = {
       afterCaption: 'After (placeholder)',
     },
     process: {
-      title: 'Quality Is Built Before the Paint Is Applied',
-      body: 'The finish people notice is the last step. The work that protects your boat happens earlier — inspection, preparation, and patience.',
+      title: 'What You Can Expect',
+      body: 'Boat owners often wonder what working with a repair shop is like. Here is the simple path we follow.',
       steps: [
         {
-          title: 'Inspect',
-          body: 'We look at the damage, the surrounding finish, and access before promising a method.',
+          title: 'Contact us',
+          body: 'Tell us about your boat and the damage. A form asks for a reply — it does not book emergency work by itself.',
         },
         {
-          title: 'Prepare',
-          body: 'Masking, fairing, and surface prep set the repair up to last. Skipping this shows later.',
+          title: 'We review the damage',
+          body: 'We look at the photos and details you share so we understand the condition before recommending next steps.',
         },
         {
-          title: 'Repair & match',
-          body: 'We rebuild what is needed and match color so the repair belongs to the boat, not to a patch.',
+          title: 'Inspection when needed',
+          body: 'If the repair needs to be seen in person, we schedule an inspection at a practical time and place.',
         },
         {
-          title: 'Finish',
-          body: 'Polish and final review in good light — then we walk through the result with you.',
+          title: 'Estimate',
+          body: 'We provide an estimate based on what we can verify. Free estimates apply only in the Fort Lauderdale area.',
+        },
+        {
+          title: 'Repair options',
+          body: 'We discuss methods, limits, and what the finished repair can reasonably look like — without pressure.',
+        },
+        {
+          title: 'Updates during the project',
+          body: 'We keep you informed as the work progresses so you are never guessing what is happening to your boat.',
+        },
+        {
+          title: 'Final inspection',
+          body: 'We inspect the finished repair before delivery and review the result with you.',
         },
       ],
     },

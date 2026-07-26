@@ -34,7 +34,7 @@ export const es = {
     services: 'Servicios',
     projects: 'Proyectos',
     beforeAfter: 'Antes y después',
-    about: 'Conozca a Marcelo',
+    about: 'Acerca de',
     serviceArea: 'Área de servicio',
     scheduleVisit: 'Programar visita',
     estimateRequest: 'Solicitar estimado',
@@ -69,7 +69,8 @@ export const es = {
     'coming-soon': 'Próximamente',
   },
   header: {
-    tagline: 'Refinación marina',
+    /** Vacío a propósito — encabezado limpio; la marca la llevan el logo y el hero. */
+    tagline: '',
   },
   footer: {
     rights: 'Todos los derechos reservados.',
@@ -211,14 +212,21 @@ export const es = {
     hero: {
       headline: 'Oficio que se nota en cada acabado',
       support:
-        'Durante más de 25 años he dedicado mi carrera a la refinación profesional en las industrias automotriz, de aviación y marina. Hoy llevo esa misma atención al detalle a cada embarcación confiada a Best Coatings Solutions, ayudando a los dueños a restaurar y proteger la apariencia de sus embarcaciones con un oficio que se puede ver.',
+        'Durante más de 25 años he trabajado en refinación profesional en las industrias automotriz, de aviación y marina. Hoy llevo esa misma atención al detalle a cada embarcación confiada a Best Coatings Solutions.',
       logoAlt: 'Logo de Best Coatings Solutions',
     },
     whoWeAre: {
       title: 'Conozca a Marcelo',
-      body: 'Reparo embarcaciones porque a eso he dedicado mi carrera. Best Coatings Solutions es la empresa detrás de ese trabajo — preparación cuidadosa, alcance honesto y calidad de acabado que se nota.',
+      body: 'Reparo embarcaciones porque a eso he dedicado mi carrera. Best Coatings Solutions es la forma en que ese trabajo llega a dueños que cuidan el acabado tanto como yo.',
       languages:
         'Trabajamos con clientes en inglés, español, portugués y japonés.',
+      cta: 'Conozca a Marcelo',
+      photoNote:
+        'El retrato y las fotos del taller aparecerán aquí cuando se aprueben — no usamos imágenes de banco.',
+    },
+    philosophy: {
+      title: 'La calidad se construye antes de aplicar la pintura',
+      body: 'El acabado que la gente nota es el último paso. El trabajo que protege su embarcación ocurre antes — inspección, preparación y paciencia. No apresuro esos pasos solo para que una reparación parezca terminada antes de tiempo.',
     },
     marine: {
       title: 'Cómo podemos ayudar',
@@ -239,7 +247,20 @@ export const es = {
     },
     whyBcs: {
       title: 'Basado en experiencia. Impulsado por el detalle.',
-      body: 'Nos tomamos el tiempo de inspeccionar el área dañada, reparar lo que hay debajo cuando hace falta, igualar el acabado alrededor y pulir con paciencia. Eso es detalle aquí — no un eslogan.',
+      body: 'Me tomo el tiempo de inspeccionar el área dañada, reparar lo que hay debajo cuando hace falta, igualar el acabado alrededor y pulir con paciencia. Eso es detalle aquí — no un eslogan.',
+    },
+    craftPrinciples: {
+      title: 'Cada reparación comienza de la misma manera',
+      intro:
+        'Antes de que comience cualquier reparación, me hago cuatro preguntas:',
+      questions: [
+        '¿Qué causó el daño?',
+        '¿Cuál es el método correcto de reparación?',
+        '¿Cómo se puede preservar el acabado original?',
+        '¿Qué esperaría yo si esta fuera mi propia embarcación?',
+      ],
+      closing:
+        'Esas preguntas guían cada proyecto, ya sea una pequeña reparación de gelcoat o una restauración cosmética completa.',
     },
     featured: {
       title: 'Trabajo destacado',
@@ -264,24 +285,36 @@ export const es = {
       afterCaption: 'Después (provisional)',
     },
     process: {
-      title: 'La calidad se construye antes de aplicar la pintura',
-      body: 'El acabado que la gente nota es el último paso. El trabajo que protege su embarcación ocurre antes — inspección, preparación y paciencia.',
+      title: 'Qué puede esperar',
+      body: 'Los dueños de embarcaciones a menudo se preguntan cómo es trabajar con un taller de reparación. Este es el camino sencillo que seguimos.',
       steps: [
         {
-          title: 'Inspeccionar',
-          body: 'Miramos el daño, el acabado alrededor y el acceso antes de prometer un método.',
+          title: 'Contáctenos',
+          body: 'Cuéntenos sobre su embarcación y el daño. Un formulario pide una respuesta — no reserva trabajo de emergencia por sí solo.',
         },
         {
-          title: 'Preparar',
-          body: 'El enmascarado, el relleno y la preparación de superficie preparan la reparación para que dure. Saltar esto se nota después.',
+          title: 'Revisamos el daño',
+          body: 'Miramos las fotos y los detalles que comparte para entender la condición antes de recomendar los siguientes pasos.',
         },
         {
-          title: 'Reparar e igualar',
-          body: 'Reconstruimos lo necesario e igualamos el color para que la reparación pertenezca a la embarcación, no a un parche.',
+          title: 'Inspección cuando hace falta',
+          body: 'Si la reparación necesita verse en persona, programamos una inspección en un momento y lugar prácticos.',
         },
         {
-          title: 'Acabar',
-          body: 'Pulido y revisión final con buena luz — luego recorremos el resultado con usted.',
+          title: 'Estimado',
+          body: 'Ofrecemos un estimado según lo que podamos verificar. Los estimados gratuitos aplican solo en el área de Fort Lauderdale.',
+        },
+        {
+          title: 'Opciones de reparación',
+          body: 'Hablamos de métodos, límites y cómo puede verse razonablemente la reparación terminada — sin presión.',
+        },
+        {
+          title: 'Actualizaciones durante el proyecto',
+          body: 'Lo mantenemos informado mientras avanza el trabajo para que nunca tenga que adivinar qué ocurre con su embarcación.',
+        },
+        {
+          title: 'Inspección final',
+          body: 'Inspeccionamos la reparación terminada antes de la entrega y revisamos el resultado con usted.',
         },
       ],
     },

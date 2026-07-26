@@ -57,9 +57,11 @@ describe('about content', () => {
       /\bfounded in\b|\bawarded\b|\baward-winning\b|\blargest\b|\bbest in florida\b|\bguaranteed invisible\b/i;
     expect(banned.test(en.introduction.join(' '))).toBe(false);
     expect(banned.test(es.introduction.join(' '))).toBe(false);
-    expect(en.introduction.join(' ')).toMatch(
-      /not partners, sponsors, or endorsements/i,
-    );
+    expect(en.career.join(' ')).toMatch(/work performed while employed by/i);
+    expect(en.disclaimer).toMatch(/does not imply endorsement/i);
+    expect(en.craftPrinciplesQuestions).toHaveLength(4);
+    expect(en.expectSteps.length).toBe(7);
+    expect(es.expectSteps.length).toBe(en.expectSteps.length);
   });
 
   it('hides unapproved owner facts', () => {

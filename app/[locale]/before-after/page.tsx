@@ -1,4 +1,4 @@
-import { RoutePlaceholder } from '@/components/layout/RoutePlaceholder';
+import { BeforeAfterSection } from '@/components/home/BeforeAfterSection';
 import { getDictionary } from '@/i18n/get-dictionary';
 import { isLocale, type Locale } from '@/i18n/config';
 import { notFound } from 'next/navigation';
@@ -15,10 +15,8 @@ export default async function Page({
   const locale = raw as Locale;
   const dictionary = await getDictionary(locale);
   return (
-    <RoutePlaceholder
-      locale={locale}
-      dictionary={dictionary}
-      routeKey="beforeAfter"
-    />
+    <main id="main-content">
+      <BeforeAfterSection dictionary={dictionary} />
+    </main>
   );
 }

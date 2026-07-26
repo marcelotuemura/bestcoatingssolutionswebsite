@@ -32,7 +32,9 @@ export function SiteFooter({ locale, dictionary }: SiteFooterProps) {
               {siteConfig.name}
             </p>
             <p className="text-silver-500 text-sm text-pretty">
-              {dictionary.header.tagline}. {siteConfig.serviceArea.range}.
+              {dictionary.header.tagline
+                ? `${dictionary.header.tagline}. ${siteConfig.serviceArea.range}.`
+                : siteConfig.description}
             </p>
             <p className="text-silver-500 text-xs text-pretty">
               {dictionary.footer.estimateNotice}

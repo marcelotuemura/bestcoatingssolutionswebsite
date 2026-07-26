@@ -10,8 +10,9 @@ Living constraints for Codex/Cursor. Update at each phase gate.
 |-------|--------|
 | 1 — Website audit | **Approved** (2026-07-26) |
 | 2 — Brand strategy + voice | **Approved** (2026-07-26) |
-| 3 — Copywriting | **In progress / awaiting approval** |
-| 4+ | Not started — wait for Phase 3 approval |
+| 3 — Copywriting | **Approved** (2026-07-26) |
+| 4 — Trust Experience | **In review / awaiting approval** |
+| 5+ | Not started — wait for Phase 4 approval |
 
 ---
 
@@ -48,73 +49,44 @@ Living constraints for Codex/Cursor. Update at each phase gate.
 
 ---
 
-## Phase 3 copywriting standards (owner-approved)
+## Phase 3 decisions (locked)
+
+1. Employer/OEM names: factual background wording only (“work performed while employed by…”, “contributed to refinishing work…”). Never trusted-by / partnered / factory-certified / authorized.  
+2. About disclaimer required (no endorsement, affiliation, or partnership implied).  
+3. First person “I” on About; sparingly on homepage.  
+4. Hero support = short (curiosity); biography below the fold.  
+5. Nav label = **About**; page H1 = **Meet Marcelo**.  
+6. No tagline in the header.
+
+---
+
+## Phase 4 Trust Experience standards
 
 ### Trust test
 
-Every paragraph must answer:
+Every section must help answer:
 
-> If I owned a $500,000 boat, would this paragraph make me comfortable leaving it with this company?
+> Can I trust these people with my boat?
 
-If no — rewrite.
+### Homepage order (locked for this phase)
 
-### Readability
+Hero → Meet Marcelo → Philosophy → Craftsmanship → Craft principles → What You Can Expect → Featured Work → Services → Service Area → Estimate CTA  
 
-- Target 8th–10th grade English.  
-- Short paragraphs.  
-- No marketing fluff, buzzwords, or unexplained jargon.  
-- Comfortable on a phone.
+Aviation and placeholder before/after stay off the homepage.
 
-### Tone
+### Differentiating blocks
 
-Conversation: experienced craftsman → boat owner.  
-Not: company → Internet.
+- **Every Repair Begins the Same Way** — four questions.  
+- **What You Can Expect** — simple customer journey.
 
-### Eliminate empty marketing
+### Photography
 
-Delete sentences that say nothing (“committed to excellence,” “mission is quality,” etc.). Replace with facts and process.
-
-### Show more than tell
-
-Specific process beats generic “attention to detail.”
-
-### Services pages must answer
-
-1. What problem does this solve?  
-2. How do we approach it?  
-3. Why does proper repair matter?  
-4. What should the owner expect?
-
-### About flow
-
-Japan → learning precision → marine → aviation background → why BCS exists → commitment to every repair.  
-No résumé. No date-heavy chronology. First name only.
-
-### CTA language
-
-Confident, never urgent: Request an Estimate · Let’s Talk About Your Repair · Tell Us About Your Project.  
-Never: Call Now! / Limited Time! / Book Today!
-
-### Homepage content targets (UI reorder later)
-
-Hero → Meet Marcelo → Philosophy → Craftsmanship → Featured Projects → Services → Service Area → Estimate CTA  
-
-### Headlines
-
-Curiosity and craft — not “Our Services” / “About Us” / “Why Choose Us.”
-
-### Legal review
-
-No implied manufacturer approval, certification, dealer authorization, factory partnership, or current employer endorsement.
-
-### Final audit
-
-Would a real craftsman say this? If not, rewrite.
+Honest placement slots until approved photos exist. No stock pretending to be BCS.
 
 ### Stop point
 
-Present rewritten pages, before/after, reasoning, owner decisions.  
-**Do not start Phase 4 or UI redesign until copy is approved.**
+Present Home + About trust architecture.  
+**Do not begin full visual redesign of every page until Phase 4 is approved.**
 
 ---
 
@@ -124,5 +96,6 @@ Present rewritten pages, before/after, reasoning, owner decisions.
 - [`PHASE2_BRAND_VOICE_GUIDE.md`](./PHASE2_BRAND_VOICE_GUIDE.md)  
 - [`PHASE2_BRAND_STRATEGY.md`](./PHASE2_BRAND_STRATEGY.md)  
 - [`PHASE3_COPYWRITING_REPORT.md`](./PHASE3_COPYWRITING_REPORT.md)  
+- [`PHASE4_TRUST_EXPERIENCE_REPORT.md`](./PHASE4_TRUST_EXPERIENCE_REPORT.md)  
 
-If older root docs conflict, **brand-transformation Phase 2–3 docs win** until reconciled.
+If older root docs conflict, **brand-transformation Phase 2–4 docs win** until reconciled.

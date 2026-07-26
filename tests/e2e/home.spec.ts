@@ -24,8 +24,8 @@ test.describe('Phase 1 shell', () => {
   });
 });
 
-test.describe('Phase 2 homepage', () => {
-  test('renders English homepage with one H1 and story sections', async ({
+test.describe('Phase 4 trust homepage', () => {
+  test('renders English homepage with one H1 and trust sections', async ({
     page,
   }) => {
     await page.goto('/en');
@@ -39,17 +39,35 @@ test.describe('Phase 2 homepage', () => {
 
     for (const name of [
       'Meet Marcelo',
-      'How We Can Help',
-      'Aviation',
-      'Built on Experience. Driven by Detail.',
-      'Featured Work',
-      'Before & After',
       'Quality Is Built Before the Paint Is Applied',
+      'Built on Experience. Driven by Detail.',
+      'Every Repair Begins the Same Way',
+      'What You Can Expect',
+      'Featured Work',
+      'How We Can Help',
       'Service Area',
       'Request an Estimate',
     ]) {
       await expect(page.getByRole('heading', { name, level: 2 })).toBeVisible();
     }
+
+    await expect(page.locator('#aviation')).toHaveCount(0);
+    await expect(page.locator('#before-after')).toHaveCount(0);
+  });
+
+  test('keeps About in nav and Meet Marcelo as page section title', async ({
+    page,
+  }) => {
+    await page.goto('/en');
+    await expect(
+      page.getByRole('navigation', { name: 'Primary' }).getByRole('link', {
+        name: 'About',
+      }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'Meet Marcelo', level: 2 }),
+    ).toBeVisible();
+    await expect(page.getByText('Marine refinishing')).toHaveCount(0);
   });
 
   test('renders Spanish homepage content', async ({ page }) => {
@@ -66,16 +84,8 @@ test.describe('Phase 2 homepage', () => {
     await expect(
       page.getByRole('heading', { name: 'Cómo podemos ayudar', level: 2 }),
     ).toBeVisible();
-  });
-
-  test('marks Aviation as Coming soon and does not claim active ops', async ({
-    page,
-  }) => {
-    await page.goto('/en');
-    const aviation = page.locator('#aviation');
-    await expect(aviation.getByText(/Coming soon/i).first()).toBeVisible();
     await expect(
-      aviation.getByText(/aviation operations are not available/i),
+      page.getByRole('heading', { name: 'Qué puede esperar', level: 2 }),
     ).toBeVisible();
   });
 
@@ -129,7 +139,7 @@ test.describe('Phase 2 homepage', () => {
     const html = await response.text();
     expect(html).toContain('Craftsmanship That Shows in Every Finish');
     expect(html).toContain('Meet Marcelo');
-    expect(html).toContain('Coming soon');
+    expect(html).toContain("I've worked in professional refinishing");
     expect(html).toMatch(/<h1[\s>]/i);
   });
 
@@ -151,11 +161,13 @@ test.describe('Phase 2 homepage', () => {
       expect(res.status(), `broken link ${href}`).toBeLessThan(400);
     }
   });
+});
 
+test.describe('Before & after route', () => {
   test('before/after slider semantics stay aligned for keyboard users', async ({
     page,
   }) => {
-    await page.goto('/en');
+    await page.goto('/en/before-after');
     const section = page.locator('#before-after');
     const slider = section.getByRole('slider', {
       name: /Before and after comparison/i,
@@ -226,12 +238,11 @@ test.describe('Phase 2 homepage', () => {
       'inset(0 0% 0 0)',
     );
 
-    // Placeholder labeling remains honest.
     await expect(section.getByText(/Placeholder Image/i)).toBeVisible();
   });
 
   test('Spanish before/after aria-valuetext is localized', async ({ page }) => {
-    await page.goto('/es');
+    await page.goto('/es/before-after');
     const slider = page.locator('#before-after').getByRole('slider', {
       name: /Comparación antes y después/i,
     });

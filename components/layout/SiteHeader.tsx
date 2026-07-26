@@ -27,7 +27,7 @@ export function SiteHeader({ locale, dictionary }: SiteHeaderProps) {
         <Logo
           locale={locale}
           label={dictionary.a11y.home}
-          tagline={dictionary.header.tagline}
+          tagline={dictionary.header.tagline || undefined}
         />
 
         <nav

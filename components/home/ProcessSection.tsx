@@ -11,7 +11,11 @@ export function ProcessSection({
 }) {
   const copy = dictionary.home.process;
   return (
-    <Section id="process" aria-labelledby="process-heading">
+    <Section
+      id="process"
+      className="bg-navy-900/30"
+      aria-labelledby="process-heading"
+    >
       <Container>
         <Reveal className="max-w-2xl">
           <Heading as="h2" id="process-heading">
@@ -19,14 +23,14 @@ export function ProcessSection({
           </Heading>
           <p className="text-silver-300 mt-4 text-pretty">{copy.body}</p>
         </Reveal>
-        <RevealStagger className="mt-10 grid gap-6 sm:grid-cols-2">
+        <RevealStagger className="mt-10 max-w-3xl space-y-6">
           {copy.steps.map((step, index) => (
             <RevealItem key={step.title}>
-              <article className="border-navy-700 h-full rounded-2xl border p-5">
+              <article className="border-navy-700/80 border-l pl-5">
                 <p className="text-electric-400 text-xs tracking-[0.2em] uppercase">
                   {String(index + 1).padStart(2, '0')}
                 </p>
-                <h3 className="mt-3 text-lg font-medium text-white">
+                <h3 className="mt-2 text-lg font-medium text-white">
                   {step.title}
                 </h3>
                 <p className="text-silver-300 mt-2 text-sm text-pretty">
