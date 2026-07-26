@@ -1,7 +1,9 @@
 import Link from 'next/link';
+import { BrandLogoMark } from '@/components/brand/BrandLogoMark';
 import { Container } from '@/components/ui/Container';
 import { Divider } from '@/components/ui/Divider';
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
+import { brandLogo } from '@/config/brand-logo';
 import { estimatePolicy } from '@/config/estimate-policy';
 import { footerNav, routes, type RouteKey } from '@/config/routes';
 import { getPublicSocialChannels } from '@/config/social';
@@ -28,10 +30,10 @@ export function SiteFooter({ locale, dictionary }: SiteFooterProps) {
       <Container className="py-12 sm:py-16">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-3 lg:col-span-1">
-            <p className="text-base font-semibold text-white">
-              {siteConfig.name}
-            </p>
-            <p className="text-silver-500 text-sm text-pretty">
+            <BrandLogoMark
+              maxHeightPx={brandLogo.recommendedMaxHeightPx.footer}
+            />
+            <p className="text-text-muted text-sm text-pretty">
               {dictionary.header.tagline
                 ? `${dictionary.header.tagline}. ${siteConfig.serviceArea.range}.`
                 : siteConfig.description}

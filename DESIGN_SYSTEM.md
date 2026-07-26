@@ -1,68 +1,110 @@
 # Design System
 
-The BCS visual identity: **Apple meets Feadship meets Gulfstream** — dark,
-premium, minimal, technical. No template appearance.
+Best Coatings Solutions visual identity: **craftsmanship, precision, dual Marine & Aviation** — dark, calm, editorial. Not a SaaS template.
 
-Strategic identity and usage rules: [`BRAND_GUIDE.md`](./BRAND_GUIDE.md) (full
-brand manual). Homepage WOW + motion catalogue:
-[`HOME_EXPERIENCE.md`](./HOME_EXPERIENCE.md). Postponed product work:
-[`FUTURE.md`](./FUTURE.md).
+**Phase 5B source of truth:** [`docs/brand-transformation/PHASE5B_VISUAL_IDENTITY.md`](./docs/brand-transformation/PHASE5B_VISUAL_IDENTITY.md)
 
-The machine-readable source of truth is the Tailwind v4 `@theme` block in
-[`app/globals.css`](./app/globals.css); this document explains intent and usage.
+Machine-readable tokens: [`app/globals.css`](./app/globals.css) (`@theme`).  
+Controlled preview: `/en/design-system` (noindex, not in primary nav).
 
-## Palette
+Strategic manuals: [`BRAND_GUIDE.md`](./BRAND_GUIDE.md), [`PHOTOGRAPHY_GUIDE.md`](./PHOTOGRAPHY_GUIDE.md).
 
-| Token            | Hex       | Usage                                   |
-| ---------------- | --------- | --------------------------------------- |
-| `navy-950`       | `#050d18` | Page background (near-black navy)       |
-| `navy-900`       | `#0a1a2f` | Primary dark surfaces / theme color     |
-| `navy-800`       | `#0f2340` | Raised surfaces / cards                 |
-| `navy-700`       | `#163254` | Borders on dark, hovers                 |
-| `electric-400`   | `#3b9dff` | Accent hover / highlights               |
-| `electric-500`   | `#0a84ff` | Primary accent (CTAs, focus)            |
-| `electric-600`   | `#0066cc` | Accent pressed                          |
-| `silver-100`     | `#f4f6f8` | Primary text on dark                    |
-| `silver-300`     | `#cbd3dc` | Secondary text                          |
-| `silver-500`     | `#9aa7b5` | Muted text / captions                   |
-| White            | `#ffffff` | Emphasis text, gradients                |
+---
 
-Aesthetic modifiers: **glass** (subtle translucency + blur), **metal**
-(gradients from silver→white), used sparingly for luxury.
+## Semantic color
 
-Utilities are generated from tokens, e.g. `bg-navy-900`, `text-electric-500`,
-`border-navy-700`.
+Prefer semantic utilities over raw palette names in new work.
+
+| Token | CSS variable | Role |
+|-------|--------------|------|
+| `bg-bg-primary` | `--color-bg-primary` | Page background |
+| `bg-bg-secondary` | `--color-bg-secondary` | Alternate bands |
+| `bg-surface` | `--color-surface` | Cards / raised |
+| `bg-accent` / `text-accent` | `--color-accent` | CTA / links (spare) |
+| `bg-accent-hover` | `--color-accent-hover` | Hover |
+| `text-text-primary` | `--color-text-primary` | Primary copy |
+| `text-text-secondary` | `--color-text-secondary` | Supporting |
+| `text-text-muted` | `--color-text-muted` | Captions |
+| `border-border` | `--color-border` | Borders |
+| `border-divider` | `--color-divider` | Quiet rules |
+
+Primitives (`navy-*`, `electric-*`, `silver-*`) remain for compatibility.
+
+Electric blue is **accent only**.
+
+---
 
 ## Typography
 
-- Sans: **Inter** via `next/font` (`--font-inter`), mapped to `--font-sans`.
-- Scale: fluid, restrained; large confident headings, generous line-height for
-  body. Use `text-balance`/`text-pretty` for headlines.
-- Weight: prefer 400–600; avoid heavy weights except for hero moments.
+| Role | Family | Notes |
+|------|--------|-------|
+| Display (H1/H2) | **Newsreader** | `--font-display` · OFL · Google Fonts |
+| Body / UI / buttons | **Manrope** | `--font-sans` · OFL · Google Fonts |
+| Captions | Manrope | Smaller, muted, tracking-wide |
 
-## Spacing, radius, elevation
+Loaded in `app/[locale]/layout.tsx` via `next/font` (swap, latin + latin-ext).
 
-- Spacing: Tailwind's 4px scale; generous whitespace is part of the luxury feel.
-- Radius: soft, consistent (`rounded-xl`/`rounded-2xl` for cards/pills).
-- Elevation: prefer border + subtle gradient over heavy shadows on dark UI.
+Weights: prefer 400–600. Avoid ultra-black display weights.
+
+---
+
+## Spacing
+
+Documented scale: 4 · 8 · 12 · 16 · 20 · 24 · 32 · 40 · 48 · 64 · 80 · 96px (`--space-*` in `:root`).  
+Section rhythm: generous (desktop ~64–96px vertical). Calm over dense.
+
+---
+
+## Radius
+
+| Token | Use |
+|-------|-----|
+| `--radius-control` | Buttons, inputs |
+| `--radius-media` | Photography (near-square, editorial) |
+| `--radius-card` | Editorial cards |
+
+Avoid pill-heavy SaaS chrome.
+
+---
+
+## Buttons
+
+`components/ui/Button.tsx` + `ButtonLink.tsx`:
+
+- **Primary** — accent fill  
+- **Secondary** — surface + border  
+- Ghost / link — sparse supporting actions  
+
+One system. Clear focus rings. `prefers-reduced-motion` safe press scale.
+
+---
+
+## Cards & media
+
+- `EditorialCard` — imagery-led, minimal border, subtle inset highlight  
+- `MediaFrame` — aspect ratios, division atmosphere classes, honest captions, restrained hover scale  
+
+---
 
 ## Motion
 
-- **Homepage only.** All other pages are static and fast.
-- Library: **Framer Motion**; variants centralized in `animations/`.
-- Principles: purposeful, subtle, physical easing; short durations; no motion
-  that blocks content. GSAP only if an effect is impossible in Framer Motion.
-- **Accessibility:** always honour `prefers-reduced-motion` (globals.css already
-  disables smooth scroll under it); provide reduced/no-motion variants.
+Ease: `--ease-premium` = `cubic-bezier(0.16, 1, 0.3, 1)`.  
+Durations: fast 150ms · base 280ms · slow 500ms.  
+Think Apple / Porsche / Feadship — not gaming or crypto UI.
 
-## Iconography & imagery
+---
 
-- Icons: minimal line style; consistent stroke weight.
-- Imagery: high-end marine/aviation photography; always via `next/image` with
-  explicit dimensions and AVIF/WebP.
+## Marine vs Aviation
 
-## Components (Phase 1)
+Same type, spacing, and controls. Personality via imagery and sparse atmosphere:
 
-Primitives to build in `components/ui`: `Button`, `Container`, `Section`, `Card`,
-`Input`, `Badge`. Each: typed props, AA contrast, visible focus ring
-(`electric-500`), keyboard support.
+- **Marine** — `.bcs-marine-texture` · water depth, hull reflections, fiberglass  
+- **Aviation** — `.bcs-aviation-texture` · steel/graphite wash, precision surfaces  
+
+---
+
+## Logo
+
+`config/brand-logo.ts` · `components/brand/BrandLogoMark.tsx` · `public/brand/README.md`
+
+Header still uses the text `Logo` until Phase 5C evaluates the official file in chrome. Full mark preview lives on `/design-system`.

@@ -4,10 +4,10 @@ import { cn } from '@/utils/cn';
 type HeadingLevel = 'h1' | 'h2' | 'h3' | 'h4';
 
 const styles: Record<HeadingLevel, string> = {
-  h1: 'text-3xl font-semibold tracking-tight text-balance text-white sm:text-4xl lg:text-5xl',
-  h2: 'text-2xl font-semibold tracking-tight text-balance text-white sm:text-3xl',
-  h3: 'text-xl font-semibold tracking-tight text-silver-100 sm:text-2xl',
-  h4: 'text-lg font-medium text-silver-100',
+  h1: 'font-display text-4xl font-medium tracking-tight text-balance text-text-primary sm:text-5xl lg:text-6xl',
+  h2: 'font-display text-3xl font-medium tracking-tight text-balance text-text-primary sm:text-4xl',
+  h3: 'font-sans text-xl font-semibold tracking-tight text-text-primary sm:text-2xl',
+  h4: 'font-sans text-lg font-medium text-text-primary',
 };
 
 export interface HeadingProps {

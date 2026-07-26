@@ -1,14 +1,14 @@
 @import 'tailwindcss';
 
 /*
- * Brand design tokens (Tailwind CSS v4 `@theme`).
+ * Best Coatings Solutions — Phase 5B visual identity tokens.
  *
- * These map the BCS visual identity (Dark Navy / Electric Blue / Silver / White)
- * to Tailwind utilities such as `bg-navy-900`, `text-electric-500`, etc.
- * The full rationale lives in DESIGN_SYSTEM.md — this is the machine-readable
- * source of truth that generates the utility classes.
+ * Primitives (navy / electric / silver) remain for compatibility.
+ * Prefer semantic tokens (bg-primary, text-secondary, accent, …) in new UI.
+ * Rationale: docs/brand-transformation/PHASE5B_VISUAL_IDENTITY.md
  */
 @theme {
+  /* —— Primitives —— */
   --color-navy-950: #050d18;
   --color-navy-900: #0a1a2f;
   --color-navy-800: #0f2340;
@@ -19,14 +19,63 @@
   --color-silver-100: #f4f6f8;
   --color-silver-300: #cbd3dc;
   --color-silver-500: #9aa7b5;
+  --color-graphite: #1a2433;
+  --color-metal: #c5ced8;
 
+  /* —— Semantic color —— */
+  --color-bg-primary: #050d18;
+  --color-bg-secondary: #0a1a2f;
+  --color-surface: #0f2340;
+  --color-surface-elevated: #163254;
+  --color-accent: #0a84ff;
+  --color-accent-hover: #3b9dff;
+  --color-accent-pressed: #0066cc;
+  --color-text-primary: #f4f6f8;
+  --color-text-secondary: #cbd3dc;
+  --color-text-muted: #9aa7b5;
+  --color-border: #163254;
+  --color-divider: #0f2340;
+  --color-focus-ring: #0a84ff;
+
+  /* Division atmosphere accents (sparse — imagery carries personality) */
+  --color-marine-glow: #1a4d7a;
+  --color-aviation-glow: #3d4654;
+
+  /* —— Typography —— */
   --font-sans:
-    var(--font-inter), ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+    var(--font-manrope), ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
     sans-serif;
+  --font-display:
+    var(--font-newsreader), ui-serif, Georgia, 'Times New Roman', serif;
+
+  /* —— Radius —— */
+  --radius-control: 0.5rem;
+  --radius-media: 0.125rem;
+  --radius-card: 0.75rem;
+  --radius-pill: 999px;
+
+  /* —— Motion —— */
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-base: 280ms;
+  --duration-slow: 500ms;
 }
 
 :root {
   color-scheme: dark;
+  /* Spacing scale (documented; Tailwind 4px base still available) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
 }
 
 /* Media Library theme variant (dark default / light optional) */
@@ -46,8 +95,8 @@ html {
 }
 
 body {
-  background-color: var(--color-navy-950);
-  color: var(--color-silver-100);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -78,36 +127,44 @@ body {
     radial-gradient(
       ellipse at 30% 70%,
       rgba(59, 157, 255, 0.08),
-      transparent 50%
+      transparent 55%
     ),
     radial-gradient(
-      ellipse at 70% 80%,
+      ellipse at 80% 20%,
       rgba(10, 132, 255, 0.06),
       transparent 45%
-    ),
-    repeating-linear-gradient(
-      110deg,
-      transparent 0,
-      transparent 18px,
-      rgba(244, 246, 248, 0.015) 18px,
-      rgba(244, 246, 248, 0.015) 19px
     );
-  mix-blend-mode: screen;
+  background-size: 120% 120%;
+  animation: bcs-ocean-drift 28s var(--ease-premium) infinite alternate;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .bcs-ocean-texture {
-    animation: bcs-shimmer 14s ease-in-out infinite alternate;
-  }
-}
-
-@keyframes bcs-shimmer {
+@keyframes bcs-ocean-drift {
   from {
-    transform: translate3d(0, 0, 0);
-    opacity: 0.55;
+    background-position: 0% 40%;
   }
   to {
-    transform: translate3d(0, -1.5%, 0);
-    opacity: 0.75;
+    background-position: 100% 60%;
   }
+}
+
+/* Aviation atmosphere — cool steel wash (use sparingly on aviation surfaces) */
+.bcs-aviation-texture {
+  background-image:
+    radial-gradient(
+      ellipse at 70% 30%,
+      rgba(197, 206, 216, 0.07),
+      transparent 50%
+    ),
+    linear-gradient(165deg, #050d18 0%, #0a121c 55%, #050d18 100%);
+}
+
+/* Marine atmosphere — deeper water wash */
+.bcs-marine-texture {
+  background-image:
+    radial-gradient(
+      ellipse at 25% 75%,
+      rgba(26, 77, 122, 0.35),
+      transparent 55%
+    ),
+    linear-gradient(180deg, #050d18 0%, #071525 50%, #050d18 100%);
 }

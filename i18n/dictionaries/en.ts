@@ -48,6 +48,7 @@ export const en = {
     faq: 'FAQ',
     workmanship: 'Workmanship',
     resources: 'Resources',
+    designSystem: 'Visual Identity',
   },
   cta: {
     estimate: 'Request an Estimate',

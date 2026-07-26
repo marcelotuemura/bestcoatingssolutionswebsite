@@ -17,7 +17,7 @@ export const homePlaceholders = {
   logo: {
     src: '/brand/bcs-logo-temporary.svg',
     temporary: true as const,
-    note: 'Replace with final BCS logo SVG when supplied by owner.',
+    note: 'Owner-approved official mark pending file drop — see config/brand-logo.ts and public/brand/README.md.',
   },
   marineVisual: {
     src: '/brand/marine-silhouette.svg',

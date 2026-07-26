@@ -3,18 +3,18 @@ import type { ButtonHTMLAttributes, ReactNode } from 'react';
 
 const variants = {
   primary:
-    'bg-electric-500 text-white hover:bg-electric-400 active:bg-electric-600 focus-visible:ring-electric-500',
+    'bg-accent text-white hover:bg-accent-hover active:bg-accent-pressed focus-visible:ring-focus-ring',
   secondary:
-    'border border-navy-700 bg-navy-900 text-silver-100 hover:border-electric-500/50 hover:bg-navy-800 focus-visible:ring-electric-500',
+    'border border-border bg-surface text-text-primary hover:border-accent/40 hover:bg-bg-secondary focus-visible:ring-focus-ring',
   ghost:
-    'text-silver-300 hover:bg-navy-800 hover:text-silver-100 focus-visible:ring-electric-500',
-  link: 'text-electric-400 underline-offset-4 hover:text-electric-500 hover:underline focus-visible:ring-electric-500',
+    'text-text-secondary hover:bg-surface hover:text-text-primary focus-visible:ring-focus-ring',
+  link: 'text-accent-hover underline-offset-4 hover:text-accent hover:underline focus-visible:ring-focus-ring',
 } as const;
 
 const sizes = {
-  sm: 'min-h-10 px-3 text-sm',
-  md: 'min-h-11 px-4 text-sm sm:min-h-12 sm:px-5',
-  lg: 'min-h-12 px-6 text-base',
+  sm: 'min-h-10 px-3.5 text-sm',
+  md: 'min-h-11 px-5 text-sm sm:min-h-12 sm:px-6',
+  lg: 'min-h-12 px-7 text-base',
 } as const;
 
 export type ButtonVariant = keyof typeof variants;
@@ -37,10 +37,10 @@ export function buttonClassName({
   className?: ClassValue;
 }): string {
   return cn(
-    'inline-flex items-center justify-center gap-2 rounded-xl font-medium transition-colors duration-200',
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-950',
+    'inline-flex items-center justify-center gap-2 rounded-[var(--radius-control)] font-medium tracking-wide transition-[color,background-color,border-color,transform] duration-[var(--duration-base)] ease-[var(--ease-premium)]',
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary',
     'disabled:pointer-events-none disabled:opacity-50',
-    'motion-safe:active:scale-[0.98]',
+    'motion-safe:active:scale-[0.985]',
     variants[variant],
     sizes[size],
     className,

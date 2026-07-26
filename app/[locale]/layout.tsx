@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
+import { Manrope, Newsreader } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 import { notFound } from 'next/navigation';
 import { SiteShell } from '@/components/layout/SiteShell';
@@ -10,10 +10,18 @@ import { buildRootMetadata } from '@/lib/seo/metadata';
 import { localBusinessJsonLd, websiteJsonLd } from '@/lib/seo/structured-data';
 import '../globals.css';
 
-const inter = Inter({
+/** UI / body — OFL via Google Fonts. */
+const manrope = Manrope({
   subsets: ['latin', 'latin-ext'],
   display: 'swap',
-  variable: '--font-inter',
+  variable: '--font-manrope',
+});
+
+/** Display headings — OFL via Google Fonts. */
+const newsreader = Newsreader({
+  subsets: ['latin', 'latin-ext'],
+  display: 'swap',
+  variable: '--font-newsreader',
 });
 
 export const viewport: Viewport = {
@@ -76,7 +84,7 @@ export default async function LocaleRootLayout({
   return (
     <html
       lang={localeHtmlLang[locale]}
-      className={inter.variable}
+      className={`${manrope.variable} ${newsreader.variable}`}
       suppressHydrationWarning
     >
       <body className="min-h-dvh antialiased">

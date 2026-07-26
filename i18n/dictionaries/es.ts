@@ -50,6 +50,7 @@ export const es = {
     faq: 'Preguntas frecuentes',
     workmanship: 'Mano de obra',
     resources: 'Recursos',
+    designSystem: 'Identidad visual',
   },
   cta: {
     estimate: 'Solicitar un estimado',

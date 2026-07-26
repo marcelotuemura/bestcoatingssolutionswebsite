@@ -64,6 +64,7 @@ export function HeroSection({ locale, dictionary }: HeroSectionProps) {
               priority
               unoptimized
               className="h-auto w-[min(100%,20rem)]"
+              data-testid="hero-brand-logo"
             />
             {reduce ? null : (
               <motion.span
@@ -77,7 +78,7 @@ export function HeroSection({ locale, dictionary }: HeroSectionProps) {
           </motion.div>
 
           <motion.h1
-            className="text-4xl font-semibold tracking-tight text-balance text-white sm:text-5xl lg:text-6xl"
+            className="font-display text-text-primary text-4xl font-medium tracking-tight text-balance sm:text-5xl lg:text-6xl"
             initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={
@@ -90,7 +91,7 @@ export function HeroSection({ locale, dictionary }: HeroSectionProps) {
           </motion.h1>
 
           <motion.p
-            className="text-silver-300 mt-5 max-w-xl text-base text-pretty sm:text-lg"
+            className="text-text-secondary mt-5 max-w-xl text-base text-pretty sm:text-lg"
             initial={reduce ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={

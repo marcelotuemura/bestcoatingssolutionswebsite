@@ -165,6 +165,15 @@ export const routes = {
     priority: 0.75,
     launch: true,
   },
+  /** Internal visual identity preview — not in primary nav or sitemap. */
+  designSystem: {
+    path: '/design-system',
+    labelKey: 'designSystem',
+    sitemap: false,
+    changeFrequency: 'yearly',
+    priority: 0.1,
+    launch: false,
+  },
   /** Deferred — keep registered, out of launch sitemap. */
   process: {
     path: '/process',
