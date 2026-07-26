@@ -18,19 +18,18 @@ export default async function PublicationsPage() {
     .filter((a) => a.privacyRisks.length === 0)
     .slice()
     .sort((a, b) => {
-      // Prefer stable demo seeds in the draft picker for predictable ops/e2e.
       const aSeed = a.id.startsWith('asset-seed-') ? 0 : 1;
       const bSeed = b.id.startsWith('asset-seed-') ? 0 : 1;
       if (aSeed !== bSeed) return aSeed - bSeed;
       return b.importedAt.localeCompare(a.importedAt);
     });
-  const jobs = listJobsForActor();
+  const jobs = await listJobsForActor(session.actor);
   const canPrepare = actorHasPermission(session.actor, 'prepare_publish_draft');
 
   return (
     <MediaShell
       title="Publications"
-      subtitle="Approval-gated website, social, and Google Business drafts. Never auto-publishes. Draft adapters do not claim external delivery."
+      subtitle="Approval-gated website, social, and Google Business drafts. Never auto-publishes. Draft adapters do not claim external delivery. Jobs persist in PostgreSQL."
       readOnlyBanner={false}
     >
       <div className="mx-auto max-w-7xl space-y-8 px-4 py-8 sm:px-6 lg:px-8">
@@ -49,6 +48,7 @@ export default async function PublicationsPage() {
             <li>
               Provider-not-configured is never shown as externally published
             </li>
+            <li>Lifecycle mutations enforced by PostgreSQL RPCs</li>
           </ul>
         </section>
 

@@ -1,4 +1,4 @@
-# DAMS Phase 6 — Publishers
+# DAMS Phase 6 — Publishers (corrected)
 
 Approval-gated publication layer for website, social, and Google Business Profile
 drafts/schedules. **Never auto-publishes. Never claims external delivery without
@@ -9,68 +9,93 @@ provider proof.**
 ```
 UI /media/publications
   → server actions (RBAC)
-  → publishers/service (state machine + approval + privacy)
-  → adapters (website | social | google_business)
-  → process-wide store + tmp persistence (temporary auth) / Postgres (Supabase)
-  → audit events
+  → publishers/service
+      → PostgreSQL SECURITY DEFINER RPCs (default runtime)
+      → adapters (website | social | google_business) for provider payload only
+  → media_publication_jobs / drafts / events / approvals
+  → media_publication_events (durable audit)
 ```
 
-## Schema
+Process-local publication storage is **not** used at runtime. Unit tests may set
+`MEDIA_PUBLICATION_REPOSITORY=memory` explicitly.
 
-Migrations (new only):
+## Schema & migrations
 
-- `20260725210000_media_phase6_publications_schema.sql`
-- `20260725210001_media_phase6_publications_rls.sql`
+| Migration | Purpose |
+|-----------|---------|
+| `20260725210000_media_phase6_publications_schema.sql` | jobs, drafts, events |
+| `20260725210001_media_phase6_publications_rls.sql` | initial RLS (superseded for writes) |
+| `20260725220000_media_phase6_publication_authority.sql` | approvals, revoke DML, denial triggers |
+| `20260725220001_media_phase6_publication_rpcs.sql` | SECURITY DEFINER RPCs |
 
-Tables: `media_publication_jobs`, `media_publication_drafts`, `media_publication_events`.
+Phase 5 migrations `20260724190000`–`20260725193000` are **not edited**.
+
+### Hosted apply status
+
+As of this correction, Phase 6 migrations (including authority/RPCs) have been
+verified on **local Postgres** only. They must be applied to staging
+(`ybzeuxvzpbguszqxrtur`) before hosted Phase 6 can pass:
+
+```bash
+MEDIA_SUPABASE_ENV=staging SUPABASE_DB_URL='postgresql://…' \
+  pnpm media:supabase:apply-sql supabase/migrations/20260725210000_media_phase6_publications_schema.sql
+# …repeat for 210001, 220000, 220001
+```
+
+## RPC catalog
+
+- `media_create_publication_draft`
+- `media_update_publication_draft`
+- `media_submit_publication`
+- `media_approve_publication`
+- `media_reject_publication_approval`
+- `media_schedule_publication`
+- `media_cancel_publication`
+- `media_execute_publication`
+- `media_record_publication_result`
+- `media_retry_publication`
+
+All use `auth.uid()`, fixed `search_path = public`, revoke PUBLIC, grant execute
+to `authenticated` only. Actor IDs are never client-trusted.
+
+## Grants / RLS
+
+- Authenticated: **SELECT** on publication tables (staff RLS)
+- Authenticated: **no** INSERT/UPDATE/DELETE on publication tables
+- Mutations only via RPCs + `publication_mutation` session flag
+- Denial triggers raise `42501` on direct DML
 
 ## State machine
 
 `draft` → `awaiting_approval` → `approved` → `scheduled` → `publishing` → `published` | `failed`  
-Also: `draft` → `approved` (owner shortcut), `*` → `cancelled` where allowed.
+Also: `draft` → `approved` (approve RPC), `failed` → `publishing` (retry), cancellable where allowed.
 
 `provider_delivery_status`: `not_configured` | `draft_ready` | `queued` | `delivered` | `failed`  
-**`delivered` / job `published` only when a real provider acknowledges success.**
+**`delivered` / job `published` only when `media_record_publication_result` is called with `externally_delivered=true`.**
 
-## Adapters
-
-| Target | Behavior |
-|--------|----------|
-| website | Internal content bridge draft — not production deploy |
-| social | Normalized social draft — provider not configured |
-| google_business | GBP draft — provider not configured |
-
-## Approval & privacy
-
-- Exact `MediaApproval` for asset + target (+ version when set)
-- Privacy-blocked assets cannot draft/approve/schedule/execute
-- Original storage keys rejected as derivatives
-- Signed URLs never persisted
-
-## RBAC
+## RBAC (DB-enforced)
 
 | Action | viewer | reviewer | editor | admin | owner |
 |--------|:------:|:--------:|:------:|:-----:|:-----:|
-| Read queue | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Create/update draft | — | — | ✓ | ✓ | ✓ |
-| Approve publication | — | — | — | ✓ | ✓ |
-| Schedule | — | — | — | ✓ | ✓ |
-| Execute publish | — | — | — | — | ✓ |
-
-## Rollback
-
-Disable UI route usage; leave tables in place. Do not edit Phase 5 migrations.
+| Read | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Create/update draft / submit | — | — | ✓ | ✓ | ✓ |
+| Approve / reject / schedule | — | — | — | ✓ | ✓ |
+| Cancel draft | — | — | ✓ | ✓ | ✓ |
+| Cancel approved/scheduled | — | — | — | ✓ | ✓ |
+| Execute / record result / retry | — | — | — | — | ✓ |
 
 ## Local / hosted testing
 
-- Unit: `pnpm test` (includes `phase6-publishers.test.ts`)
-- Local Postgres RLS: `pnpm test:supabase:phase5:local` (Phase 5 + Phase 6 SQL)
-- Playwright: `tests/e2e/media-phase6-publishers.spec.ts` with existing media suites
-- Hosted provider delivery: not applicable until credentials + real adapters exist
+```bash
+pnpm test:supabase:phase5:local   # Phase 5 + Phase 6 authority
+pnpm test:supabase:phase6         # Hosted staging (requires secrets)
+pnpm media:publication:bootstrap-pg
+```
+
+Playwright media suites bootstrap a local publication DB automatically.
 
 ## Known limitations
 
-- No live Instagram/Facebook/GBP API credentials in this phase
-- Temporary-auth job store uses process-wide + tmp persistence; Postgres tables ready for cutover
-- Website bridge does not mutate marketing pages automatically
-- Database RLS allows editor/admin draft row writes; **live publish authority remains owner-only in the app service layer** (`publish` permission)
+- No live Instagram/Facebook/GBP API credentials — draft adapters remain non-delivered
+- Temporary auth maps actors into `media_users` via stable UUIDs for local PG RPC calls
+- Hosted Phase 6 requires staging secrets + migration apply (see apply status above)

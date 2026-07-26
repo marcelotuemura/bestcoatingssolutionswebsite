@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   __resetMediaIntelligenceRepositoryForTests,
   getMediaIntelligenceRepository,
@@ -16,6 +16,8 @@ import {
   type PublicationJob,
 } from '@/lib/media-intelligence/publishers';
 import type { MediaTrustedActor } from '@/lib/media-intelligence/auth/session';
+
+vi.stubEnv('MEDIA_PUBLICATION_REPOSITORY', 'memory');
 
 const owner = {
   id: 'owner-1',

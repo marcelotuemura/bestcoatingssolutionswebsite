@@ -1,42 +1,41 @@
-# Phase 6 Publishers — Acceptance report
+# Phase 6 Publishers — Acceptance report (authority correction)
 
 Branch: `cursor/phase-6-dams-publishers-5ec4`  
-Base: `main@56f22da`  
-HEAD: see latest commit on branch
+Base: `main@56f22da`
+
+## Blocker corrections
+
+| Blocker | Root cause | Correction |
+|---------|------------|------------|
+| 1 DB authority | Broad editor/admin UPDATE policies; publish only in app layer | Restrictive grants + denial triggers + SECURITY DEFINER RPCs |
+| 2 Process store | UI/actions used in-memory publication store | Default runtime is PostgreSQL RPCs (`db-repository.ts`); memory only via `MEDIA_PUBLICATION_REPOSITORY=memory` for unit tests |
+| 3 Hosted validation | Marked N/A without provider creds | Added `pnpm test:supabase:phase6` (draft workflow; no external delivery). **Requires staging secrets + migration apply** |
 
 ## Migrations
 
-- `20260725210000_media_phase6_publications_schema.sql`
-- `20260725210001_media_phase6_publications_rls.sql`
+- `20260725210000` / `20260725210001` (initial Phase 6) — **not rewritten**
+- `20260725220000_media_phase6_publication_authority.sql` (**new corrective**)
+- `20260725220001_media_phase6_publication_rpcs.sql` (**new corrective**)
 
-Phase 5 migrations `20260724190000`–`20260725193000` **not edited**.
+Phase 5 migrations untouched. Hosted apply status: **not yet applied to staging** (local PG only).
 
 ## Quality gates
 
 | Gate | Result |
 |------|--------|
 | `pnpm typecheck` | PASS |
-| `pnpm lint` | PASS |
-| `pnpm test` (Vitest) | **181 passed** (includes 8 Phase 6 unit tests) |
-| Phase 5 unit / RBAC unit | PASS (included in Vitest) |
-| `pnpm test:supabase:phase5:local` | PASS — Phase 5 + Phase 6 publication RLS |
-| Playwright media + phase5 + phase6 | **19 passed** |
-| Hosted Phase 6 provider delivery | N/A — draft adapters only; no external credentials |
-
-### Local Postgres passes (excerpt)
-
-- Phase 5: `all_local_rbac_assertions`
-- Phase 6: `phase6_viewer_read_no_mutate`, `phase6_reviewer_no_publish_mutate`, `phase6_editor_draft_ok`, `phase6_owner_approve_ok`, `phase6_idempotency_unique`, `all_phase6_publication_rls_assertions`
-
-## Hosted
-
-No new hosted Supabase provider integrations in this phase. Draft adapters do not
-call external APIs. Apply Phase 6 migrations on cutover. Hosted Phase 5 security
-regression remains `pnpm test:supabase:phase5` when credentials are available.
+| `pnpm lint` | PASS (0 errors) |
+| `pnpm test` | **181 passed** |
+| `pnpm test:supabase:phase5:local` | PASS (Phase 5 + Phase 6 authority) |
+| Playwright media + phase5 + phase6 | **19 passed** (Postgres-backed publications) |
+| `pnpm test:supabase:phase5` hosted | **Blocked** — staging secrets not available in this agent environment |
+| `pnpm test:supabase:phase6` hosted | **SKIP** — same; suite ready; needs `MEDIA_SUPABASE_PHASE6_LIVE=1` + keys + migrations applied |
 
 ## Confirmations
 
-- No prior Phase 5 migrations edited
-- No secrets or signed URLs committed
-- No false “Externally published” for draft-only adapter results
-- Phase 7 not implemented
+- Protected lifecycle fields cannot be directly mutated (privilege revoke + triggers)
+- UI/actions use PostgreSQL RPCs when `MEDIA_PUBLICATION_DATABASE_URL` / `DATABASE_URL` / `SUPABASE_DB_URL` is set
+- Event history from `media_publication_events`
+- No false external delivery claims
+- No secrets/signed URLs committed
+- Phase 7 not started

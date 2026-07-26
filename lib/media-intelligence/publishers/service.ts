@@ -1,3 +1,9 @@
+/**
+ * Publication service façade.
+ * Default runtime persists via PostgreSQL SECURITY DEFINER RPCs.
+ * Memory path is opt-in for isolated unit tests only.
+ */
+
 import type { MediaTrustedActor } from '@/lib/media-intelligence/auth/session';
 import { actorHasPermission } from '@/lib/media-intelligence/auth/guards';
 import { recordAuditEvent } from '@/lib/media-intelligence/audit/audit';
@@ -7,6 +13,20 @@ import {
   actorCanPublicationAction,
   editorMayEditStatus,
 } from '@/lib/media-intelligence/publishers/permissions';
+import { resolvePublicationRepositoryMode } from '@/lib/media-intelligence/publishers/runtime';
+import {
+  dbApprovePublication,
+  dbCancelPublication,
+  dbCreatePublicationDraft,
+  dbExecutePublication,
+  dbGetPublicationJob,
+  dbListPublicationEvents,
+  dbListPublicationJobs,
+  dbRecordPublicationResult,
+  dbSchedulePublication,
+  dbSubmitPublication,
+  dbUpdatePublicationDraft,
+} from '@/lib/media-intelligence/publishers/db-repository';
 import {
   appendPublicationEvent,
   findJobByIdempotencyKey,
@@ -18,6 +38,7 @@ import {
 } from '@/lib/media-intelligence/publishers/store';
 import type {
   Phase6PublishTarget,
+  PublicationEvent,
   PublicationJob,
   PublicationJobStatus,
   PublicationPayload,
@@ -37,6 +58,19 @@ type Result<T> =
 
 function deny(error: string, status = 403): Result<never> {
   return { ok: false, error, status };
+}
+
+function pgError(error: unknown): Result<never> {
+  const message = error instanceof Error ? error.message : String(error);
+  const status = /permission denied|42501/i.test(message)
+    ? 403
+    : /not found|P0002/i.test(message)
+      ? 404
+      : 400;
+  return deny(
+    message.replace(/^ERROR:\s*/i, '').split('\n')[0] ?? message,
+    status,
+  );
 }
 
 async function auditPublication(
@@ -63,14 +97,33 @@ async function auditPublication(
   });
 }
 
-export function listJobsForActor(): readonly PublicationJob[] {
-  return listPublicationJobs();
+function isMemoryPublicationBackend(): boolean {
+  return resolvePublicationRepositoryMode() === 'memory';
 }
 
-export function getJobWithEvents(jobId: string) {
-  const job = getPublicationJob(jobId);
+export async function listJobsForActor(
+  actor: MediaTrustedActor,
+): Promise<readonly PublicationJob[]> {
+  if (isMemoryPublicationBackend()) return listPublicationJobs();
+  return dbListPublicationJobs(actor);
+}
+
+export async function getJobWithEvents(
+  actor: MediaTrustedActor,
+  jobId: string,
+): Promise<{
+  readonly job: PublicationJob;
+  readonly events: readonly PublicationEvent[];
+} | null> {
+  if (isMemoryPublicationBackend()) {
+    const job = getPublicationJob(jobId);
+    if (!job) return null;
+    return { job, events: listPublicationEvents(jobId) };
+  }
+  const job = await dbGetPublicationJob(actor, jobId);
   if (!job) return null;
-  return { job, events: listPublicationEvents(jobId) };
+  const events = await dbListPublicationEvents(actor, jobId);
+  return { job, events };
 }
 
 export async function createPublicationDraft(input: {
@@ -85,9 +138,6 @@ export async function createPublicationDraft(input: {
   if (!actorCanPublicationAction(input.actor, 'create_draft')) {
     return deny('Permission denied: prepare_publish_draft');
   }
-
-  const existing = findJobByIdempotencyKey(input.idempotencyKey);
-  if (existing) return { ok: true, data: existing };
 
   const repo = getMediaIntelligenceRepository();
   const asset = repo.getAsset(input.assetId);
@@ -104,6 +154,28 @@ export async function createPublicationDraft(input: {
   const adapter = getPublisherAdapter(input.target);
   const normalized = adapter.normalize({ asset, payload: parsed.payload });
   if (!normalized.ok) return deny(normalized.error, 400);
+
+  if (!isMemoryPublicationBackend()) {
+    try {
+      const job = await dbCreatePublicationDraft({
+        actor: input.actor,
+        asset,
+        target: input.target,
+        payload: normalized.payload,
+        idempotencyKey: input.idempotencyKey,
+        derivativeId: input.derivativeId,
+        scheduledFor: input.scheduledFor,
+        destinationRef: normalized.destinationRef,
+      });
+      await auditPublication('draft_created', input.actor, job, true);
+      return { ok: true, data: job };
+    } catch (error) {
+      return pgError(error);
+    }
+  }
+
+  const existing = findJobByIdempotencyKey(input.idempotencyKey);
+  if (existing) return { ok: true, data: existing };
 
   const ids = newPublicationIds();
   const now = new Date().toISOString();
@@ -146,19 +218,42 @@ export async function updatePublicationDraft(input: {
   if (!actorCanPublicationAction(input.actor, 'update_draft')) {
     return deny('Permission denied: prepare_publish_draft');
   }
+
+  if (!isMemoryPublicationBackend()) {
+    try {
+      let payload: PublicationPayload | undefined;
+      if (input.payload !== undefined) {
+        const current = await dbGetPublicationJob(input.actor, input.jobId);
+        if (!current) return deny('Publication job not found', 404);
+        const parsed = parsePublicationPayload(current.target, input.payload);
+        if (!parsed.ok) return deny(parsed.error, 400);
+        payload = parsed.payload;
+      }
+      const job = await dbUpdatePublicationDraft({
+        actor: input.actor,
+        jobId: input.jobId,
+        payload,
+        derivativeId: input.derivativeId,
+        scheduledFor: input.scheduledFor,
+      });
+      await auditPublication('draft_updated', input.actor, job, true);
+      return { ok: true, data: job };
+    } catch (error) {
+      return pgError(error);
+    }
+  }
+
   const job = getPublicationJob(input.jobId);
   if (!job) return deny('Publication job not found', 404);
   if (!editorMayEditStatus(job.status)) {
     return deny('Draft can only be updated in draft or awaiting_approval.');
   }
-
   const repo = getMediaIntelligenceRepository();
   const asset = repo.getAsset(job.assetId);
   if (!asset) return deny('Asset not found', 404);
   if (isPrivacyBlocked(asset)) {
     return deny('Privacy-blocked assets cannot be updated for publication.');
   }
-
   let payload: PublicationPayload = job.payload;
   if (input.payload !== undefined) {
     const parsed = parsePublicationPayload(job.target, input.payload);
@@ -172,7 +267,6 @@ export async function updatePublicationDraft(input: {
     input.derivativeId !== undefined ? input.derivativeId : job.derivativeId;
   const der = assertDerivativeEligible(asset, derivativeId);
   if (!der.ok) return deny(der.error, 400);
-
   const previous = job.status;
   const updated: PublicationJob = {
     ...job,
@@ -204,7 +298,16 @@ export async function submitPublicationForApproval(input: {
   if (!actorCanPublicationAction(input.actor, 'submit_for_approval')) {
     return deny('Permission denied: prepare_publish_draft');
   }
-  return transitionJob(
+  if (!isMemoryPublicationBackend()) {
+    try {
+      const job = await dbSubmitPublication(input.actor, input.jobId);
+      await auditPublication('submitted', input.actor, job, true);
+      return { ok: true, data: job };
+    } catch (error) {
+      return pgError(error);
+    }
+  }
+  return transitionJobMemory(
     input.actor,
     input.jobId,
     'awaiting_approval',
@@ -220,17 +323,25 @@ export async function approvePublicationJob(input: {
   if (!actorCanPublicationAction(input.actor, 'approve')) {
     return deny('Permission denied: create_publication_approval');
   }
+
+  if (!isMemoryPublicationBackend()) {
+    try {
+      const job = await dbApprovePublication(input.actor, input.jobId);
+      await auditPublication('approved', input.actor, job, true);
+      return { ok: true, data: job };
+    } catch (error) {
+      return pgError(error);
+    }
+  }
+
   const job = getPublicationJob(input.jobId);
   if (!job) return deny('Publication job not found', 404);
-
   const repo = getMediaIntelligenceRepository();
   let asset = repo.getAsset(job.assetId);
   if (!asset) return deny('Asset not found', 404);
   if (isPrivacyBlocked(asset)) {
     return deny('Privacy-blocked assets cannot be approved for publication.');
   }
-
-  // Publication approval requires workflow approved/scheduled.
   if (asset.status !== 'approved' && asset.status !== 'scheduled') {
     if (!actorHasPermission(input.actor, 'approve_workflow')) {
       return deny(
@@ -269,7 +380,6 @@ export async function approvePublicationJob(input: {
         .find((a) => a.target === job.target && !a.revokedAt);
 
   if (!approval) {
-    // Create target-specific approval when actor may create one
     try {
       approval = repo.createPublicationApproval({
         assetId: job.assetId,
@@ -291,11 +401,9 @@ export async function approvePublicationJob(input: {
     target: job.target,
   });
   if (!match.ok) return deny(match.error);
-
   if (!canTransitionPublication(job.status, 'approved')) {
     return deny(`Cannot approve from status ${job.status}`, 400);
   }
-
   const updated: PublicationJob = {
     ...job,
     status: 'approved',
@@ -330,9 +438,23 @@ export async function schedulePublicationJob(input: {
   if (Number.isNaN(when) || when < Date.now() - 60_000) {
     return deny('scheduledFor must be a valid future timestamp', 400);
   }
+
+  if (!isMemoryPublicationBackend()) {
+    try {
+      const job = await dbSchedulePublication(
+        input.actor,
+        input.jobId,
+        new Date(when).toISOString(),
+      );
+      await auditPublication('scheduled', input.actor, job, true);
+      return { ok: true, data: job };
+    } catch (error) {
+      return pgError(error);
+    }
+  }
+
   const job = getPublicationJob(input.jobId);
   if (!job) return deny('Publication job not found', 404);
-
   const repo = getMediaIntelligenceRepository();
   const asset = repo.getAsset(job.assetId);
   if (!asset) return deny('Asset not found', 404);
@@ -347,7 +469,6 @@ export async function schedulePublicationJob(input: {
     expectedVersion: job.approvalVersion,
   });
   if (!match.ok) return deny(match.error);
-
   if (!canTransitionPublication(job.status, 'scheduled')) {
     return deny(`Cannot schedule from status ${job.status}`, 400);
   }
@@ -375,9 +496,17 @@ export async function cancelPublicationJob(input: {
   readonly actor: MediaTrustedActor;
   readonly jobId: string;
 }): Promise<Result<PublicationJob>> {
+  if (!isMemoryPublicationBackend()) {
+    try {
+      const job = await dbCancelPublication(input.actor, input.jobId);
+      await auditPublication('cancelled', input.actor, job, true);
+      return { ok: true, data: job };
+    } catch (error) {
+      return pgError(error);
+    }
+  }
+
   if (!actorCanPublicationAction(input.actor, 'cancel')) {
-    // Owners/admins schedule; editors may cancel their drafts via update path —
-    // allow prepare_publish_draft to cancel draft/awaiting only.
     if (
       actorCanPublicationAction(input.actor, 'create_draft') &&
       getPublicationJob(input.jobId) &&
@@ -388,7 +517,12 @@ export async function cancelPublicationJob(input: {
       return deny('Permission denied: cancel publication');
     }
   }
-  return transitionJob(input.actor, input.jobId, 'cancelled', 'cancelled');
+  return transitionJobMemory(
+    input.actor,
+    input.jobId,
+    'cancelled',
+    'cancelled',
+  );
 }
 
 export async function executePublicationJob(input: {
@@ -398,9 +532,57 @@ export async function executePublicationJob(input: {
   if (!actorCanPublicationAction(input.actor, 'execute_publish')) {
     return deny('Permission denied: publish (owner only)');
   }
+
+  if (!isMemoryPublicationBackend()) {
+    try {
+      const publishing = await dbExecutePublication(input.actor, input.jobId);
+      const repo = getMediaIntelligenceRepository();
+      const asset = repo.getAsset(publishing.assetId);
+      if (!asset) return deny('Asset not found', 404);
+
+      const adapter = getPublisherAdapter(publishing.target);
+      const result = await adapter.execute({
+        asset,
+        payload: publishing.payload,
+        jobId: publishing.id,
+      });
+
+      if (!result.ok) {
+        const failed = await dbRecordPublicationResult({
+          actor: input.actor,
+          jobId: publishing.id,
+          externallyDelivered: false,
+          providerDeliveryStatus: 'failed',
+          failureDetail: result.error,
+        });
+        await auditPublication('publish_failed', input.actor, failed, false);
+        return deny(result.error, 400);
+      }
+
+      const recorded = await dbRecordPublicationResult({
+        actor: input.actor,
+        jobId: publishing.id,
+        externallyDelivered: result.externallyDelivered,
+        providerDeliveryStatus: result.providerDeliveryStatus,
+        providerMetadata: sanitizeProviderMetadata(result.providerMetadata),
+      });
+      await auditPublication(
+        result.externallyDelivered
+          ? 'publish_succeeded'
+          : 'publish_blocked_provider_not_configured',
+        input.actor,
+        recorded,
+        true,
+        { message: result.message },
+      );
+      return { ok: true, data: recorded };
+    } catch (error) {
+      return pgError(error);
+    }
+  }
+
   const job = getPublicationJob(input.jobId);
   if (!job) return deny('Publication job not found', 404);
-
   const repo = getMediaIntelligenceRepository();
   const asset = repo.getAsset(job.assetId);
   if (!asset) return deny('Asset not found', 404);
@@ -415,7 +597,6 @@ export async function executePublicationJob(input: {
     expectedVersion: job.approvalVersion,
   });
   if (!match.ok) return deny(match.error);
-
   if (
     !canTransitionPublication(job.status, 'publishing') &&
     job.status !== 'failed'
@@ -467,7 +648,6 @@ export async function executePublicationJob(input: {
     return deny(result.error, 400);
   }
 
-  // Draft-only adapters must NOT claim status=published / externally delivered.
   if (!result.externallyDelivered) {
     const draftReady: PublicationJob = {
       ...publishing,
@@ -519,7 +699,7 @@ export async function executePublicationJob(input: {
   return { ok: true, data: published };
 }
 
-async function transitionJob(
+async function transitionJobMemory(
   actor: MediaTrustedActor,
   jobId: string,
   to: PublicationJobStatus,

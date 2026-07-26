@@ -1,9 +1,8 @@
 /**
- * In-memory publication job store for temporary-auth / unit tests.
- * Postgres tables mirror this shape for Supabase cutover.
+ * In-memory publication job store — **unit tests only**.
  *
- * Uses globalThis so Next.js server-action and RSC module graphs share one
- * Map in the same Node process (module-scoped Maps are duplicated otherwise).
+ * Runtime app path must use PostgreSQL (`db-repository.ts` + SECURITY DEFINER
+ * RPCs). Enable with MEDIA_PUBLICATION_REPOSITORY=memory (forbidden in prod).
  */
 
 import { randomUUID } from 'node:crypto';

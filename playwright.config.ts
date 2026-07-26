@@ -9,6 +9,9 @@ const baseURL = `http://127.0.0.1:${PORT}`;
  * Playwright boots the production build (`next start`) so E2E runs mirror what
  * users receive. On CI the run is retried and parallelism is constrained for
  * deterministic results.
+ *
+ * Media Phase 6 publications require PostgreSQL — webServer bootstraps a local
+ * publication database before `next build` / `next start`.
  */
 export default defineConfig({
   testDir: './tests/e2e',
@@ -23,10 +26,10 @@ export default defineConfig({
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: {
-    command: 'pnpm build && pnpm start',
+    command: 'bash scripts/playwright-with-publication-pg.sh',
     url: baseURL,
     reuseExistingServer: !process.env.CI,
-    timeout: 120_000,
+    timeout: 180_000,
     env: {
       ...process.env,
       BCS_INCLUDE_TEST_FIXTURES: '1',
@@ -35,6 +38,7 @@ export default defineConfig({
       MEDIA_INTELLIGENCE_SESSION_SECRET: 'e2e-media-session-secret-32ch!',
       MEDIA_INTELLIGENCE_LOCAL_BYPASS: 'false',
       MEDIA_LOGIN_RATE_LIMIT_MAX: '500',
+      MEDIA_PUBLICATION_REPOSITORY: 'postgres',
     },
   },
 });

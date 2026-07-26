@@ -20,7 +20,7 @@ export default async function PublicationDetailPage({
   if (!session.ok) return null;
 
   const { id } = await params;
-  const detail = getJobWithEvents(id);
+  const detail = await getJobWithEvents(session.actor, id);
   if (!detail) notFound();
   const { job, events } = detail;
 

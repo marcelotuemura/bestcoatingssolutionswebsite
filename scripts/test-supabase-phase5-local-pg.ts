@@ -148,6 +148,8 @@ alter table storage.objects enable row level security;
     'supabase/migrations/20260725193000_media_phase5_authz_denials.sql',
     'supabase/migrations/20260725210000_media_phase6_publications_schema.sql',
     'supabase/migrations/20260725210001_media_phase6_publications_rls.sql',
+    'supabase/migrations/20260725220000_media_phase6_publication_authority.sql',
+    'supabase/migrations/20260725220001_media_phase6_publication_rpcs.sql',
   ];
 
   for (const rel of migrations) {
@@ -188,14 +190,19 @@ alter table public.media_ingestion_runs force row level security;
 alter table public.media_analysis_runs force row level security;
 alter table public.media_audit_events force row level security;
 alter table public.media_ai_suggestion_reviews force row level security;
+-- Re-assert Phase 6 privilege posture after broad grants above.
+revoke insert, update, delete on public.media_publication_jobs from public, anon, authenticated;
+revoke insert, update, delete on public.media_publication_drafts from public, anon, authenticated;
+revoke insert, update, delete on public.media_publication_events from public, anon, authenticated;
+revoke insert, update, delete on public.media_publication_approvals from public, anon, authenticated;
+grant select on public.media_publication_jobs to authenticated;
+grant select on public.media_publication_drafts to authenticated;
+grant select on public.media_publication_events to authenticated;
+grant select on public.media_publication_approvals to authenticated;
 alter table public.media_publication_jobs force row level security;
 alter table public.media_publication_drafts force row level security;
 alter table public.media_publication_events force row level security;
-
--- Match Phase 6 privilege posture for publication tables
-revoke insert, update, delete on public.media_publication_jobs from anon;
-revoke insert, update, delete on public.media_publication_drafts from anon;
-revoke insert, update, delete on public.media_publication_events from anon;
+alter table public.media_publication_approvals force row level security;
 `);
 
   const testFiles = [

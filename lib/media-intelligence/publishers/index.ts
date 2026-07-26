@@ -26,3 +26,8 @@ export {
   listJobsForActor,
   getJobWithEvents,
 } from '@/lib/media-intelligence/publishers/service';
+export {
+  resolvePublicationRepositoryMode,
+  isMemoryPublicationRepositoryEnabled,
+} from '@/lib/media-intelligence/publishers/runtime';
+export { PHASE6_PUBLICATION_RPC_CATALOG } from '@/lib/media-intelligence/publishers/rpc-catalog';

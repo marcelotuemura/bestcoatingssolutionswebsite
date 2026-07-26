@@ -1,9 +1,9 @@
 {
   "kind": "local_postgres_rbac",
   "liveSupabaseClaimed": false,
-  "database": "media_phase5_91f5bb",
-  "startedAt": "2026-07-25T20:40:49.649Z",
-  "finishedAt": "2026-07-25T20:40:50.163Z",
+  "database": "media_phase5_8bd0e2",
+  "startedAt": "2026-07-26T00:13:19.303Z",
+  "finishedAt": "2026-07-26T00:13:19.925Z",
   "migrationsApplied": [
     "supabase/migrations/20260724190000_media_phase5_schema.sql",
     "supabase/migrations/20260724190001_media_phase5_rls.sql",
@@ -11,7 +11,9 @@
     "supabase/migrations/20260724190003_media_phase5_rbac_hardening.sql",
     "supabase/migrations/20260725193000_media_phase5_authz_denials.sql",
     "supabase/migrations/20260725210000_media_phase6_publications_schema.sql",
-    "supabase/migrations/20260725210001_media_phase6_publications_rls.sql"
+    "supabase/migrations/20260725210001_media_phase6_publications_rls.sql",
+    "supabase/migrations/20260725220000_media_phase6_publication_authority.sql",
+    "supabase/migrations/20260725220001_media_phase6_publication_rpcs.sql"
   ],
   "passes": [
     "anon_no_assets",
@@ -25,8 +27,11 @@
     "phase6_viewer_read_no_mutate",
     "phase6_reviewer_no_publish_mutate",
     "phase6_editor_draft_ok",
-    "phase6_owner_approve_ok",
+    "phase6_editor_cannot_force_protected_states",
+    "phase6_admin_approve_not_execute",
+    "phase6_owner_execute_nondelivered",
     "phase6_idempotency_unique",
+    "phase6_privacy_blocked_rejected",
     "all_phase6_publication_rls_assertions"
   ],
   "ok": true,
