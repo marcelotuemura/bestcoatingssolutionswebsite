@@ -71,8 +71,10 @@ describe('business guardrails', () => {
     );
   });
 
-  it('keeps aviation non-active until owner confirmation', () => {
-    expect(divisions.aviation.status).not.toBe('active');
+  it('keeps aviation publicly active with marine-primary estimates', () => {
+    expect(divisions.aviation.status).toBe('active');
+    expect(divisions.aviation.acceptsPublicEstimates).toBe(false);
+    expect(divisions.marine.acceptsPublicEstimates).toBe(true);
   });
 
   it('hides TikTok and disables social without URLs', () => {

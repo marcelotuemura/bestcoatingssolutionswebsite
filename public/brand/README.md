@@ -2,26 +2,26 @@
 
 ## Official logo (owner-approved)
 
-The official Best Coatings Solutions mark includes:
+The official Best Coatings Solutions mark includes a powerboat, a business jet,
+metallic blue “BCS” lettering, and the company name.
 
-- A powerboat
-- A business jet
-- Large metallic blue “BCS” lettering
-- The words “Best Coatings Solutions”
-- Black, dark navy, electric blue, metallic blue, and silver elements
+### Drop order (first match wins)
 
-**Action required:** add the official full-color SVG (preferred) or high-resolution PNG as:
+1. `bcs-logo-official.svg` — preferred production vector  
+2. `bcs-logo-official.webp` — optimized interim raster  
+3. `bcs-logo-official.png` — optimized interim raster  
 
-`public/brand/bcs-logo-official.svg`
+Preserve untouched masters under `docs/branding/originals/`.
 
-Then update `config/brand-logo.ts` → `fullColorSrc` and set `officialFilePending` to `false`.
+When any official file is present, the header/footer switch from the text
+wordmark to the image automatically (`config/brand-logo.ts`).
 
-## Current interim file
+## Not the official logo
 
 | File | Role |
 |------|------|
-| `bcs-logo-temporary.svg` | Interim letterform mark for layout evaluation only |
-| `marine-silhouette.svg` | Decorative placeholder — not photography |
-| `aviation-silhouette.svg` | Decorative placeholder — not photography |
+| `bcs-logo-temporary.svg` | Legacy layout scaffolding only — never treat as official |
+| `marine-silhouette.svg` | Decorative placeholder |
+| `aviation-silhouette.svg` | Decorative placeholder |
 
-Do not redesign the official logo in this folder. Do not invent boat/jet marks to simulate the official logo.
+Do not redesign the official mark. Do not invent boat/jet artwork.

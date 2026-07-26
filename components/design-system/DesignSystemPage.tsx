@@ -63,11 +63,18 @@ export function DesignSystemPage({ locale }: { readonly locale: Locale }) {
               role="status"
               data-testid="logo-file-pending"
             >
-              Official logo file pending repository drop. Layout evaluation uses
-              the interim SVG only — the official powerboat + jet mark must be
-              added as{' '}
+              Official logo file pending. Header/footer use a calm text wordmark
+              — not the temporary letterform SVG. Add{' '}
               <code className="text-text-primary">bcs-logo-official.svg</code>{' '}
-              before treating the mark as final in production chrome.
+              (preferred) or optimized{' '}
+              <code className="text-text-primary">.webp</code> /{' '}
+              <code className="text-text-primary">.png</code> under{' '}
+              <code className="text-text-primary">public/brand/</code>. Preserve
+              masters in{' '}
+              <code className="text-text-primary">
+                docs/branding/originals/
+              </code>
+              .
             </p>
           ) : null}
         </Container>

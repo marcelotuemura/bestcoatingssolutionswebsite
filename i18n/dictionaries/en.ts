@@ -5,10 +5,10 @@ export const en = {
   conversion: conversionEn,
   phase5: phase5En,
   meta: {
-    titleDefault: 'Best Coatings Solutions — Marine Refinishing',
+    titleDefault: 'Best Coatings Solutions — Marine & Aviation Refinishing',
     titleTemplate: '%s | BCS',
     description:
-      'Marine gelcoat, fiberglass, paint, and cosmetic repair in South Florida. Careful preparation and finish work you can see.',
+      'Premium marine and aviation refinishing in South Florida. Careful preparation and finish work you can see.',
   },
   a11y: {
     skipToContent: 'Skip to main content',
@@ -57,7 +57,7 @@ export const en = {
     call: 'Call',
     callBcs: 'Call Best Coatings Solutions',
     exploreMarine: 'Explore Marine',
-    learnAviation: 'Learn about Aviation',
+    learnAviation: 'Explore Aviation Services',
     viewProjects: 'View Our Work',
     viewServices: 'How We Can Help',
     contactUs: 'Tell Us About Your Project',
@@ -76,6 +76,9 @@ export const en = {
     spokenLanguages: 'Languages spoken',
     serviceArea: 'Service area',
     contact: 'Contact',
+    explore: 'Explore',
+    brandBlurb:
+      'Best Coatings Solutions is a premium refinishing company with specialized Marine and Aviation divisions — careful preparation, honest scope, and finish work you can see in South Florida.',
     estimateNotice:
       'Free estimates are available only in the Fort Lauderdale area. Other locations may require review or travel arrangements.',
     socialHeading: 'Follow',
@@ -120,33 +123,39 @@ export const en = {
         'Read each service to see the problem it solves, how we approach it, and what to expect.',
     },
     aviation: {
-      metaTitle: 'Aviation — Coming Soon | BCS',
+      metaTitle: 'Aviation Refinishing | Best Coatings Solutions',
       metaDescription:
-        'Aviation refinishing is not active yet. Best Coatings Solutions shares the same preparation standards planned for future aircraft work.',
-      eyebrow: 'Coming soon',
-      title: 'Aviation',
-      lead: 'Aviation refinishing is not offered today. When it is ready, it will follow the same careful preparation we use on boats.',
-      overviewTitle: 'Honest status',
+        'Aviation cosmetic refinishing and exterior finish work from Best Coatings Solutions — preparation, color matching, and carefully scoped surface restoration in South Florida.',
+      eyebrow: 'Aviation division',
+      title: 'Aviation Refinishing',
+      lead: 'Aviation is part of who we are. We approach select aircraft cosmetic refinishing and exterior surface work with the same preparation discipline used on marine projects.',
+      overviewTitle: 'A specialized division',
       overview:
-        'This page is a preview only. We are not booking aircraft work and we are not accepting aviation estimates. Marine repair remains our active focus.',
-      futureTitle: 'What we are preparing',
-      future: [
-        'Aircraft refinishing',
-        'Composite and spot paint repair',
-        'Metallic refinishing and ceramic protection',
-        'Interior component refinishing',
-        'Work in hangars or partner facilities where permitted',
+        'Best Coatings Solutions is one company with two divisions. Marine is our primary commercial focus. Aviation is a specialized refinishing division for carefully scoped cosmetic and exterior finish work — not mechanical maintenance.',
+      capabilitiesTitle: 'Capabilities we discuss',
+      capabilities: [
+        'Aircraft cosmetic refinishing',
+        'Exterior paint restoration',
+        'Composite surface refinishing',
+        'Paint correction',
+        'Color matching',
+        'Surface preparation',
+        'Finish restoration',
+        'Cosmetic exterior repairs',
       ],
-      qualityTitle: 'Same standards',
+      qualityTitle: 'How we work',
       quality:
-        'We will not invent aviation services we are not ready to deliver. Preparation, honest scope, and finish discipline come first.',
-      contactTitle: 'Questions',
+        'We inspect the surface, prepare carefully, and match the surrounding finish before the final polish. We explain what a cosmetic repair can and cannot do — without promising regulated maintenance outcomes.',
+      scopeTitle: 'Important scope',
+      scope:
+        'This division covers cosmetic refinishing and exterior surface work. It is not an FAA repair station offering, and it does not include structural airframe work, mechanical maintenance, engines, avionics, or flight-critical repairs.',
+      contactTitle: 'Tell us about your aviation project',
       contactBody:
-        'For general questions, contact Best Coatings Solutions. Aviation booking and aviation estimates are not available while this division remains Coming Soon.',
-      noBookingNotice:
-        'Coming Soon — no aviation booking and no aviation estimate requests.',
+        'Share photos and details through Contact. We will review whether the work fits our cosmetic refinishing scope and respond clearly.',
+      contactNotice:
+        'Aviation inquiries are welcome through Contact. Public online estimate booking remains focused on marine projects.',
       notice:
-        'Coming Soon — aviation work is not active. This page is a preview only.',
+        'Cosmetic and exterior refinishing only — not structural or mechanical aircraft maintenance.',
     },
     services: {
       metaTitle: 'How We Can Help | Best Coatings Solutions',
@@ -154,7 +163,7 @@ export const en = {
         'Gelcoat, fiberglass, paint, hull, yacht cosmetic, color matching, and insurance-related marine repair in South Florida.',
       eyebrow: 'Marine',
       title: 'How we can help',
-      lead: 'Each service explains the problem, how we approach the repair, and what you can expect. Aviation is not listed while it remains Coming Soon.',
+      lead: 'Each marine service explains the problem, how we approach the repair, and what you can expect. Aviation capabilities are covered on the Aviation division page.',
       indexNote:
         'Choose a service to learn how we handle that kind of repair — then request an estimate when you are ready.',
       relatedTitle: 'Related services',
@@ -238,9 +247,9 @@ export const en = {
     },
     aviation: {
       title: 'Aviation',
-      body: 'Aviation refinishing is not active on this site yet. Background experience with aircraft finishes informs how carefully we work — it is not a current booking offer.',
+      body: 'Select aircraft cosmetic refinishing and exterior surface work — approached with the same preparation and finish control as our marine projects.',
       notice:
-        'Coming Soon — aviation operations are not available. Marine repair is our active focus.',
+        'Cosmetic refinishing scope only. Tell us about your project through Contact.',
     },
     whyBcs: {
       title: 'Built on Experience. Driven by Detail.',

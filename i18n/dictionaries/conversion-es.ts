@@ -39,7 +39,7 @@ export const conversionEs: DictionaryShape<ConversionCopy> = {
       'Contacte a Best Coatings Solutions para consultas de recubrimientos marinos en el sur de Florida. Llame, escriba o envíe un mensaje.',
     eyebrow: 'Contacto',
     title: 'Cuéntenos sobre su proyecto',
-    lead: 'Escríbanos sobre refinación marina. Aviación permanece Próximamente y no está disponible para estimados ni reservas.',
+    lead: 'Escríbanos sobre refinación marina o de aviación. Los proyectos marinos pueden usar el formulario de estimado; las consultas de aviación son bienvenidas a través de Contacto.',
     directTitle: 'Contacto directo',
     hoursTitle: 'Horario',
     closed: 'Cerrado',
@@ -51,7 +51,7 @@ export const conversionEs: DictionaryShape<ConversionCopy> = {
       'Servimos el Sur de Florida. Los estimados gratuitos están disponibles solo en el área de Fort Lauderdale.',
     formTitle: 'Enviar un mensaje',
     formLead:
-      'Cuéntenos cómo podemos ayudar. Este formulario es para consultas generales y marinas — no estimados de aviación.',
+      'Cuéntenos cómo podemos ayudar. Para proyectos de aviación, describa la necesidad de refinación cosmética aquí — daremos seguimiento. Los estimados marinos también usan el formulario dedicado.',
     mapTitle: 'Ubicación',
     mapPlaceholder:
       'Imagen provisional — mapa no configurado. No se publica dirección postal en este sitio.',
@@ -94,7 +94,7 @@ export const conversionEs: DictionaryShape<ConversionCopy> = {
     policyNote:
       'Los estimados gratuitos están disponibles solo en el área de Fort Lauderdale. Otras ubicaciones pueden requerir revisión o arreglos de viaje.',
     noAviation:
-      'No hay solicitudes de estimado de aviación. Aviación permanece Próximamente.',
+      'Este formulario de estimado es para proyectos marinos. Para consultas de refinación cosmética de aviación, use Contacto.',
     progress: 'Paso {current} de {total}: {label}',
     steps: {
       customer: 'Cliente',

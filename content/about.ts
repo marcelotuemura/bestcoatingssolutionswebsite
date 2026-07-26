@@ -144,9 +144,9 @@ export const aboutContentEn: AboutPageContent = {
   estimateCtaTitle: 'Request an Estimate',
   estimateCtaBody:
     'Tell us about your boat and the repair. Free estimates apply only in the Fort Lauderdale area.',
-  aviationTitle: 'Aviation — Coming Soon',
+  aviationTitle: 'Aviation division',
   aviationBody:
-    'Aviation refinishing is not active for booking or estimates. Marine repair is our focus today.',
+    'Aviation is part of who we are — a specialized cosmetic refinishing division alongside Marine. Tell us about aircraft exterior and finish projects through Contact. We do not present aviation as regulated structural or mechanical maintenance.',
   photoNote:
     'Authentic photography of Marcelo and the work will replace this space when approved. We do not use stock photos to invent a shop floor.',
   values: [
@@ -289,9 +289,9 @@ export const aboutContentEs: AboutPageContent = {
   estimateCtaTitle: 'Solicitar un estimado',
   estimateCtaBody:
     'Cuéntenos sobre su embarcación y la reparación. Los estimados gratuitos aplican solo en el área de Fort Lauderdale.',
-  aviationTitle: 'Aviación — Próximamente',
+  aviationTitle: 'División de aviación',
   aviationBody:
-    'La refinación de aviación no está activa para reservas ni estimados. Hoy el enfoque es la reparación marina.',
+    'La aviación es parte de lo que somos — una división especializada de refinación cosmética junto a Marina. Cuéntenos sobre proyectos de acabado exterior de aeronaves a través de Contacto. No presentamos la aviación como mantenimiento estructural o mecánico regulado.',
   photoNote:
     'La fotografía auténtica de Marcelo y del trabajo reemplazará este espacio cuando se apruebe. No usamos fotos de banco para inventar un taller.',
   values: [

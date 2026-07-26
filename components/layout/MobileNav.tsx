@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import {
   useCallback,
   useEffect,
@@ -10,7 +9,7 @@ import {
   type KeyboardEvent as ReactKeyboardEvent,
 } from 'react';
 import { ButtonLink } from '@/components/ui/ButtonLink';
-import { divisions } from '@/config/divisions';
+import { NavLink } from '@/components/layout/NavLink';
 import { primaryNav, routes, type RouteKey } from '@/config/routes';
 import { useLockedBody } from '@/hooks/use-locked-body';
 import type { Dictionary } from '@/i18n/get-dictionary';
@@ -128,25 +127,29 @@ export function MobileNav({ locale, dictionary }: MobileNavProps) {
       <button
         ref={triggerRef}
         type="button"
-        className="text-silver-100 hover:bg-navy-800 focus-visible:ring-electric-500 inline-flex min-h-11 min-w-11 items-center justify-center rounded-xl focus-visible:ring-2 focus-visible:outline-none"
+        className="text-text-primary hover:bg-surface focus-visible:ring-focus-ring inline-flex min-h-11 min-w-11 items-center justify-center rounded-[var(--radius-control)] focus-visible:ring-2 focus-visible:outline-none"
         aria-expanded={open}
         aria-controls={open ? panelId : undefined}
         aria-haspopup="dialog"
+        data-testid="mobile-nav-open"
         onClick={openMenu}
       >
         <span className="sr-only">{dictionary.a11y.openMenu}</span>
         <span aria-hidden className="flex flex-col gap-1.5">
-          <span className="bg-silver-100 block h-0.5 w-5" />
-          <span className="bg-silver-100 block h-0.5 w-5" />
-          <span className="bg-silver-100 block h-0.5 w-5" />
+          <span className="bg-text-primary block h-0.5 w-5" />
+          <span className="bg-text-primary block h-0.5 w-5" />
+          <span className="bg-text-primary block h-0.5 w-5" />
         </span>
       </button>
 
       {open ? (
-        <div className="fixed inset-0 z-50 lg:hidden">
+        <div
+          className="fixed inset-0 z-50 lg:hidden"
+          data-testid="mobile-nav-panel"
+        >
           <button
             type="button"
-            className="bg-navy-950/80 absolute inset-0"
+            className="bg-bg-primary/80 absolute inset-0"
             aria-label={dictionary.a11y.closeMenu}
             tabIndex={-1}
             onClick={closeMenu}
@@ -158,17 +161,18 @@ export function MobileNav({ locale, dictionary }: MobileNavProps) {
             role="dialog"
             aria-modal="true"
             aria-label={dictionary.a11y.mobileNav}
-            className="border-navy-700 bg-navy-950 absolute top-0 right-0 flex h-full w-[min(100%,20rem)] flex-col border-l shadow-2xl"
+            className="border-border bg-bg-primary absolute top-0 right-0 flex h-full w-[min(100%,20rem)] flex-col border-l shadow-2xl"
             onKeyDown={onPanelKeyDown}
           >
-            <div className="border-navy-800 flex items-center justify-between border-b px-4 py-3">
-              <p className="text-sm font-medium text-white">
+            <div className="border-border flex items-center justify-between border-b px-4 py-3">
+              <p className="text-text-primary text-sm font-medium">
                 Best Coatings Solutions
               </p>
               <button
                 ref={closeRef}
                 type="button"
-                className="text-silver-100 hover:bg-navy-800 focus-visible:ring-electric-500 inline-flex min-h-11 min-w-11 items-center justify-center rounded-xl focus-visible:ring-2 focus-visible:outline-none"
+                className="text-text-primary hover:bg-surface focus-visible:ring-focus-ring inline-flex min-h-11 min-w-11 items-center justify-center rounded-[var(--radius-control)] focus-visible:ring-2 focus-visible:outline-none"
+                data-testid="mobile-nav-close"
                 onClick={closeMenu}
               >
                 <span className="sr-only">{dictionary.a11y.closeMenu}</span>
@@ -181,35 +185,24 @@ export function MobileNav({ locale, dictionary }: MobileNavProps) {
             <nav className="flex-1 overflow-y-auto px-3 py-4">
               <ul className="flex flex-col gap-1">
                 {primaryNav.map((key) => {
-                  const route = routes[key];
-                  const aviationSoon =
-                    key === 'aviation' &&
-                    divisions.aviation.status === 'coming-soon';
+                  const href = localePath(locale, routes[key].path);
                   return (
                     <li key={key}>
-                      <Link
-                        href={localePath(locale, route.path)}
-                        className="hover:bg-navy-800 focus-visible:ring-electric-500 text-silver-100 flex min-h-12 items-center justify-between rounded-xl px-3 text-base focus-visible:ring-2 focus-visible:outline-none"
+                      <NavLink
+                        href={href}
+                        exact={key === 'home'}
                         onClick={closeMenu}
+                        className="w-full justify-start text-base"
                       >
-                        <span>{navLabel(dictionary, key)}</span>
-                        {aviationSoon ? (
-                          <span className="text-silver-500 text-xs">
-                            {
-                              dictionary.divisionStatus[
-                                divisions.aviation.status
-                              ]
-                            }
-                          </span>
-                        ) : null}
-                      </Link>
+                        {navLabel(dictionary, key)}
+                      </NavLink>
                     </li>
                   );
                 })}
               </ul>
             </nav>
 
-            <div className="border-navy-800 flex flex-col gap-2 border-t p-4">
+            <div className="border-border flex flex-col gap-2 border-t p-4">
               <ButtonLink
                 href={localePath(locale, routes.estimateRequest.path)}
                 onClick={closeMenu}
@@ -217,11 +210,11 @@ export function MobileNav({ locale, dictionary }: MobileNavProps) {
                 {dictionary.cta.estimate}
               </ButtonLink>
               <ButtonLink
-                href={localePath(locale, routes.scheduleVisit.path)}
+                href={localePath(locale, routes.contact.path)}
                 variant="secondary"
                 onClick={closeMenu}
               >
-                {dictionary.cta.schedule}
+                {dictionary.cta.contactUs}
               </ButtonLink>
             </div>
           </div>

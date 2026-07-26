@@ -1,5 +1,5 @@
 /**
- * Catalogue of services — Marine public pages + Aviation (future catalog only).
+ * Catalogue of services — Marine public pages + Aviation (cosmetic/refinishing only).
  */
 import type { DivisionId } from '@/config/divisions';
 import { marineServices } from '@/config/marine-services';
@@ -24,47 +24,60 @@ const marineNames: Record<string, string> = {
   'insurance-repair': 'Insurance Repair',
 };
 
+/**
+ * Owner-approved aviation categories (cosmetic / refinishing only).
+ * Do not add structural, FAA, mechanical, avionics, or flight-critical items.
+ */
+export const aviationServiceCatalog: readonly ServiceItem[] = [
+  {
+    slug: 'aircraft-cosmetic-refinishing',
+    name: 'Aircraft Cosmetic Refinishing',
+    division: 'aviation',
+  },
+  {
+    slug: 'exterior-paint-restoration',
+    name: 'Exterior Paint Restoration',
+    division: 'aviation',
+  },
+  {
+    slug: 'composite-surface-refinishing',
+    name: 'Composite Surface Refinishing',
+    division: 'aviation',
+  },
+  {
+    slug: 'paint-correction-aviation',
+    name: 'Paint Correction',
+    division: 'aviation',
+  },
+  {
+    slug: 'color-matching-aviation',
+    name: 'Color Matching',
+    division: 'aviation',
+  },
+  {
+    slug: 'surface-preparation-aviation',
+    name: 'Surface Preparation',
+    division: 'aviation',
+  },
+  {
+    slug: 'finish-restoration-aviation',
+    name: 'Finish Restoration',
+    division: 'aviation',
+  },
+  {
+    slug: 'cosmetic-exterior-repairs',
+    name: 'Cosmetic Exterior Repairs',
+    division: 'aviation',
+  },
+] as const;
+
 export const services: readonly ServiceItem[] = [
   ...marineServices.map((service) => ({
     slug: service.slug,
     name: marineNames[service.slug] ?? service.slug,
     division: 'marine' as const,
   })),
-  {
-    slug: 'aircraft-refinishing',
-    name: 'Aircraft Refinishing',
-    division: 'aviation',
-  },
-  {
-    slug: 'composite-repair-aviation',
-    name: 'Composite Repair',
-    division: 'aviation',
-  },
-  {
-    slug: 'spot-paint-repair',
-    name: 'Spot Paint Repair',
-    division: 'aviation',
-  },
-  {
-    slug: 'metallic-refinishing-aviation',
-    name: 'Metallic Refinishing',
-    division: 'aviation',
-  },
-  {
-    slug: 'ceramic-protection-aviation',
-    name: 'Ceramic Protection',
-    division: 'aviation',
-  },
-  {
-    slug: 'interior-component-refinishing',
-    name: 'Interior Component Refinishing',
-    division: 'aviation',
-  },
-  {
-    slug: 'mobile-partner-facility-aviation',
-    name: 'Mobile or Partner-Facility Service',
-    division: 'aviation',
-  },
+  ...aviationServiceCatalog,
 ];
 
 export const servicesByDivision = (

@@ -107,13 +107,9 @@ test.describe('Phase 3 polish — consistency audits', () => {
     await expect(band).toHaveAttribute('data-cta-mode', 'contact');
     await expect(page.getByTestId('cta-primary-contact')).toBeVisible();
     await expect(page.getByTestId('cta-primary-estimate')).toHaveCount(0);
-    await expect(page.getByTestId('aviation-coming-soon')).toContainText(
-      /Coming Soon/i,
-    );
-    await expect(page.getByText(/no current aviation booking/i)).toBeVisible();
-    await expect(
-      page.getByText(/aviation-specific estimate/i).first(),
-    ).toBeVisible();
+    await expect(page.getByTestId('aviation-coming-soon')).toHaveCount(0);
+    await expect(page.getByTestId('aviation-scope-note')).toBeVisible();
+    await expect(page.getByText(/FAA repair station/i).first()).toBeVisible();
   });
 
   test('projects placeholders use Future Project / Placeholder Image wording', async ({

@@ -213,25 +213,23 @@ export type RouteKey = keyof typeof routes;
 
 /** Primary navigation shown in the site header. */
 export const primaryNav: readonly RouteKey[] = [
-  'marine',
-  'services',
-  'projects',
-  'resources',
-  'about',
-  'contact',
-];
-
-/** Footer secondary links. */
-export const footerNav: readonly RouteKey[] = [
+  'home',
   'about',
   'marine',
   'aviation',
-  'services',
   'projects',
-  'faq',
-  'resources',
-  'serviceArea',
-  'workmanship',
+  'contact',
+];
+
+/**
+ * Footer links — keep calm; not a dense sitemap.
+ * Services / FAQ / resources remain reachable from pages, not the footer grid.
+ */
+export const footerNav: readonly RouteKey[] = [
+  'marine',
+  'aviation',
+  'projects',
+  'about',
   'contact',
   'estimateRequest',
   'privacy',

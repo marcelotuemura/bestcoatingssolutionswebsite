@@ -1,21 +1,19 @@
 import {
   Breadcrumbs,
   BulletList,
-  ComingSoonBadge,
   ContentSection,
   EstimateCtaBand,
   PageHero,
 } from '@/components/marketing';
 import { Container } from '@/components/ui/Container';
 import { Section } from '@/components/ui/Section';
-import { divisions } from '@/config/divisions';
 import { marketingPlaceholders } from '@/config/marketing-placeholders';
 import type { Dictionary } from '@/i18n/get-dictionary';
 import type { Locale } from '@/i18n/config';
 
 /**
- * Aviation preview only — never imply active operations, bookings, or
- * aviation-specific estimate requests.
+ * Aviation division — publicly visible, carefully scoped cosmetic refinishing.
+ * Contact for inquiries. Does not claim FAA / structural / mechanical work.
  */
 export function AviationDivisionPage({
   locale,
@@ -25,10 +23,9 @@ export function AviationDivisionPage({
   readonly dictionary: Dictionary;
 }) {
   const copy = dictionary.pages.aviation;
-  const status = divisions.aviation.status;
 
   return (
-    <main id="main-content">
+    <main id="main-content" data-testid="aviation-division-page">
       <Section className="pt-10 pb-0 sm:pt-14">
         <Container>
           <Breadcrumbs
@@ -46,14 +43,13 @@ export function AviationDivisionPage({
         eyebrow={copy.eyebrow}
         title={copy.title}
         lead={copy.lead}
-        badge={<ComingSoonBadge label={dictionary.divisionStatus[status]} />}
         imageSrc={marketingPlaceholders.aviationHero.src}
         imageLabel={dictionary.placeholder.mediaLabel}
       >
         <p
-          className="text-silver-300 max-w-xl rounded-xl border border-amber-500/30 bg-amber-500/5 px-4 py-3 text-sm"
-          role="status"
-          data-testid="aviation-coming-soon"
+          className="text-text-secondary border-border bg-surface/60 max-w-xl rounded-[var(--radius-control)] border px-4 py-3 text-sm"
+          role="note"
+          data-testid="aviation-scope-note"
         >
           {copy.notice}
         </p>
@@ -65,22 +61,24 @@ export function AviationDivisionPage({
         body={copy.overview}
       />
 
-      <ContentSection id="future-capabilities" title={copy.futureTitle}>
-        <BulletList items={copy.future} />
+      <ContentSection id="capabilities" title={copy.capabilitiesTitle}>
+        <BulletList items={copy.capabilities} />
       </ContentSection>
 
       <ContentSection
-        id="quality-philosophy"
+        id="quality"
         title={copy.qualityTitle}
         body={copy.quality}
       />
+
+      <ContentSection id="scope" title={copy.scopeTitle} body={copy.scope} />
 
       <EstimateCtaBand
         locale={locale}
         dictionary={dictionary}
         title={copy.contactTitle}
         body={copy.contactBody}
-        notice={copy.noBookingNotice}
+        notice={copy.contactNotice}
         mode="contact"
       />
     </main>

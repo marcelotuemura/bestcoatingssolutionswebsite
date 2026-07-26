@@ -1,8 +1,9 @@
 /**
  * Division configuration — Marine and Aviation as peer offerings.
  *
- * Aviation must not be presented as currently operational until the owner
- * confirms readiness. Status drives badges and copy; change one field to flip.
+ * Aviation is publicly visible and credible. Marine remains the primary
+ * commercial focus (full public estimate path). Aviation inquiries go through
+ * Contact — not regulated-maintenance claims.
  */
 export type DivisionId = 'marine' | 'aviation';
 
@@ -14,6 +15,8 @@ export interface DivisionConfig {
   readonly status: DivisionStatus;
   /** When false, omit from primary conversion paths (rare). */
   readonly listed: boolean;
+  /** Public estimate-request form accepts this division. */
+  readonly acceptsPublicEstimates: boolean;
 }
 
 export const divisions: Record<DivisionId, DivisionConfig> = {
@@ -21,15 +24,14 @@ export const divisions: Record<DivisionId, DivisionConfig> = {
     id: 'marine',
     status: 'active',
     listed: true,
+    acceptsPublicEstimates: true,
   },
   aviation: {
     id: 'aviation',
-    /**
-     * Default until owner confirms aviation operations are active.
-     * Switch to `preview` or `active` when approved.
-     */
-    status: 'coming-soon',
+    status: 'active',
     listed: true,
+    /** Inquiries via Contact; keep estimate form marine-primary for now. */
+    acceptsPublicEstimates: false,
   },
 } as const;
 

@@ -28,24 +28,20 @@ test.describe('Phase 3 — Marine, Aviation, Services, Projects', () => {
     await expect(page.getByText(/Placeholder Image/i).first()).toBeVisible();
   });
 
-  test('Aviation coming soon — no service catalog, no active ops', async ({
+  test('Aviation division is visible and carefully scoped', async ({
     page,
   }) => {
     await page.goto('/en/aviation');
     await expect(
-      page.getByRole('heading', { level: 1, name: 'Aviation' }),
+      page.getByRole('heading', { level: 1, name: /Aviation Refinishing/i }),
     ).toBeVisible();
-    await expect(page.getByTestId('aviation-coming-soon')).toContainText(
-      /Coming Soon/i,
-    );
+    await expect(page.getByTestId('aviation-coming-soon')).toHaveCount(0);
+    await expect(page.getByTestId('aviation-scope-note')).toBeVisible();
     await expect(
-      page.getByText(/not active|preview only/i).first(),
-    ).toBeVisible();
-    await expect(
-      page.getByRole('heading', { name: 'What we are preparing', level: 2 }),
+      page.getByRole('heading', { name: 'Capabilities we discuss', level: 2 }),
     ).toBeVisible();
     await expect(
-      page.getByRole('heading', { name: 'Same standards', level: 2 }),
+      page.getByText(/not an FAA repair station/i).first(),
     ).toBeVisible();
     await expect(page.getByTestId('service-link-gelcoat-repair')).toHaveCount(
       0,
@@ -115,11 +111,13 @@ test.describe('Phase 3 — Marine, Aviation, Services, Projects', () => {
     await expect(page.locator('html')).toHaveAttribute('lang', 'es');
   });
 
-  test('Spanish aviation coming soon messaging', async ({ page }) => {
+  test('Spanish aviation division messaging', async ({ page }) => {
     await page.goto('/es/aviation');
-    await expect(page.getByTestId('aviation-coming-soon')).toContainText(
-      /Próximamente/i,
-    );
+    await expect(page.getByTestId('aviation-coming-soon')).toHaveCount(0);
+    await expect(page.getByTestId('aviation-scope-note')).toBeVisible();
+    await expect(
+      page.getByRole('heading', { level: 1, name: /aviación/i }),
+    ).toBeVisible();
   });
 
   test('metadata and canonical for marine service', async ({ request }) => {

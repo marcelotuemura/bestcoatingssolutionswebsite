@@ -7,10 +7,10 @@ export const es = {
   conversion: conversionEs,
   phase5: phase5Es,
   meta: {
-    titleDefault: 'Best Coatings Solutions — Refinación marina',
+    titleDefault: 'Best Coatings Solutions — Refinación marina y de aviación',
     titleTemplate: '%s | BCS',
     description:
-      'Reparación de gelcoat, fibra, pintura y cosmética marina en el Sur de Florida. Preparación cuidadosa y acabado que se nota.',
+      'Refinación marina y de aviación premium en el Sur de Florida. Preparación cuidadosa y acabado que se nota.',
   },
   a11y: {
     skipToContent: 'Saltar al contenido principal',
@@ -59,7 +59,7 @@ export const es = {
     call: 'Llamar',
     callBcs: 'Llamar a Best Coatings Solutions',
     exploreMarine: 'Explorar Marina',
-    learnAviation: 'Conocer Aviación',
+    learnAviation: 'Explorar servicios de aviación',
     viewProjects: 'Ver nuestro trabajo',
     viewServices: 'Cómo podemos ayudar',
     contactUs: 'Cuéntenos sobre su proyecto',
@@ -78,6 +78,9 @@ export const es = {
     spokenLanguages: 'Idiomas',
     serviceArea: 'Área de servicio',
     contact: 'Contacto',
+    explore: 'Explorar',
+    brandBlurb:
+      'Best Coatings Solutions es una empresa de refinación premium con divisiones especializadas de Marina y Aviación — preparación cuidadosa, alcance honesto y acabados que se notan en el Sur de Florida.',
     estimateNotice:
       'Los estimados gratuitos están disponibles solo en el área de Fort Lauderdale. Otras ubicaciones pueden requerir revisión o arreglos de viaje.',
     socialHeading: 'Síguenos',
@@ -123,33 +126,39 @@ export const es = {
         'Lea cada servicio para ver el problema que resuelve, cómo lo abordamos y qué esperar.',
     },
     aviation: {
-      metaTitle: 'Aviación — Próximamente | BCS',
+      metaTitle: 'Refinación de aviación | Best Coatings Solutions',
       metaDescription:
-        'La refinación de aviación aún no está activa. Best Coatings Solutions comparte los mismos estándares de preparación previstos para trabajo futuro en aeronaves.',
-      eyebrow: 'Próximamente',
-      title: 'Aviación',
-      lead: 'Hoy no ofrecemos refinación de aviación. Cuando esté lista, seguirá la misma preparación cuidadosa que usamos en embarcaciones.',
-      overviewTitle: 'Estado honesto',
+        'Refinación cosmética de aviación y trabajo de acabado exterior de Best Coatings Solutions — preparación, igualación de color y restauración superficial con alcance cuidadoso en el Sur de Florida.',
+      eyebrow: 'División de aviación',
+      title: 'Refinación de aviación',
+      lead: 'La aviación es parte de lo que somos. Abordamos trabajo selecto de refinación cosmética de aeronaves y superficies exteriores con la misma disciplina de preparación que usamos en proyectos marinos.',
+      overviewTitle: 'Una división especializada',
       overview:
-        'Esta página es solo una vista previa. No reservamos trabajo de aeronaves ni aceptamos estimados de aviación. La reparación marina sigue siendo el enfoque activo.',
-      futureTitle: 'Lo que estamos preparando',
-      future: [
-        'Refinación de aeronaves',
-        'Reparación de compuestos y pintura puntual',
-        'Refinación metálica y protección cerámica',
-        'Refinación de componentes interiores',
-        'Trabajo en hangares o instalaciones asociadas donde esté permitido',
+        'Best Coatings Solutions es una empresa con dos divisiones. Marina es el enfoque comercial principal. Aviación es una división especializada de refinación para trabajo cosmético y de acabado exterior con alcance cuidadoso — no mantenimiento mecánico.',
+      capabilitiesTitle: 'Capacidades que comentamos',
+      capabilities: [
+        'Refinación cosmética de aeronaves',
+        'Restauración de pintura exterior',
+        'Refinación de superficies compuestas',
+        'Corrección de pintura',
+        'Igualación de color',
+        'Preparación de superficie',
+        'Restauración de acabado',
+        'Reparaciones cosméticas exteriores',
       ],
-      qualityTitle: 'Los mismos estándares',
+      qualityTitle: 'Cómo trabajamos',
       quality:
-        'No inventaremos servicios de aviación que no estemos listos para entregar. Primero van la preparación, el alcance honesto y la disciplina de acabado.',
-      contactTitle: 'Preguntas',
+        'Inspeccionamos la superficie, preparamos con cuidado e igualamos el acabado alrededor antes del pulido final. Explicamos lo que una reparación cosmética puede y no puede hacer — sin prometer resultados de mantenimiento regulado.',
+      scopeTitle: 'Alcance importante',
+      scope:
+        'Esta división cubre refinación cosmética y trabajo de superficie exterior. No es una oferta de estación de reparación FAA y no incluye trabajo estructural de fuselaje, mantenimiento mecánico, motores, aviónica ni reparaciones críticas para el vuelo.',
+      contactTitle: 'Cuéntenos sobre su proyecto de aviación',
       contactBody:
-        'Para preguntas generales, contacte a Best Coatings Solutions. Las reservas y estimados de aviación no están disponibles mientras esta división permanece como Próximamente.',
-      noBookingNotice:
-        'Próximamente — no hay reservas ni solicitudes de estimado de aviación.',
+        'Comparta fotos y detalles a través de Contacto. Revisaremos si el trabajo encaja en nuestro alcance de refinación cosmética y responderemos con claridad.',
+      contactNotice:
+        'Las consultas de aviación son bienvenidas a través de Contacto. Las reservas de estimado en línea siguen enfocadas en proyectos marinos.',
       notice:
-        'Próximamente — el trabajo de aviación no está activo. Esta página es solo una vista previa.',
+        'Solo refinación cosmética y exterior — no mantenimiento estructural ni mecánico de aeronaves.',
     },
     services: {
       metaTitle: 'Cómo podemos ayudar | Best Coatings Solutions',
@@ -157,7 +166,7 @@ export const es = {
         'Gelcoat, fibra, pintura, casco, cosmética de yates, igualación de color y reparación relacionada con seguro en el Sur de Florida.',
       eyebrow: 'Marina',
       title: 'Cómo podemos ayudar',
-      lead: 'Cada servicio explica el problema, cómo abordamos la reparación y qué puede esperar. Aviación no aparece mientras permanece como Próximamente.',
+      lead: 'Cada servicio marino explica el problema, cómo abordamos la reparación y qué puede esperar. Las capacidades de aviación están en la página de la división de Aviación.',
       indexNote:
         'Elija un servicio para saber cómo tratamos ese tipo de reparación — luego solicite un estimado cuando esté listo.',
       relatedTitle: 'Servicios relacionados',
@@ -242,9 +251,9 @@ export const es = {
     },
     aviation: {
       title: 'Aviación',
-      body: 'La refinación de aviación aún no está activa en este sitio. La experiencia previa con acabados de aeronaves informa lo cuidadosos que somos — no es una oferta de reserva actual.',
+      body: 'Trabajo selecto de refinación cosmética de aeronaves y superficies exteriores — con la misma preparación y control de acabado que en nuestros proyectos marinos.',
       notice:
-        'Próximamente — las operaciones de aviación no están disponibles. La reparación marina es el enfoque activo.',
+        'Alcance de refinación cosmética solamente. Cuéntenos sobre su proyecto a través de Contacto.',
     },
     whyBcs: {
       title: 'Basado en experiencia. Impulsado por el detalle.',

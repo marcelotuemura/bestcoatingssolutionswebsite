@@ -36,7 +36,7 @@ export const conversionEn = {
       'Contact Best Coatings Solutions for marine coatings questions in South Florida. Call, email, or send a message — no website pricing.',
     eyebrow: 'Contact',
     title: 'Tell Us About Your Project',
-    lead: 'Reach us for marine refinishing questions. Aviation remains Coming Soon and is not available for estimates or booking.',
+    lead: 'Reach us about marine or aviation refinishing. Marine projects can use the estimate form; aviation inquiries are welcome through Contact.',
     directTitle: 'Direct contact',
     hoursTitle: 'Business hours',
     closed: 'Closed',
@@ -48,7 +48,7 @@ export const conversionEn = {
       'We serve South Florida. Free estimates are available only in the Fort Lauderdale area.',
     formTitle: 'Send a message',
     formLead:
-      'Tell us how we can help. This form is for general and marine inquiries — not aviation estimates.',
+      'Tell us how we can help. For aviation projects, describe the cosmetic refinishing need here — we will follow up through Contact. Marine estimates also use the dedicated estimate form.',
     mapTitle: 'Location',
     mapPlaceholder:
       'Placeholder Image — map embed not configured. No street address is published on this site.',
@@ -91,7 +91,7 @@ export const conversionEn = {
     policyNote:
       'Free estimates are available only in the Fort Lauderdale area. Other locations may require review or travel arrangements.',
     noAviation:
-      'Aviation estimate requests are not available. Aviation remains Coming Soon.',
+      'This estimate form is for marine projects. For aviation cosmetic refinishing inquiries, use Contact.',
     progress: 'Step {current} of {total}: {label}',
     steps: {
       customer: 'Customer',

@@ -101,7 +101,8 @@ describe('phase 3 polish — placeholders and aviation guardrails', () => {
     expect(en.placeholder.emptyProjects).toMatch(/Coming Soon/i);
     expect(en.cta.estimate).toBe('Request an Estimate');
     expect(en.cta.callBcs).toMatch(/Call Best Coatings Solutions/i);
-    expect(en.pages.aviation.noBookingNotice).toMatch(/no aviation booking/i);
+    expect(en.pages.aviation.contactNotice).toMatch(/Contact/i);
+    expect(en.pages.aviation.scope).toMatch(/FAA/i);
   });
 });
 

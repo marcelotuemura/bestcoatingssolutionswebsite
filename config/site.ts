@@ -9,7 +9,7 @@ export const siteConfig = {
   shortName: 'BCS',
   legalName: 'Best Coatings Solutions LLC',
   description:
-    'Marine gelcoat, fiberglass, paint, and cosmetic repair in South Florida. Careful preparation and finish work you can see.',
+    'Premium marine and aviation refinishing in South Florida — gelcoat, fiberglass, paint, and carefully scoped cosmetic aircraft finish work.',
   /**
    * Canonical origin. Overridable per-environment via NEXT_PUBLIC_SITE_URL so
    * preview deployments generate correct absolute URLs for OG tags and sitemaps.

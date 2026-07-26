@@ -11,9 +11,15 @@ describe('phase 5b visual identity', () => {
     expect(routes.designSystem.launch).toBe(false);
   });
 
-  it('keeps official logo file pending until owner drop', () => {
-    expect(brandLogo.officialFilePending).toBe(true);
-    expect(brandLogo.fullColorSrc).toContain('/brand/');
+  it('resolves official logo from public/brand when present', () => {
+    expect(typeof brandLogo.officialFilePending).toBe('boolean');
+    if (brandLogo.officialFilePending) {
+      expect(brandLogo.officialSrc).toBeNull();
+      expect(brandLogo.headerMode).toBe('text');
+    } else {
+      expect(brandLogo.officialSrc).toMatch(/\/brand\/bcs-logo-official\./);
+      expect(brandLogo.headerMode).toBe('image');
+    }
   });
 
   it('defines semantic color and font tokens in globals.css', () => {
