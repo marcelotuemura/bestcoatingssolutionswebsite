@@ -67,7 +67,11 @@ test.describe('Phase 4 trust homepage', () => {
     await expect(
       page.getByRole('heading', { name: 'Meet Marcelo', level: 2 }),
     ).toBeVisible();
-    await expect(page.getByText('Marine refinishing')).toHaveCount(0);
+    const homeLink = page
+      .getByRole('banner')
+      .getByRole('link', { name: 'Best Coatings Solutions home' });
+    await expect(homeLink).toBeVisible();
+    await expect(homeLink).not.toContainText(/Marine refinishing/i);
   });
 
   test('renders Spanish homepage content', async ({ page }) => {

@@ -46,17 +46,15 @@ test.describe('Phase 5 — Projects', () => {
     const empty = page.getByTestId('projects-empty');
     await expect(empty).toBeVisible();
     await expect(
-      empty.getByRole('link', { name: /marine services/i }),
+      empty.getByRole('link', { name: 'How we can help' }),
     ).toBeVisible();
     await expect(
-      empty.getByRole('link', { name: /request estimate/i }),
+      empty.getByRole('link', { name: 'Request an Estimate' }),
     ).toBeVisible();
     await expect(
-      empty.getByRole('link', { name: /contact bcs/i }),
+      empty.getByRole('link', { name: 'Tell Us About Your Project' }),
     ).toBeVisible();
-    await expect(
-      empty.getByRole('link', { name: /^resources$/i }),
-    ).toBeVisible();
+    await expect(empty.getByRole('link', { name: 'Resources' })).toBeVisible();
   });
 
   test('test fixture project detail with before/after labels', async ({
