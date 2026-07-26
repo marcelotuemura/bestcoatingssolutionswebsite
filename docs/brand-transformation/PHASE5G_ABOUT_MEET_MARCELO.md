@@ -68,9 +68,9 @@ Artifacts: `/opt/cursor/artifacts/phase5g-screenshots/`
 
 | Command | Result |
 |---------|--------|
-| Unit (incl. `phase5g-about`) | See CI / local run |
-| Build | See local run |
-| E2E About (`phase5.spec`) | See local run |
+| `pnpm test` (incl. `phase5g-about`) | Pass (261) |
+| `pnpm build` | Pass |
+| E2E About (`phase5.spec` — About) | Pass (3) |
 
 ---
 

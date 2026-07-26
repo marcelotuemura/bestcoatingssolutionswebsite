@@ -50,6 +50,7 @@ for (const vp of [
   });
   const page = await ctx.newPage();
   await page.goto(`${base}/en/about`, { waitUntil: 'networkidle' });
+  await sleep(400);
   await shot(page, `about-${vp.name}-hero`);
   await shot(page, `about-${vp.name}-full`, true);
   await page.locator('#why-bcs-exists').scrollIntoViewIfNeeded();
