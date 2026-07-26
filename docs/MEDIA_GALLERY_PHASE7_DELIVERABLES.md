@@ -1,5 +1,13 @@
 # Phase 7 — Visual DAMS Gallery Deliverables
 
+## Status
+
+Implementation is on branch `cursor/phase-7-visual-dams-gallery-5ec4` (PR #28).
+
+**Hosted Phase 7 is not complete** until `pnpm test:supabase:phase7` reports `failed: 0` against staging with credentials. Current hosted result: FAIL (credentials unavailable). Local Phase 5+6+7 Postgres RLS suite: PASS.
+
+Training Corpus remains postponed to Phase 8. PR #27 was not merged; corpus migrations were not applied.
+
 ## Completed Deliverables
 
 ### 1. Gallery Module (`lib/media-intelligence/gallery/`)
@@ -15,92 +23,92 @@
 | `store.ts` | ✅ | In-memory fixture (MEDIA_GALLERY_REPOSITORY=memory) |
 | `db-repository.ts` | ✅ | Postgres RPCs + SELECT queries |
 | `upload.ts` | ✅ | Real upload: validate → sha256 → local vault → Supabase Storage → RPC → thumbnails |
+| `private-delivery.ts` | ✅ | Server-authorized local-vault / ephemeral signed URL resolution |
 | `service.ts` | ✅ | Full service façade with memory/postgres dispatch |
 | `index.ts` | ✅ | Barrel exports |
 
-### 2. Server Actions
+### 2. Server Actions / Upload API
 
 | File | Status |
 |------|--------|
 | `app/media/gallery-actions.ts` | ✅ |
-
-### 3. Upload API Route
-
-| File | Status |
-|------|--------|
 | `app/media/api/upload/route.ts` | ✅ |
 
-### 4. Routes & UI
+### 3. Routes & UI
 
 | Route | Status | Notes |
 |-------|--------|-------|
-| `app/media/page.tsx` | ✅ | Gallery + Upload CTAs added |
-| `app/media/library/page.tsx` | ✅ | View modes (grid/compact/list) |
-| `app/media/upload/page.tsx` | ✅ | Drag-drop multi-upload |
-| `app/media/assets/[id]/page.tsx` | ✅ | Enhanced with preview, metadata editor, favorite, review |
-| `app/media/collections/page.tsx` | ✅ | Collection list |
-| `app/media/collections/[id]/page.tsx` | ✅ | Collection detail with assets |
-| `app/media/review/page.tsx` | ✅ | Review queue with status tabs |
-| `app/media/activity/page.tsx` | ✅ | Activity log |
-| `app/media/publishers/page.tsx` | ✅ | Redirect to /media/publications |
-| `components/media-intelligence/MediaShell.tsx` | ✅ | Updated nav: Gallery, Upload, Collections, Review, Activity, Publishers |
+| `/media` | ✅ | Gallery + Upload CTAs |
+| `/media/library` | ✅ | Workspace gallery default; `source=catalog` for fixture browse |
+| `/media/upload` | ✅ | Drag-drop multi-upload with progress/cancel/retry |
+| `/media/assets/[id]` | ✅ | Preview, zoom/fit, metadata editor, favorite, publication draft |
+| `/media/collections` | ✅ | Collection list |
+| `/media/collections/[id]` | ✅ | Collection detail |
+| `/media/review` | ✅ | Review queue |
+| `/media/activity` | ✅ | Activity log |
+| `/media/publishers` | ✅ | Redirect → `/media/publications` |
+| `/media/corpora` | ❌ intentionally not implemented (Phase 8) |
 
-### 5. Components
+### 4. Components
 
 | Component | Status |
 |-----------|--------|
-| `VisualGalleryGrid.tsx` | ✅ |
-| `UploadDropzone.tsx` | ✅ |
-| `AssetPreviewPane.tsx` | ✅ |
+| `VisualGalleryGrid.tsx` | ✅ real vault thumbnails, badges, selection, keyboard nav |
+| `GalleryWorkspaceView.tsx` | ✅ selection + bulk actions |
+| `UploadDropzone.tsx` | ✅ progress bars, cancel, retry |
+| `AssetPreviewPane.tsx` | ✅ preview, zoom/fit, metadata, publication draft |
 | `CollectionList.tsx` | ✅ |
 | `FavoriteToggle.tsx` | ✅ |
 | `BulkActionBar.tsx` | ✅ |
-| `GalleryFilters.tsx` | ✅ |
+| `GalleryFilters.tsx` | ✅ URL-persisted filters |
 
-### 6. Bootstrap + Migration Wiring
+### 5. Migrations (additive only; Phase 5/6 untouched)
 
-| File | Status | Notes |
-|------|--------|-------|
-| `scripts/bootstrap-publication-pg.ts` | ✅ | Phase 7 migrations + grants added |
-| `scripts/test-supabase-phase5-local-pg.ts` | ✅ | Phase 7 migrations + grants + test file added |
+| Migration | Purpose |
+|-----------|---------|
+| `20260726020000_media_phase7_gallery_schema.sql` | columns + collections/favorites/events |
+| `20260726020001_media_phase7_gallery_rls.sql` | RLS + membership helper |
+| `20260726020002_media_phase7_gallery_authority.sql` | mutation authority |
+| `20260726020003_media_phase7_gallery_rpcs.sql` | SECURITY DEFINER RPCs |
+| `20260726020004_media_phase7_gallery_corrections.sql` | reviewer `review_mutation` path |
 
-### 7. Test Scripts
+### 6. Tests & reports
 
-| File | Status |
+| Gate | Result |
 |------|--------|
-| `scripts/test-supabase-phase7.ts` | ✅ |
-| `package.json` — `test:supabase:phase7` | ✅ |
-| `package.json` — `test:supabase:phase7:local` | ✅ |
+| `pnpm typecheck` | PASS |
+| `pnpm lint` | PASS |
+| `pnpm test` | PASS — 226 |
+| `pnpm test:e2e` | PASS — 118 |
+| `pnpm test:supabase:phase7:local` | PASS — failed: 0 |
+| `pnpm test:supabase:phase5` (hosted) | FAIL — no staging credentials |
+| `pnpm test:supabase:phase6` (hosted) | FAIL — no staging credentials |
+| `pnpm test:supabase:phase7` (hosted) | FAIL — no staging credentials |
 
-### 8. Tests
+### 7. Screenshots
 
-| File | Status |
-|------|--------|
-| `tests/unit/media-intelligence/phase7-gallery.test.ts` | ✅ |
-| `supabase/tests/phase7_gallery_rls_local.sql` | ✅ |
-| `tests/e2e/media-phase7-gallery.spec.ts` | ✅ |
+Captured under `/opt/cursor/artifacts/screenshots/`:
 
-### 9. Documentation
-
-| File | Status |
-|------|--------|
-| `docs/MEDIA_GALLERY_PHASE7.md` | ✅ |
-| `docs/MEDIA_GALLERY_PHASE7_DELIVERABLES.md` | ✅ |
-| `docs/MEDIA_INTELLIGENCE_PLATFORM.md` | ✅ — Phase 7 row updated |
+- `phase7-gallery-desktop.png`
+- `phase7-gallery-mobile.png`
+- `phase7-upload.png`
+- `phase7-upload-progress.png`
+- `phase7-asset-preview.png`
 
 ## Security Assertions
 
 - ✅ Default production path is PostgreSQL
-- ✅ Signed URLs never persisted
+- ✅ Signed URLs never persisted; vault route proxies ephemeral signed URLs
 - ✅ Service role never exposed to client
-- ✅ Viewer cannot mutate (permissions.ts + service.ts + server actions)
-- ✅ Privacy-blocked assets cannot prepare publication (`canPreparePublicationForAsset`)
+- ✅ Viewer cannot mutate (permissions + service + actions + RLS)
+- ✅ Privacy-blocked assets cannot prepare publication
 - ✅ Memory fixture forbidden in production
-- ✅ `gallery_mutation` flag enforced by trigger
-- ✅ Signed URL ban in `media_gallery_events.metadata` via CHECK constraint
+- ✅ Private storage buckets remain private
+- ✅ No `/media/corpora` on this branch
 
-## Known Limitations / Postponed
+## Known Limitations
 
-- Training corpus export (Phase 8 scope — not started)
-- Vault streaming preview (requires `/media/vault/[...key]` auth pass-through for gallery assets)
-- Full-text search indexing (PostgreSQL tsvector — can be added as migration extension)
+- Hosted Supabase Phase 5/6/7 live suites not green in this environment (credentials / MCP auth unavailable).
+- Catalog fixture assets still have no binaries; workspace uploads are the visual proof path.
+- Training corpus export remains Phase 8 (PR #27 preserved for rebase/rename later).
+- Full-text `tsvector` search indexing can be added as a later migration extension.
