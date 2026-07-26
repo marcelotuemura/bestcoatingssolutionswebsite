@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { marineServices } from '../../config/marine-services';
 
 test.describe('Phase 3 — Marine, Aviation, Services, Projects', () => {
-  test('Marine division: one H1, breadcrumbs, services, CTA', async ({
+  test('Marine division: one H1, breadcrumbs, process, services, CTA', async ({
     page,
   }) => {
     await page.goto('/en/marine');
@@ -13,14 +13,28 @@ test.describe('Phase 3 — Marine, Aviation, Services, Projects', () => {
     await expect(
       page.getByRole('navigation', { name: 'Breadcrumb' }),
     ).toBeVisible();
+    await expect(page.getByTestId('division-hero')).toHaveAttribute(
+      'data-atmosphere',
+      'marine',
+    );
     await expect(
       page.getByRole('heading', {
         name: /What this work is about|How we approach/i,
         level: 2,
       }),
     ).toBeVisible();
+    await expect(page.getByTestId('division-process')).toBeVisible();
+    await expect(
+      page.getByRole('heading', {
+        name: /How a marine refinishing project moves/i,
+        level: 2,
+      }),
+    ).toBeVisible();
     await expect(
       page.getByRole('heading', { name: /How we can help/i, level: 2 }).first(),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /Marine services/i, level: 2 }),
     ).toBeVisible();
     await expect(
       page.getByRole('link', { name: /Gelcoat Repair/i }).first(),
@@ -106,8 +120,9 @@ test.describe('Phase 3 — Marine, Aviation, Services, Projects', () => {
   test('Spanish marine and service routing', async ({ page }) => {
     await page.goto('/es/marine');
     await expect(
-      page.getByRole('heading', { level: 1, name: 'Marina' }),
+      page.getByRole('heading', { level: 1, name: /marina/i }),
     ).toBeVisible();
+    await expect(page.getByTestId('division-process')).toBeVisible();
     await expect(
       page.getByRole('navigation', { name: 'Miga de pan' }),
     ).toBeVisible();

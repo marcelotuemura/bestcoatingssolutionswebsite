@@ -103,24 +103,56 @@ export const en = {
     marine: {
       metaTitle: 'Marine Refinishing | Best Coatings Solutions',
       metaDescription:
-        'Mobile marine gelcoat, fiberglass, paint, and cosmetic repair in South Florida. Careful preparation at the vessel.',
-      eyebrow: 'Marine',
+        'Marine gelcoat restoration, fiberglass repair, paint refinishing, and cosmetic surface work in South Florida — careful preparation at the vessel.',
+      eyebrow: 'Marine division',
       title: 'Marine refinishing',
-      lead: 'We repair and refinish boats where the work can be done carefully — at the marina, the yard, or at home when conditions allow.',
+      lead: 'Restoration, refinishing, and cosmetic repair for boats that deserve a careful finish — at the marina, the yard, or at home when conditions allow.',
       overviewTitle: 'What this work is about',
       overview:
-        'Best Coatings Solutions focuses on gelcoat, fiberglass, paint, and cosmetic repair. We talk through scope in plain language, protect the areas around the repair, and finish the work so it belongs to the boat. We do not publish prices online.',
+        'Best Coatings Solutions focuses on gelcoat depth, fiberglass integrity at the surface, paint refinishing, and cosmetic repair. We talk through scope in plain language, protect the areas around the repair, and finish the work so it belongs to the boat. We do not publish prices online.',
+      atmosphere:
+        'The marine atmosphere is warm water light, hull gloss, fiberglass curves, and sunlight on a premium finish — shown through real photography as it becomes available.',
+      processEyebrow: 'Show the process',
+      processTitle: 'How a marine refinishing project moves',
+      processLead:
+        'Not every owner sees what happens under a finished surface. This is the disciplined path we follow before the gloss returns.',
+      processSteps: [
+        {
+          title: 'Inspection',
+          body: 'We assess the damaged area, surrounding finish, and what a careful repair can reasonably achieve.',
+        },
+        {
+          title: 'Preparation',
+          body: 'Surfaces are masked, cleaned, and prepared so the repair stays contained and the surrounding finish stays protected.',
+        },
+        {
+          title: 'Repair',
+          body: 'Gelcoat, fiberglass, or paint work is rebuilt in sequence — addressing what sits underneath when the surface needs it.',
+        },
+        {
+          title: 'Surface finishing',
+          body: 'Levels, textures, and transitions are refined so the repair sits quietly in the hull rather than calling attention to itself.',
+        },
+        {
+          title: 'Color matching',
+          body: 'Color and gloss are matched as closely as practical to the surrounding finish under real light.',
+        },
+        {
+          title: 'Final inspection',
+          body: 'We review the finished surface before delivery and walk through the result with you.',
+        },
+      ],
       capabilitiesTitle: 'How we can help',
       capabilities: [
-        'Gelcoat repair and refinishing',
-        'Fiberglass and composite repair',
-        'Paint and refinishing',
-        'Hull and yacht cosmetic work',
+        'Gelcoat restoration and refinishing',
+        'Fiberglass and composite surface repair',
+        'Paint refinishing and cosmetic repair',
+        'Hull and yacht surface quality work',
         'Color matching and insurance-related repairs',
       ],
-      servicesCtaTitle: 'How we can help',
+      servicesCtaTitle: 'Marine services',
       servicesCtaBody:
-        'Read each service to see the problem it solves, how we approach it, and what to expect.',
+        'Each service explains the problem, how we approach restoration or refinishing, and what you can expect — then you can request an estimate when ready.',
     },
     aviation: {
       metaTitle: 'Aviation Refinishing | Best Coatings Solutions',

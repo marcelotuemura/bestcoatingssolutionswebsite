@@ -106,24 +106,56 @@ export const es = {
     marine: {
       metaTitle: 'Refinación marina | Best Coatings Solutions',
       metaDescription:
-        'Reparación móvil de gelcoat, fibra, pintura y cosmética marina en el Sur de Florida. Preparación cuidadosa en la embarcación.',
-      eyebrow: 'Marina',
+        'Restauración de gelcoat, reparación de fibra, refinación de pintura y trabajo cosmético de superficie en el Sur de Florida — preparación cuidadosa en la embarcación.',
+      eyebrow: 'División marina',
       title: 'Refinación marina',
-      lead: 'Reparamos y refinamos embarcaciones donde el trabajo puede hacerse con cuidado — en la marina, el astillero o en casa cuando las condiciones lo permiten.',
+      lead: 'Restauración, refinación y reparación cosmética para embarcaciones que merecen un acabado cuidadoso — en la marina, el astillero o en casa cuando las condiciones lo permiten.',
       overviewTitle: 'De qué se trata este trabajo',
       overview:
-        'Best Coatings Solutions se enfoca en gelcoat, fibra, pintura y reparación cosmética. Hablamos el alcance en lenguaje claro, protegemos el área alrededor de la reparación y terminamos el trabajo para que pertenezca a la embarcación. No publicamos precios en el sitio.',
+        'Best Coatings Solutions se enfoca en la profundidad del gelcoat, la integridad superficial de la fibra, la refinación de pintura y la reparación cosmética. Hablamos el alcance en lenguaje claro, protegemos el área alrededor de la reparación y terminamos el trabajo para que pertenezca a la embarcación. No publicamos precios en el sitio.',
+      atmosphere:
+        'La atmósfera marina es luz cálida sobre el agua, brillo del casco, curvas de fibra y sol sobre un acabado premium — mostrada con fotografía real cuando esté disponible.',
+      processEyebrow: 'Mostrar el proceso',
+      processTitle: 'Cómo avanza un proyecto de refinación marina',
+      processLead:
+        'No todo dueño ve lo que ocurre bajo una superficie terminada. Este es el camino disciplinado que seguimos antes de que regrese el brillo.',
+      processSteps: [
+        {
+          title: 'Inspección',
+          body: 'Evaluamos el área dañada, el acabado alrededor y lo que una reparación cuidadosa puede lograr de forma razonable.',
+        },
+        {
+          title: 'Preparación',
+          body: 'Las superficies se enmascaran, limpian y preparan para que la reparación quede contenida y el acabado alrededor protegido.',
+        },
+        {
+          title: 'Reparación',
+          body: 'El trabajo de gelcoat, fibra o pintura se reconstruye en secuencia — atendiendo lo que hay debajo cuando la superficie lo necesita.',
+        },
+        {
+          title: 'Acabado de superficie',
+          body: 'Niveles, texturas y transiciones se refinan para que la reparación se integre al casco en lugar de llamar la atención.',
+        },
+        {
+          title: 'Igualación de color',
+          body: 'El color y el brillo se igualan tanto como sea práctico al acabado alrededor bajo luz real.',
+        },
+        {
+          title: 'Inspección final',
+          body: 'Revisamos la superficie terminada antes de la entrega y repasamos el resultado con usted.',
+        },
+      ],
       capabilitiesTitle: 'Cómo podemos ayudar',
       capabilities: [
-        'Reparación y refinación de gelcoat',
-        'Reparación de fibra y compuestos',
-        'Pintura y refinación',
-        'Trabajo cosmético de casco y yates',
+        'Restauración y refinación de gelcoat',
+        'Reparación superficial de fibra y compuestos',
+        'Refinación de pintura y reparación cosmética',
+        'Trabajo de calidad superficial en cascos y yates',
         'Igualación de color y reparaciones relacionadas con seguro',
       ],
-      servicesCtaTitle: 'Cómo podemos ayudar',
+      servicesCtaTitle: 'Servicios marinos',
       servicesCtaBody:
-        'Lea cada servicio para ver el problema que resuelve, cómo lo abordamos y qué esperar.',
+        'Cada servicio explica el problema, cómo abordamos la restauración o refinación, y qué puede esperar — luego puede solicitar un estimado cuando esté listo.',
     },
     aviation: {
       metaTitle: 'Refinación de aviación | Best Coatings Solutions',

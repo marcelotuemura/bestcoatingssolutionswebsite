@@ -1,6 +1,6 @@
 # Phase 5D — Premium Homepage Experience
 
-**Status:** Awaiting owner approval  
+**Status:** Approved · merged to `main`  
 **Branch:** `cursor/phase-5d-premium-homepage-5ec4`  
 **PR:** https://github.com/marcelotuemura/bestcoatingssolutionswebsite/pull/37  
 **Base:** `main` (Phase 5C merged)  
