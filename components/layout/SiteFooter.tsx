@@ -32,7 +32,7 @@ export function SiteFooter({ locale, dictionary }: SiteFooterProps) {
               {siteConfig.name}
             </p>
             <p className="text-silver-500 text-sm text-pretty">
-              {dictionary.header.tagline}. {siteConfig.serviceArea.range}.
+              {dictionary.header.tagline}. {siteConfig.serviceArea.primary}.
             </p>
             <p className="text-silver-500 text-xs text-pretty">
               {dictionary.footer.estimateNotice}
@@ -48,7 +48,7 @@ export function SiteFooter({ locale, dictionary }: SiteFooterProps) {
               <li>
                 <a
                   href={`tel:${siteConfig.contact.phoneE164}`}
-                  className="hover:text-electric-400 focus-visible:ring-electric-500 rounded focus-visible:ring-2 focus-visible:outline-none"
+                  className="hover:text-electric-400 focus-visible:ring-electric-500 rounded whitespace-nowrap focus-visible:ring-2 focus-visible:outline-none"
                 >
                   {siteConfig.contact.phone}
                 </a>
@@ -70,9 +70,6 @@ export function SiteFooter({ locale, dictionary }: SiteFooterProps) {
             </p>
             <p className="text-silver-300 text-sm">
               {siteConfig.serviceArea.primary}
-            </p>
-            <p className="text-silver-500 mt-1 text-sm">
-              {siteConfig.serviceArea.range}
             </p>
             <ul className="mt-4 space-y-2">
               {footerNav.map((key) => (

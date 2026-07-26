@@ -15,7 +15,7 @@ export type CtaBandMode = 'estimate' | 'contact';
 
 /**
  * Shared end-of-page CTA hierarchy for Phase 3 marketing pages.
- * estimate: Primary Request Free Estimate · Secondary Call BCS
+ * estimate: Primary Request an Estimate · Secondary Call BCS
  * contact:  Primary Contact · Secondary Call BCS (aviation preview)
  */
 export function EstimateCtaBand({

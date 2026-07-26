@@ -28,7 +28,7 @@ test.describe('Phase 3 polish — consistency audits', () => {
       const band = page.getByTestId('page-cta-band');
       await expect(band).toHaveAttribute('data-cta-mode', 'estimate');
       await expect(page.getByTestId('cta-primary-estimate')).toHaveText(
-        'Request Free Estimate',
+        'Request an Estimate',
       );
       await expect(page.getByTestId('cta-secondary-call')).toHaveText(
         'Call Best Coatings Solutions',

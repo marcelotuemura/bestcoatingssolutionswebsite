@@ -58,7 +58,7 @@ export function SiteHeader({ locale, dictionary }: SiteHeaderProps) {
         <div className="flex items-center gap-2">
           <a
             href={`tel:${siteConfig.contact.phoneE164}`}
-            className="text-silver-300 hover:text-silver-100 focus-visible:ring-electric-500 hidden min-h-11 items-center rounded-lg px-2 text-sm font-medium focus-visible:ring-2 focus-visible:outline-none md:inline-flex"
+            className="text-silver-300 hover:text-silver-100 focus-visible:ring-electric-500 hidden min-h-11 shrink-0 items-center rounded-lg px-2 text-sm font-medium whitespace-nowrap focus-visible:ring-2 focus-visible:outline-none md:inline-flex"
           >
             {siteConfig.contact.phone}
           </a>

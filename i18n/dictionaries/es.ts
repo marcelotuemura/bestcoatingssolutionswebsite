@@ -53,7 +53,7 @@ export const es = {
     resources: 'Recursos',
   },
   cta: {
-    estimate: 'Solicitar estimado gratuito',
+    estimate: 'Solicitar un estimado',
     schedule: 'Programar visita',
     call: 'Llamar',
     callBcs: 'Llamar a Best Coatings Solutions',
@@ -101,7 +101,7 @@ export const es = {
     marine: {
       metaTitle: 'División Marina | Best Coatings Solutions',
       metaDescription:
-        'Recubrimientos marinos móviles, gelcoat, fibra, pintura y reparación cosmética en el sur de Florida — desde Jupiter hacia el sur.',
+        'Recubrimientos marinos móviles, gelcoat, fibra, pintura y reparación cosmética en el Sur de Florida.',
       eyebrow: 'División',
       title: 'Marina',
       lead: 'Refinish marino móvil de precisión y cuidado de compuestos en la embarcación — gelcoat, fibra, pintura y restauración cosmética.',
@@ -186,7 +186,7 @@ export const es = {
         timeline: 'Cronograma',
         results: 'Resultados',
         images: 'Espacios de imagen provisional',
-        cta: 'Solicitar estimado gratuito para un trabajo similar',
+        cta: 'Solicitar un estimado para un trabajo similar',
       },
     },
     estimateShared: {
@@ -212,7 +212,7 @@ export const es = {
       headline:
         'Recubrimientos de precisión para embarcaciones que exigen excelencia.',
       support:
-        'Refinish marino móvil y cuidado de compuestos en el sur de Florida — desde Jupiter hacia el sur.',
+        'Refinish marino móvil y cuidado de compuestos en el Sur de Florida.',
       logoAlt: 'Logo temporal de Best Coatings Solutions',
     },
     whoWeAre: {
@@ -289,7 +289,7 @@ export const es = {
     },
     serviceArea: {
       title: 'Área de servicio',
-      body: 'Sur de Florida, desde Jupiter hacia el sur. Proyectos fuera del área habitual pueden considerarse por arreglo.',
+      body: 'Sur de Florida. Proyectos fuera del área habitual pueden considerarse por arreglo.',
       travel:
         'Los desplazamientos se planifican con cuidado para que la calidad nunca se convierta en logística apresurada.',
     },

@@ -50,7 +50,7 @@ export const en = {
     resources: 'Resources',
   },
   cta: {
-    estimate: 'Request Free Estimate',
+    estimate: 'Request an Estimate',
     schedule: 'Schedule Visit',
     call: 'Call',
     callBcs: 'Call Best Coatings Solutions',
@@ -97,7 +97,7 @@ export const en = {
     marine: {
       metaTitle: 'Marine Division | Best Coatings Solutions',
       metaDescription:
-        'Mobile marine coatings, gelcoat, fiberglass, paint, and cosmetic repair across South Florida — from Jupiter southward.',
+        'Mobile marine coatings, gelcoat, fiberglass, paint, and cosmetic repair across South Florida.',
       eyebrow: 'Division',
       title: 'Marine',
       lead: 'Precision mobile marine refinishing and composite care at the vessel — gelcoat, fiberglass, paint, and cosmetic restoration.',
@@ -182,7 +182,7 @@ export const en = {
         timeline: 'Timeline',
         results: 'Results',
         images: 'Placeholder Image slots',
-        cta: 'Request Free Estimate for similar work',
+        cta: 'Request an Estimate for similar work',
       },
     },
     estimateShared: {
@@ -207,7 +207,7 @@ export const en = {
     hero: {
       headline: 'Precision coatings for vessels that demand excellence.',
       support:
-        'Mobile marine refinishing and composite care across South Florida — from Jupiter southward.',
+        'Mobile marine refinishing and composite care across South Florida.',
       logoAlt: 'Best Coatings Solutions temporary logo',
     },
     whoWeAre: {
@@ -283,7 +283,7 @@ export const en = {
     },
     serviceArea: {
       title: 'Service Area',
-      body: 'South Florida, from Jupiter southward. Projects outside the normal service area may be considered by arrangement.',
+      body: 'South Florida. Projects outside the normal service area may be considered by arrangement.',
       travel:
         'Travel is planned carefully so quality never becomes rushed logistics.',
     },

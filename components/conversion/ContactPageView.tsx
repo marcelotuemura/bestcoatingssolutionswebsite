@@ -57,7 +57,10 @@ export function ContactPageView({
               className={buttonClassName({ variant: 'secondary' })}
               data-testid="contact-phone"
             >
-              {dictionary.cta.callBcs}: {siteConfig.contact.phone}
+              {dictionary.cta.callBcs}:{' '}
+              <span className="whitespace-nowrap">
+                {siteConfig.contact.phone}
+              </span>
             </a>
           </li>
           <li>

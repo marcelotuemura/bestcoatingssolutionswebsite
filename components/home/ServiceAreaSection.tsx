@@ -33,7 +33,7 @@ export function ServiceAreaSection({
           </p>
           <p className="text-silver-500 mt-3 text-sm">{copy.travel}</p>
           <p className="text-silver-300 mt-4 text-sm">
-            {siteConfig.serviceArea.primary} · {siteConfig.serviceArea.range}
+            {siteConfig.serviceArea.primary}
           </p>
           <div className="mt-8">
             <ButtonLink

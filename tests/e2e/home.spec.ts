@@ -85,7 +85,7 @@ test.describe('Phase 2 homepage', () => {
     await page.goto('/en');
     await page
       .getByRole('banner')
-      .getByRole('link', { name: 'Request Free Estimate' })
+      .getByRole('link', { name: 'Request an Estimate' })
       .click();
     await expect(page).toHaveURL(/\/en\/estimate-request/);
 
@@ -103,7 +103,7 @@ test.describe('Phase 2 homepage', () => {
     await page.goto('/en');
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
     await expect(
-      page.getByRole('link', { name: 'Request Free Estimate' }).first(),
+      page.getByRole('link', { name: 'Request an Estimate' }).first(),
     ).toBeVisible();
     await expect(page.locator('#marine')).toBeVisible();
   });
@@ -118,7 +118,7 @@ test.describe('Phase 2 homepage', () => {
       page.getByRole('heading', { name: 'Who We Are', level: 2 }),
     ).toBeVisible();
     await expect(
-      page.getByRole('link', { name: 'Request Free Estimate' }).first(),
+      page.getByRole('link', { name: 'Request an Estimate' }).first(),
     ).toBeVisible();
   });
 
