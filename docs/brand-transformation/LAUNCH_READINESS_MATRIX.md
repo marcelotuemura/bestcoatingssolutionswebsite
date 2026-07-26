@@ -21,7 +21,7 @@ Status legend: ✅ Ready · ⏳ Pending · 🔶 Partial · 🚫 Blocker · ➖ N
 | Aviation hero photography | 🚫 Blocker | Replace `marketingPlaceholders.aviationHero` silhouette |
 | Marcelo portrait / workshop photo | 🚫 Blocker | About + homepage Meet Marcelo slots |
 | Project / process photography | ⏳ Pending | DAM intake; honest empty Projects until approved |
-| Manufacturer spelling verification | 🚫 Blocker | Confirm `Sheaffer` vs Schaefer from Marcelo’s records; use consistently site-wide |
+| Manufacturer spelling verification | ✅ Verified | Owner-confirmed: **Shaefer** (not Sheaffer / Schaefer) |
 
 ---
 

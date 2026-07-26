@@ -33,3 +33,5 @@
 **Release tag (when approved):** `v1.0.0` — Best Coatings Solutions Website  
 
 **Post-tag:** Run post-deploy smoke (Home, Marine, Aviation, About, Contact, Estimate, Privacy, Terms, EN/ES). Archive Phases 1–6 docs as the transformation baseline. Begin Phase 7 — Growth & Optimization only after live baseline is stable.
+
+**GitHub Release note (recommended with the tag):** summary of the transformation, major features, known limitations, links to Brand Standards + Launch Readiness Matrix, and upgrade notes for future contributors.

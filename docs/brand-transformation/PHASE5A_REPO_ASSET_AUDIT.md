@@ -188,7 +188,7 @@ Master Prompt expands verified names beyond Phase 4 About copy.
 | Group | Master Prompt | In About today |
 |-------|---------------|----------------|
 | Employers / associated | Aisin Sin Ei, Toyota, Honda, Mitsubishi, MarineMax, Nautical Ventures, HCB, Bombardier, military helicopters | Partial (Aisin, MarineMax, Nautical Ventures, HCB, Bombardier) |
-| Vessel manufacturers | Azimut, Viking, Riva, Ferretti, De Antonio, Beneteau, Axopar, Sheaffer, HCB | **Not yet listed** |
+| Vessel manufacturers | Azimut, Viking, Riva, Ferretti, De Antonio, Beneteau, Axopar, Shaefer, HCB | Listed on About (owner-confirmed spelling: Shaefer) |
 | Disclaimer | Employer **and manufacturer** names; no endorsement / affiliation / **authorization** / partnership | Present; should be aligned to Master Prompt wording in 5G |
 
 Phase 5G should add factual background language only — never logos, never “trusted by.”

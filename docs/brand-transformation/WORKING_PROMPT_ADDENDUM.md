@@ -11,6 +11,7 @@ Living constraints for Codex/Cursor. Update at each phase gate.
 | 1–5G.5 | **Approved · on main** |
 | 6 — Production Launch Readiness | **Approved · on main** |
 | Release | **`v1.0.0` Release Candidate** — do not tag until Launch Readiness Matrix is fully green |
+| Feature freeze | **Active** — blocker resolution / QA only |
 | 7 — Growth & Optimization | After public `v1.0.0` |
 
 ---
@@ -26,8 +27,10 @@ Living constraints for Codex/Cursor. Update at each phase gate.
 - One brand · two divisions (Marine commercially primary; Aviation visible and real).  
 - Do not invent or auto-trace the official logo.  
 - Prefer semantic design tokens on marketing UI.  
+- **Feature freeze active:** no new features, UI redesigns, or non-blocker copy rewrites.  
 - **No public `v1.0.0` until matrix blockers clear.**  
-- Evaluate every change: *Does this improve launch quality without compromising consistency, credibility, and premium positioning?*
+- Evaluate every change: *Does this improve launch quality without compromising consistency, credibility, and premium positioning?*  
+- Vessel manufacturer spelling (owner-confirmed): **Shaefer**.
 
 ---
 
@@ -49,7 +52,7 @@ Final human gate: **`LAUNCH_ACCEPTANCE_REVIEW.md`**.
 5. Privacy Policy finalized (legal)  
 6. Terms of Service finalized (legal)  
 7. Live contact/estimate delivery verified  
-8. Manufacturer spelling confirmed  
+8. ~~Manufacturer spelling confirmed~~ → **Shaefer** (owner-confirmed)  
 
 ---
 

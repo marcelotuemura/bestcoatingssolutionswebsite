@@ -53,7 +53,7 @@ Formal quality gate after Phases 5B–5G. Verify one design system, one claim di
 | ID | Severity | Finding | Why deferred |
 |----|----------|---------|--------------|
 | L1 | P0 | Privacy & Terms pages remain provisional / owner-legal placeholders | Requires owner + legal counsel — do not invent legal copy |
-| L2 | P2 | Manufacturer spelling `Sheaffer` vs possible `Schaefer` | Needs owner confirmation of public spelling |
+| L2 | P2 | Manufacturer spelling | **Resolved (RC):** owner-confirmed **Shaefer** |
 | P1 | P2 | Full Lighthouse lab suite | Prior Phase 5D noted lab instability; unit/build/e2e used as gate |
 | M1 | P2 | Official logo asset still pending | Temporary wordmark remains; Brand Standards Guide later |
 | M2 | P2 | Orphan unused homepage dictionary sections (`whyBcs`, etc.) | Cleanup after Brand Standards Guide |

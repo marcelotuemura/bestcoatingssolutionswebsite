@@ -39,7 +39,9 @@ describe('phase 5g about culmination', () => {
     expect(blob).toMatch(/not mean .* authorized aviation/i);
     expect(blob).toMatch(/ends at HCB Yachts/i);
     expect(blob).toMatch(/Toyota/);
+    expect(blob).toMatch(/Shaefer/);
     expect(blob).toMatch(/Azimut/);
+    expect(blob).not.toMatch(/Sheaffer|Schaefer/);
     expect(en.disclaimer).toMatch(/does not imply endorsement/i);
     expect(en.disclaimer).toMatch(/authorization/i);
     expect(getApprovedAboutFacts()).toHaveLength(0);

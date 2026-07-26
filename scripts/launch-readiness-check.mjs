@@ -30,7 +30,11 @@ const privacyProvisional =
 const demoThankYou = /demonstration mode/.test(privacyEn);
 
 const about = readFileSync(path.join(root, 'content/about.ts'), 'utf8');
-const sheaffer = /\bSheaffer\b/.test(about);
+const hasConfirmedShaefer = /\bShaefer\b/.test(about);
+const hasWrongSheaffer = /\bSheaffer\b/.test(about);
+const hasWrongSchaefer = /\bSchaefer\b/.test(about);
+const manufacturerSpellingOk =
+  hasConfirmedShaefer && !hasWrongSheaffer && !hasWrongSchaefer;
 
 const rows = [
   {
@@ -58,12 +62,12 @@ const rows = [
       : 'Thank-you copy no longer demonstration-only',
   },
   {
-    id: 'manufacturer-sheaffer-confirm',
-    ok: false,
+    id: 'manufacturer-shaefer-spelling',
+    ok: manufacturerSpellingOk,
     blocker: true,
-    note: sheaffer
-      ? 'About lists Sheaffer — confirm spelling with owner before launch'
-      : 'Sheaffer string not found in About content',
+    note: manufacturerSpellingOk
+      ? 'Owner-confirmed spelling Shaefer present; incorrect variants absent'
+      : 'Expected Shaefer in About; remove Sheaffer/Schaefer variants',
   },
 ];
 

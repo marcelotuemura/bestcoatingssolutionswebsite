@@ -43,7 +43,7 @@ Treat About as the culmination of the visitor journey — answering *who is the 
 
 Employers / associated manufacturing: Aisin Sin Ei; Toyota, Honda, Mitsubishi (associated environments); MarineMax; Nautical Ventures; HCB Yachts.
 
-Vessel manufacturers (factual experience list): Azimut, Viking, Riva, Ferretti, De Antonio, Beneteau, Axopar, Sheaffer, HCB.
+Vessel manufacturers (factual experience list): Azimut, Viking, Riva, Ferretti, De Antonio, Beneteau, Axopar, Shaefer, HCB.
 
 Aviation background: Bombardier business jets; military helicopters — cosmetic refinishing context only.
 

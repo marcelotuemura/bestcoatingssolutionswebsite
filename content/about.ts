@@ -116,7 +116,7 @@ export const aboutContentEn: AboutPageContent = {
       id: 'vessel-manufacturers',
       label: 'Marine · vessel manufacturers',
       detail:
-        'Professional refinishing experience includes work involving vessels from manufacturers such as Azimut, Viking, Riva, Ferretti, De Antonio, Beneteau, Axopar, Sheaffer, and HCB.',
+        'Professional refinishing experience includes work involving vessels from manufacturers such as Azimut, Viking, Riva, Ferretti, De Antonio, Beneteau, Axopar, Shaefer, and HCB.',
     },
     {
       id: 'aviation-background',
@@ -208,7 +208,7 @@ export const aboutContentEs: AboutPageContent = {
       id: 'vessel-manufacturers',
       label: 'Marina · fabricantes de embarcaciones',
       detail:
-        'La experiencia profesional en refinación incluye trabajo con embarcaciones de fabricantes como Azimut, Viking, Riva, Ferretti, De Antonio, Beneteau, Axopar, Sheaffer y HCB.',
+        'La experiencia profesional en refinación incluye trabajo con embarcaciones de fabricantes como Azimut, Viking, Riva, Ferretti, De Antonio, Beneteau, Axopar, Shaefer y HCB.',
     },
     {
       id: 'aviation-background',
