@@ -49,6 +49,12 @@ async function shot(page, name) {
   await shot(page, 'header-desktop-dark-1440');
   await page.goto(`${base}/en/marine`, { waitUntil: 'networkidle' });
   await shot(page, 'marine-desktop-1440');
+  // Sticky header over photographic hero plane
+  await page.locator('#page-hero-heading').scrollIntoViewIfNeeded();
+  await sleep(200);
+  await page.evaluate(() => window.scrollBy(0, -40));
+  await sleep(200);
+  await shot(page, 'header-over-imagery-1440');
   await page.goto(`${base}/en/aviation`, { waitUntil: 'networkidle' });
   await shot(page, 'aviation-desktop-1440');
   await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
@@ -57,8 +63,28 @@ async function shot(page, name) {
   await page.goto(`${base}/en/about`, { waitUntil: 'networkidle' });
   await expectActive(page, 'About');
   await shot(page, 'nav-active-about-1440');
+  await page.goto(`${base}/en/marine`, { waitUntil: 'networkidle' });
+  await expectActive(page, 'Marine');
+  await shot(page, 'nav-active-marine-1440');
   await page.goto(`${base}/es`, { waitUntil: 'networkidle' });
   await shot(page, 'header-spanish-1440');
+  await page.goto(`${base}/es/aviation`, { waitUntil: 'networkidle' });
+  await shot(page, 'nav-spanish-aviation-1440');
+  await ctx.close();
+}
+
+// Logo / header width ladder (text interim until official asset lands)
+for (const width of [1280, 1024, 768, 390]) {
+  const ctx = await browser.newContext({
+    viewport: { width, height: width >= 768 ? 800 : 844 },
+  });
+  const page = await ctx.newPage();
+  await page.goto(`${base}/en`, { waitUntil: 'networkidle' });
+  const mode = await page
+    .getByTestId('brand-lockup')
+    .getAttribute('data-logo-mode');
+  console.log(`logo-mode@${width}=${mode}`);
+  await shot(page, `logo-header-${width}`);
   await ctx.close();
 }
 

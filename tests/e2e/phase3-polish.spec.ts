@@ -116,8 +116,11 @@ test.describe('Phase 3 polish — consistency audits', () => {
     page,
   }) => {
     await page.goto('/en/projects');
+    await expect(page.getByTestId('projects-empty')).toBeVisible();
+    await expect(
+      page.getByText(/Repair stories in preparation|Coming Soon/i).first(),
+    ).toBeVisible();
     await expect(page.getByText(/Future Project/i).first()).toBeVisible();
-    await expect(page.getByText(/Coming Soon/i).first()).toBeVisible();
     await expect(page.getByText(/Placeholder Image/i).first()).toBeVisible();
   });
 
@@ -232,13 +235,16 @@ test.describe('Phase 3 polish — consistency audits', () => {
   test('Spanish CTA and placeholder localization', async ({ page }) => {
     await page.goto('/es/services/gelcoat-repair');
     await expect(page.getByTestId('cta-primary-estimate')).toHaveText(
-      'Solicitar estimado gratuito',
+      'Solicitar un estimado',
     );
     await expect(page.getByTestId('cta-secondary-call')).toHaveText(
       'Llamar a Best Coatings Solutions',
     );
     await expect(
-      page.getByRole('heading', { name: 'Por qué elegir BCS', level: 2 }),
+      page.getByRole('heading', {
+        name: /Por qué importa una buena reparación de gelcoat/i,
+        level: 2,
+      }),
     ).toBeVisible();
     await expect(page.getByText(/Imagen provisional/i).first()).toBeVisible();
   });

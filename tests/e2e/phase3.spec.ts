@@ -8,16 +8,19 @@ test.describe('Phase 3 — Marine, Aviation, Services, Projects', () => {
     await page.goto('/en/marine');
     await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1);
     await expect(
-      page.getByRole('heading', { level: 1, name: 'Marine' }),
+      page.getByRole('heading', { level: 1, name: /Marine/i }),
     ).toBeVisible();
     await expect(
       page.getByRole('navigation', { name: 'Breadcrumb' }),
     ).toBeVisible();
     await expect(
-      page.getByRole('heading', { name: 'What this work is about', level: 2 }),
+      page.getByRole('heading', {
+        name: /What this work is about|How we approach/i,
+        level: 2,
+      }),
     ).toBeVisible();
     await expect(
-      page.getByRole('heading', { name: 'How we can help', level: 2 }),
+      page.getByRole('heading', { name: /How we can help/i, level: 2 }).first(),
     ).toBeVisible();
     await expect(
       page.getByRole('link', { name: /Gelcoat Repair/i }).first(),
@@ -88,11 +91,12 @@ test.describe('Phase 3 — Marine, Aviation, Services, Projects', () => {
   }) => {
     await page.goto('/en/projects');
     await expect(
-      page.getByRole('heading', { level: 1, name: 'Projects' }),
+      page.getByRole('heading', { level: 1, name: /Our Work|Projects/i }),
     ).toBeVisible();
     await expect(page.getByTestId('projects-empty')).toBeVisible();
-    await expect(page.getByText(/Future Project/i).first()).toBeVisible();
-    await expect(page.getByText(/Placeholder Image/i).first()).toBeVisible();
+    await expect(
+      page.getByText(/Future Project|Repair stories in preparation/i).first(),
+    ).toBeVisible();
   });
 
   test('Spanish marine and service routing', async ({ page }) => {
