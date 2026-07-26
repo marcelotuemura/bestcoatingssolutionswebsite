@@ -25,9 +25,46 @@ export default async function MediaDashboardPage() {
 
   return (
     <MediaShell
-      title="Media Library Dashboard"
-      subtitle="Interactive Media Library — catalog-driven, read-only. Consumes indexing reports as the source of truth."
+      title="Media Intelligence Platform"
+      subtitle="Visual DAMS Gallery — upload, organize, review, and prepare media assets for publication."
     >
+      {/* Phase 7 Gallery CTAs */}
+      <div className="mb-8 grid gap-4 sm:grid-cols-2">
+        <Link
+          href="/media/library"
+          className="border-navy-700 bg-navy-900/70 hover:border-electric-500 group hover:bg-navy-900/90 flex flex-col gap-2 rounded-2xl border p-6 transition"
+          data-testid="gallery-cta"
+        >
+          <span className="text-electric-400 text-xs font-medium tracking-widest uppercase">
+            Phase 7 — Visual Gallery
+          </span>
+          <h2 className="text-xl font-semibold text-white">Open Gallery</h2>
+          <p className="text-silver-400 text-sm">
+            Browse, filter, and search your DAMS assets with grid, compact, and
+            list view modes.
+          </p>
+          <span className="text-electric-400 mt-auto text-sm group-hover:underline">
+            Open gallery →
+          </span>
+        </Link>
+        <Link
+          href="/media/upload"
+          className="border-navy-700 bg-navy-900/70 hover:border-electric-500 group hover:bg-navy-900/90 flex flex-col gap-2 rounded-2xl border p-6 transition"
+          data-testid="upload-cta"
+        >
+          <span className="text-electric-400 text-xs font-medium tracking-widest uppercase">
+            Upload
+          </span>
+          <h2 className="text-xl font-semibold text-white">Upload Assets</h2>
+          <p className="text-silver-400 text-sm">
+            Drag and drop images or videos. SHA-256 verified, thumbnails
+            generated automatically.
+          </p>
+          <span className="text-electric-400 mt-auto text-sm group-hover:underline">
+            Upload →
+          </span>
+        </Link>
+      </div>
       {stats.isFixture ? (
         <p
           className="media-light:border-amber-300 media-light:bg-amber-50 media-light:text-amber-900 mb-6 rounded-xl border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm text-amber-100"

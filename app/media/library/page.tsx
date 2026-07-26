@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import Link from 'next/link';
 import {
   CatalogFilters,
   CatalogSearchBar,
@@ -46,27 +47,90 @@ export default async function MediaLibraryPage({
     flatParams[key] = Array.isArray(value) ? value[0] : value;
   }
 
+  const viewMode = (raw.view as string) || 'grid';
+
   return (
     <MediaShell
       title="Media Gallery"
-      subtitle="Searchable card gallery — instant filtering across filename, boat, manufacturer, project, folder, repair, stage, camera, date, scores, and AI keywords."
+      subtitle="Visual DAMS Gallery — browse, filter, and search your assets."
     >
+      {/* View mode selector */}
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <span className="text-silver-400 text-xs">View:</span>
+          {(['grid', 'compact', 'list'] as const).map((mode) => (
+            <a
+              key={mode}
+              href={`?${new URLSearchParams({ ...flatParams, view: mode }).toString()}`}
+              data-testid={`view-mode-${mode}`}
+              className={`rounded-lg border px-3 py-1.5 text-xs transition ${
+                viewMode === mode
+                  ? 'border-electric-500 text-electric-400 bg-navy-900/90'
+                  : 'border-navy-700 text-silver-400 hover:border-electric-500 hover:text-white'
+              }`}
+            >
+              {mode.charAt(0).toUpperCase() + mode.slice(1)}
+            </a>
+          ))}
+        </div>
+        <Link
+          href="/media/upload"
+          data-testid="gallery-upload-link"
+          className="border-electric-500 text-electric-400 hover:bg-electric-500/10 rounded-lg border px-3 py-1.5 text-xs transition"
+        >
+          + Upload
+        </Link>
+      </div>
+
       <Suspense fallback={null}>
         <CatalogSearchBar />
         <CatalogFilters facets={facets} />
       </Suspense>
+
       <p
         className="text-silver-500 media-light:text-slate-500 mt-4 text-sm"
         data-testid="catalog-search-meta"
       >
         {result.total} asset{result.total === 1 ? '' : 's'}
-        {options.q ? ` matching “${options.q}”` : ''} · query{' '}
+        {options.q ? ` matching "${options.q}"` : ''} · query{' '}
         {result.durationMs.toFixed(1)}ms
         {result.matchedViaAi > 0
           ? ` · ${result.matchedViaAi} via AI overlay`
           : ''}
       </p>
-      <CatalogGallery assets={result.items} />
+
+      {viewMode === 'list' ? (
+        <div
+          className="border-navy-700 divide-navy-700 mt-4 divide-y overflow-hidden rounded-2xl border"
+          data-testid="gallery-list-view"
+        >
+          {result.items.length === 0 ? (
+            <p className="text-silver-400 py-8 text-center text-sm">
+              No assets found.
+            </p>
+          ) : (
+            result.items.map((asset) => (
+              <a
+                key={asset.id}
+                href={`/media/assets/${asset.id}`}
+                className="hover:bg-navy-900/60 flex items-center gap-4 px-4 py-3 transition"
+              >
+                <span className="text-silver-300 w-64 truncate text-sm font-medium">
+                  {asset.originalFilename}
+                </span>
+                <span className="text-silver-500 text-xs">
+                  {asset.mediaKind}
+                </span>
+                <span className="text-silver-500 ml-auto text-xs">
+                  {asset.manufacturer ?? ''}
+                </span>
+              </a>
+            ))
+          )}
+        </div>
+      ) : (
+        <CatalogGallery assets={result.items} />
+      )}
       <CatalogPagination
         page={result.page}
         pageCount={result.pageCount}

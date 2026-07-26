@@ -1,13 +1,21 @@
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
 import { ApprovalActions } from '@/components/media-intelligence/ApprovalActions';
 import {
   ScoreBadge,
   StatusBadge,
 } from '@/components/media-intelligence/MediaBadges';
+import { AssetPreviewPane } from '@/components/media-intelligence/AssetPreviewPane';
+import { FavoriteToggle } from '@/components/media-intelligence/FavoriteToggle';
 import { MediaShell } from '@/components/media-intelligence/MediaShell';
 import { requireMediaPageAccess } from '@/lib/media-intelligence/auth/page-guard';
 import { getMediaIntelligenceRepository } from '@/lib/media-intelligence/repository';
 import { generateSeoPackage } from '@/lib/media-intelligence/seo';
+import { resolveMediaTrustedActor } from '@/lib/media-intelligence/auth/session';
+import {
+  getGalleryAsset,
+  canPreparePublicationForAsset,
+} from '@/lib/media-intelligence/gallery';
 
 export default async function MediaAssetDetailPage({
   params,
@@ -16,8 +24,75 @@ export default async function MediaAssetDetailPage({
 }) {
   await requireMediaPageAccess();
   const { id } = await params;
-  const asset = getMediaIntelligenceRepository().getAsset(id);
-  if (!asset) notFound();
+
+  // Try catalog repo first (existing Phase 1-6 asset store)
+  const catalogAsset = getMediaIntelligenceRepository().getAsset(id);
+
+  // Also try gallery DB repo for Phase 7 assets
+  const session = await resolveMediaTrustedActor();
+  let galleryAsset = null;
+  if (session.ok) {
+    try {
+      const result = await getGalleryAsset(session.actor, id);
+      if (result.ok) galleryAsset = result.data;
+    } catch {
+      // Gallery DB may not be configured
+    }
+  }
+
+  if (!catalogAsset && !galleryAsset) notFound();
+
+  if (galleryAsset) {
+    const canPublish = canPreparePublicationForAsset(galleryAsset);
+
+    return (
+      <MediaShell
+        title={galleryAsset.displayTitle ?? galleryAsset.originalFilename}
+        subtitle={`${galleryAsset.mediaKind.toUpperCase()} · ${Math.round(galleryAsset.fileSizeBytes / 1024)} KB · ${galleryAsset.fileType}`}
+        readOnlyBanner={false}
+      >
+        <div className="mb-4 flex flex-wrap items-center gap-3">
+          <Link
+            href="/media/library"
+            className="text-silver-400 text-sm hover:text-white"
+          >
+            ← Gallery
+          </Link>
+          {session.ok ? (
+            <FavoriteToggle
+              assetExternalId={galleryAsset.externalId}
+              workspaceId={galleryAsset.workspaceId}
+              initialFavorite={galleryAsset.isFavorite ?? false}
+            />
+          ) : null}
+          {canPublish ? (
+            <Link
+              href={`/media/publications?assetId=${galleryAsset.externalId}`}
+              className="border-electric-500 text-electric-400 hover:bg-electric-500/10 rounded-lg border px-3 py-1.5 text-xs transition"
+              data-testid="prepare-publication-btn"
+            >
+              Prepare Publication
+            </Link>
+          ) : (
+            <span
+              className="rounded-lg border border-amber-500/40 px-3 py-1.5 text-xs text-amber-300"
+              title="Privacy-blocked or archived assets cannot be published."
+              data-testid="publication-blocked-badge"
+            >
+              {galleryAsset.privacyStatus !== 'clear'
+                ? 'Privacy blocked'
+                : 'Archived'}
+            </span>
+          )}
+        </div>
+
+        <AssetPreviewPane asset={galleryAsset} />
+      </MediaShell>
+    );
+  }
+
+  // Fallback: catalog asset (Phase 1-6 legacy)
+  const asset = catalogAsset!;
   const seo = generateSeoPackage(asset);
 
   return (

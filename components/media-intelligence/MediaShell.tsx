@@ -7,6 +7,10 @@ import { mediaIntelligenceConfig } from '@/config/media-intelligence';
 const nav = [
   { href: '/media', label: 'Dashboard' },
   { href: '/media/library', label: 'Gallery' },
+  { href: '/media/upload', label: 'Upload' },
+  { href: '/media/collections', label: 'Collections' },
+  { href: '/media/review', label: 'Review' },
+  { href: '/media/activity', label: 'Activity' },
   { href: '/media/projects', label: 'Projects' },
   { href: '/media/duplicates', label: 'Duplicates' },
   { href: '/media/heroes', label: 'Hero Center' },
@@ -14,6 +18,7 @@ const nav = [
   { href: '/media/import', label: 'Import (meta)' },
   { href: '/media/approvals', label: 'Approvals' },
   { href: '/media/publications', label: 'Publications' },
+  { href: '/media/publishers', label: 'Publishers' },
   { href: '/media/users', label: 'Users' },
 ] as const;
 
