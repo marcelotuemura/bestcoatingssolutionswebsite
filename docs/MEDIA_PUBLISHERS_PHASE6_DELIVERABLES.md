@@ -29,7 +29,7 @@ Phase 5 migrations untouched. Hosted apply status: **not yet applied to staging*
 | `pnpm test:supabase:phase5:local` | PASS (Phase 5 + Phase 6 authority) |
 | Playwright media + phase5 + phase6 | **19 passed** (Postgres-backed publications) |
 | `pnpm test:supabase:phase5` hosted | **Blocked** — staging secrets not available in this agent environment |
-| `pnpm test:supabase:phase6` hosted | **SKIP** — same; suite ready; needs `MEDIA_SUPABASE_PHASE6_LIVE=1` + keys + migrations applied |
+| `pnpm test:supabase:phase6` hosted | Suite corrected (no zero-arg RPC probes). Re-run required for `failed: 0`. |
 
 ## Confirmations
 
