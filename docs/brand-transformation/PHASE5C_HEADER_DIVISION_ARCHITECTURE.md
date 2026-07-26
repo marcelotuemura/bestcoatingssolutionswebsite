@@ -2,6 +2,7 @@
 
 **Status:** Awaiting owner approval  
 **Branch:** `cursor/phase-5c-header-division-architecture-5ec4`  
+**PR:** https://github.com/marcelotuemura/bestcoatingssolutionswebsite/pull/36  
 **Base:** `main` (Phase 5B merged)  
 **Date:** 2026-07-26
 
@@ -28,9 +29,9 @@
 | Header treatment | Calm **text wordmark** (`BrandLockup`, `data-logo-mode="text"`) |
 | Temporary SVG as official? | **No** — never |
 | Full illustrated logo in header | Practical once `public/brand/bcs-logo-official.{svg\|webp\|png}` is dropped — auto-switches to image mode at ~36px height in a 64px bar |
-| Recommendation | Reserve full illustrated mark for **hero, footer, and brand presentations** when the file lands; keep header compact. If the official mark is still too tall at laptop widths, propose (do not invent) a simplified horizontal lockup for approval |
+| Recommendation | **Reserve full illustrated mark for hero, footer, and brand presentations** when the file lands; keep header compact with text (or a future approved horizontal lockup). Do not invent a new mark. |
 
-Drop masters in `docs/branding/originals/` before optimizing web exports.
+Drop masters in `docs/branding/originals/` before optimizing web exports. Suggested interim production filenames if no SVG: `public/brand/bcs-logo-official.png` / `.webp` (preserve originals separately).
 
 ---
 
@@ -52,8 +53,38 @@ Explicitly excluded: FAA repair station, structural, mechanical, engines, avioni
 
 ## Shared vs differentiated
 
-Shared: typography, nav, buttons, spacing, motion, accent logic, forms.  
+Shared: typography (Newsreader display + Manrope UI/body), nav, buttons, spacing, motion, accent logic, forms.  
 Differentiated: photography/atmosphere + division content (not separate color systems).
+
+---
+
+## Review evidence
+
+Artifacts: `/opt/cursor/artifacts/phase5c-screenshots/`
+
+| Evidence | File |
+|----------|------|
+| Desktop header on dark | `header-desktop-dark-1440.png` |
+| Desktop header over imagery | `header-over-imagery-1440.png` |
+| Tablet header | `header-tablet-1024.png` |
+| Mobile closed | `mobile-header-closed-390.png` |
+| Mobile open (viewport) | `mobile-header-open-390.png` |
+| Mobile open (drawer) | `mobile-nav-drawer-390.png` |
+| Footer desktop | `footer-desktop-1440.png` |
+| Footer mobile | `footer-mobile-390.png` |
+| Marine route | `marine-desktop-1440.png` |
+| Aviation route | `aviation-desktop-1440.png` |
+| Active nav (About / Marine) | `nav-active-about-1440.png`, `nav-active-marine-1440.png` |
+| Spanish nav | `header-spanish-1440.png`, `nav-spanish-aviation-1440.png` |
+| Keyboard focus on Marine | `keyboard-nav-focus-1440.png` |
+| Logo width ladder | `logo-header-{1280,1024,768,390}.png` (all `data-logo-mode=text`) |
+
+### Keyboard navigation notes
+
+- Skip link → main content works (covered by existing home e2e).  
+- Desktop primary nav links receive visible focus ring (`keyboard-nav-focus-1440.png` — Marine focused).  
+- Mobile dialog traps focus; Escape closes and returns focus to open control (home e2e).  
+- Active route uses `aria-current="page"`.
 
 ---
 
@@ -63,8 +94,8 @@ Differentiated: photography/atmosphere + division content (not separate color sy
 |---------|--------|
 | `pnpm typecheck` | Pass |
 | `pnpm test` | 252 passed |
-| `pnpm build` | Pass (run with evidence capture) |
-| E2E aviation / home / phase3 | Updated for visible aviation |
+| `pnpm build` | Pass |
+| E2E `home` / `phase3` / `phase3-polish` / `phase5` | Pass (updated for Phase 5C footer + aviation) |
 
 ---
 

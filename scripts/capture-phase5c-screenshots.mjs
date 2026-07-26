@@ -34,8 +34,12 @@ for (let i = 0; i < 60; i++) {
 
 const browser = await chromium.launch();
 
-async function shot(page, name) {
-  await page.screenshot({ path: `${out}/${name}.png`, fullPage: false });
+async function shot(page, name, locator) {
+  if (locator) {
+    await locator.screenshot({ path: `${out}/${name}.png` });
+  } else {
+    await page.screenshot({ path: `${out}/${name}.png`, fullPage: false });
+  }
   console.log('wrote', name);
 }
 
@@ -57,19 +61,23 @@ async function shot(page, name) {
   await shot(page, 'header-over-imagery-1440');
   await page.goto(`${base}/en/aviation`, { waitUntil: 'networkidle' });
   await shot(page, 'aviation-desktop-1440');
-  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-  await sleep(300);
-  await shot(page, 'footer-desktop-1440');
+  await page.getByTestId('site-footer').scrollIntoViewIfNeeded();
+  await sleep(200);
+  await shot(page, 'footer-desktop-1440', page.getByTestId('site-footer'));
   await page.goto(`${base}/en/about`, { waitUntil: 'networkidle' });
   await expectActive(page, 'About');
-  await shot(page, 'nav-active-about-1440');
+  await shot(page, 'nav-active-about-1440', page.getByTestId('site-header'));
   await page.goto(`${base}/en/marine`, { waitUntil: 'networkidle' });
   await expectActive(page, 'Marine');
-  await shot(page, 'nav-active-marine-1440');
+  await shot(page, 'nav-active-marine-1440', page.getByTestId('site-header'));
   await page.goto(`${base}/es`, { waitUntil: 'networkidle' });
-  await shot(page, 'header-spanish-1440');
+  await shot(page, 'header-spanish-1440', page.getByTestId('site-header'));
   await page.goto(`${base}/es/aviation`, { waitUntil: 'networkidle' });
-  await shot(page, 'nav-spanish-aviation-1440');
+  await shot(
+    page,
+    'nav-spanish-aviation-1440',
+    page.getByTestId('site-header'),
+  );
   await ctx.close();
 }
 
@@ -106,16 +114,21 @@ for (const width of [1280, 1024, 768, 390]) {
   });
   const page = await ctx.newPage();
   await page.goto(`${base}/en`, { waitUntil: 'networkidle' });
-  await shot(page, 'mobile-header-closed-390');
+  await shot(page, 'mobile-header-closed-390', page.getByTestId('site-header'));
   await page.getByTestId('mobile-nav-open').click();
-  await page.getByTestId('mobile-nav-panel').waitFor({ state: 'visible' });
+  const panel = page.getByTestId('mobile-nav-panel');
+  await panel.waitFor({ state: 'visible' });
+  const dialog = page.getByRole('dialog', { name: /Mobile/i });
+  await dialog.getByRole('link', { name: 'Aviation' }).waitFor({
+    state: 'visible',
+  });
   await shot(page, 'mobile-header-open-390');
-  await page.evaluate(() => window.scrollTo(0, 0));
+  await shot(page, 'mobile-nav-drawer-390', dialog);
   await page.getByTestId('mobile-nav-close').click();
   await page.goto(`${base}/en/aviation`, { waitUntil: 'networkidle' });
-  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-  await sleep(300);
-  await shot(page, 'footer-mobile-390');
+  await page.getByTestId('site-footer').scrollIntoViewIfNeeded();
+  await sleep(200);
+  await shot(page, 'footer-mobile-390', page.getByTestId('site-footer'));
   await ctx.close();
 }
 
@@ -126,11 +139,12 @@ for (const width of [1280, 1024, 768, 390]) {
   });
   const page = await ctx.newPage();
   await page.goto(`${base}/en`, { waitUntil: 'networkidle' });
-  await page.keyboard.press('Tab'); // skip link
-  await page.keyboard.press('Enter');
-  await page.keyboard.press('Tab'); // brand
-  await page.keyboard.press('Tab'); // first nav
-  await shot(page, 'keyboard-nav-focus-1440');
+  const marine = page
+    .getByTestId('primary-nav')
+    .getByRole('link', { name: 'Marine' });
+  await marine.focus();
+  await expectFocused(page, marine);
+  await shot(page, 'keyboard-nav-focus-1440', page.getByTestId('site-header'));
   await ctx.close();
 }
 
@@ -141,4 +155,15 @@ console.log('done →', out);
 async function expectActive(page, name) {
   const link = page.getByTestId('primary-nav').getByRole('link', { name });
   await link.waitFor({ state: 'visible' });
+  const current = await link.getAttribute('aria-current');
+  if (current !== 'page') {
+    throw new Error(`Expected aria-current=page on ${name}, got ${current}`);
+  }
+}
+
+async function expectFocused(page, locator) {
+  await page.waitForFunction(
+    (el) => el === document.activeElement,
+    await locator.elementHandle(),
+  );
 }

@@ -218,18 +218,18 @@ test.describe('Phase 5 — SEO and sitemap', () => {
 });
 
 test.describe('Phase 5 — Internal links', () => {
-  test('footer includes phase 5 destinations', async ({ page }) => {
+  test('footer includes Phase 5C explore destinations', async ({ page }) => {
     await page.goto('/en/about');
     const footer = page.locator('footer');
     for (const path of [
-      '/en/about',
-      '/en/services',
+      '/en/marine',
+      '/en/aviation',
       '/en/projects',
-      '/en/faq',
-      '/en/resources',
-      '/en/service-area',
-      '/en/workmanship',
+      '/en/about',
       '/en/contact',
+      '/en/estimate-request',
+      '/en/privacy',
+      '/en/terms',
     ]) {
       await expect(footer.locator(`a[href="${path}"]`).first()).toBeVisible();
     }
