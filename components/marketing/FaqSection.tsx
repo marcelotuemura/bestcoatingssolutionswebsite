@@ -22,22 +22,22 @@ export function FaqSection({
           <Heading as="h2" id={`${id}-heading`}>
             {title}
           </Heading>
-          <RevealStagger className="mt-8 space-y-4">
+          <RevealStagger className="divide-border/70 border-border/70 mt-8 divide-y border-y">
             {items.map((item) => (
               <RevealItem key={item.question}>
-                <details className="border-navy-700 group rounded-2xl border px-5 py-4">
-                  <summary className="focus-visible:ring-electric-500 cursor-pointer list-none text-base font-medium text-white focus-visible:ring-2 focus-visible:outline-none [&::-webkit-details-marker]:hidden">
+                <details className="group py-4">
+                  <summary className="focus-visible:ring-focus-ring text-text-primary cursor-pointer list-none text-base font-medium focus-visible:ring-2 focus-visible:outline-none [&::-webkit-details-marker]:hidden">
                     <span className="flex items-start justify-between gap-4">
                       {item.question}
                       <span
                         aria-hidden="true"
-                        className="text-silver-500 transition group-open:rotate-45"
+                        className="text-text-muted group-open:rotate-45 motion-safe:transition"
                       >
                         +
                       </span>
                     </span>
                   </summary>
-                  <p className="text-silver-400 mt-3 text-sm text-pretty sm:text-base">
+                  <p className="text-text-secondary mt-3 text-sm text-pretty sm:text-base">
                     {item.answer}
                   </p>
                 </details>

@@ -40,10 +40,10 @@ export function LanguageSwitcher({
             lang={code}
             aria-current={active ? 'true' : undefined}
             className={cn(
-              'focus-visible:ring-electric-500 focus-visible:ring-offset-navy-950 min-h-10 min-w-10 rounded-lg px-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+              'focus-visible:ring-focus-ring focus-visible:ring-offset-bg-primary min-h-10 min-w-10 rounded-[var(--radius-control)] px-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
               active
-                ? 'bg-navy-800 text-white'
-                : 'text-silver-500 hover:bg-navy-800 hover:text-silver-100',
+                ? 'bg-surface text-text-primary'
+                : 'text-text-muted hover:bg-surface hover:text-text-primary',
             )}
           >
             {localeLabels[code]}

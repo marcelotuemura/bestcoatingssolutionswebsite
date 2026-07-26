@@ -1,6 +1,6 @@
 # Phase 5G — About: Meet Marcelo
 
-**Status:** In review / awaiting approval  
+**Status:** Approved · merged to `main`  
 **Branch:** `cursor/phase-5g-about-meet-marcelo-5ec4`  
 **Base:** `main` (Phase 5F merged)  
 **Date:** 2026-07-26

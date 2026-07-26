@@ -14,9 +14,9 @@ import { localePath } from '@/i18n/path';
 export type CtaBandMode = 'estimate' | 'contact';
 
 /**
- * Shared end-of-page CTA hierarchy for Phase 3 marketing pages.
- * estimate: Primary Request Free Estimate · Secondary Call BCS
- * contact:  Primary Contact · Secondary Call BCS (aviation preview)
+ * Shared end-of-page CTA hierarchy.
+ * estimate: Primary Request Estimate · Secondary Call BCS
+ * contact:  Primary Contact · Secondary Call BCS (Aviation / About)
  */
 export function EstimateCtaBand({
   locale,
@@ -35,19 +35,21 @@ export function EstimateCtaBand({
 }) {
   const telHref = `tel:${siteConfig.contact.phoneE164}`;
   const callLabel = dictionary.cta.callBcs;
+  const sectionId = mode === 'contact' ? 'contact-cta' : 'estimate-cta';
+  const headingId = `${sectionId}-heading`;
 
   return (
-    <Section id="estimate-cta" aria-labelledby="estimate-cta-heading">
+    <Section id={sectionId} aria-labelledby={headingId}>
       <Container>
-        <Reveal className="border-electric-500/20 from-navy-900/80 to-navy-950 rounded-3xl border bg-gradient-to-br px-6 py-12 sm:px-10 sm:py-14">
-          <Heading as="h2" id="estimate-cta-heading">
+        <Reveal className="border-border/80 from-bg-secondary/80 to-bg-primary rounded-[var(--radius-card)] border bg-gradient-to-br px-6 py-12 sm:px-10 sm:py-14">
+          <Heading as="h2" id={headingId}>
             {title}
           </Heading>
-          <p className="text-silver-300 mt-4 max-w-2xl text-lg text-pretty">
+          <p className="text-text-secondary mt-4 max-w-2xl text-lg text-pretty">
             {body}
           </p>
           {notice ? (
-            <p className="text-silver-500 mt-4 max-w-2xl text-sm text-pretty">
+            <p className="text-text-muted mt-4 max-w-2xl text-sm text-pretty">
               {notice}
             </p>
           ) : null}

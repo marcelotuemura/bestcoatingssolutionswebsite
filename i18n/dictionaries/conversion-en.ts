@@ -33,7 +33,7 @@ export const conversionEn = {
   contact: {
     metaTitle: 'Contact | Best Coatings Solutions',
     metaDescription:
-      'Contact Best Coatings Solutions for marine coatings questions in South Florida. Call, email, or send a message — no website pricing.',
+      'Contact Best Coatings Solutions about marine or aviation refinishing in South Florida. Call, email, or send a message — no website pricing.',
     eyebrow: 'Contact',
     title: 'Tell Us About Your Project',
     lead: 'Reach us about marine or aviation refinishing. Marine projects can use the estimate form; aviation inquiries are welcome through Contact.',
@@ -48,7 +48,7 @@ export const conversionEn = {
       'We serve South Florida. Free estimates are available only in the Fort Lauderdale area.',
     formTitle: 'Send a message',
     formLead:
-      'Tell us how we can help. For aviation projects, describe the cosmetic refinishing need here — we will follow up through Contact. Marine estimates also use the dedicated estimate form.',
+      'Tell us how we can help. For aviation projects, describe the cosmetic refinishing need here and we will follow up. Marine estimates also use the dedicated estimate form.',
     mapTitle: 'Location',
     mapPlaceholder:
       'Placeholder Image — map embed not configured. No street address is published on this site.',

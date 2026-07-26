@@ -136,8 +136,8 @@ export const marineServiceContentEs: Record<
     ],
   }),
   paintRefinishing: service({
-    title: 'Pintura y refinamiento',
-    metaTitle: 'Pintura y refinamiento marino | Best Coatings Solutions',
+    title: 'Pintura y refinación',
+    metaTitle: 'Pintura y refinación marina | Best Coatings Solutions',
     metaDescription:
       'Corrija y refinir superficies pintadas marinas con preparación controlada y alcance honesto. Servicio móvil en el sur de Florida.',
     heroEyebrow: 'Reparación marina',
@@ -183,7 +183,7 @@ export const marineServiceContentEs: Record<
       {
         question: '¿Pueden coincidir un color de pintura existente?',
         answer:
-          'La coincidencia de color se evalúa por embarcación y sistema de acabado. Vea Coincidencia de color para más detalle.',
+          'La igualación de color se evalúa por embarcación y sistema de acabado. Vea Igualación de color para más detalle.',
       },
     ],
   }),
@@ -196,7 +196,7 @@ export const marineServiceContentEs: Record<
     heroLead:
       'Devuelva a las superficies de casco cansadas una apariencia limpia y reflectante mediante corrección cuidadosa y trabajo de acabado.',
     overview:
-      'La restauración de casco puede combinar corrección de oxidación, reparaciones puntuales y refinamiento de acabado. El alcance siempre es específico a la embarcación. Recorremos el casco, fijamos prioridades con usted y trabajamos con método — nunca como un paquete genérico del sitio.',
+      'La restauración de casco puede combinar corrección de oxidación, reparaciones puntuales y refinación de acabado. El alcance siempre es específico a la embarcación. Recorremos el casco, fijamos prioridades con usted y trabajamos con método — nunca como un paquete genérico del sitio.',
     problemsTitle: 'Problemas que resuelve',
     problems: [
       'Oxidación fuerte',
@@ -345,15 +345,15 @@ export const marineServiceContentEs: Record<
     ],
   }),
   colorMatching: service({
-    title: 'Coincidencia de color',
-    metaTitle: 'Coincidencia de color marina | Best Coatings Solutions',
+    title: 'Igualación de color',
+    metaTitle: 'Igualación de color marina | Best Coatings Solutions',
     metaDescription:
       'Coincida gelcoat o pintura de alrededor para que una reparación se mezcle con el acabado existente de la embarcación.',
     heroEyebrow: 'Reparación marina',
     heroLead:
       'Coincida acabados de alrededor para que las reparaciones se asienten en el color existente de la embarcación — no queden al lado como un parche.',
     overview:
-      'La coincidencia de color suele ser la diferencia entre una reparación discreta y una visible. Muestreamos en la embarcación, ajustamos con cuidado y probamos antes de comprometer áreas grandes y visibles. Los acabados envejecidos y los efectos metálicos pueden limitar la perfección — lo decimos temprano.',
+      'La igualación de color suele ser la diferencia entre una reparación discreta y una visible. Muestreamos en la embarcación, ajustamos con cuidado y probamos antes de comprometer áreas grandes y visibles. Los acabados envejecidos y los efectos metálicos pueden limitar la perfección — lo decimos temprano.',
     problemsTitle: 'Problemas que resuelve',
     problems: [
       'Reparaciones que se ven mal bajo el sol',
@@ -380,7 +380,7 @@ export const marineServiceContentEs: Record<
         body: 'Integramos el acabado coincidente en la zona de reparación.',
       },
     ],
-    whyTitle: 'Por qué importa la coincidencia de color',
+    whyTitle: 'Por qué importa la igualación de color',
     whyPoints: [
       'El ojo encuentra el desajuste antes que la técnica',
       'El sol revela lo que la luz interior puede ocultar',

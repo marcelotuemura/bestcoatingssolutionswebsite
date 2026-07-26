@@ -9,9 +9,12 @@ import {
   type KeyboardEvent as ReactKeyboardEvent,
 } from 'react';
 import { createPortal } from 'react-dom';
+import { usePathname } from 'next/navigation';
 import { ButtonLink } from '@/components/ui/ButtonLink';
 import { NavLink } from '@/components/layout/NavLink';
+import { isContactPrimaryPath } from '@/config/cta-hierarchy';
 import { primaryNav, routes, type RouteKey } from '@/config/routes';
+import { siteConfig } from '@/config/site';
 import { useLockedBody } from '@/hooks/use-locked-body';
 import type { Dictionary } from '@/i18n/get-dictionary';
 import type { Locale } from '@/i18n/config';
@@ -41,6 +44,8 @@ function getFocusableElements(container: HTMLElement): HTMLElement[] {
 }
 
 export function MobileNav({ locale, dictionary }: MobileNavProps) {
+  const pathname = usePathname() ?? `/${locale}`;
+  const contactPrimary = isContactPrimaryPath(pathname);
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const panelId = useId();
@@ -173,7 +178,7 @@ export function MobileNav({ locale, dictionary }: MobileNavProps) {
               >
                 <div className="border-border flex items-center justify-between border-b px-4 py-3">
                   <p className="text-text-primary text-sm font-medium">
-                    Best Coatings Solutions
+                    {siteConfig.name}
                   </p>
                   <button
                     ref={closeRef}
@@ -211,17 +216,33 @@ export function MobileNav({ locale, dictionary }: MobileNavProps) {
 
                 <div className="border-border flex flex-col gap-2 border-t p-4">
                   <ButtonLink
-                    href={localePath(locale, routes.estimateRequest.path)}
+                    href={localePath(
+                      locale,
+                      contactPrimary
+                        ? routes.contact.path
+                        : routes.estimateRequest.path,
+                    )}
                     onClick={closeMenu}
+                    data-testid="mobile-primary-cta"
+                    data-cta-mode={contactPrimary ? 'contact' : 'estimate'}
                   >
-                    {dictionary.cta.estimate}
+                    {contactPrimary
+                      ? dictionary.cta.contactUs
+                      : dictionary.cta.estimate}
                   </ButtonLink>
                   <ButtonLink
-                    href={localePath(locale, routes.contact.path)}
+                    href={localePath(
+                      locale,
+                      contactPrimary
+                        ? routes.estimateRequest.path
+                        : routes.contact.path,
+                    )}
                     variant="secondary"
                     onClick={closeMenu}
                   >
-                    {dictionary.cta.contactUs}
+                    {contactPrimary
+                      ? dictionary.cta.estimate
+                      : dictionary.cta.contactUs}
                   </ButtonLink>
                 </div>
               </div>

@@ -63,7 +63,7 @@ export function ContactPageView({
           <li>
             <a
               href={`mailto:${siteConfig.contact.email}`}
-              className="text-electric-400 focus-visible:ring-electric-500 rounded-sm underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:outline-none"
+              className="text-accent-hover focus-visible:ring-focus-ring rounded-sm underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:outline-none"
               data-testid="contact-email"
             >
               {siteConfig.contact.email}
@@ -73,10 +73,10 @@ export function ContactPageView({
       </ContentSection>
 
       <ContentSection id="hours" title={copy.hoursTitle}>
-        <ul className="text-silver-300 mt-6 space-y-2 text-sm sm:text-base">
+        <ul className="text-text-secondary mt-6 space-y-2 text-sm sm:text-base">
           {businessHours.days.map((day) => (
             <li key={day.id}>
-              <span className="text-silver-100">
+              <span className="text-text-primary">
                 {hoursLabels[day.daysKey]}
               </span>
               {': '}
@@ -93,7 +93,7 @@ export function ContactPageView({
         title={copy.areaTitle}
         body={copy.areaBody}
       >
-        <p className="text-silver-500 mt-4 text-sm">
+        <p className="text-text-muted mt-4 text-sm">
           {estimatePolicy.publicNotice}
         </p>
       </ContentSection>
@@ -103,7 +103,7 @@ export function ContactPageView({
           <Heading as="h2" id="contact-form-heading">
             {copy.formTitle}
           </Heading>
-          <p className="text-silver-300 mt-4 max-w-2xl text-pretty">
+          <p className="text-text-secondary mt-4 max-w-2xl text-pretty">
             {copy.formLead}
           </p>
           <div className="mt-8 max-w-2xl">
@@ -114,15 +114,15 @@ export function ContactPageView({
 
       <ContentSection id="map" title={copy.mapTitle}>
         <div
-          className="border-navy-700 bg-navy-950 mt-6 flex aspect-[16/9] max-w-3xl items-center justify-center rounded-2xl border border-dashed p-6 text-center"
+          className="border-border bg-bg-secondary mt-6 flex aspect-[16/9] max-w-3xl items-center justify-center rounded-[var(--radius-media)] border border-dashed p-6 text-center"
           data-testid="map-placeholder"
         >
-          <p className="text-silver-500 text-sm">{copy.mapPlaceholder}</p>
+          <p className="text-text-muted text-sm">{copy.mapPlaceholder}</p>
         </div>
       </ContentSection>
 
       <ContentSection id="what-next" title={copy.nextTitle}>
-        <ol className="text-silver-300 mt-6 list-decimal space-y-2 pl-5">
+        <ol className="text-text-secondary mt-6 list-decimal space-y-2 pl-5">
           {copy.nextSteps.map((step) => (
             <li key={step}>{step}</li>
           ))}

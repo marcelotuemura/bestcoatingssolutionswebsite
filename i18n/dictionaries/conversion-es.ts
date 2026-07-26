@@ -36,7 +36,7 @@ export const conversionEs: DictionaryShape<ConversionCopy> = {
   contact: {
     metaTitle: 'Contacto | Best Coatings Solutions',
     metaDescription:
-      'Contacte a Best Coatings Solutions para consultas de recubrimientos marinos en el sur de Florida. Llame, escriba o envíe un mensaje.',
+      'Contacte a Best Coatings Solutions sobre refinación marina o de aviación en el Sur de Florida. Llame, escriba o envíe un mensaje.',
     eyebrow: 'Contacto',
     title: 'Cuéntenos sobre su proyecto',
     lead: 'Escríbanos sobre refinación marina o de aviación. Los proyectos marinos pueden usar el formulario de estimado; las consultas de aviación son bienvenidas a través de Contacto.',
@@ -135,11 +135,11 @@ export const conversionEs: DictionaryShape<ConversionCopy> = {
     services: {
       'gelcoat-repair': 'Reparación de gelcoat',
       'fiberglass-repair': 'Reparación de fibra de vidrio',
-      'paint-refinishing': 'Pintura y refinamiento',
+      'paint-refinishing': 'Pintura y refinación',
       'hull-restoration': 'Restauración de casco',
       'yacht-cosmetic-repair': 'Reparación cosmética de yates',
       'structural-composite-repair': 'Reparación estructural de compuestos',
-      'color-matching': 'Coincidencia de color',
+      'color-matching': 'Igualación de color',
       'insurance-repair': 'Reparación por seguro',
       'other-marine-repair': 'Otra reparación marina',
     },

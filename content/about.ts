@@ -35,6 +35,7 @@ export interface AboutPageContent {
   readonly backgroundTitle: string;
   readonly backgroundIntro: string;
   readonly backgroundEntries: readonly AboutBackgroundEntry[];
+  readonly disclaimerHeading: string;
   readonly disclaimer: string;
   readonly invitationTitle: string;
   readonly invitationBody: string;
@@ -124,6 +125,7 @@ export const aboutContentEn: AboutPageContent = {
         'Career contributions include refinishing work involving Bombardier business jets and military helicopters. That chapter ends at HCB Yachts — before Best Coatings Solutions.',
     },
   ],
+  disclaimerHeading: 'Background disclaimer',
   disclaimer:
     "Employer and manufacturer names are referenced solely to describe Marcelo's professional background and experience. Their inclusion does not imply endorsement, affiliation, authorization, or partnership with Best Coatings Solutions.",
   invitationTitle: 'Discuss a project',
@@ -215,6 +217,7 @@ export const aboutContentEs: AboutPageContent = {
         'Las contribuciones de carrera incluyen trabajo de refinación relacionado con jets de negocios Bombardier y helicópteros militares. Ese capítulo termina en HCB Yachts — antes de Best Coatings Solutions.',
     },
   ],
+  disclaimerHeading: 'Aviso sobre trayectoria',
   disclaimer:
     'Los nombres de empleadores y fabricantes se mencionan únicamente para describir la trayectoria y experiencia profesional de Marcelo. Su inclusión no implica respaldo, afiliación, autorización ni asociación con Best Coatings Solutions.',
   invitationTitle: 'Conversemos sobre un proyecto',

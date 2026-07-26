@@ -1,5 +1,5 @@
-import { ButtonLink } from '@/components/ui/ButtonLink';
 import { BrandLockup } from '@/components/layout/BrandLockup';
+import { HeaderPrimaryCta } from '@/components/layout/HeaderPrimaryCta';
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
 import { MobileNav } from '@/components/layout/MobileNav';
 import { NavLink } from '@/components/layout/NavLink';
@@ -55,13 +55,11 @@ export function SiteHeader({ locale, dictionary }: SiteHeaderProps) {
             label={dictionary.a11y.language}
             className="hidden sm:inline-flex"
           />
-          <ButtonLink
-            href={localePath(locale, routes.estimateRequest.path)}
-            size="sm"
+          <HeaderPrimaryCta
+            locale={locale}
+            dictionary={dictionary}
             className="hidden sm:inline-flex"
-          >
-            {dictionary.cta.estimate}
-          </ButtonLink>
+          />
           <MobileNav locale={locale} dictionary={dictionary} />
         </div>
       </Container>

@@ -21,7 +21,7 @@ export function Breadcrumbs({
 }) {
   return (
     <nav aria-label={ariaLabel} className={cn('mb-8', className)}>
-      <ol className="text-silver-500 flex flex-wrap items-center gap-2 text-sm">
+      <ol className="text-text-muted flex flex-wrap items-center gap-2 text-sm">
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
           return (
@@ -30,20 +30,20 @@ export function Breadcrumbs({
               className="flex items-center gap-2"
             >
               {index > 0 ? (
-                <span aria-hidden="true" className="text-silver-700">
+                <span aria-hidden="true" className="text-text-muted/70">
                   /
                 </span>
               ) : null}
               {item.href && !isLast ? (
                 <Link
                   href={localePath(locale, item.href)}
-                  className="hover:text-silver-200 focus-visible:ring-electric-500 rounded-sm underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:outline-none"
+                  className="hover:text-text-primary focus-visible:ring-focus-ring rounded-sm underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:outline-none"
                 >
                   {item.label}
                 </Link>
               ) : (
                 <span
-                  className={isLast ? 'text-silver-300' : undefined}
+                  className={isLast ? 'text-text-secondary' : undefined}
                   aria-current={isLast ? 'page' : undefined}
                 >
                   {item.label}

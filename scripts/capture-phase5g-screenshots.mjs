@@ -64,7 +64,7 @@ for (const vp of [
     .scrollIntoViewIfNeeded();
   await sleep(200);
   await shot(page, `about-${vp.name}-background`);
-  await page.locator('#estimate-cta').scrollIntoViewIfNeeded();
+  await page.locator('#contact-cta').scrollIntoViewIfNeeded();
   await sleep(200);
   await shot(page, `about-${vp.name}-invitation`);
   await ctx.close();

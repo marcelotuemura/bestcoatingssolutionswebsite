@@ -57,23 +57,20 @@ export function ProjectsPage({
             <ProjectsEmptyState locale={locale} dictionary={dictionary} />
           ) : (
             <ul
-              className="grid gap-6 sm:grid-cols-2"
+              className="divide-border/70 border-border/70 max-w-3xl divide-y border-y"
               data-testid="projects-list"
             >
               {published.map((project) => (
-                <li
-                  key={project.id}
-                  className="border-navy-700 rounded-2xl border p-5"
-                >
-                  <h2 className="text-lg font-semibold text-white">
+                <li key={project.id} className="py-6 sm:py-7">
+                  <h2 className="text-text-primary text-lg font-medium tracking-tight">
                     <Link
                       href={localePath(locale, `/projects/${project.slug}`)}
-                      className="hover:text-electric-400 focus-visible:ring-electric-500 rounded focus-visible:ring-2 focus-visible:outline-none"
+                      className="hover:text-accent-hover focus-visible:ring-focus-ring rounded-sm focus-visible:ring-2 focus-visible:outline-none"
                     >
                       {project.copy[locale].title}
                     </Link>
                   </h2>
-                  <p className="text-silver-400 mt-2 text-sm text-pretty">
+                  <p className="text-text-secondary mt-2 text-sm text-pretty">
                     {project.copy[locale].summary}
                   </p>
                 </li>

@@ -155,11 +155,11 @@ export const en = {
         'Each service explains the problem, how we approach restoration or refinishing, and what you can expect — then you can request an estimate when ready.',
     },
     aviation: {
-      metaTitle: 'Aviation Refinishing | Best Coatings Solutions',
+      metaTitle: 'Aviation refinishing | Best Coatings Solutions',
       metaDescription:
         'Aviation exterior cosmetic refinishing, paint restoration, composite surface restoration, and finish correction — carefully scoped in South Florida.',
       eyebrow: 'Aviation division',
-      title: 'Aviation Refinishing',
+      title: 'Aviation refinishing',
       lead: 'The same preparation discipline as Marine — expressed through precision surfaces, composite materials, and carefully controlled exterior finish work.',
       overviewTitle: 'A specialized division',
       overview:
@@ -371,7 +371,7 @@ export const en = {
     },
     process: {
       title: 'What You Can Expect',
-      body: 'Boat owners often wonder what working with a repair shop is like. Here is the simple path we follow.',
+      body: 'Boat owners often wonder what working with a refinishing craftsman is like. Here is the simple path we follow.',
       steps: [
         {
           title: 'Contact us',

@@ -1,9 +1,9 @@
-import Link from 'next/link';
+import { ButtonLink } from '@/components/ui/ButtonLink';
+import { Heading } from '@/components/ui/Heading';
 import { routes } from '@/config/routes';
 import type { Dictionary } from '@/i18n/get-dictionary';
 import type { Locale } from '@/i18n/config';
 import { localePath } from '@/i18n/path';
-import { Heading } from '@/components/ui/Heading';
 
 export function ProjectsEmptyState({
   locale,
@@ -14,33 +14,50 @@ export function ProjectsEmptyState({
 }) {
   const copy = dictionary.phase5.projects;
   const links = [
-    { href: routes.services.path, label: copy.linkServices },
-    { href: routes.estimateRequest.path, label: copy.linkEstimate },
-    { href: routes.contact.path, label: copy.linkContact },
-    { href: routes.resources.path, label: copy.linkResources },
+    {
+      href: routes.services.path,
+      label: copy.linkServices,
+      variant: 'secondary' as const,
+    },
+    {
+      href: routes.estimateRequest.path,
+      label: copy.linkEstimate,
+      variant: 'primary' as const,
+    },
+    {
+      href: routes.contact.path,
+      label: copy.linkContact,
+      variant: 'secondary' as const,
+    },
+    {
+      href: routes.resources.path,
+      label: copy.linkResources,
+      variant: 'ghost' as const,
+    },
   ] as const;
 
   return (
     <div
-      className="border-navy-700 bg-navy-950/50 max-w-3xl rounded-2xl border p-6 sm:p-8"
+      className="border-border/80 bg-bg-secondary/40 max-w-3xl rounded-[var(--radius-card)] border p-6 sm:p-8"
       data-testid="projects-empty"
     >
       <Heading as="h2" id="projects-empty-heading">
         {copy.emptyTitle}
       </Heading>
-      <p className="text-silver-400 mt-3 text-pretty">{copy.emptyBody}</p>
-      <p className="mt-6 text-sm font-medium text-white">
+      <p className="text-text-secondary mt-3 text-pretty">{copy.emptyBody}</p>
+      <p className="text-text-primary mt-6 text-sm font-medium">
         {copy.emptyLinksHeading}
       </p>
-      <ul className="mt-3 flex flex-wrap gap-3">
+      <ul className="mt-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
         {links.map((link) => (
           <li key={link.href}>
-            <Link
+            <ButtonLink
               href={localePath(locale, link.href)}
-              className="border-navy-600 text-silver-200 hover:border-electric-500 hover:text-electric-400 focus-visible:ring-electric-500 inline-flex rounded-full border px-4 py-2 text-sm focus-visible:ring-2 focus-visible:outline-none"
+              variant={link.variant}
+              size="sm"
             >
               {link.label}
-            </Link>
+            </ButtonLink>
           </li>
         ))}
       </ul>

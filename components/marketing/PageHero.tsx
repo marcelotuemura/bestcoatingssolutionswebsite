@@ -36,18 +36,20 @@ export function PageHero({
           <Reveal>
             {badge ? <div className="mb-4">{badge}</div> : null}
             {eyebrow ? (
-              <p className="text-electric-400 mb-3 text-sm tracking-wide uppercase">
+              <p className="text-accent mb-3 text-sm tracking-[0.16em] uppercase">
                 {eyebrow}
               </p>
             ) : null}
             <Heading as="h1" id="page-hero-heading">
               {title}
             </Heading>
-            <p className="text-silver-300 mt-5 text-lg text-pretty">{lead}</p>
+            <p className="text-text-secondary mt-5 text-lg text-pretty">
+              {lead}
+            </p>
             {children ? <div className="mt-8">{children}</div> : null}
           </Reveal>
           {imageSrc ? (
-            <Reveal className="border-navy-700 bg-navy-950 relative aspect-[16/10] overflow-hidden rounded-2xl border">
+            <Reveal className="border-border bg-bg-secondary relative aspect-[16/10] overflow-hidden rounded-[var(--radius-media)] border">
               <Image
                 src={imageSrc}
                 alt={imageLabel ?? ''}
@@ -58,7 +60,7 @@ export function PageHero({
                 priority
               />
               {imageLabel ? (
-                <p className="bg-navy-950/80 text-silver-500 absolute right-3 bottom-3 rounded-lg px-2 py-1 text-xs">
+                <p className="bg-bg-primary/80 text-text-muted absolute right-3 bottom-3 rounded-[var(--radius-control)] px-2 py-1 text-xs">
                   {imageLabel}
                 </p>
               ) : null}

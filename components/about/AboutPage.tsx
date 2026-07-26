@@ -220,7 +220,7 @@ export function AboutPage({
       >
         <Container>
           <h2 id="employer-disclaimer-heading" className="sr-only">
-            Disclaimer
+            {content.disclaimerHeading}
           </h2>
           <p
             className="text-text-muted max-w-3xl text-sm text-pretty italic"

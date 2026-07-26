@@ -376,7 +376,7 @@ export const es = {
     },
     process: {
       title: 'Qué puede esperar',
-      body: 'Los dueños de embarcaciones a menudo se preguntan cómo es trabajar con un taller de reparación. Este es el camino sencillo que seguimos.',
+      body: 'Los dueños de embarcaciones a menudo se preguntan cómo es trabajar con un artesano de la refinación. Este es el camino sencillo que seguimos.',
       steps: [
         {
           title: 'Contáctenos',

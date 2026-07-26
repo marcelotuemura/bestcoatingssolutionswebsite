@@ -14,7 +14,8 @@
 | 5D | [PHASE5D_PREMIUM_HOMEPAGE.md](./PHASE5D_PREMIUM_HOMEPAGE.md) | Approved |
 | 5E | [PHASE5E_MARINE_DIVISION.md](./PHASE5E_MARINE_DIVISION.md) | Approved |
 | 5F | [PHASE5F_AVIATION_DIVISION.md](./PHASE5F_AVIATION_DIVISION.md) | Approved |
-| 5G | [PHASE5G_ABOUT_MEET_MARCELO.md](./PHASE5G_ABOUT_MEET_MARCELO.md) | In review |
+| 5G | [PHASE5G_ABOUT_MEET_MARCELO.md](./PHASE5G_ABOUT_MEET_MARCELO.md) | Approved |
+| 5G.5 | [PHASE5G5_BRAND_CONSISTENCY_AUDIT.md](./PHASE5G5_BRAND_CONSISTENCY_AUDIT.md) | In review |
 | — | [WORKING_PROMPT_ADDENDUM.md](./WORKING_PROMPT_ADDENDUM.md) | Living |
 
-**Next gate:** Approve Phase 5G before Phase 5G.5 Brand Consistency Audit.
+**Next gate:** Approve Phase 5G.5 before Brand Standards Guide / next feature work.
