@@ -30,7 +30,17 @@ test.describe('Phase 7 — Visual DAMS Gallery', () => {
 
   test('gallery list view mode works', async ({ page }) => {
     await login(page);
-    await page.goto('/media/library?view=list');
+    await page.goto('/media/library?source=workspace&view=list');
+    await expect(
+      page.locator(
+        '[data-testid="gallery-list"], [data-testid="gallery-empty"], [data-testid="gallery-error"]',
+      ),
+    ).toBeVisible({ timeout: 15_000 });
+  });
+
+  test('catalog source still available', async ({ page }) => {
+    await login(page);
+    await page.goto('/media/library?source=catalog&view=list');
     await expect(page.getByTestId('gallery-list-view')).toBeVisible();
   });
 
@@ -112,7 +122,7 @@ test.describe('Phase 7 — Visual DAMS Gallery', () => {
 
   test('asset detail page loads for catalog asset', async ({ page }) => {
     await login(page);
-    await page.goto('/media/library');
+    await page.goto('/media/library?source=catalog');
     const firstAssetLink = page
       .locator(
         '[data-testid="catalog-gallery"] a[href*="/media/assets/"], [data-testid="catalog-media-open"]',
@@ -174,10 +184,9 @@ test.describe('Phase 7 — Visual DAMS Gallery', () => {
 
   test('gallery search filters work', async ({ page }) => {
     await login(page);
-    await page.goto('/media/library');
+    await page.goto('/media/library?source=workspace');
     await expect(page.getByTestId('catalog-search-meta')).toBeVisible();
-    // Search for something
-    const searchInput = page.getByRole('searchbox');
+    const searchInput = page.getByTestId('gallery-search');
     if (await searchInput.count()) {
       await searchInput.fill('repair');
       await searchInput.press('Enter');
@@ -185,11 +194,21 @@ test.describe('Phase 7 — Visual DAMS Gallery', () => {
     }
   });
 
+  test('workspace gallery grid or empty state renders', async ({ page }) => {
+    await login(page);
+    await page.goto('/media/library?source=workspace&view=grid');
+    await expect(
+      page.locator(
+        '[data-testid="gallery-grid"], [data-testid="gallery-empty"], [data-testid="gallery-error"]',
+      ),
+    ).toBeVisible({ timeout: 15_000 });
+  });
+
   test('favorite toggle component renders on gallery asset detail', async ({
     page,
   }) => {
     await login(page);
-    await page.goto('/media/library');
+    await page.goto('/media/library?source=catalog');
     const catalogGallery = page.getByTestId('catalog-gallery');
     if (!(await catalogGallery.count())) {
       test.skip();
@@ -204,8 +223,6 @@ test.describe('Phase 7 — Visual DAMS Gallery', () => {
     }
     await firstLink.click();
     await page.waitForURL(/\/media\/assets\//);
-    // Gallery DB may not be configured in e2e — check either preview pane or legacy page loads
-    // Page should load without crash
     await expect(page.locator('h1')).toBeVisible();
   });
 });

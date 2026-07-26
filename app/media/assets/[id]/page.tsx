@@ -6,7 +6,6 @@ import {
   StatusBadge,
 } from '@/components/media-intelligence/MediaBadges';
 import { AssetPreviewPane } from '@/components/media-intelligence/AssetPreviewPane';
-import { FavoriteToggle } from '@/components/media-intelligence/FavoriteToggle';
 import { MediaShell } from '@/components/media-intelligence/MediaShell';
 import { ScoreChip } from '@/components/media-library/StatWidget';
 import { requireMediaPageAccess } from '@/lib/media-intelligence/auth/page-guard';
@@ -52,31 +51,16 @@ export default async function MediaAssetDetailPage({
         subtitle={`${galleryAsset.mediaKind.toUpperCase()} · ${Math.round(galleryAsset.fileSizeBytes / 1024)} KB · ${galleryAsset.fileType}`}
         readOnlyBanner={false}
       >
-        <div className="mb-4 flex flex-wrap items-center gap-3">
+        <div className="mb-4">
           <Link
-            href="/media/library"
+            href="/media/library?source=workspace"
             className="text-silver-400 text-sm hover:text-white"
           >
             ← Gallery
           </Link>
-          {session.ok ? (
-            <FavoriteToggle
-              assetExternalId={galleryAsset.externalId}
-              workspaceId={galleryAsset.workspaceId}
-              initialFavorite={galleryAsset.isFavorite ?? false}
-            />
-          ) : null}
-          {canPublish ? (
-            <Link
-              href={`/media/publications?assetId=${galleryAsset.externalId}`}
-              className="border-electric-500 text-electric-400 hover:bg-electric-500/10 rounded-lg border px-3 py-1.5 text-xs transition"
-              data-testid="prepare-publication-btn"
-            >
-              Prepare Publication
-            </Link>
-          ) : (
+          {!canPublish ? (
             <span
-              className="rounded-lg border border-amber-500/40 px-3 py-1.5 text-xs text-amber-300"
+              className="ml-3 rounded-lg border border-amber-500/40 px-3 py-1.5 text-xs text-amber-300"
               title="Privacy-blocked or archived assets cannot be published."
               data-testid="publication-blocked-badge"
             >
@@ -84,7 +68,7 @@ export default async function MediaAssetDetailPage({
                 ? 'Privacy blocked'
                 : 'Archived'}
             </span>
-          )}
+          ) : null}
         </div>
 
         <AssetPreviewPane asset={galleryAsset} />

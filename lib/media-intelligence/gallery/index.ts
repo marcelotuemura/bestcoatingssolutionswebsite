@@ -3,6 +3,7 @@ export * from '@/lib/media-intelligence/gallery/permissions';
 export * from '@/lib/media-intelligence/gallery/validation';
 export * from '@/lib/media-intelligence/gallery/rpc-catalog';
 export * from '@/lib/media-intelligence/gallery/runtime';
+export { resolveGalleryPrivateObject } from '@/lib/media-intelligence/gallery/private-delivery';
 export {
   uploadGalleryAsset,
   type GalleryUploadInput,
