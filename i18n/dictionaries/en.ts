@@ -157,27 +157,57 @@ export const en = {
     aviation: {
       metaTitle: 'Aviation Refinishing | Best Coatings Solutions',
       metaDescription:
-        'Aviation cosmetic refinishing and exterior finish work from Best Coatings Solutions — preparation, color matching, and carefully scoped surface restoration in South Florida.',
+        'Aviation exterior cosmetic refinishing, paint restoration, composite surface restoration, and finish correction — carefully scoped in South Florida.',
       eyebrow: 'Aviation division',
       title: 'Aviation Refinishing',
-      lead: 'Aviation is part of who we are. We approach select aircraft cosmetic refinishing and exterior surface work with the same preparation discipline used on marine projects.',
+      lead: 'The same preparation discipline as Marine — expressed through precision surfaces, composite materials, and carefully controlled exterior finish work.',
       overviewTitle: 'A specialized division',
       overview:
-        'Best Coatings Solutions is one company with two divisions. Marine is our primary commercial focus. Aviation is a specialized refinishing division for carefully scoped cosmetic and exterior finish work — not mechanical maintenance.',
+        'Best Coatings Solutions is one company with two divisions. Marine is our primary commercial focus. Aviation is a specialized refinishing division for carefully scoped exterior cosmetic and finish work — not mechanical systems work.',
+      atmosphere:
+        'The aviation atmosphere is precision, metallic reflection, composite skin, clean geometry, and controlled light — shown through authentic photography as it becomes available.',
+      processEyebrow: 'Show the process',
+      processTitle: 'How an aviation refinishing project moves',
+      processLead:
+        'Exterior cosmetic work follows a disciplined sequence. We stay within finish and surface restoration — and we explain limits clearly before work begins.',
+      processSteps: [
+        {
+          title: 'Assessment',
+          body: 'We review the exterior condition, photos, and goals to determine whether the work fits cosmetic refinishing scope.',
+        },
+        {
+          title: 'Surface preparation',
+          body: 'Surfaces are cleaned, masked, and prepared so refinishing stays precise and the surrounding finish stays protected.',
+        },
+        {
+          title: 'Composite refinement',
+          body: 'Where applicable, composite exterior surfaces are refined carefully before paint or finish restoration continues.',
+        },
+        {
+          title: 'Paint restoration',
+          body: 'Exterior paint restoration and finish correction proceed with attention to color, gloss, and clean transitions.',
+        },
+        {
+          title: 'Finish inspection',
+          body: 'We inspect the completed exterior finish and review the result with you before the project closes.',
+        },
+      ],
       capabilitiesTitle: 'Capabilities we discuss',
+      capabilitiesLead:
+        'These are exterior cosmetic refinishing topics — not a menu of regulated maintenance services.',
       capabilities: [
-        'Aircraft cosmetic refinishing',
-        'Exterior paint restoration',
-        'Composite surface refinishing',
-        'Paint correction',
-        'Color matching',
+        'Exterior cosmetic refinishing',
+        'Paint restoration',
+        'Composite surface restoration',
         'Surface preparation',
+        'Color matching',
+        'Finish correction',
         'Finish restoration',
         'Cosmetic exterior repairs',
       ],
       qualityTitle: 'How we work',
       quality:
-        'We inspect the surface, prepare carefully, and match the surrounding finish before the final polish. We explain what a cosmetic repair can and cannot do — without promising regulated maintenance outcomes.',
+        'We assess the surface, prepare carefully, and match the surrounding finish before the final review. We explain what cosmetic refinishing can and cannot do — without implying regulated maintenance outcomes.',
       scopeTitle: 'Important scope',
       scope:
         'This division covers cosmetic refinishing and exterior surface work. It is not an FAA repair station offering, and it does not include structural airframe work, mechanical maintenance, engines, avionics, or flight-critical repairs.',

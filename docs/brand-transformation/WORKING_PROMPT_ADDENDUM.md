@@ -8,11 +8,9 @@ Living constraints for Codex/Cursor. Update at each phase gate.
 
 | Phase | Status |
 |-------|--------|
-| 1–4 | **Approved · on main** |
-| 5A–5D | **Approved · on main** |
-| 5E — Marine division | **In review / awaiting approval** |
-| 5F — Aviation division | Wait for Phase 5E approval |
-| 5G+ | After 5F |
+| 1–5E | **Approved · on main** |
+| 5F — Aviation division | **In review / awaiting approval** |
+| 5G — About (craftsman culmination) | Wait for Phase 5F approval |
 
 ---
 
@@ -33,17 +31,18 @@ Living constraints for Codex/Cursor. Update at each phase gate.
 
 ## Locked decisions
 
-- Type: **Newsreader** (selective display) + **Manrope** (UI/body).  
+- Type: **Newsreader** + **Manrope**.  
 - Nav: **Home · About · Marine · Aviation · Projects · Contact**.  
-- No header tagline. Quiet sticky header.  
-- Aviation: cosmetic refinishing only; Contact for inquiries; no FAA/mechanical language.  
+- Quiet sticky header; no tagline.  
+- Shared division primitives: `DivisionHero`, `DivisionProcess`.  
+- Marine process: Inspection → Preparation → Repair → Surface finishing → Color matching → Final inspection.  
+- Aviation process: Assessment → Surface preparation → Composite refinement → Paint restoration → Finish inspection.  
+- Aviation: cosmetic refinishing only; Contact inquiries; no FAA/structural/mechanical language.  
 - Logo roles: compact header · full mark in hero/footer/brand presentations.  
-- Marine language: restoration, refinishing, cosmetic repair, surface quality, color matching.  
-- Aviation language: exterior cosmetic refinishing, composite surface restoration, paint restoration, finish correction — not maintenance.  
-- Division pages include **Show the Process**.
+- About (5G): company-centered craftsman story — not a résumé dump.
 
 ---
 
 ## Stop point
 
-Approve Phase 5E before Phase 5F Aviation division.
+Approve Phase 5F before Phase 5G About.

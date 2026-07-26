@@ -1,6 +1,6 @@
 # Phase 5E — Marine Division
 
-**Status:** Awaiting owner approval  
+**Status:** Approved · merged to `main`  
 **Branch:** `cursor/phase-5e-marine-division-5ec4`  
 **Base:** `main` (Phase 5D merged)  
 **Date:** 2026-07-26

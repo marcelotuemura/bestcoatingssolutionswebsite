@@ -53,7 +53,18 @@ test.describe('Phase 3 — Marine, Aviation, Services, Projects', () => {
       page.getByRole('heading', { level: 1, name: /Aviation Refinishing/i }),
     ).toBeVisible();
     await expect(page.getByTestId('aviation-coming-soon')).toHaveCount(0);
+    await expect(page.getByTestId('division-hero')).toHaveAttribute(
+      'data-atmosphere',
+      'aviation',
+    );
     await expect(page.getByTestId('aviation-scope-note')).toBeVisible();
+    await expect(page.getByTestId('division-process')).toBeVisible();
+    await expect(
+      page.getByRole('heading', {
+        name: /How an aviation refinishing project moves/i,
+        level: 2,
+      }),
+    ).toBeVisible();
     await expect(
       page.getByRole('heading', { name: 'Capabilities we discuss', level: 2 }),
     ).toBeVisible();
@@ -138,6 +149,7 @@ test.describe('Phase 3 — Marine, Aviation, Services, Projects', () => {
     await page.goto('/es/aviation');
     await expect(page.getByTestId('aviation-coming-soon')).toHaveCount(0);
     await expect(page.getByTestId('aviation-scope-note')).toBeVisible();
+    await expect(page.getByTestId('division-process')).toBeVisible();
     await expect(
       page.getByRole('heading', { level: 1, name: /aviación/i }),
     ).toBeVisible();

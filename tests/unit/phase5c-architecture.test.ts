@@ -29,8 +29,9 @@ describe('phase 5c header and division architecture', () => {
     expect(divisions.aviation.status).toBe('active');
     const en = getDictionarySync('en');
     expect(en.pages.aviation.metaTitle).not.toMatch(/Coming Soon/i);
-    expect(en.pages.aviation.lead).toMatch(/part of who we are/i);
+    expect(en.pages.aviation.lead).toMatch(/preparation discipline|precision/i);
     expect(en.pages.aviation.capabilities).toHaveLength(8);
+    expect(en.pages.aviation.processSteps).toHaveLength(5);
     expect(en.footer.brandBlurb).toMatch(/Marine and Aviation/i);
   });
 

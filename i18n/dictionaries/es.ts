@@ -160,27 +160,57 @@ export const es = {
     aviation: {
       metaTitle: 'Refinación de aviación | Best Coatings Solutions',
       metaDescription:
-        'Refinación cosmética de aviación y trabajo de acabado exterior de Best Coatings Solutions — preparación, igualación de color y restauración superficial con alcance cuidadoso en el Sur de Florida.',
+        'Refinación cosmética exterior de aviación, restauración de pintura, superficies compuestas y corrección de acabado — con alcance cuidadoso en el Sur de Florida.',
       eyebrow: 'División de aviación',
       title: 'Refinación de aviación',
-      lead: 'La aviación es parte de lo que somos. Abordamos trabajo selecto de refinación cosmética de aeronaves y superficies exteriores con la misma disciplina de preparación que usamos en proyectos marinos.',
+      lead: 'La misma disciplina de preparación que en Marina — expresada en superficies de precisión, materiales compuestos y trabajo de acabado exterior cuidadosamente controlado.',
       overviewTitle: 'Una división especializada',
       overview:
-        'Best Coatings Solutions es una empresa con dos divisiones. Marina es el enfoque comercial principal. Aviación es una división especializada de refinación para trabajo cosmético y de acabado exterior con alcance cuidadoso — no mantenimiento mecánico.',
+        'Best Coatings Solutions es una empresa con dos divisiones. Marina es el enfoque comercial principal. Aviación es una división especializada de refinación para trabajo cosmético y de acabado exterior con alcance cuidadoso — no trabajo de sistemas mecánicos.',
+      atmosphere:
+        'La atmósfera de aviación es precisión, reflejo metálico, piel de compuesto, geometría limpia y luz controlada — mostrada con fotografía auténtica cuando esté disponible.',
+      processEyebrow: 'Mostrar el proceso',
+      processTitle: 'Cómo avanza un proyecto de refinación de aviación',
+      processLead:
+        'El trabajo cosmético exterior sigue una secuencia disciplinada. Nos mantenemos en restauración de acabado y superficie — y explicamos los límites con claridad antes de comenzar.',
+      processSteps: [
+        {
+          title: 'Evaluación',
+          body: 'Revisamos la condición exterior, las fotos y los objetivos para determinar si el trabajo encaja en el alcance de refinación cosmética.',
+        },
+        {
+          title: 'Preparación de superficie',
+          body: 'Las superficies se limpian, enmascaran y preparan para que la refinación sea precisa y el acabado alrededor quede protegido.',
+        },
+        {
+          title: 'Refinamiento de compuestos',
+          body: 'Cuando aplica, las superficies exteriores de compuesto se refinan con cuidado antes de continuar con pintura o restauración de acabado.',
+        },
+        {
+          title: 'Restauración de pintura',
+          body: 'La restauración de pintura exterior y la corrección de acabado avanzan con atención al color, el brillo y las transiciones limpias.',
+        },
+        {
+          title: 'Inspección de acabado',
+          body: 'Inspeccionamos el acabado exterior completado y revisamos el resultado con usted antes de cerrar el proyecto.',
+        },
+      ],
       capabilitiesTitle: 'Capacidades que comentamos',
+      capabilitiesLead:
+        'Estos son temas de refinación cosmética exterior — no un menú de servicios de mantenimiento regulado.',
       capabilities: [
-        'Refinación cosmética de aeronaves',
-        'Restauración de pintura exterior',
-        'Refinación de superficies compuestas',
-        'Corrección de pintura',
-        'Igualación de color',
+        'Refinación cosmética exterior',
+        'Restauración de pintura',
+        'Restauración de superficies compuestas',
         'Preparación de superficie',
+        'Igualación de color',
+        'Corrección de acabado',
         'Restauración de acabado',
         'Reparaciones cosméticas exteriores',
       ],
       qualityTitle: 'Cómo trabajamos',
       quality:
-        'Inspeccionamos la superficie, preparamos con cuidado e igualamos el acabado alrededor antes del pulido final. Explicamos lo que una reparación cosmética puede y no puede hacer — sin prometer resultados de mantenimiento regulado.',
+        'Evaluamos la superficie, preparamos con cuidado e igualamos el acabado alrededor antes de la revisión final. Explicamos lo que la refinación cosmética puede y no puede hacer — sin implicar resultados de mantenimiento regulado.',
       scopeTitle: 'Alcance importante',
       scope:
         'Esta división cubre refinación cosmética y trabajo de superficie exterior. No es una oferta de estación de reparación FAA y no incluye trabajo estructural de fuselaje, mantenimiento mecánico, motores, aviónica ni reparaciones críticas para el vuelo.',
