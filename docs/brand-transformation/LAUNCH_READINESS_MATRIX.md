@@ -17,7 +17,7 @@ Status legend: ✅ Ready · ⏳ Pending · 🔶 Partial · 🚫 Blocker · ➖ N
 |------|--------|-------|
 | Official logo (SVG/PNG/WebP) | 🚫 Blocker | Drop `public/brand/bcs-logo-official.{svg\|webp\|png}`; architecture already switches via `config/brand-logo.ts` |
 | Interim logo treatment | 🔶 Partial | Text wordmark header + temporary SVG for evaluation only — never present as official |
-| Real Marine hero photography | 🚫 Blocker | Replace `marketingPlaceholders.marineHero` silhouette |
+| Real Marine hero photography | ✅ Ready | Authentic BCS photos in `public/images/marine` wired on Marine division page |
 | Aviation hero photography | 🚫 Blocker | Replace `marketingPlaceholders.aviationHero` silhouette |
 | Marcelo portrait / workshop photo | 🚫 Blocker | About + homepage Meet Marcelo slots |
 | Project / process photography | ⏳ Pending | DAM intake; honest empty Projects until approved |

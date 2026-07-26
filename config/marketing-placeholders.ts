@@ -4,9 +4,9 @@
  */
 export const marketingPlaceholders = {
   marineHero: {
-    src: '/brand/marine-silhouette.svg',
-    temporary: true as const,
-    note: 'Decorative silhouette — not BCS project photography.',
+    src: '/images/marine/hero-completed-hull.webp',
+    temporary: false as const,
+    note: 'Authentic BCS marine project photography — see config/marine-photography.ts.',
   },
   aviationHero: {
     src: '/brand/aviation-silhouette.svg',

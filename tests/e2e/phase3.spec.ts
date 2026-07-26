@@ -42,7 +42,14 @@ test.describe('Phase 3 — Marine, Aviation, Services, Projects', () => {
     await expect(
       page.getByRole('link', { name: 'Request an Estimate' }).first(),
     ).toBeVisible();
-    await expect(page.getByText(/Placeholder Image/i).first()).toBeVisible();
+    await expect(page.getByTestId('division-hero')).toHaveAttribute(
+      'data-hero-authentic',
+      'true',
+    );
+    await expect(page.getByTestId('marine-work-gallery')).toBeVisible();
+    await expect(
+      page.getByText(/Placeholder Image — not a BCS project photo/i),
+    ).toHaveCount(0);
   });
 
   test('Aviation division is visible and carefully scoped', async ({
