@@ -88,6 +88,10 @@ const migrations = [
   'supabase/migrations/20260725210001_media_phase6_publications_rls.sql',
   'supabase/migrations/20260725220000_media_phase6_publication_authority.sql',
   'supabase/migrations/20260725220001_media_phase6_publication_rpcs.sql',
+  'supabase/migrations/20260726010000_media_phase7_corpora_schema.sql',
+  'supabase/migrations/20260726010001_media_phase7_corpora_rls.sql',
+  'supabase/migrations/20260726010002_media_phase7_corpora_authority.sql',
+  'supabase/migrations/20260726010003_media_phase7_corpora_rpcs.sql',
 ];
 
 run('sudo', ['-u', 'postgres', 'psql', '-c', `drop database if exists ${DB}`]);
@@ -115,6 +119,22 @@ grant select on public.media_publication_jobs to authenticated;
 grant select on public.media_publication_drafts to authenticated;
 grant select on public.media_publication_events to authenticated;
 grant select on public.media_publication_approvals to authenticated;
+revoke insert, update, delete on public.media_corpora from anon, authenticated;
+revoke insert, update, delete on public.media_corpus_versions from anon, authenticated;
+revoke insert, update, delete on public.media_corpus_items from anon, authenticated;
+revoke insert, update, delete on public.media_corpus_item_labels from anon, authenticated;
+revoke insert, update, delete on public.media_corpus_reviews from anon, authenticated;
+revoke insert, update, delete on public.media_corpus_events from anon, authenticated;
+revoke insert, update, delete on public.media_corpus_exports from anon, authenticated;
+revoke insert, update, delete on public.media_workspace_members from anon, authenticated;
+grant select on public.media_corpora to authenticated;
+grant select on public.media_corpus_versions to authenticated;
+grant select on public.media_corpus_items to authenticated;
+grant select on public.media_corpus_item_labels to authenticated;
+grant select on public.media_corpus_reviews to authenticated;
+grant select on public.media_corpus_events to authenticated;
+grant select on public.media_corpus_exports to authenticated;
+grant select on public.media_workspace_members to authenticated;
 `);
 
 psql(`

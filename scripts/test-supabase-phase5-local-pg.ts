@@ -150,6 +150,10 @@ alter table storage.objects enable row level security;
     'supabase/migrations/20260725210001_media_phase6_publications_rls.sql',
     'supabase/migrations/20260725220000_media_phase6_publication_authority.sql',
     'supabase/migrations/20260725220001_media_phase6_publication_rpcs.sql',
+    'supabase/migrations/20260726010000_media_phase7_corpora_schema.sql',
+    'supabase/migrations/20260726010001_media_phase7_corpora_rls.sql',
+    'supabase/migrations/20260726010002_media_phase7_corpora_authority.sql',
+    'supabase/migrations/20260726010003_media_phase7_corpora_rpcs.sql',
   ];
 
   for (const rel of migrations) {
@@ -203,11 +207,37 @@ alter table public.media_publication_jobs force row level security;
 alter table public.media_publication_drafts force row level security;
 alter table public.media_publication_events force row level security;
 alter table public.media_publication_approvals force row level security;
+-- Re-assert Phase 7 privilege posture after broad grants above.
+revoke insert, update, delete on public.media_corpora from public, anon, authenticated;
+revoke insert, update, delete on public.media_corpus_versions from public, anon, authenticated;
+revoke insert, update, delete on public.media_corpus_items from public, anon, authenticated;
+revoke insert, update, delete on public.media_corpus_item_labels from public, anon, authenticated;
+revoke insert, update, delete on public.media_corpus_reviews from public, anon, authenticated;
+revoke insert, update, delete on public.media_corpus_events from public, anon, authenticated;
+revoke insert, update, delete on public.media_corpus_exports from public, anon, authenticated;
+revoke insert, update, delete on public.media_workspace_members from public, anon, authenticated;
+grant select on public.media_corpora to authenticated;
+grant select on public.media_corpus_versions to authenticated;
+grant select on public.media_corpus_items to authenticated;
+grant select on public.media_corpus_item_labels to authenticated;
+grant select on public.media_corpus_reviews to authenticated;
+grant select on public.media_corpus_events to authenticated;
+grant select on public.media_corpus_exports to authenticated;
+grant select on public.media_workspace_members to authenticated;
+alter table public.media_corpora force row level security;
+alter table public.media_corpus_versions force row level security;
+alter table public.media_corpus_items force row level security;
+alter table public.media_corpus_item_labels force row level security;
+alter table public.media_corpus_reviews force row level security;
+alter table public.media_corpus_events force row level security;
+alter table public.media_corpus_exports force row level security;
+alter table public.media_workspace_members force row level security;
 `);
 
   const testFiles = [
     path.join(ROOT, 'supabase/tests/phase5_rbac_local.sql'),
     path.join(ROOT, 'supabase/tests/phase6_publications_rls_local.sql'),
+    path.join(ROOT, 'supabase/tests/phase7_corpora_rls_local.sql'),
   ];
   const passes: string[] = [];
   for (const testFile of testFiles) {

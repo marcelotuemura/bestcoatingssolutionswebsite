@@ -39,6 +39,7 @@ export default defineConfig({
       MEDIA_INTELLIGENCE_LOCAL_BYPASS: 'false',
       MEDIA_LOGIN_RATE_LIMIT_MAX: '500',
       MEDIA_PUBLICATION_REPOSITORY: 'postgres',
+      MEDIA_CORPUS_REPOSITORY: 'postgres',
     },
   },
 });

@@ -1,8 +1,6 @@
 {
-  "status": "pending_hosted_rerun",
+  "status": "skipped",
+  "reason": "SKIP: Set MEDIA_SUPABASE_PHASE5_LIVE=1 to run live Supabase tests.",
   "liveIntegrationClaimed": false,
-  "projectRefExpected": "ybzeuxvzpbguszqxrtur",
-  "reason": "Corrective migration 20260725193000 prepared and verified locally. Hosted re-run requires applying that migration to staging and supplying non-production Supabase credentials (not available in this agent environment).",
-  "localPostgresRbac": "passed",
-  "generatedAt": "2026-07-25T19:53:00.000Z"
+  "generatedAt": "2026-07-26T02:14:02.260Z"
 }
