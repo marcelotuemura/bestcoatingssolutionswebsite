@@ -27,7 +27,8 @@ import {
 import type { MediaTrustedActor } from '@/lib/media-intelligence/auth/session';
 
 const LOCAL_BUCKET = 'local-vault';
-const GALLERY_BUCKET = 'gallery';
+const DURABLE_ORIGINAL_BUCKET = 'media-originals';
+const DURABLE_THUMB_BUCKET = 'media-thumbnails';
 const SIGNED_URL_TTL_SECONDS = 60;
 
 type AssetStorageRow = {
@@ -233,10 +234,7 @@ export async function resolveGalleryPrivateObject(
       );
     }
 
-    if (
-      asset.storage_bucket === LOCAL_BUCKET ||
-      asset.storage_bucket === GALLERY_BUCKET
-    ) {
+    if (asset.storage_bucket === LOCAL_BUCKET) {
       const local = await resolveLocalGalleryPath(asset.storage_object_key);
       if (local) {
         return {
@@ -248,7 +246,10 @@ export async function resolveGalleryPrivateObject(
       }
     }
 
-    if (asset.storage_bucket !== LOCAL_BUCKET) {
+    if (
+      asset.storage_bucket === DURABLE_ORIGINAL_BUCKET ||
+      asset.storage_bucket === DURABLE_THUMB_BUCKET
+    ) {
       const signedUrl = await createEphemeralSignedUrl(
         asset.storage_bucket,
         asset.storage_object_key,
@@ -273,10 +274,7 @@ export async function resolveGalleryPrivateObject(
 
   const deriv = await loadDerivativeRow(actor, asset.id, kind, size);
   if (deriv) {
-    if (
-      deriv.storage_bucket === LOCAL_BUCKET ||
-      deriv.storage_bucket === GALLERY_BUCKET
-    ) {
+    if (deriv.storage_bucket === LOCAL_BUCKET) {
       const local = await resolveLocalGalleryPath(deriv.object_key);
       if (local) {
         return {
@@ -289,7 +287,10 @@ export async function resolveGalleryPrivateObject(
       }
     }
 
-    if (deriv.storage_bucket !== LOCAL_BUCKET) {
+    if (
+      deriv.storage_bucket === DURABLE_ORIGINAL_BUCKET ||
+      deriv.storage_bucket === DURABLE_THUMB_BUCKET
+    ) {
       const signedUrl = await createEphemeralSignedUrl(
         deriv.storage_bucket,
         deriv.object_key,

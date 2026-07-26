@@ -1,9 +1,9 @@
 {
   "kind": "local_postgres_rbac",
   "liveSupabaseClaimed": false,
-  "database": "media_phase5_98ede6",
-  "startedAt": "2026-07-26T03:27:26.087Z",
-  "finishedAt": "2026-07-26T03:27:26.933Z",
+  "database": "media_phase5_bb65f6",
+  "startedAt": "2026-07-26T11:18:56.518Z",
+  "finishedAt": "2026-07-26T11:18:57.494Z",
   "migrationsApplied": [
     "supabase/migrations/20260724190000_media_phase5_schema.sql",
     "supabase/migrations/20260724190001_media_phase5_rls.sql",
@@ -18,7 +18,8 @@
     "supabase/migrations/20260726020001_media_phase7_gallery_rls.sql",
     "supabase/migrations/20260726020002_media_phase7_gallery_authority.sql",
     "supabase/migrations/20260726020003_media_phase7_gallery_rpcs.sql",
-    "supabase/migrations/20260726020004_media_phase7_gallery_corrections.sql"
+    "supabase/migrations/20260726020004_media_phase7_gallery_corrections.sql",
+    "supabase/migrations/20260726120000_media_phase7_gallery_durable_storage.sql"
   ],
   "passes": [
     "anon_no_assets",
@@ -54,6 +55,9 @@
     "phase7_owner_archive_assets",
     "phase7_gallery_append_event_exists",
     "phase7_membership_readable",
+    "phase7_find_asset_by_checksum",
+    "phase7_register_rejects_unknown_bucket",
+    "phase7_register_requires_workspace_scoped_key",
     "all_phase7_gallery_rls_assertions"
   ],
   "ok": true,

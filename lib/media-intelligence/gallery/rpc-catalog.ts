@@ -1,6 +1,7 @@
 /** Phase 7 gallery SECURITY DEFINER RPC catalog. */
 export const PHASE7_GALLERY_RPC_CATALOG = [
   'media_gallery_ensure_own_membership',
+  'media_gallery_find_asset_by_checksum',
   'media_gallery_register_asset',
   'media_gallery_register_derivative',
   'media_gallery_update_metadata',

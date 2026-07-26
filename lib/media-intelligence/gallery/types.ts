@@ -130,15 +130,22 @@ export type GalleryListResult = {
   readonly durationMs: number;
 };
 
+export type GalleryUploadOutcome =
+  'created' | 'duplicate_existing' | 'rejected' | 'failed';
+
 export type GalleryUploadResult =
   | {
       readonly ok: true;
+      readonly outcome: 'created' | 'duplicate_existing';
       readonly assetId: string;
       readonly checksum: string;
+      /** @deprecated prefer outcome === 'duplicate_existing' */
       readonly duplicate: boolean;
+      readonly processingComplete?: boolean;
     }
   | {
       readonly ok: false;
+      readonly outcome: 'rejected' | 'failed';
       readonly error: string;
       readonly status: number;
     };

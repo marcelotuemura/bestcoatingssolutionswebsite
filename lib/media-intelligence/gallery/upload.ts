@@ -1,11 +1,16 @@
 /**
- * Phase 7 — Real file upload implementation.
+ * Phase 7 — Durable gallery upload.
  *
- * Validates mime/size, computes SHA-256, writes to local vault
- * (MEDIA_VAULT_ROOT or os.tmpdir()), optionally uploads to Supabase Storage,
- * then registers via SECURITY DEFINER RPC + generates sharp thumbnails.
+ * Production/staging: private Supabase Storage is required and fatal on failure.
+ * Local vault: explicit MEDIA_GALLERY_STORAGE_MODE=local only (dev/tests).
  *
- * Never fakes success. If local write or RPC registration fails, rejects.
+ * Sequence:
+ * 1. Auth/role (caller)  2. membership  3. MIME/size  4. SHA-256
+ * 5. duplicate check     6. durable original upload  7. register RPC
+ * 8. derivatives         9. derivative metadata
+ *
+ * Never returns success when the required durable original write failed.
+ * Never returns a fabricated asset ID for duplicates.
  */
 
 import { createHash, randomUUID } from 'node:crypto';
@@ -19,38 +24,35 @@ import {
   validateGalleryFileSize,
 } from '@/lib/media-intelligence/gallery/validation';
 import {
+  dbFindGalleryAssetByChecksum,
   dbGalleryEnsureMembership,
   dbRegisterGalleryAsset,
   dbRegisterGalleryDerivative,
 } from '@/lib/media-intelligence/gallery/db-repository';
 import type { GalleryUploadResult } from '@/lib/media-intelligence/gallery/types';
+import {
+  assertGalleryStorageModeAllowed,
+  galleryStorageBucketForMode,
+  galleryThumbnailBucketForMode,
+  type GalleryStorageMode,
+} from '@/lib/media-intelligence/gallery/storage-mode';
+import {
+  buildGalleryOriginalObjectKey,
+  buildGalleryThumbnailObjectKey,
+} from '@/lib/media-intelligence/gallery/object-keys';
 import { validateSupabaseConfig } from '@/lib/media-intelligence/supabase/config';
+import { MEDIA_STORAGE_BUCKETS } from '@/lib/media-intelligence/storage/object-keys';
 
 const THUMBNAIL_SIZES = [200, 400, 800] as const;
-const GALLERY_STORAGE_BUCKET = 'gallery';
-const GALLERY_ORIGINALS_PREFIX = 'originals';
-const GALLERY_THUMBNAILS_PREFIX = 'thumbnails';
-
-// ── Helpers ───────────────────────────────────────────────────────────────────
 
 async function sha256Buffer(buf: Buffer): Promise<string> {
   return createHash('sha256').update(buf).digest('hex');
 }
 
 function galleryVaultRoot(): string {
-  const vaultRoot = resolveVaultRoot();
-  return path.join(vaultRoot, 'gallery');
+  return path.join(resolveVaultRoot(), 'gallery');
 }
 
-function galleryOriginalsDir(): string {
-  return path.join(galleryVaultRoot(), 'originals');
-}
-
-function galleryThumbnailsDir(sizePx: number): string {
-  return path.join(galleryVaultRoot(), 'thumbnails', String(sizePx));
-}
-
-/** Sanitize a filename for local filesystem storage. */
 function sanitizeFilename(name: string): string {
   return name.replace(/[^\w.\-]/g, '_').slice(0, 200);
 }
@@ -77,8 +79,6 @@ function mimeToExtension(mimeType: string): string {
   return MAP[mt] ?? (path.extname(mimeType) || '.bin');
 }
 
-// ── Image metadata ────────────────────────────────────────────────────────────
-
 async function readImageDimensions(
   buf: Buffer,
   mimeType: string,
@@ -97,162 +97,172 @@ async function readImageDimensions(
   }
 }
 
-// ── Local vault write ─────────────────────────────────────────────────────────
+type StorageClient = {
+  upload(
+    bucket: string,
+    objectKey: string,
+    buf: Buffer,
+    contentType: string,
+  ): Promise<
+    { ok: true } | { ok: false; error: string; alreadyExists?: boolean }
+  >;
+  remove(bucket: string, objectKey: string): Promise<void>;
+};
 
-async function writeToLocalVault(
-  buf: Buffer,
-  filename: string,
-  checksum: string,
-): Promise<{ localPath: string; objectKey: string }> {
-  const originalsDir = galleryOriginalsDir();
-  await fs.mkdir(originalsDir, { recursive: true });
-
-  const ext = path.extname(filename) || '.bin';
-  const baseName = `${checksum}${ext}`;
-  const objectKey = `${GALLERY_ORIGINALS_PREFIX}/${baseName}`;
-  const localPath = path.join(originalsDir, baseName);
-
-  // Write-once: skip if already exists (same checksum = same content).
-  try {
-    await fs.access(localPath);
-  } catch {
-    const tempPath = `${localPath}.tmp.${process.pid}.${Date.now()}`;
-    await fs.writeFile(tempPath, buf);
-    try {
-      await fs.rename(tempPath, localPath);
-    } catch (renameErr) {
-      await fs.unlink(tempPath).catch(() => undefined);
-      const code =
-        renameErr && typeof renameErr === 'object' && 'code' in renameErr
-          ? String((renameErr as { code?: string }).code)
-          : '';
-      if (code !== 'EEXIST') throw renameErr;
-    }
+async function createSupabaseStorageClient(): Promise<StorageClient> {
+  const validated = validateSupabaseConfig({ requireServiceRole: true });
+  if (!validated.ok || !validated.config.serviceRoleKey) {
+    throw new Error(
+      `Supabase Storage is required but not configured: ${validated.ok === false ? validated.reason : 'service role missing'}`,
+    );
   }
+  const { createClient } = await import('@supabase/supabase-js');
+  const client = createClient(
+    validated.config.url,
+    validated.config.serviceRoleKey,
+    { auth: { persistSession: false, autoRefreshToken: false } },
+  );
 
-  return { localPath, objectKey };
+  return {
+    async upload(bucket, objectKey, buf, contentType) {
+      const { error } = await client.storage
+        .from(bucket)
+        .upload(objectKey, buf, {
+          contentType,
+          upsert: false,
+        });
+      if (!error) return { ok: true };
+      const msg = error.message ?? String(error);
+      if (/already exists|Duplicate|resource already/i.test(msg)) {
+        return { ok: false, error: msg, alreadyExists: true };
+      }
+      return { ok: false, error: msg };
+    },
+    async remove(bucket, objectKey) {
+      await client.storage.from(bucket).remove([objectKey]);
+    },
+  };
 }
 
-// ── Thumbnail generation ──────────────────────────────────────────────────────
+async function writeLocalOriginal(input: {
+  workspaceId: string;
+  objectKey: string;
+  buf: Buffer;
+}): Promise<string> {
+  const absolutePath = path.join(galleryVaultRoot(), input.objectKey);
+  const root = path.resolve(galleryVaultRoot());
+  if (!path.resolve(absolutePath).startsWith(root + path.sep)) {
+    throw new Error('Local vault path escape blocked');
+  }
+  await fs.mkdir(path.dirname(absolutePath), { recursive: true });
+  try {
+    await fs.access(absolutePath);
+    return absolutePath;
+  } catch {
+    // write
+  }
+  const tempPath = `${absolutePath}.tmp.${process.pid}.${Date.now()}`;
+  await fs.writeFile(tempPath, input.buf);
+  try {
+    await fs.rename(tempPath, absolutePath);
+  } catch (err) {
+    await fs.unlink(tempPath).catch(() => undefined);
+    const code =
+      err && typeof err === 'object' && 'code' in err
+        ? String((err as { code?: string }).code)
+        : '';
+    if (code !== 'EEXIST') throw err;
+  }
+  return absolutePath;
+}
 
-async function generateThumbnails(
+async function removeLocalObject(objectKey: string): Promise<void> {
+  const absolutePath = path.join(galleryVaultRoot(), objectKey);
+  await fs.unlink(absolutePath).catch(() => undefined);
+}
+
+async function uploadOriginal(input: {
+  mode: GalleryStorageMode;
+  workspaceId: string;
+  objectKey: string;
+  buf: Buffer;
+  mimeType: string;
+  storage: StorageClient | null;
+}): Promise<{ bucket: string; objectKey: string }> {
+  const bucket = galleryStorageBucketForMode(input.mode);
+  if (input.mode === 'supabase') {
+    if (!input.storage) {
+      throw new Error('Supabase Storage client required');
+    }
+    const result = await input.storage.upload(
+      bucket,
+      input.objectKey,
+      input.buf,
+      input.mimeType,
+    );
+    if (!result.ok && !result.alreadyExists) {
+      throw new Error(`Durable storage upload failed: ${result.error}`);
+    }
+    return { bucket, objectKey: input.objectKey };
+  }
+
+  await writeLocalOriginal({
+    workspaceId: input.workspaceId,
+    objectKey: input.objectKey,
+    buf: input.buf,
+  });
+  return { bucket, objectKey: input.objectKey };
+}
+
+async function cleanupOriginal(input: {
+  mode: GalleryStorageMode;
+  bucket: string;
+  objectKey: string;
+  storage: StorageClient | null;
+}): Promise<void> {
+  try {
+    if (input.mode === 'supabase' && input.storage) {
+      await input.storage.remove(input.bucket, input.objectKey);
+      return;
+    }
+    await removeLocalObject(input.objectKey);
+  } catch {
+    // Best-effort compensation
+  }
+}
+
+async function generateThumbnailBuffers(
   buf: Buffer,
   mimeType: string,
-  checksum: string,
-): Promise<
-  Array<{
-    sizePx: number;
-    localPath: string;
-    objectKey: string;
-    bytes: number;
-    checksum: string;
-  }>
-> {
+): Promise<Array<{ sizePx: number; data: Buffer; checksum: string }>> {
   const mt = mimeType.split(';')[0]?.trim().toLowerCase() ?? '';
   if (!mt.startsWith('image/')) return [];
-
-  const results: Array<{
-    sizePx: number;
-    localPath: string;
-    objectKey: string;
-    bytes: number;
-    checksum: string;
-  }> = [];
-
+  const out: Array<{ sizePx: number; data: Buffer; checksum: string }> = [];
   for (const size of THUMBNAIL_SIZES) {
-    const thumbDir = galleryThumbnailsDir(size);
-    await fs.mkdir(thumbDir, { recursive: true });
-
-    const objectKey = `${GALLERY_THUMBNAILS_PREFIX}/${size}/${checksum}_${size}.webp`;
-    const localPath = path.join(thumbDir, `${checksum}_${size}.webp`);
-
     try {
-      await fs.access(localPath);
-      const stat = await fs.stat(localPath);
-      const thumbBuf = await fs.readFile(localPath);
-      results.push({
-        sizePx: size,
-        localPath,
-        objectKey,
-        bytes: stat.size,
-        checksum: await sha256Buffer(thumbBuf),
-      });
-      continue;
-    } catch {
-      // Generate
-    }
-
-    const tempPath = `${localPath}.tmp.${process.pid}.${Date.now()}`;
-    try {
-      const thumbBuf = await sharp(buf)
+      const data = await sharp(buf)
         .resize(size, size, { fit: 'inside', withoutEnlargement: true })
         .webp({ quality: 85 })
         .toBuffer();
-
-      await fs.writeFile(tempPath, thumbBuf);
-      try {
-        await fs.rename(tempPath, localPath);
-      } catch (renameErr) {
-        await fs.unlink(tempPath).catch(() => undefined);
-        const code =
-          renameErr && typeof renameErr === 'object' && 'code' in renameErr
-            ? String((renameErr as { code?: string }).code)
-            : '';
-        if (code !== 'EEXIST') throw renameErr;
-      }
-
-      const thumbChecksum = await sha256Buffer(thumbBuf);
-      results.push({
+      out.push({
         sizePx: size,
-        localPath,
-        objectKey,
-        bytes: thumbBuf.length,
-        checksum: thumbChecksum,
+        data,
+        checksum: await sha256Buffer(data),
       });
-    } catch (thumbErr) {
-      await fs.unlink(tempPath).catch(() => undefined);
-      // Non-fatal: thumbnail generation failure should not block upload
-      console.error(`Thumbnail generation failed for size ${size}:`, thumbErr);
+    } catch (err) {
+      console.error(`Thumbnail generation failed for size ${size}:`, err);
     }
   }
-
-  return results;
+  return out;
 }
 
-// ── Supabase Storage upload ───────────────────────────────────────────────────
-
-async function trySupabaseStorageUpload(
-  buf: Buffer,
-  objectKey: string,
-  mimeType: string,
-  bucket = GALLERY_STORAGE_BUCKET,
-): Promise<boolean> {
-  const validated = validateSupabaseConfig({ requireServiceRole: true });
-  if (!validated.ok || !validated.config.serviceRoleKey) return false;
-
-  try {
-    const { createClient } = await import('@supabase/supabase-js');
-    const client = createClient(
-      validated.config.url,
-      validated.config.serviceRoleKey,
-      { auth: { persistSession: false, autoRefreshToken: false } },
-    );
-    const { error } = await client.storage.from(bucket).upload(objectKey, buf, {
-      contentType: mimeType,
-      upsert: false,
-    });
-    if (error && !String(error.message ?? '').includes('already exists')) {
-      console.error('Supabase Storage upload error:', error.message);
-      return false;
-    }
-    return true;
-  } catch (err) {
-    console.error('Supabase Storage upload failed:', err);
-    return false;
-  }
+function fail(
+  outcome: 'rejected' | 'failed',
+  error: string,
+  status: number,
+): GalleryUploadResult {
+  return { ok: false, outcome, error, status };
 }
-
-// ── Main upload ───────────────────────────────────────────────────────────────
 
 export type GalleryUploadInput = {
   readonly actor: MediaTrustedActor;
@@ -267,152 +277,278 @@ export async function uploadGalleryAsset(
 ): Promise<GalleryUploadResult> {
   const { actor, workspaceId, filename, mimeType, data } = input;
 
-  // 1. Validate
+  let mode: GalleryStorageMode;
+  try {
+    mode = assertGalleryStorageModeAllowed().mode;
+  } catch (err) {
+    return fail(
+      'rejected',
+      err instanceof Error ? err.message : String(err),
+      503,
+    );
+  }
+
   const mimeCheck = validateGalleryMimeType(mimeType);
   if (!mimeCheck.ok) {
-    return { ok: false, error: mimeCheck.error, status: 415 };
+    return fail('rejected', mimeCheck.error, 415);
   }
   const sizeCheck = validateGalleryFileSize(data.length);
   if (!sizeCheck.ok) {
-    return { ok: false, error: sizeCheck.error, status: 413 };
+    return fail('rejected', sizeCheck.error, 413);
   }
 
-  // 2. SHA-256
   const checksum = await sha256Buffer(data);
-  const externalId = `gallery_${randomUUID().replace(/-/g, '')}`;
   const ext = mimeToExtension(mimeType);
   const mediaKind = mimeToMediaKind(mimeType);
   const safeFilename = sanitizeFilename(
     path.basename(filename, path.extname(filename)) + ext,
   );
 
-  // 3. Ensure membership (idempotent)
   try {
     await dbGalleryEnsureMembership(actor, workspaceId);
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
     if (/permission denied/i.test(msg)) {
+      return fail(
+        'rejected',
+        'Not authorized to upload to this workspace.',
+        403,
+      );
+    }
+    return fail('failed', `Membership check failed: ${msg}`, 500);
+  }
+
+  // Pre-check exact duplicate before any storage write
+  try {
+    const existing = await dbFindGalleryAssetByChecksum(
+      actor,
+      workspaceId,
+      checksum,
+    );
+    if (existing) {
       return {
-        ok: false,
-        error: 'Not authorized to upload to this workspace.',
-        status: 403,
+        ok: true,
+        outcome: 'duplicate_existing',
+        assetId: existing.externalId,
+        checksum,
+        duplicate: true,
+        processingComplete: true,
       };
     }
-    return { ok: false, error: `Membership check failed: ${msg}`, status: 500 };
-  }
-
-  // 4. Write to local vault
-  let storageObjectKey: string;
-  try {
-    const result = await writeToLocalVault(data, safeFilename, checksum);
-    storageObjectKey = result.objectKey;
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
-    return {
-      ok: false,
-      error: `Local vault write failed: ${msg}`,
-      status: 500,
-    };
+    // If find RPC missing in older DB, continue; register will still catch.
+    if (!/does not exist|PGRST202|function/i.test(msg)) {
+      return fail('failed', `Duplicate check failed: ${msg}`, 500);
+    }
   }
 
-  // 5. Optionally upload to Supabase Storage (non-fatal)
-  let storageBucket = 'local-vault';
-  const supabaseUploaded = await trySupabaseStorageUpload(
-    data,
-    storageObjectKey,
-    mimeType,
-  );
-  if (supabaseUploaded) {
-    storageBucket = GALLERY_STORAGE_BUCKET;
+  let storage: StorageClient | null = null;
+  if (mode === 'supabase') {
+    try {
+      storage = await createSupabaseStorageClient();
+    } catch (err) {
+      return fail(
+        'failed',
+        err instanceof Error ? err.message : String(err),
+        503,
+      );
+    }
   }
 
-  // 6. Read image dimensions
-  const dims = await readImageDimensions(data, mimeType);
-
-  // 7. Register asset via RPC
-  let duplicate = false;
-  let registeredAsset: Awaited<ReturnType<typeof dbRegisterGalleryAsset>>;
+  const externalId = `gallery_${randomUUID().replace(/-/g, '')}`;
+  let objectKey: string;
   try {
-    registeredAsset = await dbRegisterGalleryAsset(actor, {
+    objectKey = buildGalleryOriginalObjectKey({
       workspaceId,
-      externalId,
-      filename: safeFilename,
-      originalFilename: path.basename(filename),
-      fileType: mimeType,
-      mediaKind,
       checksum,
-      fileSizeBytes: data.length,
-      storageBucket,
-      storageObjectKey,
-      width: dims?.width,
-      height: dims?.height,
-      orientation: dims?.orientation,
-      displayTitle: path.basename(filename, path.extname(filename)),
+      filename: safeFilename,
     });
   } catch (err) {
-    const msg = err instanceof Error ? err.message : String(err);
-    // 23505 = unique_violation (duplicate checksum)
-    if (/exact duplicate|23505/i.test(msg)) {
-      duplicate = true;
-      return { ok: true, assetId: externalId, checksum, duplicate: true };
-    }
-    if (/permission denied|42501/i.test(msg)) {
-      return {
-        ok: false,
-        error: 'Not authorized to upload assets.',
-        status: 403,
-      };
-    }
-    return {
-      ok: false,
-      error: `Asset registration failed: ${msg}`,
-      status: 500,
-    };
+    return fail(
+      'rejected',
+      err instanceof Error ? err.message : String(err),
+      400,
+    );
   }
 
-  // 8. Generate thumbnails and register derivatives
-  if (mediaKind === 'image') {
-    const thumbnails = await generateThumbnails(data, mimeType, checksum);
-    for (const thumb of thumbnails) {
-      // Upload thumbnail to Supabase Storage if available
-      if (supabaseUploaded) {
-        const thumbBuf = await fs.readFile(thumb.localPath).catch(() => null);
-        if (thumbBuf) {
-          await trySupabaseStorageUpload(
-            thumbBuf,
-            thumb.objectKey,
-            'image/webp',
-          );
+  let uploadedBucket: string | null = null;
+  try {
+    const uploaded = await uploadOriginal({
+      mode,
+      workspaceId,
+      objectKey,
+      buf: data,
+      mimeType,
+      storage,
+    });
+    uploadedBucket = uploaded.bucket;
+
+    // Race: another writer may have registered between find and upload
+    try {
+      const raced = await dbFindGalleryAssetByChecksum(
+        actor,
+        workspaceId,
+        checksum,
+      );
+      if (raced) {
+        await cleanupOriginal({
+          mode,
+          bucket: uploaded.bucket,
+          objectKey: uploaded.objectKey,
+          storage,
+        });
+        return {
+          ok: true,
+          outcome: 'duplicate_existing',
+          assetId: raced.externalId,
+          checksum,
+          duplicate: true,
+          processingComplete: true,
+        };
+      }
+    } catch {
+      // continue to register
+    }
+
+    const dims = await readImageDimensions(data, mimeType);
+
+    let registeredAsset: Awaited<ReturnType<typeof dbRegisterGalleryAsset>>;
+    try {
+      registeredAsset = await dbRegisterGalleryAsset(actor, {
+        workspaceId,
+        externalId,
+        filename: safeFilename,
+        originalFilename: path.basename(filename),
+        fileType: mimeType,
+        mediaKind,
+        checksum,
+        fileSizeBytes: data.length,
+        storageBucket: uploaded.bucket,
+        storageObjectKey: uploaded.objectKey,
+        width: dims?.width,
+        height: dims?.height,
+        orientation: dims?.orientation,
+        displayTitle: path.basename(filename, path.extname(filename)),
+      });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      if (/exact duplicate|23505/i.test(msg)) {
+        const existing = await dbFindGalleryAssetByChecksum(
+          actor,
+          workspaceId,
+          checksum,
+        ).catch(() => null);
+        await cleanupOriginal({
+          mode,
+          bucket: uploaded.bucket,
+          objectKey: uploaded.objectKey,
+          storage,
+        });
+        if (existing) {
+          return {
+            ok: true,
+            outcome: 'duplicate_existing',
+            assetId: existing.externalId,
+            checksum,
+            duplicate: true,
+            processingComplete: true,
+          };
+        }
+        return fail(
+          'failed',
+          'Exact duplicate detected but existing asset could not be resolved.',
+          409,
+        );
+      }
+      await cleanupOriginal({
+        mode,
+        bucket: uploaded.bucket,
+        objectKey: uploaded.objectKey,
+        storage,
+      });
+      if (/permission denied|42501/i.test(msg)) {
+        return fail('rejected', 'Not authorized to upload assets.', 403);
+      }
+      return fail('failed', `Asset registration failed: ${msg}`, 500);
+    }
+
+    let processingComplete = true;
+    if (mediaKind === 'image') {
+      const thumbs = await generateThumbnailBuffers(data, mimeType);
+      const thumbBucket = galleryThumbnailBucketForMode(mode);
+      for (const thumb of thumbs) {
+        const thumbKey = buildGalleryThumbnailObjectKey({
+          workspaceId,
+          assetExternalId: registeredAsset.externalId,
+          sizePx: thumb.sizePx,
+        });
+        try {
+          if (mode === 'supabase' && storage) {
+            const up = await storage.upload(
+              thumbBucket,
+              thumbKey,
+              thumb.data,
+              'image/webp',
+            );
+            if (!up.ok && !up.alreadyExists) {
+              processingComplete = false;
+              continue;
+            }
+          } else {
+            await writeLocalOriginal({
+              workspaceId,
+              objectKey: thumbKey,
+              buf: thumb.data,
+            });
+          }
+          await dbRegisterGalleryDerivative(actor, {
+            assetExternalId: registeredAsset.externalId,
+            kind: 'thumbnail',
+            sizePx: thumb.sizePx,
+            storageBucket: thumbBucket,
+            objectKey: thumbKey,
+            contentType: 'image/webp',
+            bytes: thumb.data.length,
+            checksum: thumb.checksum,
+          });
+        } catch (derivErr) {
+          processingComplete = false;
+          console.error('Derivative registration failed:', derivErr);
         }
       }
-
-      try {
-        await dbRegisterGalleryDerivative(actor, {
-          assetExternalId: registeredAsset.externalId,
-          kind: 'thumbnail',
-          sizePx: thumb.sizePx,
-          storageBucket,
-          objectKey: thumb.objectKey,
-          contentType: 'image/webp',
-          bytes: thumb.bytes,
-          checksum: thumb.checksum,
-        });
-      } catch (derivErr) {
-        // Non-fatal: derivative registration failure should not block main upload
-        console.error('Derivative registration failed:', derivErr);
-      }
+      if (thumbs.length === 0) processingComplete = false;
     }
-  }
 
-  return {
-    ok: true,
-    assetId: registeredAsset.externalId,
-    checksum,
-    duplicate,
-  };
+    return {
+      ok: true,
+      outcome: 'created',
+      assetId: registeredAsset.externalId,
+      checksum,
+      duplicate: false,
+      processingComplete,
+    };
+  } catch (err) {
+    if (uploadedBucket) {
+      await cleanupOriginal({
+        mode,
+        bucket: uploadedBucket,
+        objectKey,
+        storage,
+      });
+    }
+    return fail(
+      'failed',
+      err instanceof Error ? err.message : String(err),
+      500,
+    );
+  }
 }
 
-// Exposed for testing purposes only
 export function __resolveGalleryVaultRoot(): string {
   return galleryVaultRoot();
+}
+
+export function __galleryOriginalBucket(): string {
+  return MEDIA_STORAGE_BUCKETS.original;
 }

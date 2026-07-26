@@ -282,6 +282,34 @@ export async function dbGetGalleryAsset(
   });
 }
 
+export async function dbFindGalleryAssetByChecksum(
+  actor: MediaTrustedActor,
+  workspaceId: string,
+  checksum: string,
+): Promise<GalleryAsset | null> {
+  return withGalleryActor(actor, async (client, actorUuid) => {
+    const { rows } = await client.query<AssetRow>(
+      `select * from public.media_gallery_find_asset_by_checksum($1, $2)`,
+      [workspaceId, checksum],
+    );
+    const found = rows[0];
+    if (!found?.external_id) return null;
+    const { rows: favRows } = await client.query<AssetRow>(
+      `select a.*,
+         exists (
+           select 1 from public.media_favorites f
+           where f.asset_external_id = a.external_id
+             and f.user_id = $2::uuid
+             and f.workspace_id = a.workspace_id
+         ) as is_favorite
+       from public.media_assets a
+       where a.external_id = $1`,
+      [found.external_id, actorUuid],
+    );
+    return favRows[0] ? mapAsset(favRows[0]) : mapAsset(found);
+  });
+}
+
 export async function dbGalleryEnsureMembership(
   actor: MediaTrustedActor,
   workspaceId = DEFAULT_WORKSPACE,

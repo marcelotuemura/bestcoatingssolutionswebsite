@@ -93,16 +93,18 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   if (!result.ok) {
     return NextResponse.json(
-      { ok: false, error: result.error },
+      { ok: false, outcome: result.outcome, error: result.error },
       { status: result.status },
     );
   }
 
   return NextResponse.json({
     ok: true,
+    outcome: result.outcome,
     assetId: result.assetId,
     checksum: result.checksum,
     duplicate: result.duplicate,
+    processingComplete: result.processingComplete ?? true,
   });
 }
 

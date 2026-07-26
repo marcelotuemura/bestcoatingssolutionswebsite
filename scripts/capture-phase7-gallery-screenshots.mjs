@@ -69,6 +69,8 @@ await new Promise((resolve, reject) => {
       MEDIA_INTELLIGENCE_SESSION_SECRET:
         process.env.MEDIA_INTELLIGENCE_SESSION_SECRET ??
         'e2e-media-session-secret-32ch!',
+      MEDIA_GALLERY_STORAGE_MODE: 'local',
+      MEDIA_SUPABASE_ENV: 'development',
     },
     stdio: 'inherit',
   });
@@ -88,6 +90,8 @@ const env = {
     process.env.MEDIA_INTELLIGENCE_SESSION_SECRET ??
     'e2e-media-session-secret-32ch!',
   MEDIA_LOGIN_RATE_LIMIT_MAX: '500',
+  MEDIA_GALLERY_STORAGE_MODE: 'local',
+  MEDIA_SUPABASE_ENV: 'development',
   PORT: String(port),
 };
 

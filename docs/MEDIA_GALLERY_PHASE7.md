@@ -16,7 +16,10 @@ lib/media-intelligence/gallery/
   pg.ts             — Re-exports publishers/pg.ts patterns for gallery
   store.ts          — In-memory fixture (MEDIA_GALLERY_REPOSITORY=memory only)
   db-repository.ts  — PostgreSQL RPC calls + SELECT queries
-  upload.ts         — Real upload: validate → sha256 → local vault → Supabase Storage → RPC register → thumbnails
+  storage-mode.ts   — MEDIA_GALLERY_STORAGE_MODE policy (supabase|local)
+  object-keys.ts    — Workspace-scoped private object keys
+  upload.ts         — Durable-first upload: validate → sha256 → duplicate check → durable store → RPC → derivatives
+  private-delivery.ts — Authorized local-vault path or ephemeral signed URL
   service.ts        — Business logic façade
   index.ts          — Barrel exports
 
@@ -66,20 +69,39 @@ Columns added to `media_assets`:
 - Viewer role has read-only access; no mutations permitted
 - Service role is never exposed to the client
 
+## Storage mode policy
+
+| Mode | Env | Behavior |
+|------|-----|----------|
+| `supabase` (default) | production, staging, and unset | Private Supabase Storage required (`media-originals` / `media-thumbnails`). Failure is fatal. |
+| `local` | explicit `MEDIA_GALLERY_STORAGE_MODE=local` only | Local vault under `MEDIA_VAULT_ROOT/gallery/...`. Forbidden in production/staging. |
+
+**Local vault is not a production persistence mechanism.** It exists only for explicit local development, unit tests, local Playwright, and local PostgreSQL fixtures. Ephemeral disks (`os.tmpdir()`, Vercel serverless FS) must never be treated as durable production storage.
+
+Object keys are workspace-scoped:
+
+```
+workspaces/{workspaceId}/originals/{checksum16}_{filename}
+workspaces/{workspaceId}/thumbnails/{sizePx}/{assetId}.webp
+```
+
 ## Upload Flow
 
-1. `POST /media/api/upload` (multipart/form-data)
-2. Auth check via `resolveMediaTrustedActor()`; permission check via `actorCanUpload()`
-3. MIME type validation (`image/*`, `video/mp4`, `video/quicktime`)
-4. File size validation (max 500 MB)
-5. SHA-256 computed over the raw bytes
-6. File written to local vault at `MEDIA_VAULT_ROOT/gallery/originals/{checksum}{ext}` (write-once)
-7. If Supabase Storage is configured, also uploaded to `gallery` bucket
-8. `media_gallery_register_asset` RPC called (exact duplicate detection via checksum)
-9. If image: sharp thumbnails (200px, 400px, 800px WebP) generated and registered via `media_gallery_register_derivative`
-10. Response: `{ ok, assetId, checksum, duplicate? }`
+1. Authenticate actor; require upload role
+2. Validate MIME + size
+3. Compute SHA-256
+4. Authorized duplicate check (`media_gallery_find_asset_by_checksum`)
+5. Upload original to **required** durable store for the active mode
+6. Register asset via `media_gallery_register_asset` (bucket must be `media-originals` or `local-vault`; key must be workspace-scoped)
+7. Generate/upload derivatives (non-fatal when original + DB row are correct; UI surfaces incomplete processing)
+8. Response outcomes: `created` | `duplicate_existing` | `rejected` | `failed`
 
-Never fakes success. Upload is rejected at any failing step.
+Rules:
+- Never report success when the required durable original write failed
+- Never register a DB row before the durable original exists
+- Exact duplicate returns the **existing** asset id (`duplicate_existing`) — never a fabricated id
+- On register failure after storage write: best-effort remove the newly uploaded object
+- Service role stays server-only; buckets stay private
 
 ## Gallery Listing / Search
 
@@ -98,27 +120,33 @@ Server-side filters (all additive):
 
 | Variable | Description |
 |----------|-------------|
+| `MEDIA_GALLERY_STORAGE_MODE` | `supabase` (default) or `local` (explicit opt-in; forbidden in production/staging) |
 | `MEDIA_GALLERY_REPOSITORY` | Set to `memory` for unit tests only |
-| `MEDIA_VAULT_ROOT` | Root for local vault storage |
+| `MEDIA_VAULT_ROOT` | Root for local vault storage (local/test only) |
 | `MEDIA_PUBLICATION_DATABASE_URL` / `SUPABASE_DB_URL` / `DATABASE_URL` | Postgres connection |
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon key |
 | `SUPABASE_SERVICE_ROLE_KEY` | Required for Supabase Storage uploads (server-side only) |
+| `MEDIA_SUPABASE_ENV` | `development` \| `staging` \| `production` — staging/production require supabase mode |
 
 ## Testing
 
 ```bash
-# Unit tests (memory backend)
+# Unit tests (memory + storage policy)
 pnpm test tests/unit/media-intelligence/phase7-gallery.test.ts
+pnpm test tests/unit/media-intelligence/phase7-gallery-storage.test.ts
 
 # Local PostgreSQL RLS/authority validation
 pnpm test:supabase:phase7:local
 
-# Hosted Supabase integration suite (requires credentials)
-MEDIA_SUPABASE_PHASE7_LIVE=1 pnpm test:supabase:phase7
+# Hosted Supabase integration suite (requires staging credentials)
+MEDIA_SUPABASE_PHASE5_LIVE=1 MEDIA_SUPABASE_PHASE6_LIVE=1 MEDIA_SUPABASE_PHASE7_LIVE=1 \
+  MEDIA_SUPABASE_ENV=staging pnpm test:supabase:phase5
+MEDIA_SUPABASE_ENV=staging MEDIA_SUPABASE_PHASE6_LIVE=1 pnpm test:supabase:phase6
+MEDIA_SUPABASE_ENV=staging MEDIA_SUPABASE_PHASE7_LIVE=1 pnpm test:supabase:phase7
 
-# Playwright e2e
-pnpm test:e2e tests/e2e/media-phase7-gallery.spec.ts
+# Playwright e2e (explicit local storage mode)
+MEDIA_GALLERY_STORAGE_MODE=local pnpm test:e2e tests/e2e/media-phase7-gallery.spec.ts
 ```
 
 ## Design Principles

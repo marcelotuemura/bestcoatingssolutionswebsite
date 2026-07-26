@@ -1,12 +1,26 @@
 {
   "phase": 7,
   "suite": "pnpm test:supabase:phase7",
-  "status": "FAIL",
-  "failed": 1,
-  "passed": 0,
-  "skipped": false,
+  "status": "BLOCKED",
+  "failed": null,
+  "passed": null,
+  "skipped": true,
   "liveClaimed": false,
-  "reason": "Hosted Supabase credentials are not available in this cloud-agent environment. MEDIA_SUPABASE_PHASE7_LIVE=1 correctly fail-closed: NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY are required. Supabase MCP requires desktop authentication (needsAuth).",
+  "reason": "Hosted Supabase credentials are not available in this cloud-agent environment. MEDIA_SUPABASE_PHASE7_LIVE=1 correctly fail-closed: NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, and SUPABASE_SERVICE_ROLE_KEY are required. Supabase MCP requires desktop authentication (needsAuth). Durable-storage correction is implemented and covered by local unit + Postgres suites; staging migration apply and hosted Phase 5/6/7 remain blocked until credentials are provided.",
+  "stagingProjectRefExpected": "ybzeuxvzpbguszqxrtur",
+  "phase7MigrationsToApply": [
+    "20260726020000_media_phase7_gallery_schema.sql",
+    "20260726020001_media_phase7_gallery_rls.sql",
+    "20260726020002_media_phase7_gallery_authority.sql",
+    "20260726020003_media_phase7_gallery_rpcs.sql",
+    "20260726020004_media_phase7_gallery_corrections.sql",
+    "20260726120000_media_phase7_gallery_durable_storage.sql"
+  ],
+  "pr27CorpusMigrationsApplied": false,
+  "durableStorageTest": {
+    "status": "not_run",
+    "reason": "Requires staging credentials and applied Phase 7 migrations including durable-storage correction."
+  },
   "localPostgres": {
     "command": "pnpm test:supabase:phase7:local",
     "status": "PASS",
@@ -15,24 +29,25 @@
     "includes": [
       "phase5_local_rbac",
       "phase6_publication_rls",
-      "phase7_gallery_rls"
+      "phase7_gallery_rls",
+      "phase7_durable_storage_assertions"
     ]
   },
   "phase5Hosted": {
     "command": "pnpm test:supabase:phase5",
-    "status": "FAIL",
-    "reason": "MEDIA_SUPABASE_ENV must be development|staging for live tests; credentials unavailable."
+    "status": "BLOCKED",
+    "reason": "MEDIA_SUPABASE_ENV=staging credentials unavailable."
   },
   "phase6Hosted": {
     "command": "pnpm test:supabase:phase6",
-    "status": "FAIL",
-    "reason": "MEDIA_SUPABASE_ENV must be development|staging for live tests; credentials unavailable."
+    "status": "BLOCKED",
+    "reason": "MEDIA_SUPABASE_ENV=staging credentials unavailable."
   },
-  "recordedAt": "2026-07-26T03:48:00.000Z",
-  "headSha": "4f12835cb7e23296fc571a39848a6cf114c1a7cf",
+  "recordedAt": "2026-07-26T11:20:00.000Z",
   "notes": [
     "Do not claim hosted Phase 7 completion until failed: 0 on staging after migrations are applied.",
     "A skipped suite is not a pass.",
+    "Do not merge PR #28 until hosted Phase 5, Phase 6, and Phase 7 all report failed: 0.",
     "Training Corpus remains postponed to Phase 8 (PR #27 preserved, not merged)."
   ]
 }

@@ -52,17 +52,19 @@ function uploadWithProgress(
     xhr.onload = () => {
       const data = (xhr.response ?? {}) as {
         ok?: boolean;
+        outcome?: string;
         assetId?: string;
         checksum?: string;
         duplicate?: boolean;
         error?: string;
       };
-      if (xhr.status >= 200 && xhr.status < 300 && data.ok) {
+      if (xhr.status >= 200 && xhr.status < 300 && data.ok && data.assetId) {
         resolve({
           ok: true,
           assetId: data.assetId,
           checksum: data.checksum,
-          duplicate: data.duplicate,
+          duplicate:
+            data.duplicate === true || data.outcome === 'duplicate_existing',
         });
         return;
       }

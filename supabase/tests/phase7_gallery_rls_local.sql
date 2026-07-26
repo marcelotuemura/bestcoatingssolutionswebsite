@@ -48,7 +48,8 @@ begin
     source_system, privacy_status, review_status
   ) values (
     asset_ext, 'bcs-default', 'test.jpg', 'test.jpg', 'image/jpeg', 'image',
-    'phase7checksum001', 500000, 'local-vault', 'originals/phase7checksum001.jpg',
+    'phase7checksum001', 500000, 'local-vault',
+    'workspaces/bcs-default/originals/phase7checksum001_test.jpg',
     'manual', 'clear', 'none'
   )
   on conflict (external_id) do update set privacy_status = 'clear', review_status = 'none';
@@ -59,7 +60,8 @@ begin
     source_system, privacy_status, review_status
   ) values (
     asset_ext2, 'bcs-default', 'test2.jpg', 'test2.jpg', 'image/jpeg', 'image',
-    'phase7checksum002', 600000, 'local-vault', 'originals/phase7checksum002.jpg',
+    'phase7checksum002', 600000, 'local-vault',
+    'workspaces/bcs-default/originals/phase7checksum002_test2.jpg',
     'manual', 'blocked', 'none'
   )
   on conflict (external_id) do update set privacy_status = 'blocked';
@@ -267,6 +269,66 @@ begin
   end if;
   reset role;
   raise notice 'PASS: phase7_membership_readable';
+
+  -- ── Test 16: find_asset_by_checksum returns existing authorized asset ─────
+  perform test_helpers.set_auth(editor1);
+  set local role authenticated;
+  perform public.media_gallery_ensure_own_membership('bcs-default');
+  begin
+    if (
+      select external_id
+      from public.media_gallery_find_asset_by_checksum('bcs-default', 'phase7checksum001')
+    ) is distinct from asset_ext then
+      reset role;
+      raise exception 'FAIL: find_asset_by_checksum did not return existing asset';
+    end if;
+    reset role;
+    raise notice 'PASS: phase7_find_asset_by_checksum';
+  exception when others then
+    reset role;
+    if sqlerrm like 'FAIL:%' then raise; end if;
+    raise exception 'FAIL: phase7_find_asset_by_checksum: %', sqlerrm;
+  end;
+
+  -- ── Test 17: register_asset rejects unknown durable bucket names ──────────
+  perform test_helpers.set_auth(editor1);
+  set local role authenticated;
+  begin
+    perform public.media_gallery_register_asset(
+      'bcs-default',
+      'phase7_bad_bucket',
+      'bad.jpg', 'bad.jpg', 'image/jpeg', 'image',
+      'phase7checksum_bad_bucket_xx', 1000,
+      'gallery',
+      'workspaces/bcs-default/originals/phase7checksum_bad_bucket_xx_bad.jpg'
+    );
+    reset role;
+    raise exception 'FAIL: register_asset should reject bucket=gallery';
+  exception when others then
+    if sqlerrm like 'FAIL:%' then raise; end if;
+  end;
+  reset role;
+  raise notice 'PASS: phase7_register_rejects_unknown_bucket';
+
+  -- ── Test 18: register_asset rejects non-workspace-scoped object keys ──────
+  perform test_helpers.set_auth(editor1);
+  set local role authenticated;
+  begin
+    perform public.media_gallery_register_asset(
+      'bcs-default',
+      'phase7_bad_key',
+      'bad.jpg', 'bad.jpg', 'image/jpeg', 'image',
+      'phase7checksum_bad_keyxxxxx', 1000,
+      'local-vault',
+      'originals/not-workspace-scoped.jpg'
+    );
+    reset role;
+    raise exception 'FAIL: register_asset should reject non-workspace-scoped keys';
+  exception when others then
+    if sqlerrm like 'FAIL:%' then raise; end if;
+  end;
+  reset role;
+  raise notice 'PASS: phase7_register_requires_workspace_scoped_key';
 
   -- ── Summary ───────────────────────────────────────────────────────────────
   raise notice 'PASS: all_phase7_gallery_rls_assertions';

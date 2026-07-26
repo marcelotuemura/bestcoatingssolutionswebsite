@@ -39,6 +39,9 @@ export default defineConfig({
       MEDIA_INTELLIGENCE_LOCAL_BYPASS: 'false',
       MEDIA_LOGIN_RATE_LIMIT_MAX: '500',
       MEDIA_PUBLICATION_REPOSITORY: 'postgres',
+      // Explicit opt-in only — not a production persistence mechanism.
+      MEDIA_GALLERY_STORAGE_MODE: 'local',
+      MEDIA_SUPABASE_ENV: 'development',
     },
   },
 });

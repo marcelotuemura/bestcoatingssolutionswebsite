@@ -22,7 +22,9 @@ Training Corpus remains postponed to Phase 8. PR #27 was not merged; corpus migr
 | `pg.ts` | ✅ | Re-exports publishers/pg.ts pool/actor patterns |
 | `store.ts` | ✅ | In-memory fixture (MEDIA_GALLERY_REPOSITORY=memory) |
 | `db-repository.ts` | ✅ | Postgres RPCs + SELECT queries |
-| `upload.ts` | ✅ | Real upload: validate → sha256 → local vault → Supabase Storage → RPC → thumbnails |
+| `storage-mode.ts` | ✅ | Explicit `MEDIA_GALLERY_STORAGE_MODE` policy; production/staging reject local |
+| `object-keys.ts` | ✅ | Workspace-scoped private object keys |
+| `upload.ts` | ✅ | Durable-first upload + compensation + structured outcomes |
 | `private-delivery.ts` | ✅ | Server-authorized local-vault / ephemeral signed URL resolution |
 | `service.ts` | ✅ | Full service façade with memory/postgres dispatch |
 | `index.ts` | ✅ | Barrel exports |
@@ -71,19 +73,20 @@ Training Corpus remains postponed to Phase 8. PR #27 was not merged; corpus migr
 | `20260726020002_media_phase7_gallery_authority.sql` | mutation authority |
 | `20260726020003_media_phase7_gallery_rpcs.sql` | SECURITY DEFINER RPCs |
 | `20260726020004_media_phase7_gallery_corrections.sql` | reviewer `review_mutation` path |
+| `20260726120000_media_phase7_gallery_durable_storage.sql` | find-by-checksum + durable bucket/key validation (additive) |
 
 ### 6. Tests & reports
 
 | Gate | Result |
 |------|--------|
 | `pnpm typecheck` | PASS |
-| `pnpm lint` | PASS |
-| `pnpm test` | PASS — 226 |
-| `pnpm test:e2e` | PASS — 118 |
-| `pnpm test:supabase:phase7:local` | PASS — failed: 0 |
-| `pnpm test:supabase:phase5` (hosted) | FAIL — no staging credentials |
-| `pnpm test:supabase:phase6` (hosted) | FAIL — no staging credentials |
-| `pnpm test:supabase:phase7` (hosted) | FAIL — no staging credentials |
+| `pnpm lint` | PASS (0 errors) |
+| `pnpm test` | PASS — 240 |
+| `pnpm test:e2e` | pending re-run after durable-storage correction |
+| `pnpm test:supabase:phase7:local` | PASS — failed: 0 (includes durable-storage migration + new assertions) |
+| `pnpm test:supabase:phase5` (hosted) | BLOCKED — staging credentials / Supabase MCP auth unavailable |
+| `pnpm test:supabase:phase6` (hosted) | BLOCKED — staging credentials / Supabase MCP auth unavailable |
+| `pnpm test:supabase:phase7` (hosted) | BLOCKED — staging credentials / Supabase MCP auth unavailable |
 
 ### 7. Screenshots
 
