@@ -13,15 +13,15 @@ export function PhilosophySection({
   return (
     <Section
       id="philosophy"
-      className="bg-navy-900/35"
+      className="bg-bg-secondary/40 py-16 sm:py-24"
       aria-labelledby="philosophy-heading"
     >
       <Container>
-        <Reveal className="max-w-2xl">
+        <Reveal className="mx-auto max-w-3xl text-center">
           <Heading as="h2" id="philosophy-heading">
             {copy.title}
           </Heading>
-          <p className="text-silver-300 mt-5 text-lg text-pretty">
+          <p className="text-text-secondary mt-6 text-lg text-pretty sm:text-xl">
             {copy.body}
           </p>
         </Reveal>

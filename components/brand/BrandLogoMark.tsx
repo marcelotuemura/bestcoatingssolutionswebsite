@@ -17,16 +17,27 @@ export function BrandLogoMark({
   readonly priority?: boolean;
 }) {
   if (!brandLogo.officialSrc) {
+    const heroScale = maxHeightPx >= 72;
     return (
       <div
         className={cn('flex flex-col leading-tight', className)}
         data-testid="brand-logo-text-fallback"
         data-logo-mode="text"
       >
-        <span className="text-text-primary text-base font-semibold tracking-tight">
+        <span
+          className={cn(
+            'text-text-primary font-semibold tracking-tight',
+            heroScale ? 'text-2xl sm:text-3xl' : 'text-base',
+          )}
+        >
           {siteConfig.name}
         </span>
-        <span className="text-text-muted mt-1 text-xs tracking-[0.14em] uppercase">
+        <span
+          className={cn(
+            'text-text-muted tracking-[0.14em] uppercase',
+            heroScale ? 'mt-2 text-xs sm:text-sm' : 'mt-1 text-xs',
+          )}
+        >
           Premium marine &amp; aviation refinishing
         </span>
       </div>

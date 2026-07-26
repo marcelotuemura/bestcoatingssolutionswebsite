@@ -2,8 +2,10 @@
 
 import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
+import { BrandLogoMark } from '@/components/brand/BrandLogoMark';
 import { ButtonLink } from '@/components/ui/ButtonLink';
 import { Container } from '@/components/ui/Container';
+import { brandLogo } from '@/config/brand-logo';
 import { homePlaceholders } from '@/config/home-placeholders';
 import { routes } from '@/config/routes';
 import type { Dictionary } from '@/i18n/get-dictionary';
@@ -15,89 +17,70 @@ export interface HeroSectionProps {
   readonly dictionary: Dictionary;
 }
 
+/**
+ * Phase 5D cinematic hero — full-bleed atmosphere, brand first,
+ * one message, two CTAs. No competing chrome in the first viewport.
+ */
 export function HeroSection({ locale, dictionary }: HeroSectionProps) {
   const reduce = useReducedMotion();
   const copy = dictionary.home.hero;
+  const ease = [0.16, 1, 0.3, 1] as const;
 
   return (
-    <header className="relative isolate min-h-[100svh] overflow-hidden">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_20%,rgba(10,132,255,0.18),transparent_45%),radial-gradient(ellipse_at_80%_0%,rgba(59,157,255,0.12),transparent_40%),linear-gradient(180deg,#050d18_0%,#0a1a2f_48%,#050d18_100%)]"
-      />
-      <div
-        aria-hidden
-        className="bcs-ocean-texture pointer-events-none absolute inset-0 opacity-60"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-[55%] opacity-70"
-      >
+    <section
+      className="relative isolate min-h-[100svh] overflow-hidden"
+      data-testid="home-hero"
+      aria-labelledby="home-hero-heading"
+    >
+      <div aria-hidden className="absolute inset-0">
         <Image
           src={homePlaceholders.marineVisual.src}
           alt=""
           fill
           priority
           unoptimized
-          className="object-cover object-bottom"
+          className="object-cover object-center"
           sizes="100vw"
         />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,13,24,0.72)_0%,rgba(5,13,24,0.55)_42%,rgba(5,13,24,0.88)_100%)]" />
+        <div className="bcs-ocean-texture absolute inset-0 opacity-50" />
       </div>
 
-      <Container className="relative z-10 flex min-h-[100svh] flex-col justify-center py-24 sm:py-28">
+      <Container className="relative z-10 flex min-h-[100svh] flex-col justify-end pt-28 pb-16 sm:justify-center sm:pt-32 sm:pb-24 lg:pb-28">
         <div className="max-w-3xl">
           <motion.div
-            className="relative mb-10 inline-block"
-            initial={reduce ? false : { opacity: 0, y: 12 }}
+            className="mb-10"
+            initial={reduce ? false : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={
-              reduce
-                ? { duration: 0 }
-                : { duration: 1.1, ease: [0.16, 1, 0.3, 1] }
-            }
+            transition={reduce ? { duration: 0 } : { duration: 0.9, ease }}
+            data-testid="hero-brand-logo"
           >
-            <Image
-              src={homePlaceholders.logo.src}
-              alt={copy.logoAlt}
-              width={320}
-              height={96}
+            <BrandLogoMark
+              maxHeightPx={brandLogo.recommendedMaxHeightPx.hero}
               priority
-              unoptimized
-              className="h-auto w-[min(100%,20rem)]"
-              data-testid="hero-brand-logo"
+              className="max-w-[min(100%,22rem)]"
             />
-            {reduce ? null : (
-              <motion.span
-                aria-hidden
-                className="pointer-events-none absolute inset-y-2 -left-1/3 w-1/3 skew-x-[-20deg] bg-gradient-to-r from-transparent via-[#3b9dff]/50 to-transparent"
-                initial={{ x: '-10%', opacity: 0 }}
-                animate={{ x: '320%', opacity: [0, 1, 0] }}
-                transition={{ duration: 1.6, delay: 0.35, ease: 'easeInOut' }}
-              />
-            )}
+            <span className="sr-only">{copy.logoAlt}</span>
           </motion.div>
 
           <motion.h1
-            className="font-display text-text-primary text-4xl font-medium tracking-tight text-balance sm:text-5xl lg:text-6xl"
-            initial={reduce ? false : { opacity: 0, y: 16 }}
+            id="home-hero-heading"
+            className="font-display text-text-primary text-4xl font-medium tracking-tight text-balance sm:text-5xl lg:text-6xl xl:text-7xl"
+            initial={reduce ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={
-              reduce
-                ? { duration: 0 }
-                : { duration: 0.7, delay: 0.45, ease: [0.16, 1, 0.3, 1] }
+              reduce ? { duration: 0 } : { duration: 0.8, delay: 0.15, ease }
             }
           >
             {copy.headline}
           </motion.h1>
 
           <motion.p
-            className="text-text-secondary mt-5 max-w-xl text-base text-pretty sm:text-lg"
+            className="text-text-secondary mt-6 max-w-xl text-base text-pretty sm:text-lg"
             initial={reduce ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={
-              reduce
-                ? { duration: 0 }
-                : { duration: 0.6, delay: 0.65, ease: [0.16, 1, 0.3, 1] }
+              reduce ? { duration: 0 } : { duration: 0.7, delay: 0.28, ease }
             }
           >
             {copy.support}
@@ -108,9 +91,7 @@ export function HeroSection({ locale, dictionary }: HeroSectionProps) {
             initial={reduce ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={
-              reduce
-                ? { duration: 0 }
-                : { duration: 0.55, delay: 0.85, ease: [0.16, 1, 0.3, 1] }
+              reduce ? { duration: 0 } : { duration: 0.65, delay: 0.4, ease }
             }
           >
             <ButtonLink href={localePath(locale, routes.estimateRequest.path)}>
@@ -125,6 +106,6 @@ export function HeroSection({ locale, dictionary }: HeroSectionProps) {
           </motion.div>
         </div>
       </Container>
-    </header>
+    </section>
   );
 }

@@ -18,28 +18,26 @@ export function EstimateCtaSection({
 }) {
   const copy = dictionary.home.estimate;
   return (
-    <Section id="request-estimate" aria-labelledby="estimate-heading">
+    <Section
+      id="request-estimate"
+      className="py-16 sm:py-24"
+      aria-labelledby="estimate-heading"
+    >
       <Container>
-        <Reveal className="border-electric-500/20 from-navy-900/80 to-navy-950 rounded-3xl border bg-gradient-to-br px-6 py-12 sm:px-10 sm:py-14">
+        <Reveal className="border-border/80 from-bg-secondary/80 to-bg-primary mx-auto max-w-3xl rounded-[var(--radius-card)] border bg-gradient-to-br px-6 py-12 text-center sm:px-12 sm:py-16">
           <Heading as="h2" id="estimate-heading">
             {copy.title}
           </Heading>
-          <p className="text-silver-300 mt-4 max-w-2xl text-lg text-pretty">
+          <p className="text-text-secondary mx-auto mt-4 max-w-xl text-lg text-pretty">
             {copy.body}
           </p>
-          <p className="text-silver-500 mt-4 max-w-2xl text-sm text-pretty">
+          <p className="text-text-muted mx-auto mt-4 max-w-xl text-sm text-pretty">
             {copy.notice}
           </p>
           <p className="sr-only">{estimatePolicy.publicNotice}</p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-8 flex justify-center">
             <ButtonLink href={localePath(locale, routes.estimateRequest.path)}>
               {dictionary.cta.estimate}
-            </ButtonLink>
-            <ButtonLink
-              href={localePath(locale, routes.scheduleVisit.path)}
-              variant="secondary"
-            >
-              {dictionary.cta.schedule}
             </ButtonLink>
           </div>
         </Reveal>

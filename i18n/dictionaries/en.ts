@@ -228,14 +228,25 @@ export const en = {
         'We work with clients in English, Spanish, Portuguese, and Japanese.',
       cta: 'Meet Marcelo',
       photoNote:
-        'Portrait and shop photography will appear here when approved — not stock imagery.',
+        'Workshop or project photography will appear here when approved — preferably in the work, not a posed studio portrait. Not stock imagery.',
     },
     philosophy: {
       title: 'Quality Is Built Before the Paint Is Applied',
       body: 'The finish people notice is the last step. The work that protects your boat happens earlier — inspection, preparation, and patience. I do not rush those steps to make a repair look finished sooner.',
     },
+    divisions: {
+      eyebrow: 'Two divisions',
+      title: 'Marine and Aviation',
+      lead: 'One company. Two specialized refinishing paths — chosen by the work, not by separate brands.',
+      marineLabel: 'Primary focus',
+      aviationLabel: 'Specialized division',
+      marineAtmosphere:
+        'Warm water light, hull gloss, fiberglass curves — the marine atmosphere of careful exterior work.',
+      aviationAtmosphere:
+        'Cool metallic surfaces, composite skin, controlled reflections — the aviation atmosphere of precise cosmetic finish.',
+    },
     marine: {
-      title: 'How We Can Help',
+      title: 'Marine',
       body: 'Gelcoat, fiberglass, paint, and cosmetic repair — done at the vessel when conditions allow, with the surrounding finish protected and the final surface matched as closely as practical.',
       points: [
         'Gelcoat repair and refinishing',
@@ -269,8 +280,15 @@ export const en = {
     },
     featured: {
       title: 'Featured Work',
-      eyebrow: 'Repair stories',
+      eyebrow: 'Proof in the finish',
+      lead: 'Authentic repair stories only — before, during, and after — published with owner and customer consent. No generic gallery filler.',
       projectTitle: 'Real projects appear here when approved',
+      stageBefore: 'Before',
+      stageBeforeNote: 'The condition that brought the vessel in.',
+      stageDuring: 'During',
+      stageDuringNote: 'Preparation and repair in progress.',
+      stageAfter: 'After',
+      stageAfterNote: 'The finished surface the owner can evaluate.',
       problem:
         'What happened: We publish the condition that brought the boat in — not a made-up story.',
       repair:

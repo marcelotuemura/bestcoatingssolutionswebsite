@@ -24,8 +24,8 @@ test.describe('Phase 1 shell', () => {
   });
 });
 
-test.describe('Phase 4 trust homepage', () => {
-  test('renders English homepage with one H1 and trust sections', async ({
+test.describe('Phase 5D premium homepage', () => {
+  test('renders English homepage with one H1 and purpose-driven sections', async ({
     page,
   }) => {
     await page.goto('/en');
@@ -37,21 +37,49 @@ test.describe('Phase 4 trust homepage', () => {
       }),
     ).toBeVisible();
 
+    await expect(page.getByTestId('home-hero')).toBeVisible();
+    await expect(page.getByTestId('division-marine')).toBeVisible();
+    await expect(page.getByTestId('division-aviation')).toBeVisible();
+    await expect(page.locator('#aviation')).toBeVisible();
+    await expect(page.locator('#marine')).toBeVisible();
+
     for (const name of [
+      'Marine and Aviation',
       'Meet Marcelo',
       'Quality Is Built Before the Paint Is Applied',
-      'Built on Experience. Driven by Detail.',
-      'Every Repair Begins the Same Way',
-      'What You Can Expect',
       'Featured Work',
-      'How We Can Help',
-      'Service Area',
+      'What You Can Expect',
       'Request an Estimate',
     ]) {
       await expect(page.getByRole('heading', { name, level: 2 })).toBeVisible();
     }
 
-    await expect(page.locator('#aviation')).toHaveCount(0);
+    await expect(
+      page.getByRole('heading', { name: 'Marine', level: 3 }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'Aviation', level: 3 }),
+    ).toBeVisible();
+
+    await expect(page.getByTestId('featured-stage-before')).toBeVisible();
+    await expect(page.getByTestId('featured-stage-during')).toBeVisible();
+    await expect(page.getByTestId('featured-stage-after')).toBeVisible();
+
+    await expect(
+      page.getByRole('heading', {
+        name: 'Built on Experience. Driven by Detail.',
+        level: 2,
+      }),
+    ).toHaveCount(0);
+    await expect(
+      page.getByRole('heading', {
+        name: 'Every Repair Begins the Same Way',
+        level: 2,
+      }),
+    ).toHaveCount(0);
+    await expect(
+      page.getByRole('heading', { name: 'Service Area', level: 2 }),
+    ).toHaveCount(0);
     await expect(page.locator('#before-after')).toHaveCount(0);
   });
 
@@ -86,7 +114,7 @@ test.describe('Phase 4 trust homepage', () => {
       page.getByRole('heading', { name: 'Conozca a Marcelo', level: 2 }),
     ).toBeVisible();
     await expect(
-      page.getByRole('heading', { name: 'Cómo podemos ayudar', level: 2 }),
+      page.getByRole('heading', { name: 'Marina y Aviación', level: 2 }),
     ).toBeVisible();
     await expect(
       page.getByRole('heading', { name: 'Qué puede esperar', level: 2 }),
@@ -120,6 +148,7 @@ test.describe('Phase 4 trust homepage', () => {
       page.getByRole('link', { name: 'Request an Estimate' }).first(),
     ).toBeVisible();
     await expect(page.locator('#marine')).toBeVisible();
+    await expect(page.locator('#aviation')).toBeVisible();
   });
 
   test('reduced-motion still shows content without requiring animation', async ({
@@ -144,6 +173,7 @@ test.describe('Phase 4 trust homepage', () => {
     expect(html).toContain('Craftsmanship That Shows in Every Finish');
     expect(html).toContain('Meet Marcelo');
     expect(html).toContain("I've worked in professional refinishing");
+    expect(html).toContain('Marine and Aviation');
     expect(html).toMatch(/<h1[\s>]/i);
   });
 
@@ -164,6 +194,22 @@ test.describe('Phase 4 trust homepage', () => {
       const res = await page.request.get(href!);
       expect(res.status(), `broken link ${href}`).toBeLessThan(400);
     }
+  });
+
+  test('division CTAs reach Marine and Aviation routes', async ({ page }) => {
+    await page.goto('/en');
+    await page
+      .getByTestId('division-marine')
+      .getByRole('link', { name: /Explore Marine/i })
+      .click();
+    await expect(page).toHaveURL(/\/en\/marine/);
+
+    await page.goto('/en');
+    await page
+      .getByTestId('division-aviation')
+      .getByRole('link', { name: /Explore Aviation Services/i })
+      .click();
+    await expect(page).toHaveURL(/\/en\/aviation/);
   });
 });
 

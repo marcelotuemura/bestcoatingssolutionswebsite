@@ -232,14 +232,25 @@ export const es = {
         'Trabajamos con clientes en inglés, español, portugués y japonés.',
       cta: 'Conozca a Marcelo',
       photoNote:
-        'El retrato y las fotos del taller aparecerán aquí cuando se aprueben — no usamos imágenes de banco.',
+        'Aquí aparecerán fotos del taller o del proyecto cuando se aprueben — preferiblemente en el trabajo, no un retrato de estudio. Sin imágenes de banco.',
     },
     philosophy: {
       title: 'La calidad se construye antes de aplicar la pintura',
       body: 'El acabado que la gente nota es el último paso. El trabajo que protege su embarcación ocurre antes — inspección, preparación y paciencia. No apresuro esos pasos solo para que una reparación parezca terminada antes de tiempo.',
     },
+    divisions: {
+      eyebrow: 'Dos divisiones',
+      title: 'Marina y Aviación',
+      lead: 'Una empresa. Dos caminos especializados de refinación — elegidos por el trabajo, no por marcas separadas.',
+      marineLabel: 'Enfoque principal',
+      aviationLabel: 'División especializada',
+      marineAtmosphere:
+        'Luz cálida sobre el agua, brillo del casco, curvas de fibra — la atmósfera marina del trabajo exterior cuidadoso.',
+      aviationAtmosphere:
+        'Superficies metálicas frías, piel de compuesto, reflejos controlados — la atmósfera de aviación del acabado cosmético preciso.',
+    },
     marine: {
-      title: 'Cómo podemos ayudar',
+      title: 'Marina',
       body: 'Gelcoat, fibra, pintura y reparación cosmética — en la embarcación cuando las condiciones lo permiten, protegiendo el acabado alrededor e igualando la superficie final tanto como sea práctico.',
       points: [
         'Reparación y refinación de gelcoat',
@@ -274,8 +285,15 @@ export const es = {
     },
     featured: {
       title: 'Trabajo destacado',
-      eyebrow: 'Historias de reparación',
+      eyebrow: 'Prueba en el acabado',
+      lead: 'Solo historias de reparación auténticas — antes, durante y después — publicadas con consentimiento del dueño y del cliente. Sin relleno de galería genérica.',
       projectTitle: 'Los proyectos reales aparecen aquí cuando se aprueban',
+      stageBefore: 'Antes',
+      stageBeforeNote: 'La condición que trajo la embarcación.',
+      stageDuring: 'Durante',
+      stageDuringNote: 'Preparación y reparación en curso.',
+      stageAfter: 'Después',
+      stageAfterNote: 'La superficie terminada que el dueño puede evaluar.',
       problem:
         'Qué ocurrió: Publicamos la condición que trajo la embarcación — no una historia inventada.',
       repair:

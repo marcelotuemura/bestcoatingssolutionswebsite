@@ -13,7 +13,7 @@ export function ProcessSection({
   return (
     <Section
       id="process"
-      className="bg-navy-900/30"
+      className="py-16 sm:py-24"
       aria-labelledby="process-heading"
     >
       <Container>
@@ -21,19 +21,19 @@ export function ProcessSection({
           <Heading as="h2" id="process-heading">
             {copy.title}
           </Heading>
-          <p className="text-silver-300 mt-4 text-pretty">{copy.body}</p>
+          <p className="text-text-secondary mt-4 text-pretty">{copy.body}</p>
         </Reveal>
-        <RevealStagger className="mt-10 max-w-3xl space-y-6">
+        <RevealStagger className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {copy.steps.map((step, index) => (
             <RevealItem key={step.title}>
-              <article className="border-navy-700/80 border-l pl-5">
-                <p className="text-electric-400 text-xs tracking-[0.2em] uppercase">
+              <article>
+                <p className="text-accent text-xs tracking-[0.2em] uppercase">
                   {String(index + 1).padStart(2, '0')}
                 </p>
-                <h3 className="mt-2 text-lg font-medium text-white">
+                <h3 className="text-text-primary mt-2 text-lg font-medium">
                   {step.title}
                 </h3>
-                <p className="text-silver-300 mt-2 text-sm text-pretty">
+                <p className="text-text-secondary mt-2 text-sm text-pretty">
                   {step.body}
                 </p>
               </article>

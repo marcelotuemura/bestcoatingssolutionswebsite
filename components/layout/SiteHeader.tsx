@@ -22,7 +22,7 @@ function navLabel(dictionary: Dictionary, key: RouteKey): string {
 export function SiteHeader({ locale, dictionary }: SiteHeaderProps) {
   return (
     <header
-      className="border-border/80 bg-bg-primary/90 sticky top-0 z-40 border-b backdrop-blur-md"
+      className="border-border/40 bg-bg-primary/65 sticky top-0 z-40 border-b backdrop-blur-[6px]"
       data-testid="site-header"
     >
       <Container className="flex h-16 items-center justify-between gap-3">
