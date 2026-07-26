@@ -5,7 +5,8 @@
 **Scope:** Marketing site audit only (`/[locale]/*`). No code changes in this phase.  
 **Baseline:** `origin/main` at audit time (Phase 7 gallery already merged). Separate open PR #29 may refine CTA/service-area microcopy; this audit treats the broader brand/UX gap, not that PR.  
 **Method:** Code review + live visual inspection (desktop 1280 / mobile 390) of homepage, about, services, gelcoat repair, projects, contact.  
-**Stop point:** Await owner approval before Phase 2 (Brand Strategy).
+**Stop point:** Await owner approval before Phase 2 (Brand Strategy).  
+**Approval:** **Phase 1 approved** by owner (2026-07-26). Proceeded to Phase 2 strategy docs only.
 
 ---
 
