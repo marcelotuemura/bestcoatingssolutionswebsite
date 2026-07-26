@@ -83,7 +83,7 @@ Status legend: ✅ Ready · ⏳ Pending · 🔶 Partial · 🚫 Blocker · ➖ N
 
 Minimum clear list:
 
-1. Official logo file in repo  
+1. ~~Official logo file in repo~~ ✅ (`bcs-logo-official.webp` + header assets)  
 2. Real Marine + Aviation hero photography (or consciously approved interim policy)  
 3. Marcelo workshop/portrait photography  
 4. Privacy + Terms legal-reviewed content  
