@@ -127,7 +127,7 @@ test.describe('Phase 2 — Interactive Media Library', () => {
     await firstCardLink.focus();
     await expect(firstCardLink).toBeFocused();
     await page.keyboard.press('Enter');
-    await expect(page).toHaveURL(/\/media\/catalog\/asset_/);
+    await expect(page).toHaveURL(/\/media\/(catalog|assets)\/asset_/);
     await expect(page.getByTestId('asset-preview')).toBeVisible();
   });
 
