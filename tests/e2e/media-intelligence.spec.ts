@@ -95,7 +95,8 @@ test.describe('Phase 2 — Interactive Media Library', () => {
 
   test('gallery search and filters work', async ({ page }) => {
     await login(page);
-    await page.goto('/media/library');
+    // Catalog browse is opt-in; workspace gallery is the Phase 7 default.
+    await page.goto('/media/library?source=catalog');
     await expect(page.getByTestId('catalog-gallery')).toBeVisible();
     await page.getByTestId('catalog-search-input').fill('Sea Ray');
     await page.getByTestId('catalog-search-submit').click();
@@ -115,7 +116,7 @@ test.describe('Phase 2 — Interactive Media Library', () => {
     page,
   }) => {
     await login(page);
-    await page.goto('/media/library');
+    await page.goto('/media/library?source=catalog');
     await page.getByTestId('catalog-search-input').focus();
     await page.keyboard.press('Tab');
     await page.keyboard.press('Tab');
