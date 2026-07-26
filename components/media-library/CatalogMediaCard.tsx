@@ -39,48 +39,49 @@ export function CatalogMediaCard({
     >
       <div
         className={`relative aspect-[4/3] bg-gradient-to-br ${stageTone(asset.stage)}`}
-        aria-hidden={thumbSrc ? undefined : true}
       >
-        {thumbSrc ? (
-          // eslint-disable-next-line @next/next/no-img-element -- private authenticated vault stream; not a public CDN asset
-          <img
-            src={thumbSrc}
-            alt=""
-            loading={priority ? 'eager' : 'lazy'}
-            decoding="async"
-            className="absolute inset-0 h-full w-full object-cover"
-            data-testid="catalog-media-thumb"
-          />
-        ) : (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-silver-300/80 media-light:text-white/90 text-xs tracking-[0.2em] uppercase">
-              {asset.mediaKind === 'video' ? 'Video' : 'Image'} · {asset.stage}
-            </span>
-          </div>
-        )}
+        <Link
+          href={`/media/assets/${asset.id}`}
+          className="focus-visible:ring-electric-500 absolute inset-0 z-0 focus-visible:ring-2 focus-visible:outline-none"
+          aria-label={`Open ${asset.filename}`}
+          data-testid="catalog-media-open"
+          prefetch={priority}
+        >
+          {thumbSrc ? (
+            // eslint-disable-next-line @next/next/no-img-element -- private authenticated vault stream; not a public CDN asset
+            <img
+              src={thumbSrc}
+              alt=""
+              loading={priority ? 'eager' : 'lazy'}
+              decoding="async"
+              className="absolute inset-0 h-full w-full object-cover"
+              data-testid="catalog-media-thumb"
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="text-silver-300/80 media-light:text-white/90 text-xs tracking-[0.2em] uppercase">
+                {asset.mediaKind === 'video' ? 'Video' : 'Image'} ·{' '}
+                {asset.stage}
+              </span>
+            </div>
+          )}
+        </Link>
         {asset.isHeroCandidate ? (
-          <span className="bg-electric-500/90 absolute top-2 left-2 z-10 rounded-md px-2 py-0.5 text-[10px] font-medium text-white">
+          <span className="bg-electric-500/90 pointer-events-none absolute top-2 left-2 z-10 rounded-md px-2 py-0.5 text-[10px] font-medium text-white">
             Hero
           </span>
         ) : null}
         {asset.privacyStatus !== 'clear' ? (
-          <span className="text-navy-950 absolute top-2 right-2 z-10 rounded-md bg-amber-500/90 px-2 py-0.5 text-[10px] font-medium">
+          <span className="text-navy-950 pointer-events-none absolute top-2 right-2 z-10 rounded-md bg-amber-500/90 px-2 py-0.5 text-[10px] font-medium">
             Privacy
           </span>
         ) : null}
         <div className="absolute inset-x-0 bottom-0 z-10 flex translate-y-2 gap-1 p-2 opacity-0 transition group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:translate-y-0 group-hover:opacity-100">
           <Link
-            href={`/media/catalog/${asset.id}`}
+            href={`/media/assets/${asset.id}`}
             className="bg-navy-950/90 hover:bg-electric-500 focus-visible:ring-electric-500 flex-1 rounded-lg px-2 py-1.5 text-center text-xs text-white focus-visible:ring-2 focus-visible:outline-none"
-            prefetch={priority}
           >
             Preview
-          </Link>
-          <Link
-            href={`/media/catalog/${asset.id}`}
-            className="bg-navy-950/90 hover:bg-electric-500 focus-visible:ring-electric-500 flex-1 rounded-lg px-2 py-1.5 text-center text-xs text-white focus-visible:ring-2 focus-visible:outline-none"
-          >
-            Details
           </Link>
           {asset.projectId ? (
             <Link
@@ -103,7 +104,7 @@ export function CatalogMediaCard({
       <div className="flex flex-1 flex-col gap-2 p-3">
         <div>
           <Link
-            href={`/media/catalog/${asset.id}`}
+            href={`/media/assets/${asset.id}`}
             className="text-silver-100 media-light:text-slate-900 hover:text-electric-400 line-clamp-1 text-sm font-medium underline-offset-2 hover:underline"
           >
             {asset.filename}

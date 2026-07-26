@@ -99,7 +99,28 @@ export default async function MediaAssetDetailPage({
     <MediaShell
       title={asset.originalFilename}
       subtitle={`Original vault key: ${asset.originalStorageKey}`}
+      readOnlyBanner={false}
     >
+      <div className="mb-4">
+        <Link
+          href="/media/library"
+          className="text-silver-400 text-sm hover:text-white"
+        >
+          ← Gallery
+        </Link>
+      </div>
+      <div
+        className="border-navy-700 bg-navy-900/40 mb-6 overflow-hidden rounded-2xl border"
+        data-testid="asset-preview-pane"
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={`/media/vault/${encodeURIComponent(asset.id)}/preview`}
+          alt={asset.originalFilename}
+          className="mx-auto max-h-[70vh] w-auto object-contain"
+          data-testid="asset-preview-image"
+        />
+      </div>
       <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
         <section className="border-navy-700 bg-navy-900/40 space-y-4 rounded-2xl border p-5">
           <div className="flex flex-wrap gap-2">

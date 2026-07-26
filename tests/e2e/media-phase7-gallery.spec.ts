@@ -112,20 +112,21 @@ test.describe('Phase 7 — Visual DAMS Gallery', () => {
 
   test('asset detail page loads for catalog asset', async ({ page }) => {
     await login(page);
-    // Navigate to library to find an asset
     await page.goto('/media/library');
     const firstAssetLink = page
-      .locator('[data-testid="catalog-gallery"] a')
+      .locator(
+        '[data-testid="catalog-gallery"] a[href*="/media/assets/"], [data-testid="catalog-media-open"]',
+      )
       .first();
     const assetCount = await firstAssetLink.count();
     if (assetCount === 0) {
-      // No assets in fixture — skip
       test.skip();
       return;
     }
     await firstAssetLink.click();
-    await page.waitForURL(/\/media\/assets\//);
+    await page.waitForURL(/\/media\/assets\//, { timeout: 15_000 });
     await expect(page.locator('h1')).toBeVisible();
+    await expect(page.getByTestId('asset-preview-pane')).toBeVisible();
   });
 
   test('upload workflow: select file and upload', async ({ page }) => {
