@@ -72,9 +72,9 @@ test.describe('Phase 4 — Estimate request', () => {
   }) => {
     await page.goto('/en/estimate-request');
     await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1);
-    await expect(
-      page.getByText(/Aviation estimate requests are not available/i),
-    ).toBeVisible();
+    await expect(page.getByTestId('estimate-no-aviation-notice')).toContainText(
+      /marine projects|aviation cosmetic refinishing/i,
+    );
 
     await fillCustomer(page);
     await fillVessel(page);

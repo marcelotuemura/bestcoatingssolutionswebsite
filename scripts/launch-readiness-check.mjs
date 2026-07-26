@@ -1,0 +1,82 @@
+/**
+ * Phase 6 — Launch readiness scanner (non-blocking inventory).
+ * Prints blocker status for logo, placeholders, legal provisional markers.
+ *
+ *   node scripts/launch-readiness-check.mjs
+ */
+import { existsSync, readFileSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const brandDir = path.join(root, 'public', 'brand');
+
+const officialCandidates = [
+  'bcs-logo-official.svg',
+  'bcs-logo-official.webp',
+  'bcs-logo-official.png',
+];
+
+const officialPresent = officialCandidates.some((f) =>
+  existsSync(path.join(brandDir, f)),
+);
+
+const privacyEn = readFileSync(
+  path.join(root, 'i18n/dictionaries/conversion-en.ts'),
+  'utf8',
+);
+const privacyProvisional =
+  /Requires owner \/ legal review before production/.test(privacyEn);
+const demoThankYou = /demonstration mode/.test(privacyEn);
+
+const about = readFileSync(path.join(root, 'content/about.ts'), 'utf8');
+const sheaffer = /\bSheaffer\b/.test(about);
+
+const rows = [
+  {
+    id: 'official-logo',
+    ok: officialPresent,
+    blocker: true,
+    note: officialPresent
+      ? 'Official logo file present'
+      : 'Missing public/brand/bcs-logo-official.{svg|webp|png}',
+  },
+  {
+    id: 'privacy-terms-provisional',
+    ok: !privacyProvisional,
+    blocker: true,
+    note: privacyProvisional
+      ? 'Privacy/Terms still marked for owner/legal review'
+      : 'Provisional review badge text cleared',
+  },
+  {
+    id: 'form-delivery-demo-copy',
+    ok: !demoThankYou,
+    blocker: true,
+    note: demoThankYou
+      ? 'Thank-you copy still mentions demonstration mode'
+      : 'Thank-you copy no longer demonstration-only',
+  },
+  {
+    id: 'manufacturer-sheaffer-confirm',
+    ok: false,
+    blocker: false,
+    note: sheaffer
+      ? 'About lists Sheaffer — confirm spelling with owner before launch'
+      : 'Sheaffer string not found in About content',
+  },
+];
+
+const out = (line) => process.stdout.write(`${line}\n`);
+out('Launch readiness check\n');
+let blockers = 0;
+for (const row of rows) {
+  const mark = row.ok ? '✅' : row.blocker ? '🚫' : '⏳';
+  if (!row.ok && row.blocker) blockers += 1;
+  out(`${mark} ${row.id}: ${row.note}`);
+}
+
+out(
+  `\nBlockers open: ${blockers}. See docs/brand-transformation/LAUNCH_READINESS_MATRIX.md`,
+);
+process.exitCode = 0; // inventory only — never fail CI until owner flips gate

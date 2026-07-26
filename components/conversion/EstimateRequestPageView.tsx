@@ -35,13 +35,14 @@ export function EstimateRequestPageView({
 
       <Section>
         <Container>
-          <p className="text-silver-400 max-w-2xl text-sm text-pretty">
+          <p className="text-text-muted max-w-2xl text-sm text-pretty">
             {copy.policyNote}
           </p>
           <p className="sr-only">{estimatePolicy.publicNotice}</p>
           <p
-            className="text-silver-300 mt-4 max-w-2xl rounded-xl border border-amber-500/30 bg-amber-500/5 px-4 py-3 text-sm"
+            className="text-text-secondary border-border mt-4 max-w-2xl rounded-[var(--radius-control)] border px-4 py-3 text-sm"
             role="status"
+            data-testid="estimate-no-aviation-notice"
           >
             {copy.noAviation}
           </p>

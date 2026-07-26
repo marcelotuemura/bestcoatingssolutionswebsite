@@ -1,6 +1,6 @@
 # Phase 5G.5 — Brand Consistency Audit
 
-**Status:** In review / awaiting approval  
+**Status:** Approved · merged to `main`  
 **Branch:** `cursor/phase-5g5-brand-consistency-audit-5ec4`  
 **Base:** `main` (Phase 5G merged)  
 **Date:** 2026-07-26
