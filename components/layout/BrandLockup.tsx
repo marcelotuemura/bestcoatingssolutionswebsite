@@ -30,7 +30,7 @@ export function BrandLockup({
   return (
     <Link
       href={localePath(locale)}
-      aria-label={label}
+      aria-label={`${siteConfig.name} ${siteConfig.shortName}. ${label}`}
       className={cn(
         'focus-visible:ring-focus-ring focus-visible:ring-offset-bg-primary inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-control)] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
         className,

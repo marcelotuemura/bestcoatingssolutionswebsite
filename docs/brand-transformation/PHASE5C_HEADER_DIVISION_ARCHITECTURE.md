@@ -1,6 +1,6 @@
 # Phase 5C — Header, Navigation, Footer & Division Architecture
 
-**Status:** Awaiting owner approval  
+**Status:** Approved · merged to `main`  
 **Branch:** `cursor/phase-5c-header-division-architecture-5ec4`  
 **PR:** https://github.com/marcelotuemura/bestcoatingssolutionswebsite/pull/36  
 **Base:** `main` (Phase 5B merged)  
