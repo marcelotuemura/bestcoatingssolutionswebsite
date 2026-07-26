@@ -8,6 +8,7 @@ import {
 import { AssetPreviewPane } from '@/components/media-intelligence/AssetPreviewPane';
 import { FavoriteToggle } from '@/components/media-intelligence/FavoriteToggle';
 import { MediaShell } from '@/components/media-intelligence/MediaShell';
+import { ScoreChip } from '@/components/media-library/StatWidget';
 import { requireMediaPageAccess } from '@/lib/media-intelligence/auth/page-guard';
 import { getMediaIntelligenceRepository } from '@/lib/media-intelligence/repository';
 import { generateSeoPackage } from '@/lib/media-intelligence/seo';
@@ -16,6 +17,7 @@ import {
   getGalleryAsset,
   canPreparePublicationForAsset,
 } from '@/lib/media-intelligence/gallery';
+import { getCatalogAssetById } from '@/lib/media-library';
 
 export default async function MediaAssetDetailPage({
   params,
@@ -25,10 +27,9 @@ export default async function MediaAssetDetailPage({
   await requireMediaPageAccess();
   const { id } = await params;
 
-  // Try catalog repo first (existing Phase 1-6 asset store)
-  const catalogAsset = getMediaIntelligenceRepository().getAsset(id);
+  const workflowAsset = getMediaIntelligenceRepository().getAsset(id);
+  const catalogAsset = await getCatalogAssetById(id);
 
-  // Also try gallery DB repo for Phase 7 assets
   const session = await resolveMediaTrustedActor();
   let galleryAsset = null;
   if (session.ok) {
@@ -40,7 +41,7 @@ export default async function MediaAssetDetailPage({
     }
   }
 
-  if (!catalogAsset && !galleryAsset) notFound();
+  if (!workflowAsset && !catalogAsset && !galleryAsset) notFound();
 
   if (galleryAsset) {
     const canPublish = canPreparePublicationForAsset(galleryAsset);
@@ -91,8 +92,89 @@ export default async function MediaAssetDetailPage({
     );
   }
 
-  // Fallback: catalog asset (Phase 1-6 legacy)
-  const asset = catalogAsset!;
+  if (catalogAsset) {
+    return (
+      <MediaShell
+        title={catalogAsset.filename}
+        subtitle={`${catalogAsset.mediaKind.toUpperCase()} · ${catalogAsset.fileType} · private vault preview`}
+        readOnlyBanner={false}
+      >
+        <div className="mb-4">
+          <Link
+            href="/media/library"
+            className="text-silver-400 text-sm hover:text-white"
+          >
+            ← Gallery
+          </Link>
+        </div>
+        <div
+          className="border-navy-700 bg-navy-900/40 mb-6 overflow-hidden rounded-2xl border"
+          data-testid="asset-preview-pane"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={`/media/vault/${encodeURIComponent(catalogAsset.id)}/preview`}
+            alt={catalogAsset.filename}
+            className="mx-auto max-h-[70vh] w-auto object-contain"
+            data-testid="asset-preview"
+          />
+        </div>
+        <section className="border-navy-700 bg-navy-900/40 space-y-4 rounded-2xl border p-5">
+          <div className="flex flex-wrap gap-2">
+            <ScoreChip label="Web" score={catalogAsset.scores.website} />
+            <ScoreChip label="Mkt" score={catalogAsset.scores.marketing} />
+            <ScoreChip label="Tech" score={catalogAsset.scores.technical} />
+          </div>
+          <dl className="text-silver-300 grid gap-3 text-sm sm:grid-cols-2">
+            <div>
+              <dt className="text-silver-500">Manufacturer</dt>
+              <dd>{catalogAsset.manufacturer ?? '—'}</dd>
+            </div>
+            <div>
+              <dt className="text-silver-500">Boat</dt>
+              <dd>{catalogAsset.boatName ?? '—'}</dd>
+            </div>
+            <div>
+              <dt className="text-silver-500">Stage</dt>
+              <dd>{catalogAsset.stage}</dd>
+            </div>
+            <div>
+              <dt className="text-silver-500">Privacy</dt>
+              <dd>{catalogAsset.privacyStatus}</dd>
+            </div>
+            <div>
+              <dt className="text-silver-500">Checksum</dt>
+              <dd className="font-mono text-xs">
+                {(catalogAsset.checksum ?? catalogAsset.sha256 ?? '—').slice(
+                  0,
+                  16,
+                )}
+                …
+              </dd>
+            </div>
+            <div>
+              <dt className="text-silver-500">Dimensions</dt>
+              <dd>
+                {catalogAsset.width && catalogAsset.height
+                  ? `${catalogAsset.width}×${catalogAsset.height}`
+                  : '—'}
+              </dd>
+            </div>
+          </dl>
+          <Link
+            href={`/media/publications?assetId=${catalogAsset.id}`}
+            className="border-electric-500 text-electric-400 hover:bg-electric-500/10 inline-block rounded-lg border px-3 py-1.5 text-xs transition"
+            data-testid="prepare-publication-btn"
+          >
+            Prepare Publication
+          </Link>
+        </section>
+      </MediaShell>
+    );
+  }
+
+  // Workflow asset fallback (Phase 1 intelligence seed)
+  const asset = workflowAsset!;
   const seo = generateSeoPackage(asset);
 
   return (
@@ -118,7 +200,7 @@ export default async function MediaAssetDetailPage({
           src={`/media/vault/${encodeURIComponent(asset.id)}/preview`}
           alt={asset.originalFilename}
           className="mx-auto max-h-[70vh] w-auto object-contain"
-          data-testid="asset-preview-image"
+          data-testid="asset-preview"
         />
       </div>
       <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
