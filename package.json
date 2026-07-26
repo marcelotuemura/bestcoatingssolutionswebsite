@@ -32,6 +32,8 @@
     "test:supabase:phase5:local": "node --import ./scripts/register-ts-alias.mjs --experimental-strip-types scripts/test-supabase-phase5-local-pg.ts",
     "test:supabase:phase6": "node --import ./scripts/register-ts-alias.mjs --experimental-strip-types scripts/test-supabase-phase6.ts",
     "test:supabase:phase6:local": "node --import ./scripts/register-ts-alias.mjs --experimental-strip-types scripts/test-supabase-phase5-local-pg.ts",
+    "test:supabase:phase7": "node --import ./scripts/register-ts-alias.mjs --experimental-strip-types scripts/test-supabase-phase7.ts",
+    "test:supabase:phase7:local": "node --import ./scripts/register-ts-alias.mjs --experimental-strip-types scripts/test-supabase-phase5-local-pg.ts",
     "media:publication:bootstrap-pg": "node --import ./scripts/register-ts-alias.mjs --experimental-strip-types scripts/bootstrap-publication-pg.ts",
     "media:supabase:apply-sql": "node --import ./scripts/register-ts-alias.mjs --experimental-strip-types scripts/apply-supabase-sql-file.ts",
     "prepare": "husky"

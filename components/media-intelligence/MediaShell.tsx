@@ -14,6 +14,7 @@ const nav = [
   { href: '/media/import', label: 'Import (meta)' },
   { href: '/media/approvals', label: 'Approvals' },
   { href: '/media/publications', label: 'Publications' },
+  { href: '/media/corpora', label: 'Corpora' },
   { href: '/media/users', label: 'Users' },
 ] as const;
 
