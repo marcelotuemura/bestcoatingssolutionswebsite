@@ -2,7 +2,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { constants as fsConstants, promises as fs } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { spawn } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import sharp from 'sharp';
 import { sha256File } from '@/lib/media-vault/checksum';
 import { getVaultLayout } from '@/lib/media-vault/layout';
@@ -22,6 +22,15 @@ import {
   ingestFile,
 } from '@/lib/media-vault/ingestion/pipeline';
 import type { VaultAssetRecord } from '@/lib/media-vault/types';
+
+function hasFfmpeg(): boolean {
+  try {
+    const result = spawnSync('ffmpeg', ['-version'], { stdio: 'ignore' });
+    return result.status === 0;
+  } catch {
+    return false;
+  }
+}
 
 async function makeTempVault(): Promise<string> {
   return fs.mkdtemp(path.join(os.tmpdir(), 'bcs-vault-fix-'));
@@ -188,14 +197,18 @@ describe('content-based MIME detection', () => {
     });
   });
 
-  it('accepts a valid MP4 fixture', async () => {
-    const mp4 = path.join(dir, 'clip.mp4');
-    await writeTestMp4(mp4);
-    await expect(detectMediaFromFile(mp4)).resolves.toMatchObject({
-      mimeType: 'video/mp4',
-      mediaKind: 'video',
-    });
-  }, 60_000);
+  it.skipIf(!hasFfmpeg())(
+    'accepts a valid MP4 fixture',
+    async () => {
+      const mp4 = path.join(dir, 'clip.mp4');
+      await writeTestMp4(mp4);
+      await expect(detectMediaFromFile(mp4)).resolves.toMatchObject({
+        mimeType: 'video/mp4',
+        mediaKind: 'video',
+      });
+    },
+    60_000,
+  );
 
   it('rejects an executable/text file renamed to .jpg', async () => {
     const spoof = path.join(dir, 'malware.jpg');
