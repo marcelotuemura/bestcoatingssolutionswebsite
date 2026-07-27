@@ -25,7 +25,16 @@ import {
   setMediaRepositoryForTests,
 } from '@/lib/media-vault/factory';
 import { generateVideoDerivatives } from '@/lib/media-vault/derivatives/video';
-import { spawn } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
+
+function hasFfmpeg(): boolean {
+  try {
+    const result = spawnSync('ffmpeg', ['-version'], { stdio: 'ignore' });
+    return result.status === 0;
+  } catch {
+    return false;
+  }
+}
 
 async function makeTempVault(): Promise<string> {
   return fs.mkdtemp(path.join(os.tmpdir(), 'bcs-vault-'));
@@ -198,47 +207,51 @@ describe('media vault repositories', () => {
 });
 
 describe('media vault video derivatives', () => {
-  it('probes and posters a tiny mp4 when ffmpeg is available', async () => {
-    const vaultRoot = await makeTempVault();
-    const layout = getVaultLayout(vaultRoot);
-    const videoPath = path.join(vaultRoot, 'clip.mp4');
-    await fs.mkdir(vaultRoot, { recursive: true });
+  it.skipIf(!hasFfmpeg())(
+    'probes and posters a tiny mp4 when ffmpeg is available',
+    async () => {
+      const vaultRoot = await makeTempVault();
+      const layout = getVaultLayout(vaultRoot);
+      const videoPath = path.join(vaultRoot, 'clip.mp4');
+      await fs.mkdir(vaultRoot, { recursive: true });
 
-    await new Promise<void>((resolve, reject) => {
-      const child = spawn(
-        'ffmpeg',
-        [
-          '-y',
-          '-f',
-          'lavfi',
-          '-i',
-          'color=c=blue:s=320x240:d=1',
-          '-c:v',
-          'libx264',
-          '-pix_fmt',
-          'yuv420p',
-          videoPath,
-        ],
-        { stdio: 'ignore' },
-      );
-      child.on('error', reject);
-      child.on('close', (code) =>
-        code === 0 ? resolve() : reject(new Error(`ffmpeg exit ${code}`)),
-      );
-    });
+      await new Promise<void>((resolve, reject) => {
+        const child = spawn(
+          'ffmpeg',
+          [
+            '-y',
+            '-f',
+            'lavfi',
+            '-i',
+            'color=c=blue:s=320x240:d=1',
+            '-c:v',
+            'libx264',
+            '-pix_fmt',
+            'yuv420p',
+            videoPath,
+          ],
+          { stdio: 'ignore' },
+        );
+        child.on('error', reject);
+        child.on('close', (code) =>
+          code === 0 ? resolve() : reject(new Error(`ffmpeg exit ${code}`)),
+        );
+      });
 
-    const result = await generateVideoDerivatives({
-      layout,
-      assetId: 'vid_001',
-      originalAbsolutePath: videoPath,
-    });
+      const result = await generateVideoDerivatives({
+        layout,
+        assetId: 'vid_001',
+        originalAbsolutePath: videoPath,
+      });
 
-    expect(result.videoMeta.width).toBe(320);
-    expect(result.videoMeta.height).toBe(240);
-    expect(result.videoMeta.codec).toBeTruthy();
-    expect(result.poster).toBeTruthy();
-    await fs.rm(vaultRoot, { recursive: true, force: true });
-  }, 60_000);
+      expect(result.videoMeta.width).toBe(320);
+      expect(result.videoMeta.height).toBe(240);
+      expect(result.videoMeta.codec).toBeTruthy();
+      expect(result.poster).toBeTruthy();
+      await fs.rm(vaultRoot, { recursive: true, force: true });
+    },
+    60_000,
+  );
 });
 
 describe('media vault large-library performance', () => {
