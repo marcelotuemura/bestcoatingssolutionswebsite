@@ -64,6 +64,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Install and start PostgreSQL
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql postgresql-contrib
+          sudo service postgresql start
+          sudo -u postgres psql -c 'SELECT version();'
+
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps chromium
 
