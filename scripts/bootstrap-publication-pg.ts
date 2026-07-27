@@ -5,6 +5,7 @@
  */
 import { spawnSync } from 'node:child_process';
 import { randomBytes } from 'node:crypto';
+import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
 const ROOT = process.cwd();
@@ -38,18 +39,18 @@ function psql(sql: string, db = DB) {
   ]);
 }
 
+/**
+ * Apply a migration by piping SQL on stdin.
+ * Avoids `psql -f` as the postgres OS user, which cannot read the Actions
+ * workspace (Permission denied on migration paths under /home/runner/work).
+ */
 function psqlFile(file: string) {
-  return run('sudo', [
-    '-u',
-    'postgres',
-    'psql',
-    '-v',
-    'ON_ERROR_STOP=1',
-    '-d',
-    DB,
-    '-f',
-    file,
-  ]);
+  const sql = readFileSync(file, 'utf8');
+  return run(
+    'sudo',
+    ['-u', 'postgres', 'psql', '-v', 'ON_ERROR_STOP=1', '-d', DB],
+    sql,
+  );
 }
 
 const bootstrap = `
