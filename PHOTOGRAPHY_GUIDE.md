@@ -103,6 +103,37 @@ metallic and ceramic protection close-ups. Never imply unauthorized ramp work.
 | Naming | `division-subject-shottype-state.ext` e.g. `marine-hull-waterline-after.jpg` |
 | Alt text | Outcome + context; never “IMG_2034” |
 
+## Repository layout (archive vs publish)
+
+Keep a permanent separation between **master archives** and **web publishes**.
+
+```
+data/
+└── pictures/                 # Master archive (originals; not served hot)
+    ├── formula/
+    ├── axopar/
+    ├── chris-craft/
+    ├── scout/
+    ├── boston-whaler/
+    └── …
+
+public/
+└── images/                   # Web-optimized publishes only
+    ├── marine/               # Hero + gallery WebP for /marine
+    ├── aviation/             # When aviation stills are approved
+    └── …
+```
+
+**Rules**
+
+1. Upload owner albums into `data/pictures/<boat-or-project-slug>/` (keep originals).
+2. Curate, compress (WebP, max edge ~1920px), strip GPS when publishing.
+3. Publish only selected frames into `public/images/<division>/`.
+4. Wire pages through typed config (e.g. `config/marine-photography.ts`) — never invent before/after pairs from filenames alone.
+5. Reject or crop faces, HINs, registration numbers, invoices, and personal documents before publish.
+
+This is the convention used by PR #49 (Formula → `public/images/marine/`). A future BCS Media Pipeline should automate import → derivatives → privacy review → one-click publish into this layout.
+
 ## Instagram & social pipeline
 
 - Shoot with vertical and horizontal in mind when on-site (one extra frame costs
@@ -156,7 +187,7 @@ Document outstanding items in `docs/assets/` until delivered:
 - [ ] Logo masters (SVG/PNG)  
 - [ ] Favicons / app icons  
 - [ ] Default OG image  
-- [ ] Homepage marine hero (or silhouette source)  
+- [x] Homepage / division marine hero photography (Formula album → `public/images/marine/`)  
 - [ ] Homepage aviation hero (or silhouette source)  
 - [ ] ≥1 featured case study set (before/after + process + result)  
 - [ ] ≥3 matched before/after pairs  
