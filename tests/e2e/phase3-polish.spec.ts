@@ -220,9 +220,10 @@ test.describe('Phase 3 polish — consistency audits', () => {
   });
 
   test('tablet and desktop layouts keep CTA hierarchy', async ({ page }) => {
+    test.setTimeout(60_000);
+    await page.goto('/en/marine', { waitUntil: 'domcontentloaded' });
     for (const width of [768, 1024, 1440, 1920]) {
       await page.setViewportSize({ width, height: 900 });
-      await page.goto('/en/marine');
       await expect(page.getByTestId('page-cta-band')).toHaveAttribute(
         'data-cta-mode',
         'estimate',

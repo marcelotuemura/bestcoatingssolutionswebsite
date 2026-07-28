@@ -7,11 +7,12 @@ Visible UI labels must include clear wording such as **Placeholder Image**, **Fu
 | Asset | Path | Purpose | Replace with |
 |-------|------|---------|--------------|
 | Temporary logo | `public/brand/bcs-logo-temporary.svg` | Hero logo reveal | Final BCS logo SVG (owner) |
-| Marine silhouette | `public/brand/marine-silhouette.svg` | Decorative hero/marine atmosphere | Approved marine photography |
+| Marine silhouette | `public/brand/marine-silhouette.svg` | Homepage / service atmosphere only | Marine division hero now uses Formula photos in `public/images/marine/` |
 | Aviation silhouette | `public/brand/aviation-silhouette.svg` | Aviation preview atmosphere | Approved aviation photography (when operational) |
 | Before/after gradients | CSS in `BeforeAfterSlider` | Interactive demo only | Matched before/after photo pair |
 | Featured project copy | `i18n` `home.featured.*` | Case-study structure demo | Real approved case study |
-| Marine / service heroes | `config/marketing-placeholders.ts` | Division + service page atmosphere | Approved photography |
+| Marine division hero | `config/marine-photography.ts` | Authentic Formula project WebP | Keep / expand with more owner albums |
+| Service heroes | `config/marketing-placeholders.ts` `serviceHero` | Service page atmosphere silhouette | Approved service photography |
 | Project image slots | `config/projects.ts` framework | Empty slots labeled placeholder | Owner-approved project images |
 | Contact map | Contact page map region | Labeled map placeholder — no embed | Approved map/location treatment if desired |
 | Form delivery demo | `config/submission.ts` + mock adapters | Temporary “prepared” success state | Real email/CRM delivery |

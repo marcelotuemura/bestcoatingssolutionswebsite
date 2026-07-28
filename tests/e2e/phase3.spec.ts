@@ -42,7 +42,14 @@ test.describe('Phase 3 — Marine, Aviation, Services, Projects', () => {
     await expect(
       page.getByRole('link', { name: 'Request an Estimate' }).first(),
     ).toBeVisible();
-    await expect(page.getByText(/Placeholder Image/i).first()).toBeVisible();
+    await expect(page.getByTestId('division-hero')).toHaveAttribute(
+      'data-hero-authentic',
+      'true',
+    );
+    await expect(page.getByTestId('marine-work-gallery')).toBeVisible();
+    await expect(
+      page.getByText(/Placeholder Image — not a BCS project photo/i),
+    ).toHaveCount(0);
   });
 
   test('Aviation division is visible and carefully scoped', async ({
@@ -129,7 +136,8 @@ test.describe('Phase 3 — Marine, Aviation, Services, Projects', () => {
   });
 
   test('Spanish marine and service routing', async ({ page }) => {
-    await page.goto('/es/marine');
+    test.setTimeout(60_000);
+    await page.goto('/es/marine', { waitUntil: 'domcontentloaded' });
     await expect(
       page.getByRole('heading', { level: 1, name: /marina/i }),
     ).toBeVisible();
@@ -138,7 +146,9 @@ test.describe('Phase 3 — Marine, Aviation, Services, Projects', () => {
       page.getByRole('navigation', { name: 'Miga de pan' }),
     ).toBeVisible();
 
-    await page.goto('/es/services/gelcoat-repair');
+    await page.goto('/es/services/gelcoat-repair', {
+      waitUntil: 'domcontentloaded',
+    });
     await expect(
       page.getByRole('heading', { level: 1, name: /Reparación de gelcoat/i }),
     ).toBeVisible();

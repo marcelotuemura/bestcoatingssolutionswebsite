@@ -111,7 +111,10 @@ export const en = {
       overview:
         'Best Coatings Solutions focuses on gelcoat depth, fiberglass integrity at the surface, paint refinishing, and cosmetic repair. We talk through scope in plain language, protect the areas around the repair, and finish the work so it belongs to the boat. We do not publish prices online.',
       atmosphere:
-        'The marine atmosphere is warm water light, hull gloss, fiberglass curves, and sunlight on a premium finish — shown through real photography as it becomes available.',
+        'The marine atmosphere is warm water light, hull gloss, fiberglass curves, and sunlight on a premium finish — shown here with authentic Best Coatings Solutions project photography.',
+      galleryTitle: 'Repair work from the yard',
+      galleryLead:
+        'Selected photographs from Best Coatings Solutions marine refinishing projects — preparation, surface work, and completed finishes. No stock imagery.',
       processEyebrow: 'Show the process',
       processTitle: 'How a marine refinishing project moves',
       processLead:
