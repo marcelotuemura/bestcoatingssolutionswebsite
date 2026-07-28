@@ -228,6 +228,7 @@ CLI: `pnpm media:analyze`. Docs: [`MEDIA_VISION_PHASE4.md`](./MEDIA_VISION_PHASE
 | **6 — Publishers** | Website content bridge, social/GBP draft scheduling APIs — see [`MEDIA_PUBLISHERS_PHASE6.md`](./MEDIA_PUBLISHERS_PHASE6.md) |
 | **7 — Visual Gallery** | Visual DAMS Gallery — upload, organize, review, and publish media assets — see [`MEDIA_GALLERY_PHASE7.md`](./MEDIA_GALLERY_PHASE7.md). Training corpus export postponed to Phase 8 |
 | **8 — Training corpus** | Export labeled sets for estimate / damage AI |
+| **9 — BCS Media Pipeline** | Post go-live: import → AI processing → web publish → ops integration — see [`MEDIA_PIPELINE_ROADMAP.md`](./MEDIA_PIPELINE_ROADMAP.md). Extends this DAMS; does not replace it. |
 
 ## Relationship to go-live & ops
 

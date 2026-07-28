@@ -132,7 +132,7 @@ public/
 4. Wire pages through typed config (e.g. `config/marine-photography.ts`) — never invent before/after pairs from filenames alone.
 5. Reject or crop faces, HINs, registration numbers, invoices, and personal documents before publish.
 
-This is the convention used by PR #49 (Formula → `public/images/marine/`). A future BCS Media Pipeline should automate import → derivatives → privacy review → one-click publish into this layout.
+This is the convention used by PR #49 (Formula → `public/images/marine/`). The post-launch **BCS Media Pipeline** should automate import → derivatives → privacy review → one-click publish into this layout — see [`docs/MEDIA_PIPELINE_ROADMAP.md`](./docs/MEDIA_PIPELINE_ROADMAP.md).
 
 ## Instagram & social pipeline
 
