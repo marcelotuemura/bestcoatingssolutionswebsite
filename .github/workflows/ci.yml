@@ -22,7 +22,7 @@ jobs:
         uses: pnpm/action-setup@v4
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           # Node 22+ required for --experimental-strip-types used by media/bootstrap scripts
           node-version: 22
@@ -55,7 +55,7 @@ jobs:
         uses: pnpm/action-setup@v4
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           # Node 22+ required for Playwright webServer bootstrap (strip-types)
           node-version: 22
