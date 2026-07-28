@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { DivisionHero } from '@/components/divisions/DivisionHero';
 import { DivisionProcess } from '@/components/divisions/DivisionProcess';
 import { Reveal, RevealItem, RevealStagger } from '@/components/home/Reveal';
+import { MarineWorkGallery } from '@/components/marine/MarineWorkGallery';
 import {
   Breadcrumbs,
   BulletList,
@@ -12,7 +13,7 @@ import { ButtonLink } from '@/components/ui/ButtonLink';
 import { Container } from '@/components/ui/Container';
 import { Heading } from '@/components/ui/Heading';
 import { Section } from '@/components/ui/Section';
-import { marketingPlaceholders } from '@/config/marketing-placeholders';
+import { marinePhotography } from '@/config/marine-photography';
 import { routes } from '@/config/routes';
 import { listMarineServiceSummaries } from '@/content/marine-services';
 import type { Dictionary } from '@/i18n/get-dictionary';
@@ -21,7 +22,7 @@ import { localePath } from '@/i18n/path';
 
 /**
  * Phase 5E — Marine division.
- * Same design language as Aviation; atmosphere through marine photography/content.
+ * Authentic BCS marine photography from `public/images/marine` (Formula album).
  */
 export function MarineDivisionPage({
   locale,
@@ -32,6 +33,7 @@ export function MarineDivisionPage({
 }) {
   const copy = dictionary.pages.marine;
   const services = listMarineServiceSummaries(locale);
+  const hero = marinePhotography.hero;
 
   return (
     <main id="main-content" data-testid="marine-division-page">
@@ -53,8 +55,9 @@ export function MarineDivisionPage({
         eyebrow={copy.eyebrow}
         title={copy.title}
         lead={copy.lead}
-        imageSrc={marketingPlaceholders.marineHero.src}
-        imageLabel={dictionary.placeholder.mediaLabel}
+        imageSrc={hero.src}
+        imageAlt={hero.alt}
+        showImageLabel={false}
       >
         <div className="flex flex-col gap-3 sm:flex-row">
           <ButtonLink href={localePath(locale, routes.estimateRequest.path)}>
@@ -78,6 +81,8 @@ export function MarineDivisionPage({
           {copy.atmosphere}
         </p>
       </ContentSection>
+
+      <MarineWorkGallery title={copy.galleryTitle} lead={copy.galleryLead} />
 
       <DivisionProcess
         eyebrow={copy.processEyebrow}

@@ -73,7 +73,7 @@ Related: [`ROADMAP.md`](./ROADMAP.md), [`FUTURE_PLATFORM.md`](./FUTURE_PLATFORM.
 | **Location landing pages at scale** | Beyond core `/service-area`. |
 | **Locales beyond EN/ES** | PT/JA spoken in business; UI locales later. |
 | **National / international expansion site structure** | After South Florida launch maturity. |
-| **Phase 9 – Digital Asset Library** | After the marketing site is stable: reusable media library classifying every photo/video by division, service, before/during/after, orientation, resolution, usage rights, and featured status. Builds on Media Intelligence / DAMS — see `docs/MEDIA_INTELLIGENCE_PLATFORM.md`. |
+| **Phase 9 – BCS Media Pipeline** | After marketing photography launch is stable: extend DAMS into import → AI processing → web publish → ops integration. See [`docs/MEDIA_PIPELINE_ROADMAP.md`](./docs/MEDIA_PIPELINE_ROADMAP.md) and [`docs/MEDIA_INTELLIGENCE_PLATFORM.md`](./docs/MEDIA_INTELLIGENCE_PLATFORM.md). Do not invent a separate media product. |
 
 ## Portal module checklist (when approved)
 

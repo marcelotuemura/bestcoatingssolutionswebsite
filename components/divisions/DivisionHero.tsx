@@ -17,7 +17,9 @@ export function DivisionHero({
   title,
   lead,
   imageSrc,
+  imageAlt = '',
   imageLabel,
+  showImageLabel = true,
   children,
 }: {
   readonly atmosphere: DivisionAtmosphere;
@@ -25,9 +27,15 @@ export function DivisionHero({
   readonly title: string;
   readonly lead: string;
   readonly imageSrc: string;
-  readonly imageLabel: string;
+  /** Meaningful alt when authentic photography is shown; empty for decorative SVG placeholders. */
+  readonly imageAlt?: string;
+  readonly imageLabel?: string;
+  /** Hide placeholder warning when a real BCS photo is displayed. */
+  readonly showImageLabel?: boolean;
   readonly children?: ReactNode;
 }) {
+  const isSvg = imageSrc.endsWith('.svg');
+
   return (
     <section
       className={cn(
@@ -39,6 +47,7 @@ export function DivisionHero({
       aria-labelledby="page-hero-heading"
       data-testid="division-hero"
       data-atmosphere={atmosphere}
+      data-hero-authentic={showImageLabel ? 'false' : 'true'}
     >
       <Container className="py-14 sm:py-20 lg:py-24">
         <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
@@ -58,10 +67,10 @@ export function DivisionHero({
             <div className="border-border relative aspect-[16/10] overflow-hidden rounded-[var(--radius-media)] border sm:aspect-[21/12]">
               <Image
                 src={imageSrc}
-                alt=""
+                alt={imageAlt}
                 fill
                 priority
-                unoptimized
+                unoptimized={isSvg}
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 58vw"
               />
@@ -69,9 +78,11 @@ export function DivisionHero({
                 aria-hidden
                 className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#050d18]/50 via-transparent to-transparent"
               />
-              <p className="bg-bg-primary/80 text-text-muted absolute right-3 bottom-3 rounded-[var(--radius-control)] px-2 py-1 text-xs">
-                {imageLabel}
-              </p>
+              {showImageLabel && imageLabel ? (
+                <p className="bg-bg-primary/80 text-text-muted absolute right-3 bottom-3 rounded-[var(--radius-control)] px-2 py-1 text-xs">
+                  {imageLabel}
+                </p>
+              ) : null}
             </div>
           </Reveal>
         </div>

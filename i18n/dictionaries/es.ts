@@ -114,7 +114,10 @@ export const es = {
       overview:
         'Best Coatings Solutions se enfoca en la profundidad del gelcoat, la integridad superficial de la fibra, la refinación de pintura y la reparación cosmética. Hablamos el alcance en lenguaje claro, protegemos el área alrededor de la reparación y terminamos el trabajo para que pertenezca a la embarcación. No publicamos precios en el sitio.',
       atmosphere:
-        'La atmósfera marina es luz cálida sobre el agua, brillo del casco, curvas de fibra y sol sobre un acabado premium — mostrada con fotografía real cuando esté disponible.',
+        'La atmósfera marina es luz cálida sobre el agua, brillo del casco, curvas de fibra y sol sobre un acabado premium — mostrada aquí con fotografía auténtica de proyectos de Best Coatings Solutions.',
+      galleryTitle: 'Trabajo de reparación en el astillero',
+      galleryLead:
+        'Fotografías seleccionadas de proyectos de refinación marina de Best Coatings Solutions — preparación, trabajo de superficie y acabados terminados. Sin imágenes de archivo.',
       processEyebrow: 'Mostrar el proceso',
       processTitle: 'Cómo avanza un proyecto de refinación marina',
       processLead:

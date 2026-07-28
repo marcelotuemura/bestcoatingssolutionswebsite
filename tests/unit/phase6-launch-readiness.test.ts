@@ -12,7 +12,8 @@ describe('phase 6 launch readiness inventory', () => {
     for (const candidate of brandLogoMeta.officialCandidates) {
       expect(candidate.startsWith('/brand/')).toBe(true);
     }
-    expect(marketingPlaceholders.marineHero.temporary).toBe(true);
+    expect(marketingPlaceholders.marineHero.temporary).toBe(false);
+    expect(marketingPlaceholders.marineHero.src).toMatch(/^\/images\/marine\//);
     expect(marketingPlaceholders.aviationHero.temporary).toBe(true);
   });
 

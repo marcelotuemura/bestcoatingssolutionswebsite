@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
+import { marinePhotography } from '@/config/marine-photography';
 import { getDictionarySync } from '@/i18n/get-dictionary';
 
 describe('phase 5e marine division', () => {
@@ -32,5 +33,31 @@ describe('phase 5e marine division', () => {
     expect(source).toContain('DivisionProcess');
     expect(source).toContain('atmosphere="marine"');
     expect(source).toContain('EstimateCtaBand');
+    expect(source).toContain('MarineWorkGallery');
+  });
+
+  it('wires authentic Formula marine photography without invented before/after pairs', () => {
+    expect(marinePhotography.hero.temporary).toBe(false);
+    expect(marinePhotography.hero.src).toBe(
+      '/images/marine/hero-formula-330cbr-stern.webp',
+    );
+    expect(
+      existsSync(
+        path.join(
+          process.cwd(),
+          'public/images/marine/hero-formula-330cbr-stern.webp',
+        ),
+      ),
+    ).toBe(true);
+    expect(marinePhotography.gallery.length).toBeGreaterThan(5);
+    expect(marinePhotography.beforeAfterPairs).toHaveLength(0);
+    for (const photo of [
+      marinePhotography.hero,
+      ...marinePhotography.gallery,
+    ]) {
+      expect(photo.src.startsWith('/images/marine/')).toBe(true);
+      expect(photo.alt.length).toBeGreaterThan(20);
+      expect(photo.alt).not.toMatch(/\bcustomer\b|\bHIN\b/i);
+    }
   });
 });
