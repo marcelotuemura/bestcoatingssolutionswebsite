@@ -1,8 +1,8 @@
-import { Badge } from '@/components/ui/Badge';
 import { Container } from '@/components/ui/Container';
 import { Heading } from '@/components/ui/Heading';
 import { Section } from '@/components/ui/Section';
 import { Breadcrumbs, PageHero } from '@/components/marketing';
+import { legalConfig } from '@/config/legal';
 import type { Dictionary } from '@/i18n/get-dictionary';
 import type { Locale } from '@/i18n/config';
 
@@ -38,7 +38,12 @@ export function LegalPageView({
       </Section>
 
       <PageHero title={copy.title} lead={copy.lead}>
-        <Badge tone="warning">{copy.reviewBadge}</Badge>
+        <p
+          className="text-text-secondary text-sm"
+          data-testid="legal-last-updated"
+        >
+          {copy.lastUpdatedLabel}: {legalConfig.documentsLastUpdated}
+        </p>
       </PageHero>
 
       <Section>
@@ -49,7 +54,7 @@ export function LegalPageView({
                 <Heading as="h2" id={section.title}>
                   {section.title}
                 </Heading>
-                <p className="text-silver-300 mt-3 text-pretty">
+                <p className="text-text-secondary mt-3 text-pretty">
                   {section.body}
                 </p>
               </section>

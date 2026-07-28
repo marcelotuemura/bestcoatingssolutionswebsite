@@ -24,7 +24,8 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          # Node 22+ required for --experimental-strip-types used by media/bootstrap scripts
+          node-version: 22
           cache: pnpm
 
       - name: Install dependencies
@@ -56,11 +57,19 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          # Node 22+ required for Playwright webServer bootstrap (strip-types)
+          node-version: 22
           cache: pnpm
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Install and start PostgreSQL
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql postgresql-contrib
+          sudo service postgresql start
+          sudo -u postgres psql -c 'SELECT version();'
 
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps chromium

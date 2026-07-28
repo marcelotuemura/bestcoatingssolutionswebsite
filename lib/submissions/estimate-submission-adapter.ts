@@ -1,10 +1,9 @@
 /**
- * Active estimate submission adapter.
- * PRODUCTION BLOCKER: swap mock for secure upload + CRM/email before launch.
+ * Active estimate submission adapter — delegates to the Server Action.
  */
-export { mockEstimateAdapter as estimateSubmissionAdapter } from '@/lib/submissions/mock-adapters';
-export type {
-  EstimateSubmissionAdapter,
-  EstimateAttachment,
-  EstimateAttachmentMeta,
-} from '@/lib/submissions/types';
+import { submitEstimateAction } from '@/app/actions/submit-estimate';
+import type { EstimateSubmissionAdapter } from '@/lib/submissions/types';
+
+export const estimateSubmissionAdapter: EstimateSubmissionAdapter = {
+  submit: (input) => submitEstimateAction(input),
+};

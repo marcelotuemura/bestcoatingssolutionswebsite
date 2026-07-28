@@ -11,7 +11,10 @@ import { Select } from '@/components/ui/Select';
 import { Textarea } from '@/components/ui/Textarea';
 import { ErrorSummary } from '@/components/forms/ErrorSummary';
 import { FormField } from '@/components/forms/FormField';
+import { FormLegalConsent } from '@/components/forms/FormLegalConsent';
+import { HoneypotField } from '@/components/forms/HoneypotField';
 import { contactInquiryTypes } from '@/config/form-options';
+import { routes } from '@/config/routes';
 import {
   createContactSchema,
   type ContactFormValues,
@@ -24,7 +27,15 @@ import { contactSubmissionAdapter } from '@/lib/submissions/contact-submission-a
 import type { Dictionary } from '@/i18n/get-dictionary';
 import type { Locale } from '@/i18n/config';
 import { localePath } from '@/i18n/path';
-import { routes } from '@/config/routes';
+
+function visitorErrorMessage(
+  messageKey: string | undefined,
+  copy: Dictionary['conversion']['common'],
+): string {
+  if (messageKey === 'configError') return copy.configError;
+  if (messageKey === 'rateLimited') return copy.rateLimited;
+  return copy.submitFailure;
+}
 
 export function ContactForm({
   locale,
@@ -58,12 +69,14 @@ export function ContactForm({
       message: '',
       preferredContactMethod: 'either',
       consent: false,
+      companyUrl: '',
     },
   });
 
   const errorItems = flattenFieldErrors(errors);
 
   const onSubmit = handleSubmit(async (values) => {
+    if (submitting) return;
     setSubmitting(true);
     setSubmitError(null);
     const simulateFailure =
@@ -74,14 +87,14 @@ export function ContactForm({
     const result = await contactSubmissionAdapter.submit({
       payload: { ...values },
       simulateFailure,
+      sourcePath: localePath(locale, routes.contact.path),
     });
 
     setSubmitting(false);
 
     if (!result.ok) {
-      setSubmitError(copy.common.demoFailure);
+      setSubmitError(visitorErrorMessage(result.messageKey, copy.common));
       focusFormErrorSummary();
-      // Retain values — RHF keeps them
       void getValues();
       return;
     }
@@ -93,12 +106,10 @@ export function ContactForm({
     <form
       onSubmit={onSubmit}
       noValidate
-      className="space-y-6"
+      className="relative space-y-6"
       data-testid="contact-form"
     >
-      <p className="text-silver-500 border-navy-700 rounded-xl border border-dashed px-4 py-3 text-sm">
-        {copy.common.demoBanner}
-      </p>
+      <HoneypotField register={register} />
 
       {(errorItems.length > 0 || submitError) && (
         <ErrorSummary
@@ -215,6 +226,8 @@ export function ContactForm({
           {errors.consent.message}
         </p>
       ) : null}
+
+      <FormLegalConsent locale={locale} dictionary={dictionary} />
 
       <div className="sr-only" aria-live="polite" aria-atomic="true">
         {submitting ? copy.a11y.submitting : ''}

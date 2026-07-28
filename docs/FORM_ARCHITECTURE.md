@@ -1,4 +1,4 @@
-# Form architecture (Phase 4)
+# Form architecture
 
 ## Schemas
 
@@ -8,44 +8,24 @@
 | `lib/forms/estimate-schema.ts` | Step schemas + `createFullEstimateSchema` + `validateEstimateFiles` |
 | `lib/forms/form-errors.ts` | Flatten RHF errors for accessible summaries |
 
-Schemas accept localized validation messages so EN/ES dictionaries stay authoritative.
+Schemas accept localized validation messages so EN/ES dictionaries stay authoritative.  
+Server Actions re-validate with the same factories using internal English messages.
 
 ## Form models
 
-- **Contact:** name, email, phone, inquiry type (no aviation), message, preferred contact method, consent
-- **Estimate:** customer → vessel → marine services (from `config/form-options` + `marine-services`) → damage → photos (client-only) → review/consent
+- **Contact:** name, email, phone, inquiry type (no aviation), message, preferred contact method, consent, honeypot `companyUrl`
+- **Estimate:** customer → vessel → marine services → damage → photos (client-only selection) → review/consent + honeypot
 
-## Adapter interfaces
+## Delivery path
 
-Defined in `lib/submissions/types.ts`:
+1. Client UI → `contactSubmissionAdapter` / `estimateSubmissionAdapter`
+2. Server Actions → `processContactSubmission` / `processEstimateSubmission`
+3. Checks: honeypot, rate limit, Zod, Resend configuration
+4. `sendInternalNotification` via Resend (`lib/submissions/mailer.ts`)
+5. Typed `SubmissionResult` (`delivered` | `failed`)
 
-- `ContactSubmissionAdapter`
-- `EstimateSubmissionAdapter`
-- `EstimateAttachment` / `EstimateAttachmentMeta`
-- `SubmissionResult` (`prepared` | `failed`)
+See `docs/FORM_DELIVERY.md` for env vars and ops runbook.
 
-Active wiring:
+## Uploads
 
-- `lib/submissions/contact-submission-adapter.ts` → mock
-- `lib/submissions/estimate-submission-adapter.ts` → mock
-
-## Temporary adapter behavior
-
-`lib/submissions/mock-adapters.ts`:
-
-- Simulates latency
-- Does **not** persist PII, use localStorage, or call third parties
-- Supports deterministic failure via `simulateFailure: true` (E2E uses `?simulateFailure=1`)
-- Success means **prepared**, not delivered — copy from `config/submission.ts`
-
-## Future production integration
-
-Replace mock adapters with server actions or API routes that:
-
-1. Re-validate with Zod on the server
-2. Rate-limit and bot-protect
-3. Deliver via email/CRM
-4. Store attachments securely (scan, lifecycle)
-5. Return opaque reference IDs only
-
-See `docs/FORM_PRODUCTION_CHECKLIST.md`.
+`config/estimate-upload.ts` — local selection + validation only. Binaries are not uploaded in this release.

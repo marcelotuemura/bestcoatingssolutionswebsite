@@ -42,6 +42,9 @@ export default defineConfig({
       // Explicit opt-in only — not a production persistence mechanism.
       MEDIA_GALLERY_STORAGE_MODE: 'local',
       MEDIA_SUPABASE_ENV: 'development',
+      // E2E harness only — never set FORM_DELIVERY_MODE=mock on Production.
+      FORM_DELIVERY_MODE: 'mock',
+      NEXT_PUBLIC_SITE_URL: baseURL,
     },
   },
 });

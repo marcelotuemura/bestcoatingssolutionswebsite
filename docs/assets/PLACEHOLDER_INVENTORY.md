@@ -6,16 +6,17 @@ Visible UI labels must include clear wording such as **Placeholder Image**, **Fu
 
 | Asset | Path | Purpose | Replace with |
 |-------|------|---------|--------------|
-| Temporary logo | `public/brand/bcs-logo-temporary.svg` | Hero logo reveal | Final BCS logo SVG (owner) |
-| Marine silhouette | `public/brand/marine-silhouette.svg` | Decorative hero/marine atmosphere | Approved marine photography |
-| Aviation silhouette | `public/brand/aviation-silhouette.svg` | Aviation preview atmosphere | Approved aviation photography (when operational) |
+| Temporary logo (scaffolding only) | `public/brand/bcs-logo-temporary.svg` | Legacy layout only — not official | Official production assets in `public/brand/bcs-logo-official.*` + header variants |
+| Marine silhouette | `public/brand/marine-silhouette.svg` | Decorative hero/marine atmosphere | Approved marine photography — **Deferred by owner approval — pending approved assets** |
+| Aviation silhouette | `public/brand/aviation-silhouette.svg` | Aviation preview atmosphere | Approved aviation photography — **Deferred by owner approval — pending approved assets** |
+| Marcelo / workshop photo slots | About + homepage | Honest placeholders | Approved Marcelo photography — **Deferred by owner approval — pending approved assets** |
 | Before/after gradients | CSS in `BeforeAfterSlider` | Interactive demo only | Matched before/after photo pair |
 | Featured project copy | `i18n` `home.featured.*` | Case-study structure demo | Real approved case study |
-| Marine / service heroes | `config/marketing-placeholders.ts` | Division + service page atmosphere | Approved photography |
+| Marine / service heroes | `config/marketing-placeholders.ts` | Division + service page atmosphere | Approved photography (deferred) |
 | Project image slots | `config/projects.ts` framework | Empty slots labeled placeholder | Owner-approved project images |
 | Contact map | Contact page map region | Labeled map placeholder — no embed | Approved map/location treatment if desired |
-| Form delivery demo | `config/submission.ts` + mock adapters | Temporary “prepared” success state | Real email/CRM delivery |
-| Legal review badges | Privacy / Terms pages | “Requires owner / legal review” | Approved final legal copy |
+| Form delivery | Server Actions + Resend | Live delivery when env configured | Ops: verify Production Resend domain + env vars (`docs/FORM_DELIVERY.md`) |
+| Legal mailing address | Privacy / Terms | Owner configuration placeholder | Owner-supplied postal address if required |
 | About-page owner facts | `config/about.ts` | Typed placeholders for founding year, certs, bios | Owner-approved facts only |
 | Portfolio content | `config/projects.ts` catalog | Empty published catalogue | Owner-approved projects |
 | Portfolio photos | Project image model | Placeholder / test-fixture silhouettes | Consent-approved repair photography |
@@ -36,4 +37,6 @@ Config references:
 - `config/service-area.ts`
 - `config/marinas.ts`
 - `config/submission.ts`
+- `config/legal.ts`
+- `docs/FORM_DELIVERY.md`
 - `docs/assets/PORTFOLIO_IMAGE_GUIDE.md`

@@ -1,4 +1,8 @@
-import { submissionMessaging } from '@/config/submission';
+/**
+ * Legacy mock adapters retained for isolated unit tests of the previous
+ * prepare-only path. Production wiring uses Server Actions + Resend.
+ */
+
 import type {
   ContactSubmissionAdapter,
   EstimateSubmissionAdapter,
@@ -16,10 +20,6 @@ async function simulateLatency(): Promise<void> {
   }
 }
 
-/**
- * Temporary contact adapter — does not deliver messages.
- * PRODUCTION BLOCKER: replace with real email/CRM delivery before launch.
- */
 export const mockContactAdapter: ContactSubmissionAdapter = {
   async submit({ simulateFailure }): Promise<SubmissionResult> {
     await simulateLatency();
@@ -27,45 +27,36 @@ export const mockContactAdapter: ContactSubmissionAdapter = {
       return {
         ok: false,
         status: 'failed',
-        messageKey: 'demoFailure',
+        messageKey: 'failure',
         errorCode: 'simulated',
       };
     }
     return {
       ok: true,
-      status: 'prepared',
+      status: 'delivered',
       referenceId: createReferenceId('contact'),
-      messageKey: 'demoSuccess',
+      messageKey: 'success',
     };
   },
 };
 
-/**
- * Temporary estimate adapter — does not deliver or store files.
- * PRODUCTION BLOCKER: replace with secure upload + CRM/email before launch.
- */
 export const mockEstimateAdapter: EstimateSubmissionAdapter = {
   async submit({ simulateFailure, attachments }): Promise<SubmissionResult> {
     await simulateLatency();
-    // Intentionally ignore attachment binary content — metadata only for demos.
     void attachments;
     if (simulateFailure) {
       return {
         ok: false,
         status: 'failed',
-        messageKey: 'demoFailure',
+        messageKey: 'failure',
         errorCode: 'simulated',
       };
     }
     return {
       ok: true,
-      status: 'prepared',
+      status: 'delivered',
       referenceId: createReferenceId('estimate'),
-      messageKey: 'demoSuccess',
+      messageKey: 'success',
     };
   },
 };
-
-export function getDemoSuccessNotice(): string {
-  return submissionMessaging.demoSuccessNotice;
-}

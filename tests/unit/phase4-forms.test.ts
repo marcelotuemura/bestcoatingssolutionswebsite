@@ -198,8 +198,8 @@ describe('submission adapters', () => {
       simulateFailure: false,
     });
     expect(ok.ok).toBe(true);
-    expect(ok.status).toBe('prepared');
-    expect(ok.messageKey).toBe('demoSuccess');
+    expect(ok.status).toBe('delivered');
+    expect(ok.messageKey).toBe('success');
 
     const fail = await mockEstimateAdapter.submit({
       payload: {},

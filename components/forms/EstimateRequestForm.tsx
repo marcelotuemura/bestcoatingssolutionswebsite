@@ -11,6 +11,8 @@ import { Select } from '@/components/ui/Select';
 import { Textarea } from '@/components/ui/Textarea';
 import { ErrorSummary } from '@/components/forms/ErrorSummary';
 import { FormField } from '@/components/forms/FormField';
+import { FormLegalConsent } from '@/components/forms/FormLegalConsent';
+import { HoneypotField } from '@/components/forms/HoneypotField';
 import { estimateUploadPolicy } from '@/config/estimate-upload';
 import {
   affectedAreaOptions,
@@ -38,6 +40,15 @@ import { estimateSubmissionAdapter } from '@/lib/submissions/estimate-submission
 import type { Dictionary } from '@/i18n/get-dictionary';
 import type { Locale } from '@/i18n/config';
 import { localePath } from '@/i18n/path';
+
+function visitorErrorMessage(
+  messageKey: string | undefined,
+  copy: Dictionary['conversion']['common'],
+): string {
+  if (messageKey === 'configError') return copy.configError;
+  if (messageKey === 'rateLimited') return copy.rateLimited;
+  return copy.submitFailure;
+}
 
 const STEPS = [
   'customer',
@@ -94,6 +105,7 @@ export function EstimateRequestForm({
       acknowledgeNotQuote: false,
       acknowledgeInspection: false,
       acknowledgeNoAppointment: false,
+      companyUrl: '',
     },
   });
 
@@ -248,6 +260,7 @@ export function EstimateRequestForm({
       return;
     }
 
+    if (submitting) return;
     setSubmitting(true);
     setSubmitError(null);
     const simulateFailure =
@@ -263,12 +276,13 @@ export function EstimateRequestForm({
         type: file.type,
       })),
       simulateFailure,
+      sourcePath: localePath(locale, routes.estimateRequest.path),
     });
 
     setSubmitting(false);
 
     if (!result.ok) {
-      setSubmitError(copy.common.demoFailure);
+      setSubmitError(visitorErrorMessage(result.messageKey, copy.common));
       focusFormErrorSummary();
       return;
     }
@@ -292,12 +306,10 @@ export function EstimateRequestForm({
     <form
       onSubmit={onSubmit}
       noValidate
-      className="space-y-6"
+      className="relative space-y-6"
       data-testid="estimate-form"
     >
-      <p className="text-silver-500 border-navy-700 rounded-xl border border-dashed px-4 py-3 text-sm">
-        {copy.common.demoBanner}
-      </p>
+      <HoneypotField register={register} />
       <p
         className="text-silver-300 text-sm"
         role="status"
@@ -717,6 +729,10 @@ export function EstimateRequestForm({
       <div className="sr-only" aria-live="polite" aria-atomic="true">
         {submitting ? copy.a11y.submitting : progressText}
       </div>
+
+      {step === 'review' ? (
+        <FormLegalConsent locale={locale} dictionary={dictionary} />
+      ) : null}
 
       <div className="flex flex-col gap-3 sm:flex-row sm:justify-between">
         <Button

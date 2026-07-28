@@ -38,8 +38,8 @@ export const en = {
     estimateRequest: 'Request Estimate',
     thankYou: 'Thank You',
     contact: 'Contact',
-    privacy: 'Privacy',
-    terms: 'Terms',
+    privacy: 'Privacy Policy',
+    terms: 'Terms of Use',
     accessibility: 'Accessibility',
     process: 'Process',
     gallery: 'Gallery',
@@ -77,6 +77,7 @@ export const en = {
     serviceArea: 'Service area',
     contact: 'Contact',
     explore: 'Explore',
+    legal: 'Legal',
     brandBlurb:
       'Best Coatings Solutions is a premium refinishing company with specialized Marine and Aviation divisions — careful preparation, honest scope, and finish work you can see in South Florida.',
     estimateNotice:

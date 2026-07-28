@@ -106,11 +106,31 @@ export function SiteFooter({ locale, dictionary }: SiteFooterProps) {
 
         <Divider className="my-8" />
 
-        <div className="text-text-muted flex flex-col gap-2 text-xs sm:flex-row sm:items-center sm:justify-between">
+        <div className="text-text-muted flex flex-col gap-3 text-xs sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} {siteConfig.legalName}. {dictionary.footer.rights}
           </p>
-          <p>{siteConfig.shortName}</p>
+          <nav
+            aria-label={dictionary.footer.legal}
+            className="flex flex-wrap items-center gap-x-3 gap-y-1"
+            data-testid="footer-legal-links"
+          >
+            <Link
+              href={localePath(locale, routes.privacy.path)}
+              className="hover:text-accent-hover focus-visible:ring-focus-ring rounded focus-visible:ring-2 focus-visible:outline-none"
+              data-testid="footer-privacy-link"
+            >
+              {dictionary.nav.privacy}
+            </Link>
+            <span aria-hidden="true">·</span>
+            <Link
+              href={localePath(locale, routes.terms.path)}
+              className="hover:text-accent-hover focus-visible:ring-focus-ring rounded focus-visible:ring-2 focus-visible:outline-none"
+              data-testid="footer-terms-link"
+            >
+              {dictionary.nav.terms}
+            </Link>
+          </nav>
         </div>
       </Container>
     </footer>
