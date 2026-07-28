@@ -6,7 +6,7 @@ Visible UI labels must include clear wording such as **Placeholder Image**, **Fu
 
 | Asset | Path | Purpose | Replace with |
 |-------|------|---------|--------------|
-| Temporary logo | `public/brand/bcs-logo-temporary.svg` | Hero logo reveal | Final BCS logo SVG (owner) |
+| Temporary logo (scaffolding only) | `public/brand/bcs-logo-temporary.svg` | Not used as official | Replaced by `bcs-logo-official.webp` + header assets |
 | Marine silhouette | `public/brand/marine-silhouette.svg` | Decorative hero/marine atmosphere | Approved marine photography |
 | Aviation silhouette | `public/brand/aviation-silhouette.svg` | Aviation preview atmosphere | Approved aviation photography (when operational) |
 | Before/after gradients | CSS in `BeforeAfterSlider` | Interactive demo only | Matched before/after photo pair |

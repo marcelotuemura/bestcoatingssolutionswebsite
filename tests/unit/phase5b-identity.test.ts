@@ -18,8 +18,18 @@ describe('phase 5b visual identity', () => {
       expect(brandLogo.headerMode).toBe('text');
     } else {
       expect(brandLogo.officialSrc).toMatch(/\/brand\/bcs-logo-official\./);
+      expect(brandLogo.headerSrc).toMatch(
+        /\/brand\/bcs-logo-(header|official)\./,
+      );
       expect(brandLogo.headerMode).toBe('image');
     }
+  });
+
+  it('prefers production webp assets when committed', () => {
+    if (brandLogo.officialFilePending) return;
+    expect(brandLogo.officialSrc).toBe('/brand/bcs-logo-official.webp');
+    expect(brandLogo.headerSrc).toBe('/brand/bcs-logo-header.webp');
+    expect(brandLogo.headerSrc2x).toBe('/brand/bcs-logo-header@2x.webp');
   });
 
   it('defines semantic color and font tokens in globals.css', () => {

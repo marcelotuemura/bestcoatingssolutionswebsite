@@ -45,7 +45,7 @@ Final human gate: **`LAUNCH_ACCEPTANCE_REVIEW.md`**.
 
 ## v1.0.0 blockers (must clear)
 
-1. Official production logo installed  
+1. ~~Official production logo installed~~ → `bcs-logo-official.webp` + header assets  
 2. Authentic Marine photography  
 3. Authentic Aviation photography  
 4. Approved Marcelo portrait  

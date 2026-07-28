@@ -12,14 +12,19 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const brandDir = path.join(root, 'public', 'brand');
 
 const officialCandidates = [
-  'bcs-logo-official.svg',
   'bcs-logo-official.webp',
+  'bcs-logo-official.svg',
   'bcs-logo-official.png',
 ];
 
+const preferredOfficial = 'bcs-logo-official.webp';
 const officialPresent = officialCandidates.some((f) =>
   existsSync(path.join(brandDir, f)),
 );
+const preferredOfficialPresent = existsSync(
+  path.join(brandDir, preferredOfficial),
+);
+const headerPresent = existsSync(path.join(brandDir, 'bcs-logo-header.webp'));
 
 const privacyEn = readFileSync(
   path.join(root, 'i18n/dictionaries/conversion-en.ts'),
@@ -42,8 +47,12 @@ const rows = [
     ok: officialPresent,
     blocker: true,
     note: officialPresent
-      ? 'Official logo file present'
-      : 'Missing public/brand/bcs-logo-official.{svg|webp|png}',
+      ? preferredOfficialPresent
+        ? headerPresent
+          ? 'Preferred bcs-logo-official.webp + header.webp present'
+          : 'Preferred bcs-logo-official.webp present (header.webp optional fallback to official)'
+        : 'Official logo file present (prefer bcs-logo-official.webp)'
+      : 'Missing public/brand/bcs-logo-official.{webp|svg|png}',
   },
   {
     id: 'privacy-terms-provisional',

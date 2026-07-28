@@ -15,9 +15,9 @@ export const homePlaceholders = {
     division: 'marine' as const,
   },
   logo: {
-    src: '/brand/bcs-logo-temporary.svg',
-    temporary: true as const,
-    note: 'Owner-approved official mark pending file drop — see config/brand-logo.ts and public/brand/README.md.',
+    src: '/brand/bcs-logo-official.webp',
+    temporary: false as const,
+    note: 'Preferred production asset — see config/brand-logo.ts and public/brand/README.md. Temporary letterform SVG is scaffolding only.',
   },
   marineVisual: {
     src: '/brand/marine-silhouette.svg',

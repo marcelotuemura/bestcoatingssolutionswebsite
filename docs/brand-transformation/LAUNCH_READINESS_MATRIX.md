@@ -15,8 +15,8 @@ Status legend: ✅ Ready · ⏳ Pending · 🔶 Partial · 🚫 Blocker · ➖ N
 
 | Area | Status | Notes |
 |------|--------|-------|
-| Official logo (SVG/PNG/WebP) | 🚫 Blocker | Drop `public/brand/bcs-logo-official.{svg\|webp\|png}`; architecture already switches via `config/brand-logo.ts` |
-| Interim logo treatment | 🔶 Partial | Text wordmark header + temporary SVG for evaluation only — never present as official |
+| Official logo (SVG/PNG/WebP) | ✅ Ready | Production assets committed; preferred `bcs-logo-official.webp` + header `@1x/@2x` via `config/brand-logo.ts` |
+| Interim logo treatment | ✅ Ready | Temporary letterform SVG remains scaffolding only — header/footer/hero use official production assets |
 | Real Marine hero photography | 🚫 Blocker | Replace `marketingPlaceholders.marineHero` silhouette |
 | Aviation hero photography | 🚫 Blocker | Replace `marketingPlaceholders.aviationHero` silhouette |
 | Marcelo portrait / workshop photo | 🚫 Blocker | About + homepage Meet Marcelo slots |
@@ -83,7 +83,7 @@ Status legend: ✅ Ready · ⏳ Pending · 🔶 Partial · 🚫 Blocker · ➖ N
 
 Minimum clear list:
 
-1. Official logo file in repo  
+1. ~~Official logo file in repo~~ ✅ (`bcs-logo-official.webp` + header assets)  
 2. Real Marine + Aviation hero photography (or consciously approved interim policy)  
 3. Marcelo workshop/portrait photography  
 4. Privacy + Terms legal-reviewed content  
