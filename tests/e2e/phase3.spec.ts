@@ -135,8 +135,7 @@ test.describe('Phase 3 — Marine, Aviation, Services, Projects', () => {
     ).toBeVisible();
   });
 
-  test('Spanish marine and service routing', async ({ page }) => {
-    test.setTimeout(60_000);
+  test('Spanish marine division routing', async ({ page }) => {
     await page.goto('/es/marine', { waitUntil: 'domcontentloaded' });
     await expect(
       page.getByRole('heading', { level: 1, name: /marina/i }),
@@ -145,7 +144,9 @@ test.describe('Phase 3 — Marine, Aviation, Services, Projects', () => {
     await expect(
       page.getByRole('navigation', { name: 'Miga de pan' }),
     ).toBeVisible();
+  });
 
+  test('Spanish gelcoat service routing', async ({ page }) => {
     await page.goto('/es/services/gelcoat-repair', {
       waitUntil: 'domcontentloaded',
     });

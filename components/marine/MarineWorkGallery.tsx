@@ -40,6 +40,9 @@ export function MarineWorkGallery({
                     className="h-full w-full object-cover"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     loading="lazy"
+                    // Pre-optimized WebPs — skip /_next/image to avoid CI navigator
+                    // contention when the 22-image marine page loads under load.
+                    unoptimized
                   />
                 </div>
               </figure>

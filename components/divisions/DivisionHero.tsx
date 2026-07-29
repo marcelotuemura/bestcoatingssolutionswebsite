@@ -70,7 +70,8 @@ export function DivisionHero({
                 alt={imageAlt}
                 fill
                 priority
-                unoptimized={isSvg}
+                // SVGs and pre-optimized authentic WebPs skip /_next/image.
+                unoptimized={isSvg || !showImageLabel}
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 58vw"
               />
