@@ -1,13 +1,16 @@
 /**
  * Authentic Marine division photography from `public/images/marine`.
- * Source album: owner-uploaded Formula project photos in
- * `data/pictures/formula/Formula/`.
+ * Source albums (owner uploads archived under `data/pictures/`):
+ * - `formula/Formula/` — Formula 330 CBR refinishing (hero + gallery 01–12)
+ * - `axopar-ceramic-coating/` — Axopar hull gloss (gallery 13)
+ * - `bow-rider/` — bow repair / masking / finish (gallery 14–17)
+ * - `hardtop-fiberglass-repair/` — hardtop process + gloss (gallery 18–22)
  *
  * Rules:
  * - No stock, AI, or external URLs
  * - No invented vessel/customer/project claims in alt text
  * - Brand names only when legible in the frame
- * - Filenames do not encode before/after — no invented BA pairs
+ * - No invented before/after pairs (matched framing + resolution required)
  */
 
 export type MarinePhoto = {
@@ -111,9 +114,80 @@ export const marinePhotography = {
       alt: 'Stern-quarter view of a powerboat under plastic and tape masking during refinishing',
       temporary: false as const,
     },
+    {
+      src: '/images/marine/gallery-13-axopar-hull-gloss.webp',
+      width: 1920,
+      height: 1080,
+      alt: 'Axopar hull side with raised lettering and a high-gloss grey finish in a marine workshop',
+      temporary: false as const,
+    },
+    {
+      src: '/images/marine/gallery-14-bow-rider-damage.webp',
+      width: 1600,
+      height: 1200,
+      alt: 'White bow rider with cracked fiberglass and detached rub rail at the bow tip before repair',
+      temporary: false as const,
+    },
+    {
+      src: '/images/marine/gallery-15-bow-rider-fairing.webp',
+      width: 1600,
+      height: 1200,
+      alt: 'Bow tip mid-repair with fairing compound patches and a loose rub rail in a boatyard',
+      temporary: false as const,
+    },
+    {
+      src: '/images/marine/gallery-16-bow-rider-masking.webp',
+      width: 1600,
+      height: 1200,
+      alt: 'Bow tip masked with blue tape and plastic sheeting during marine coating preparation',
+      temporary: false as const,
+    },
+    {
+      src: '/images/marine/gallery-17-bow-rider-finished.webp',
+      width: 1600,
+      height: 900,
+      alt: 'Finished white bow rider cockpit and bow deck with clean gelcoat and seating',
+      temporary: false as const,
+    },
+    {
+      src: '/images/marine/gallery-18-hardtop-mirror-gloss.webp',
+      width: 1440,
+      height: 1920,
+      alt: 'Hardtop surface with a mirror-gloss white finish reflecting overhead workshop lights',
+      temporary: false as const,
+    },
+    {
+      src: '/images/marine/gallery-19-hardtop-core-repair.webp',
+      width: 865,
+      height: 1440,
+      alt: 'Fiberglass core cutout beside a replacement panel during hardtop structural repair',
+      temporary: false as const,
+    },
+    {
+      src: '/images/marine/gallery-20-hardtop-lamination.webp',
+      width: 1200,
+      height: 1600,
+      alt: 'Hardtop panel under resin lamination with masking paper and a curing weight in place',
+      temporary: false as const,
+    },
+    {
+      src: '/images/marine/gallery-21-hardtop-panel-prep.webp',
+      width: 900,
+      height: 1600,
+      alt: 'Long hardtop panel masked with yellow tape during surface preparation for refinishing',
+      temporary: false as const,
+    },
+    {
+      src: '/images/marine/gallery-22-hardtop-bodywork.webp',
+      width: 1200,
+      height: 1600,
+      alt: 'Sanded fairing patch on a white fiberglass hardtop surface during bodywork',
+      temporary: false as const,
+    },
   ] satisfies readonly MarinePhoto[],
   /**
-   * No source filenames include before/after markers, so no BA pairs are published.
+   * Owner labeled some Axopar and bow-rider frames before/after, but framing,
+   * setting, and/or resolution do not meet the matched-pair protocol — keep empty.
    */
   beforeAfterPairs: [] as const,
 } as const;

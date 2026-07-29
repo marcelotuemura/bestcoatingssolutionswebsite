@@ -1,11 +1,17 @@
 # Marine photography (authentic BCS work)
 
-Web-optimized exports from owner-uploaded Formula project photos in
-`data/pictures/formula/Formula/`.
+Web-optimized exports from owner-uploaded albums in `data/pictures/`:
 
-- Format: WebP, max edge 1920px
+| Archive | Published |
+|---------|-----------|
+| `formula/Formula/` | Hero + gallery 01–12 |
+| `axopar-ceramic-coating/` | Gallery 13 (after gloss); before archived only |
+| `bow-rider/` | Gallery 14–17 |
+| `hardtop-fiberglass-repair/` | Gallery 18–22 |
+
+- Format: WebP, max edge ~1920px (GPS/EXIF stripped on publish)
 - No stock / AI / external URLs
-- Filenames do **not** encode before/after pairs — do not invent pairing labels
-- Not all source originals are published (duplicates and weaker angles omitted)
+- Do **not** invent before/after pairs — matched framing + resolution required
+- Not all source originals are published (weaker angles / low-res frames omitted)
 
 See `config/marine-photography.ts` for page wiring.
