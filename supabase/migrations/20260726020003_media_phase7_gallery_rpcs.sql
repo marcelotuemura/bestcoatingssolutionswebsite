@@ -148,10 +148,10 @@ security definer
 set search_path = public
 as $$
 declare
-  actor uuid := public.media_gallery_require_can_edit();
   asset public.media_assets;
   der public.media_asset_derivatives;
 begin
+  perform public.media_gallery_require_can_edit();
   select * into asset from public.media_assets where external_id = p_asset_external_id;
   if not found then
     raise exception 'asset not found' using errcode = 'P0002';

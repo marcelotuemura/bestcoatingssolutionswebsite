@@ -96,6 +96,7 @@ const migrations = [
   'supabase/migrations/20260726020004_media_phase7_gallery_corrections.sql',
   'supabase/migrations/20260726120000_media_phase7_gallery_durable_storage.sql',
   'supabase/migrations/20260729030000_media_phase2a_inventory_reviews.sql',
+  'supabase/migrations/20260729143000_media_phase2a_lint_unused_vars.sql',
 ];
 
 run('sudo', ['-u', 'postgres', 'psql', '-c', `drop database if exists ${DB}`]);
