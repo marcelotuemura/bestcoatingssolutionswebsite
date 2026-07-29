@@ -22,7 +22,8 @@ import { localePath } from '@/i18n/path';
 
 /**
  * Phase 5E — Marine division.
- * Authentic BCS marine photography from `public/images/marine` (Formula album).
+ * Authentic BCS marine photography from `public/images/marine`
+ * (Formula + Axopar + bow rider + hardtop albums).
  */
 export function MarineDivisionPage({
   locale,

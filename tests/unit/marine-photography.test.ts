@@ -17,4 +17,37 @@ describe('marine photography assets', () => {
       expect(photo.height).toBeGreaterThan(0);
     }
   });
+
+  it('archives new owner albums under data/pictures and does not invent BA pairs', () => {
+    expect(
+      existsSync(
+        path.join(
+          process.cwd(),
+          'data/pictures/axopar-ceramic-coating/after.jpg',
+        ),
+      ),
+    ).toBe(true);
+    expect(
+      existsSync(
+        path.join(
+          process.cwd(),
+          'data/pictures/bow-rider/bow_rider_damage.jpg',
+        ),
+      ),
+    ).toBe(true);
+    expect(
+      existsSync(
+        path.join(
+          process.cwd(),
+          'data/pictures/hardtop-fiberglass-repair/after4.JPG',
+        ),
+      ),
+    ).toBe(true);
+    expect(marinePhotography.beforeAfterPairs).toHaveLength(0);
+    expect(
+      marinePhotography.gallery.some((p) =>
+        p.src.includes('gallery-13-axopar'),
+      ),
+    ).toBe(true);
+  });
 });

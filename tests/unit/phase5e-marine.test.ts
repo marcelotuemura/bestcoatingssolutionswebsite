@@ -36,7 +36,7 @@ describe('phase 5e marine division', () => {
     expect(source).toContain('MarineWorkGallery');
   });
 
-  it('wires authentic Formula marine photography without invented before/after pairs', () => {
+  it('wires authentic marine photography without invented before/after pairs', () => {
     expect(marinePhotography.hero.temporary).toBe(false);
     expect(marinePhotography.hero.src).toBe(
       '/images/marine/hero-formula-330cbr-stern.webp',
@@ -49,7 +49,7 @@ describe('phase 5e marine division', () => {
         ),
       ),
     ).toBe(true);
-    expect(marinePhotography.gallery.length).toBeGreaterThan(5);
+    expect(marinePhotography.gallery.length).toBeGreaterThanOrEqual(22);
     expect(marinePhotography.beforeAfterPairs).toHaveLength(0);
     for (const photo of [
       marinePhotography.hero,

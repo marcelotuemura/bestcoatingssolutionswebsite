@@ -111,7 +111,9 @@ Keep a permanent separation between **master archives** and **web publishes**.
 data/
 └── pictures/                 # Master archive (originals; not served hot)
     ├── formula/
-    ├── axopar/
+    ├── axopar-ceramic-coating/
+    ├── bow-rider/
+    ├── hardtop-fiberglass-repair/
     ├── chris-craft/
     ├── scout/
     ├── boston-whaler/
