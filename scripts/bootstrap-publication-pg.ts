@@ -134,6 +134,10 @@ grant select on public.media_collections to authenticated;
 grant select on public.media_collection_assets to authenticated;
 grant select on public.media_favorites to authenticated;
 grant select on public.media_gallery_events to authenticated;
+-- Phase 2A inventory reviews (RLS gates writes; SELECT for staff, writes for reviewer+)
+grant select, insert, update on public.media_inventory_reviews to authenticated;
+grant select on public.media_inventory_reviews to anon;
+revoke delete on public.media_inventory_reviews from anon, authenticated, public;
 `);
 
 psql(`

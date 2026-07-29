@@ -131,7 +131,8 @@ returns trigger
 language plpgsql
 as $$
 begin
-  new.updated_at := now();
+  -- clock_timestamp(): advance even within a single transaction (now() is stable).
+  new.updated_at := clock_timestamp();
   return new;
 end;
 $$;
