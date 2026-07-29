@@ -115,7 +115,18 @@ Builds toward Operations Platform APIs — not marketing-site scope creep.
 
 ## First implementation slice (when approved)
 
-1. Archive ingest CLI: `data/pictures/<slug>/` → vault + catalog  
-2. Privacy + duplicate review list in `/media`  
-3. “Export to `public/images/marine`” action for owner-approved selections  
-4. Regenerate `config/marine-photography.ts` (or JSON content bridge) from approved set
+**Phase 2A (this repo):**
+
+1. Archive inventory CLI: `pnpm media:inventory` → `data/media-manifest.json`
+2. Privacy checklist + review overlay in `/media/inventory`
+3. Publish/derivative **contracts** (deferred implementation)
+4. Strict before/after approval model (no filename inference)
+
+See [`MEDIA_PHASE_2A_IMPLEMENTATION.md`](./MEDIA_PHASE_2A_IMPLEMENTATION.md).
+
+**Later slices:**
+
+1. Export approved selections to `public/images/<division>/`
+2. Regenerate `config/marine-photography.ts` (or JSON content bridge)
+3. Optional Supabase sync for multi-user durable review of archive inventory
+4. Phase B AI suggestions (never auto-approve)
