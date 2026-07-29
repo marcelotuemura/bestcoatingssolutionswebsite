@@ -2,34 +2,26 @@
 
 Canonical TypeScript/Zod model: `lib/media-pipeline/types.ts`.
 
-## MediaAssetRecord (summary)
+## Separation of concerns
 
-| Field | Notes |
-|-------|--------|
-| `id` | `pic_<sha256[0..16]>` |
-| `projectSlug` | First folder under `data/pictures/` |
-| `division` | `marine` \| `aviation` \| `commercial` \| `unknown` |
-| `archivePath` | Repo-relative path to original |
-| `publishedPath` | Null until a later publish phase |
-| `checksum` | SHA-256 hex |
-| `perceptualHash` | Always `null` in Phase 2A (placeholder) |
-| `status` | Lifecycle (`imported` … `archived`) |
-| `stage` | Process stage enum; default `unknown` |
-| `privacyStatus` | Default **`unchecked`** |
-| `qualityStatus` | Inventory may set `low-resolution` / `duplicate` |
-| `publishStatus` | Default `not-published` |
-| `privacyChecklist` | Manual flags |
-| `flags` | Inventory signals (GPS, low-res, duplicate, unsupported) |
+| Layer | Storage | Contents |
+|-------|---------|----------|
+| Manifest | `data/media-manifest.json` | checksum, dimensions, archive path, captured date, EXIF/GPS flags, source album |
+| Review overlay | Supabase `media_inventory_reviews` | classification, privacy, quality, caption, alt, approval, publish candidate |
 
-## Manifest
+Do **not** copy binary-derived manifest fields into the database.
 
-`data/media-manifest.json` — version `1`, deterministic asset order by `archivePath`.
+## MediaAssetRecord (merged view)
 
-## Review overlay
+Inventory fields come from the manifest; human fields overlay from the review repository.
 
-`data/media-review-state.json` — overrides + explicit `beforeAfterPairs` (empty by default).
+## Review table (DB)
+
+See migration `20260729030000_media_phase2a_inventory_reviews.sql`.
+
+Primary key: `asset_id` (manifest id `pic_<sha256…>`).
 
 ## Before/after
 
-`BeforeAfterPairRecord` requires all match criteria + privacy clear on both assets.  
+`BeforeAfterPairRecord` requires explicit criteria.  
 `autoDetectBeforeAfterPairs()` always returns `[]`.

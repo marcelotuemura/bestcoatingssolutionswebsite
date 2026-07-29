@@ -4,30 +4,22 @@
 
 1. New inventory assets default to `privacyStatus = "unchecked"`.
 2. Unchecked / blocked / review-required assets **cannot** be marked `published` or `queued`.
-3. Checklist is **manual**. Heuristic GPS EXIF detection is advisory only.
-4. No claim of complete face recognition, OCR, or HIN detection in this phase.
+3. `privacyStatus = clear` requires completed manual checklist (`reviewedAt` set) and no checklist blockers.
+4. Checklist is **manual**. GPS EXIF detection is advisory only.
+5. Review decisions persist in **Supabase/Postgres**, not in committed JSON, in production.
 
 ## Checklist fields
 
-- visible face  
-- vessel registration  
-- HIN  
-- license plate  
-- customer document  
-- invoice  
-- address  
-- GPS metadata  
-- other private information  
+- visible face, vessel registration, HIN, license plate
+- customer document, invoice, address, GPS metadata, other private information
+- `reviewedAt` / `reviewedBy` when the operator confirms review
 
-Plus `reviewedAt` / `reviewedBy` when the operator confirms review.
+## Authorization
 
-## GPS EXIF
-
-`detectGpsExif()` inspects the EXIF buffer for GPS markers.  
-If found: `flags.hasGpsExif = true`, checklist `gpsMetadata = true`, status `review-required`.
-
-Strip metadata before any future public derivative (Phase C).
+- Read: media staff (`media_is_staff()` RLS)
+- Insert/update: owner, administrator, editor, reviewer (maps to `review_privacy` / `edit_metadata`)
+- Anonymous: denied (no RLS policies for `anon`)
 
 ## UI
 
-`/media/inventory/[id]` — Privacy checklist fieldset + privacy status select.
+`/media/inventory/[id]` — Privacy checklist + validated status selects.

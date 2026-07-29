@@ -213,6 +213,7 @@ export const beforeAfterPairRecordSchema = z.object({
 /** Operator review overlay — merges onto inventory without mutating originals. */
 export const mediaReviewOverrideSchema = z.object({
   assetId: z.string().min(1),
+  projectSlug: z.string().min(1).optional(),
   division: mediaDivisionSchema.optional(),
   stage: mediaStageSchema.optional(),
   category: mediaCategorySchema.optional(),

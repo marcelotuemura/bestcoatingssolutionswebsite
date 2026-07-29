@@ -3,14 +3,13 @@ import { notFound } from 'next/navigation';
 import { MediaShell } from '@/components/media-intelligence/MediaShell';
 import { AssetReviewForm } from '@/components/media-pipeline/AssetReviewForm';
 import { requireMediaPageAccess } from '@/lib/media-intelligence/auth/page-guard';
-import {
-  MEDIA_MANIFEST_PATH,
-  MEDIA_REVIEW_STATE_PATH,
-} from '@/lib/media-pipeline/constants';
+import { resolveMediaTrustedActor } from '@/lib/media-intelligence/auth/session';
+import { MEDIA_MANIFEST_PATH } from '@/lib/media-pipeline/constants';
 import { readMediaManifest } from '@/lib/media-pipeline/inventory/scan';
+import { loadReviewState } from '@/lib/media-pipeline/review/factory';
 import {
+  emptyReviewState,
   mergeManifestWithReview,
-  readReviewState,
 } from '@/lib/media-pipeline/review/state';
 
 export default async function MediaInventoryAssetPage({
@@ -19,11 +18,21 @@ export default async function MediaInventoryAssetPage({
   params: Promise<{ id: string }>;
 }) {
   await requireMediaPageAccess();
+  const session = await resolveMediaTrustedActor();
   const { id } = await params;
   const repoRoot = process.cwd();
   const manifest = await readMediaManifest(repoRoot, MEDIA_MANIFEST_PATH);
   if (!manifest) notFound();
-  const review = await readReviewState(repoRoot, MEDIA_REVIEW_STATE_PATH);
+
+  let review = emptyReviewState();
+  if (session.ok) {
+    try {
+      review = await loadReviewState(session.actor, repoRoot);
+    } catch {
+      review = emptyReviewState();
+    }
+  }
+
   const assets = mergeManifestWithReview(manifest, review);
   const asset = assets.find((a) => a.id === id);
   if (!asset) notFound();
@@ -92,9 +101,8 @@ export default async function MediaInventoryAssetPage({
             ) : null}
           </ul>
           <p className="text-text-muted text-xs">
-            Originals are immutable. Previews are not generated in Phase 2A
-            (deferred derivatives). Binary still lives only under{' '}
-            <code>data/pictures/</code>.
+            Originals are immutable. Manifest fields are inventory-only. Human
+            review overlays persist in Supabase/Postgres.
           </p>
         </section>
 

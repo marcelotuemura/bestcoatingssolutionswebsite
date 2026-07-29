@@ -6,11 +6,11 @@
  */
 
 import path from 'node:path';
+import { MEDIA_MANIFEST_PATH } from '../lib/media-pipeline/constants';
 import {
-  MEDIA_MANIFEST_PATH,
   scanMediaArchive,
   writeMediaManifest,
-} from '../lib/media-pipeline/index';
+} from '../lib/media-pipeline/inventory/scan';
 
 async function main(): Promise<void> {
   const repoRoot = process.cwd();

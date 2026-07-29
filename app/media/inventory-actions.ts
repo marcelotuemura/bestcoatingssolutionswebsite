@@ -1,62 +1,50 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { requireMediaPermission } from '@/lib/media-intelligence/auth/guards';
+import {
+  actorHasPermission,
+  requireMediaPermission,
+} from '@/lib/media-intelligence/auth/guards';
 import { resolveMediaTrustedActor } from '@/lib/media-intelligence/auth/session';
-import { canMarkPublished } from '@/lib/media-pipeline/archive-rules';
+import { MEDIA_MANIFEST_PATH } from '@/lib/media-pipeline/constants';
 import {
-  MEDIA_MANIFEST_PATH,
-  MEDIA_REVIEW_STATE_PATH,
-} from '@/lib/media-pipeline/constants';
+  loadReviewState,
+  persistReviewOverride,
+} from '@/lib/media-pipeline/review/factory';
+import {
+  assertInventoryReviewBusinessRules,
+  parseInventoryReviewFormData,
+} from '@/lib/media-pipeline/review/validation';
 import { readMediaManifest } from '@/lib/media-pipeline/inventory/scan';
-import {
-  mergeManifestWithReview,
-  readReviewState,
-  upsertReviewOverride,
-  writeReviewState,
-} from '@/lib/media-pipeline/review/state';
-import type {
-  MediaCategory,
-  MediaDivision,
-  MediaAssetStatus,
-  MediaPrivacyStatus,
-  MediaPublishStatus,
-  MediaQualityStatus,
-  MediaStage,
-  MediaReviewOverride,
-} from '@/lib/media-pipeline/types';
-
-function str(formData: FormData, key: string): string {
-  const v = formData.get(key);
-  return typeof v === 'string' ? v : '';
-}
-
-function bool(formData: FormData, key: string): boolean {
-  return formData.get(key) === 'true';
-}
+import { mergeManifestWithReview } from '@/lib/media-pipeline/review/state';
 
 export async function saveInventoryReviewAction(
   formData: FormData,
 ): Promise<
   { readonly ok: true } | { readonly ok: false; readonly error: string }
 > {
-  try {
-    await requireMediaPermission('review_privacy');
-  } catch {
-    try {
-      await requireMediaPermission('edit_metadata');
-    } catch {
-      return { ok: false, error: 'Not authorized to review media inventory' };
-    }
-  }
-
   const session = await resolveMediaTrustedActor();
   if (!session.ok) {
     return { ok: false, error: 'Not authenticated' };
   }
 
-  const assetId = str(formData, 'assetId');
-  if (!assetId) return { ok: false, error: 'Missing assetId' };
+  const canReview =
+    actorHasPermission(session.actor, 'review_privacy') ||
+    actorHasPermission(session.actor, 'edit_metadata');
+  if (!canReview) {
+    return { ok: false, error: 'Not authorized to review media inventory' };
+  }
+
+  // Enforce server-side permission throw path as defense in depth
+  try {
+    if (actorHasPermission(session.actor, 'review_privacy')) {
+      await requireMediaPermission('review_privacy');
+    } else {
+      await requireMediaPermission('edit_metadata');
+    }
+  } catch {
+    return { ok: false, error: 'Not authorized to review media inventory' };
+  }
 
   const repoRoot = process.cwd();
   const manifest = await readMediaManifest(repoRoot, MEDIA_MANIFEST_PATH);
@@ -66,64 +54,63 @@ export async function saveInventoryReviewAction(
       error: 'Media manifest missing — run pnpm media:inventory',
     };
   }
-  const review = await readReviewState(repoRoot, MEDIA_REVIEW_STATE_PATH);
+
+  const review = await loadReviewState(session.actor, repoRoot);
   const merged = mergeManifestWithReview(manifest, review);
-  const existing = merged.find((a) => a.id === assetId);
-  if (!existing) return { ok: false, error: 'Asset not found in manifest' };
-
-  const privacyStatus = (str(formData, 'privacyStatus') ||
-    existing.privacyStatus) as MediaPrivacyStatus;
-  const publishStatus = (str(formData, 'publishStatus') ||
-    existing.publishStatus) as MediaPublishStatus;
-
-  const gate = canMarkPublished(privacyStatus, publishStatus);
-  if (!gate.ok) {
-    return { ok: false, error: gate.reason };
+  const assetIdRaw =
+    typeof formData.get('assetId') === 'string'
+      ? (formData.get('assetId') as string)
+      : '';
+  const existing = merged.find((a) => a.id === assetIdRaw);
+  if (!existing) {
+    return { ok: false, error: 'Unknown asset id — not present in manifest' };
   }
 
-  const reviewedNow = bool(formData, 'privacyReviewed');
   const now = new Date().toISOString();
+  const reviewerId = session.actor.email || session.actor.id;
+  const parsed = parseInventoryReviewFormData(
+    formData,
+    existing,
+    now,
+    reviewerId,
+  );
+  if (!parsed.ok) {
+    return parsed;
+  }
 
-  const override: MediaReviewOverride = {
-    assetId,
-    division: (str(formData, 'division') || existing.division) as MediaDivision,
-    stage: (str(formData, 'stage') || existing.stage) as MediaStage,
-    category: (str(formData, 'category') || existing.category) as MediaCategory,
-    status: (str(formData, 'status') || existing.status) as MediaAssetStatus,
-    privacyStatus,
-    qualityStatus: (str(formData, 'qualityStatus') ||
-      existing.qualityStatus) as MediaQualityStatus,
-    publishStatus,
-    featured: bool(formData, 'featured'),
-    heroCandidate: bool(formData, 'heroCandidate'),
-    altText: str(formData, 'altText') || null,
-    caption: str(formData, 'caption') || null,
-    notes: str(formData, 'notes') || null,
-    privacyChecklist: {
-      visibleFace: bool(formData, 'privacy_visibleFace'),
-      vesselRegistration: bool(formData, 'privacy_vesselRegistration'),
-      hin: bool(formData, 'privacy_hin'),
-      licensePlate: bool(formData, 'privacy_licensePlate'),
-      customerDocument: bool(formData, 'privacy_customerDocument'),
-      invoice: bool(formData, 'privacy_invoice'),
-      address: bool(formData, 'privacy_address'),
-      gpsMetadata: bool(formData, 'privacy_gpsMetadata'),
-      otherPrivateInformation: bool(
-        formData,
-        'privacy_otherPrivateInformation',
-      ),
-      reviewedAt: reviewedNow ? now : existing.privacyChecklist.reviewedAt,
-      reviewedBy: reviewedNow
-        ? session.actor.email || session.actor.id
-        : existing.privacyChecklist.reviewedBy,
-    },
-    updatedAt: now,
-    updatedBy: session.actor.email || session.actor.id,
-  };
+  const rules = assertInventoryReviewBusinessRules({
+    data: parsed.data,
+    existingAssetId: existing.id,
+  });
+  if (!rules.ok) {
+    return rules;
+  }
 
+  const data = parsed.data;
   try {
-    const next = upsertReviewOverride(review, override);
-    await writeReviewState(repoRoot, next, MEDIA_REVIEW_STATE_PATH);
+    await persistReviewOverride(
+      {
+        assetId: data.assetId,
+        projectSlug: existing.projectSlug,
+        division: data.division,
+        stage: data.stage,
+        category: data.category,
+        status: data.status,
+        privacyStatus: data.privacyStatus,
+        qualityStatus: data.qualityStatus,
+        publishStatus: data.publishStatus,
+        featured: data.featured,
+        heroCandidate: data.heroCandidate,
+        altText: data.altText,
+        caption: data.caption,
+        notes: data.notes,
+        privacyChecklist: data.privacyChecklist,
+        updatedAt: now,
+        updatedBy: reviewerId,
+      },
+      session.actor,
+      repoRoot,
+    );
   } catch (err) {
     return {
       ok: false,
@@ -132,6 +119,6 @@ export async function saveInventoryReviewAction(
   }
 
   revalidatePath('/media/inventory');
-  revalidatePath(`/media/inventory/${assetId}`);
+  revalidatePath(`/media/inventory/${data.assetId}`);
   return { ok: true };
 }

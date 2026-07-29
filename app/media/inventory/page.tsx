@@ -5,15 +5,14 @@ import {
   InventoryGrid,
 } from '@/components/media-pipeline/InventoryBrowser';
 import { requireMediaPageAccess } from '@/lib/media-intelligence/auth/page-guard';
-import {
-  MEDIA_MANIFEST_PATH,
-  MEDIA_REVIEW_STATE_PATH,
-} from '@/lib/media-pipeline/constants';
+import { resolveMediaTrustedActor } from '@/lib/media-intelligence/auth/session';
+import { MEDIA_MANIFEST_PATH } from '@/lib/media-pipeline/constants';
 import { readMediaManifest } from '@/lib/media-pipeline/inventory/scan';
+import { loadReviewState } from '@/lib/media-pipeline/review/factory';
 import {
+  emptyReviewState,
   filterInventoryAssets,
   mergeManifestWithReview,
-  readReviewState,
 } from '@/lib/media-pipeline/review/state';
 
 export default async function MediaInventoryPage({
@@ -22,13 +21,13 @@ export default async function MediaInventoryPage({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   await requireMediaPageAccess();
+  const session = await resolveMediaTrustedActor();
   const raw = await searchParams;
   const one = (v: string | string[] | undefined) =>
     typeof v === 'string' ? v : undefined;
 
   const repoRoot = process.cwd();
   const manifest = await readMediaManifest(repoRoot, MEDIA_MANIFEST_PATH);
-  const review = await readReviewState(repoRoot, MEDIA_REVIEW_STATE_PATH);
 
   if (!manifest) {
     return (
@@ -53,6 +52,19 @@ export default async function MediaInventoryPage({
     );
   }
 
+  let review = emptyReviewState();
+  let reviewError: string | null = null;
+  if (session.ok) {
+    try {
+      review = await loadReviewState(session.actor, repoRoot);
+    } catch (err) {
+      reviewError =
+        err instanceof Error
+          ? err.message
+          : 'Failed to load review overlays from persistence';
+    }
+  }
+
   const assets = mergeManifestWithReview(manifest, review);
   const filtered = filterInventoryAssets(assets, {
     projectSlug: one(raw.project),
@@ -70,6 +82,14 @@ export default async function MediaInventoryPage({
       title="Archive Inventory"
       subtitle="Phase 2A — review data/pictures without mutating originals"
     >
+      {reviewError ? (
+        <p
+          className="mb-4 rounded-md border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-sm"
+          data-testid="inventory-review-load-error"
+        >
+          Review persistence unavailable: {reviewError}
+        </p>
+      ) : null}
       <div
         className="mb-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4"
         data-testid="inventory-stats"
@@ -89,8 +109,8 @@ export default async function MediaInventoryPage({
 
       <p className="text-text-muted mt-4 mb-4 text-xs">
         Showing {filtered.length} of {assets.length} · Manifest{' '}
-        {manifest.generatedAt} · Before/after pairs are never inferred from
-        filenames.
+        {manifest.generatedAt} · Reviews persist in Supabase/Postgres (not JSON
+        in production) · Before/after pairs are never inferred from filenames.
       </p>
 
       <InventoryGrid assets={filtered} />
