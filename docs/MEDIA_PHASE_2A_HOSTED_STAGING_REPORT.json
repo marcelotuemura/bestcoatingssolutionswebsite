@@ -1,0 +1,46 @@
+{
+  "phase": "2A",
+  "generatedAt": "2026-07-29T13:53:00.000Z",
+  "branch": "cursor/media-pipeline-phase-2a-5ec4",
+  "headSha": "d3b160ef38034aeefe752d1e3bda8bfa39fbd549",
+  "stagingProjectRefExpected": "ybzeuxvzpbguszqxrtur",
+  "productionUsed": false,
+  "publishingEnabled": false,
+  "ownerAttestedMigrationList": {
+    "local": "20260729030000",
+    "remote": "20260729030000",
+    "note": "Owner reported supabase migration list Local=Remote=20260729030000 on linked staging. Agent did not re-run migration list (no SUPABASE_ACCESS_TOKEN / link)."
+  },
+  "agentHostedVerification": {
+    "status": "BLOCKED",
+    "liveBehaviorClaimed": false,
+    "reason": "Hosted Supabase credentials are not available in this cloud-agent environment. Required for live schema/RLS/persistence checks: NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY (or SUPABASE_DB_URL) with MEDIA_SUPABASE_ENV=staging. Supabase MCP needsAuth (desktop-only). supabase db lint --linked failed: project not linked / no access token.",
+    "checks": {
+      "hostedMigrationHistoryIndependent": "NOT_VERIFIED_BY_AGENT",
+      "hostedSchemaAndRls": "NOT_VERIFIED",
+      "authorizedPersistence": "NOT_VERIFIED",
+      "unauthorizedDenial": "NOT_VERIFIED",
+      "stagingMediaInventoryRoute": "NOT_VERIFIED",
+      "supabaseDbLintLinked": "NOT_VERIFIED"
+    },
+    "partialEvidence": {
+      "stagingProjectRefResponds": true,
+      "stagingRestWithoutApiKey": "HTTP 401 UNAUTHORIZED_MISSING_API_KEY (sb-project-ref=ybzeuxvzpbguszqxrtur)",
+      "vercelPreviewUrl": "https://bestcoatingssolutionsw-git-3a2a95-marcelotuemura-1136s-projects.vercel.app",
+      "vercelPreviewAccess": "HTTP 302 to Vercel SSO — automation bypass secret absent"
+    }
+  },
+  "localVerification": {
+    "lint": { "exitCode": 0, "errors": 0, "warnings": 20 },
+    "typecheck": { "exitCode": 0 },
+    "unitTests": { "exitCode": 0, "passed": 295, "failed": 0 },
+    "build": { "exitCode": 0 },
+    "e2eInventory": {
+      "exitCode": 0,
+      "passed": 3,
+      "failed": 0,
+      "file": "tests/e2e/media-phase-2a-inventory.spec.ts"
+    }
+  },
+  "remainingBlocker": "Provide non-production staging credentials to the cloud agent (or authenticate Supabase MCP in Cursor desktop), without pasting secrets into the PR body. Then re-run hosted schema/RLS/persistence checks against ybzeuxvzpbguszqxrtur only."
+}
