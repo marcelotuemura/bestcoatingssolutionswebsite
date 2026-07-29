@@ -2,7 +2,6 @@
   "phase": "2A",
   "generatedAt": "2026-07-29T14:42:00.000Z",
   "branch": "cursor/media-pipeline-phase-2a-5ec4",
-  "headSha": "d4f58880bd31fa0d3232dfa7f1c29324fd3dc775",
   "stagingProjectRefExpected": "ybzeuxvzpbguszqxrtur",
   "productionUsed": false,
   "publishingEnabled": false,
@@ -11,7 +10,7 @@
     "migration": "VERIFIED",
     "hostedDb": "VERIFIED",
     "lint": "VERIFIED",
-    "ci": "VERIFIED_PENDING_THIS_PUSH",
+    "ci": "VERIFIED_ON_PUSH",
     "manualBrowserInventory": "REMAINING_GATE"
   },
   "ownerAttested": {
@@ -55,5 +54,7 @@
       "ok": true
     }
   },
-  "remainingGate": "Manual browser validation of /media/inventory before merge."
+  "remainingGate": "Manual browser validation of /media/inventory before merge.",
+  "cleanupCommit": "d4f58880bd31fa0d3232dfa7f1c29324fd3dc775",
+  "note": "Branch tip may include docs-only follow-ups after cleanupCommit."
 }
