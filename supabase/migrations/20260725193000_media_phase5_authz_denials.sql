@@ -392,12 +392,11 @@ security definer
 set search_path = public
 as $$
 declare
-  uid uuid;
   row public.media_users;
   is_owner boolean;
   other_owners integer;
 begin
-  uid := public.media_require_auth();
+  perform public.media_require_auth();
   perform public.media_set_mutation_flag('user_admin_update');
 
   if not public.media_has_role('owner'::public.media_role) then

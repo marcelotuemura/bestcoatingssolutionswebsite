@@ -26,6 +26,7 @@
     "test:e2e:ui": "playwright test --ui",
     "launch:check": "node scripts/launch-readiness-check.mjs",
     "media:fixtures": "node scripts/generate-media-catalog-fixtures.mjs",
+    "media:inventory": "node --import ./scripts/register-ts-alias.mjs --experimental-strip-types scripts/media-inventory.ts",
     "media:ingest": "node --import ./scripts/register-ts-alias.mjs --experimental-strip-types scripts/ingest-media-vault.ts",
     "media:analyze": "node --import ./scripts/register-ts-alias.mjs --experimental-strip-types scripts/analyze-media-vision.ts",
     "media:migrate:supabase": "node --import ./scripts/register-ts-alias.mjs --experimental-strip-types scripts/migrate-media-supabase.ts",

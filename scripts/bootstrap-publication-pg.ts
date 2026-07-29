@@ -95,6 +95,8 @@ const migrations = [
   'supabase/migrations/20260726020003_media_phase7_gallery_rpcs.sql',
   'supabase/migrations/20260726020004_media_phase7_gallery_corrections.sql',
   'supabase/migrations/20260726120000_media_phase7_gallery_durable_storage.sql',
+  'supabase/migrations/20260729030000_media_phase2a_inventory_reviews.sql',
+  'supabase/migrations/20260729143000_media_phase2a_lint_unused_vars.sql',
 ];
 
 run('sudo', ['-u', 'postgres', 'psql', '-c', `drop database if exists ${DB}`]);
@@ -133,6 +135,10 @@ grant select on public.media_collections to authenticated;
 grant select on public.media_collection_assets to authenticated;
 grant select on public.media_favorites to authenticated;
 grant select on public.media_gallery_events to authenticated;
+-- Phase 2A inventory reviews (RLS gates writes; SELECT for staff, writes for reviewer+)
+grant select, insert, update on public.media_inventory_reviews to authenticated;
+grant select on public.media_inventory_reviews to anon;
+revoke delete on public.media_inventory_reviews from anon, authenticated, public;
 `);
 
 psql(`

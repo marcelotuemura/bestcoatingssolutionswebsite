@@ -7,6 +7,7 @@ import { mediaIntelligenceConfig } from '@/config/media-intelligence';
 const nav = [
   { href: '/media', label: 'Dashboard' },
   { href: '/media/library', label: 'Gallery' },
+  { href: '/media/inventory', label: 'Inventory' },
   { href: '/media/upload', label: 'Upload' },
   { href: '/media/collections', label: 'Collections' },
   { href: '/media/review', label: 'Review' },

@@ -1,0 +1,60 @@
+{
+  "phase": "2A",
+  "generatedAt": "2026-07-29T14:42:00.000Z",
+  "branch": "cursor/media-pipeline-phase-2a-5ec4",
+  "stagingProjectRefExpected": "ybzeuxvzpbguszqxrtur",
+  "productionUsed": false,
+  "publishingEnabled": false,
+  "tracks": {
+    "code": "COMPLETE",
+    "migration": "VERIFIED",
+    "hostedDb": "VERIFIED",
+    "lint": "VERIFIED",
+    "ci": "VERIFIED_ON_PUSH",
+    "manualBrowserInventory": "REMAINING_GATE"
+  },
+  "ownerAttested": {
+    "hostedMigrationApplied": true,
+    "migrationListLocalEqualsRemoteThrough": "20260729030000",
+    "supabaseDbLintLinked": "SUCCESS",
+    "lintWarningsBeforeCleanup": [
+      "public.media_set_user_active_state: unused variable uid",
+      "public.media_gallery_register_derivative: unused variable actor"
+    ]
+  },
+  "cleanup": {
+    "description": "Removed unused PL/pgSQL locals; auth/can-edit gates retained via PERFORM (no behavior change).",
+    "sourceEdits": [
+      "supabase/migrations/20260724190003_media_phase5_rbac_hardening.sql",
+      "supabase/migrations/20260725193000_media_phase5_authz_denials.sql",
+      "supabase/migrations/20260726020003_media_phase7_gallery_rpcs.sql"
+    ],
+    "hostedFollowUpMigration": "supabase/migrations/20260729143000_media_phase2a_lint_unused_vars.sql",
+    "note": "Owner should apply 20260729143000 on staging so remote lint matches cleaned function bodies."
+  },
+  "localVerification": {
+    "lint": {
+      "exitCode": 0,
+      "errors": 0,
+      "warnings": 20
+    },
+    "typecheck": {
+      "exitCode": 0
+    },
+    "unitTests": {
+      "exitCode": 0,
+      "passed": 295,
+      "failed": 0
+    },
+    "build": {
+      "exitCode": 0
+    },
+    "localPostgresRbac": {
+      "exitCode": 0,
+      "ok": true
+    }
+  },
+  "remainingGate": "Manual browser validation of /media/inventory before merge.",
+  "cleanupCommit": "d4f58880bd31fa0d3232dfa7f1c29324fd3dc775",
+  "note": "Branch tip may include docs-only follow-ups after cleanupCommit."
+}
